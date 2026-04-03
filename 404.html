@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>404 ☠ IRON ATLAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#c8c8d4;font-family:'Share Tech Mono',monospace;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;overflow:hidden}
+.w{max-width:500px;padding:2rem;position:relative;z-index:2}
+h1{font-family:'Orbitron',sans-serif;font-size:8rem;color:#DC143C;text-shadow:0 0 30px rgba(220,20,60,.4);margin-bottom:1rem;animation:g 3s infinite}
+@keyframes g{0%,100%{text-shadow:0 0 30px rgba(220,20,60,.4)}50%{text-shadow:0 0 60px rgba(220,20,60,.6),0 0 100px rgba(220,20,60,.2)}}
+p{font-size:.9rem;color:#666680;margin-bottom:2rem;letter-spacing:2px}
+a{display:inline-block;color:#0a0a0a;background:#DC143C;padding:14px 35px;font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:3px;transition:all .3s}
+a:hover{box-shadow:0 0 40px rgba(220,20,60,.4);transform:translateY(-3px)}
+.sk{font-size:4rem;margin-bottom:2rem;display:block;animation:p 2s ease infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.5}}
+.gl{font-size:.7rem;color:#DC143C;margin-top:2rem;letter-spacing:4px}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.06}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="w">
+<span class="sk">☠</span>
+<h1>404</h1>
+<p>> ERROR: ROUTE NOT FOUND</p>
+<p>> The requested endpoint does not exist</p>
+<a href="index.html">RETURN TO BASE</a>
+<p class="gl">ACCESS_DENIED::ENDPOINT_NULL</p>
+</div>
+<script>
+var c=document.getElementById('c'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;var ch='☠01'.split(''),fs=14,co=Math.floor(c.width/fs),dr=[];for(var i=0;i<co;i++)dr[i]=Math.random()*c.height/fs;(function d(){x.fillStyle='rgba(10,10,10,.05)';x.fillRect(0,0,c.width,c.height);x.font=fs+'px monospace';x.fillStyle='rgba(139,0,0,.5)';for(var i=0;i<dr.length;i++){x.fillText(ch[Math.floor(Math.random()*ch.length)],i*fs,dr[i]*fs);if(dr[i]*fs>c.height&&Math.random()>.975)dr[i]=0;dr[i]++}requestAnimationFrame(d)})();
+</script>
+</body>
+</html>
