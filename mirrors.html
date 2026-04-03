@@ -1,40 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>IRON ATLAS ☠ Mirrors</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<canvas id="mx"></canvas>
-<div class="scan"></div>
-<nav id="nav" class="scrolled"><div class="nw"><a href="index.html" class="nb"><span class="ns">☠</span><span class="nn">IRON ATLAS</span></a><div class="nl" id="nl"><a href="index.html" class="nk">INICIO</a><a href="forum.html" class="nk">FORO</a><a href="mirrors.html" class="nk active">ESPEJOS</a><a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="nk ntg">✈ TELEGRAM</a></div><button class="hm" id="hm"><span></span><span></span><span></span></button></div></nav>
-<div class="mirp">
-<div class="mirw">
-<a href="index.html" class="bkl">← VOLVER</a>
-<div class="sh"><span class="sn">MIRRORS</span><h2 class="st glt" data-text="ESPEJOS">ESPEJOS</h2><div class="sln"></div><p class="sd">Si el sitio principal cae, usa los espejos</p></div>
-<div class="mirl">
-<div class="mirc"><div class="mirh"><span class="mirn">01</span><span class="mirs on">● ONLINE</span></div><h3>MAIN SITE</h3><p class="miru" id="mir1">Loading...</p><a href="#" class="mirb" id="mirb1">ACCEDER ➜</a></div>
-<div class="mirc"><div class="mirh"><span class="mirn">02</span><span class="mirs" id="mir2s">● CHECKING</span></div><h3>MIRROR #2</h3><p class="miru">GitHub Pages Backup</p><a href="#" class="mirb" id="mirb2" target="_blank">ACCEDER ➜</a></div>
-<div class="mirc"><div class="mirh"><span class="mirn">03</span><span class="mirs" id="mir3s">● CHECKING</span></div><h3>MIRROR #3</h3><p class="miru">Netlify Backup</p><a href="#" class="mirb" id="mirb3" target="_blank">ACCEDER ➜</a></div>
-<div class="mirc"><div class="mirh"><span class="mirn">04</span><span class="mirs on">● ACTIVE</span></div><h3>TELEGRAM</h3><p class="miru">Canal principal - Siempre activo</p><a href="https://t.me/ironatlas_organization" class="mirb" target="_blank">ACCEDER ➜</a></div>
-</div>
-<div class="mirt"><div class="tb"><div class="td"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><span class="tt">mirrors@ironatlas:~#</span></div><div class="tbd"><p class="tl">> Mirror status check: <span class="tg">COMPLETE</span></p><p class="tl">> Active nodes: <span class="tcy">4</span></p><p class="tl">> Last sync: <span class="tcy" id="mirSync">checking...</span></p><p class="tl">> Auto-failover: <span class="tg">ENABLED</span></p></div></div>
-</div>
-</div>
-<script src="js/shield.js"></script>
-<script>
-var mc=document.getElementById('mx');if(mc){var mx=mc.getContext('2d');mc.width=innerWidth;mc.height=innerHeight;window.addEventListener('resize',function(){mc.width=innerWidth;mc.height=innerHeight});mc.style.opacity='.04';var ch='01☠'.split(''),fs=14,co=Math.floor(mc.width/fs),dr=[];for(var i=0;i<co;i++)dr[i]=Math.random()*mc.height/fs;(function d(){mx.fillStyle='rgba(10,10,10,.05)';mx.fillRect(0,0,mc.width,mc.height);mx.font=fs+'px monospace';mx.fillStyle='rgba(139,0,0,.5)';for(var i=0;i<dr.length;i++){mx.fillText(ch[Math.floor(Math.random()*ch.length)],i*fs,dr[i]*fs);if(dr[i]*fs>mc.height&&Math.random()>.975)dr[i]=0;dr[i]++}requestAnimationFrame(d)})()}
-var hm=document.getElementById('hm'),nl=document.getElementById('nl');if(hm)hm.onclick=function(){nl.classList.toggle('open')};
-document.getElementById('mir1').textContent=location.hostname||'localhost';
-document.getElementById('mirb1').href=location.origin;
-var ms=document.getElementById('mirSync');if(ms)ms.textContent=new Date().toISOString().slice(0,19).replace('T',' ');
-var MIRRORS=['https://ironatlas-backup.github.io','https://ironatlas.netlify.app'];
-MIRRORS.forEach(function(u,i){var sEl=document.getElementById('mir'+(i+2)+'s');var bEl=document.getElementById('mirb'+(i+2));if(bEl)bEl.href=u;fetch(u,{mode:'no-cors',cache:'no-store'}).then(function(){if(sEl){sEl.textContent='● ONLINE';sEl.classList.add('on')}}).catch(function(){if(sEl){sEl.textContent='● OFFLINE';sEl.classList.add('off')}})});
-</script>
-</body>
-</html>
+<main class="terminal">
+    <h2 class="glitch-text">NETWORK_MIRRORS</h2>
+    <div class="grid">
+        <div class="card" onclick="location.href='https://t.me/ironatlas_organization'">
+            <h3>/DATABASE_SQL_DUMP/</h3>
+            <p>[STATUS: OPEN]</p>
+        </div>
+        <div class="card" onclick="location.href='https://t.me/ironatlas_organization'">
+            <h3>/MINSALUD_BACKUP_2026/</h3>
+            <p>[STATUS: ENCRYPTED]</p>
+        </div>
+        <div class="card" onclick="location.href='https://t.me/ironatlas_organization'">
+            <h3>/ADMIN_PRIVATE_KEYS/</h3>
+            <p>[STATUS: CRITICAL]</p>
+        </div>
+    </div>
+</main>
