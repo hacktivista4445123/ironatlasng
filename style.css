@@ -1,250 +1,99 @@
-/* --- VARIABLES DE NÚCLEO --- */
 :root {
-    --neon-green: #00ff41; /* Verde Matrix clásica */
-    --neon-red: #ff0000;   /* Rojo Sangre */
-    --dark-bg: #050505;    /* Negro Absoluto */
-    --terminal-font: 'Courier New', Courier, monospace;
-    --glitch-speed: 2s;
+    --neon-green: #00ff41;
+    --neon-red: #ff0000;
+    --dark-bg: #050505;
+    --glitch-color: rgba(255, 0, 0, 0.3);
 }
 
-/* --- RESET & ESTRUCTURA BASE --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    cursor: crosshair; /* Cursor de objetivo */
-}
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
 body {
-    background-color: var(--dark-bg);
+    background: var(--dark-bg);
     color: var(--neon-green);
-    font-family: var(--terminal-font);
-    line-height: 1.6;
+    font-family: 'Courier New', monospace;
     overflow-x: hidden;
-    position: relative;
 }
 
-/* --- CAPAS DE ATMÓSFERA (MACABRO) --- */
-
-/* Efecto de Viñeta (Bordes oscuros) */
-.vignette {
+/* Efecto CRT y Ruido */
+.crt-filter::before {
+    content: " ";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%);
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 999;
+    background-size: 100% 2px, 3px 100%;
     pointer-events: none;
-    z-index: 100;
 }
 
-/* Líneas de Escaneo CRT */
-.scanlines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.25) 50%
-    );
-    background-size: 100% 4px;
-    z-index: 101;
-    pointer-events: none;
-    animation: scanline-move 10s linear infinite;
-}
-
-/* Ruido Digital (Estatico) */
-.noise {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://media.giphy.com/media/oEI9uWUicMocM/giphy.gif'); /* Ruido sutil */
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 102;
-}
-
-/* --- NAVEGACIÓN Y LOGO --- */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    border-bottom: 2px solid var(--neon-red);
-    background: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-}
-
-.main-logo {
-    width: 60px;
-    filter: drop-shadow(0 0 10px var(--neon-green));
-    animation: flicker 3s infinite;
-}
-
-.logo-text {
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: 5px;
-}
-
-.logo-text span {
-    color: var(--neon-red);
-    text-shadow: 0 0 15px var(--neon-red);
-}
-
-.nav-item {
-    color: var(--neon-green);
-    text-decoration: none;
-    margin-left: 25px;
-    font-size: 0.9rem;
-    transition: 0.3s;
-    border: 1px solid transparent;
-    padding: 5px 10px;
-}
-
-.nav-item:hover {
-    color: #fff;
-    border: 1px solid var(--neon-red);
-    box-shadow: 0 0 10px var(--neon-red);
-    background: rgba(255, 0, 0, 0.1);
-}
-
-/* --- ANIMACIÓN GLITCH (MINSALUD) --- */
-.glitch {
+/* Animación de Glitch para Texto */
+.glitch-text {
     position: relative;
-    font-size: 4rem;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 50px 0;
-}
-
-.glitch::before, .glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.glitch::before {
-    left: 2px;
-    text-shadow: -2px 0 #ff00c1;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    left: -2px;
-    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-    animation: glitch-anim2 1s infinite linear alternate-reverse;
-}
-
-/* --- CARTAS DE ALIADOS --- */
-.alliance-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    padding: 50px;
-}
-
-.alliance-card {
-    background: #000;
-    border: 1px solid #222;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: 0.5s;
-}
-
-.alliance-card:hover {
-    border-color: var(--neon-red);
-    transform: scale(1.05);
-}
-
-.alliance-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 2px solid var(--neon-green);
-    margin-bottom: 15px;
-}
-
-/* --- TABLA DE RATAS (MACABRO) --- */
-.rat-table-container {
-    margin: 50px;
-    border: 1px solid #333;
-    background: rgba(10, 10, 10, 0.9);
-}
-
-.rat-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.rat-table th, .rat-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #222;
-}
-
-.rat-table th {
-    background: var(--neon-red);
-    color: #000;
-}
-
-.status-red {
-    color: var(--neon-red);
     font-weight: bold;
-    animation: pulse-red 1s infinite;
+    text-transform: uppercase;
+    text-shadow: 0.05em 0 0 var(--neon-red), -0.025em -0.05em 0 var(--neon-green);
+    animation: glitch 500ms infinite;
 }
 
-/* --- KEYFRAMES (ANIMACIONES) --- */
-
-@keyframes scanline-move {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(100%); }
+@keyframes glitch {
+    0% { text-shadow: 0.05em 0 0 var(--neon-red), -0.05em -0.025em 0 var(--neon-green); }
+    50% { text-shadow: -0.05em -0.025em 0 var(--neon-red), 0.025em 0.025em 0 var(--neon-green); }
+    100% { text-shadow: -0.025em 0 0 var(--neon-red), -0.025em -0.025em 0 var(--neon-green); }
 }
 
-@keyframes flicker {
-    0% { opacity: 0.8; }
-    5% { opacity: 0.2; }
-    10% { opacity: 0.8; }
-    15% { opacity: 1; }
-    80% { opacity: 0.9; }
-    100% { opacity: 1; }
+/* Contenedor del Foro */
+.forum-container {
+    padding: 50px;
+    max-width: 1200px;
+    margin: auto;
 }
 
-@keyframes glitch-anim {
-    0% { clip: rect(10px, 9999px, 20px, 0); }
-    20% { clip: rect(80px, 9999px, 90px, 0); }
-    100% { clip: rect(40px, 9999px, 50px, 0); }
+.login-box {
+    border: 1px solid var(--neon-green);
+    padding: 30px;
+    background: rgba(0, 255, 65, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    max-width: 500px;
+    margin: 100px auto;
 }
 
-@keyframes pulse-red {
-    0% { text-shadow: 0 0 0px var(--neon-red); }
-    50% { text-shadow: 0 0 15px var(--neon-red); }
-    100% { text-shadow: 0 0 0px var(--neon-red); }
-}
-
-/* Botones estilo Terminal */
-.btn-comms {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
+input {
+    background: #000;
     border: 1px solid var(--neon-green);
     color: var(--neon-green);
-    text-decoration: none;
-    font-size: 0.8rem;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    outline: none;
 }
 
-.btn-comms:hover {
+button {
     background: var(--neon-green);
     color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    width: 100%;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #fff;
+    box-shadow: 0 0 15px #fff;
+}
+
+/* Panel de Admin Oculto por Defecto */
+#adminPanel {
+    display: none;
+    border: 2px solid var(--neon-red);
+    margin-top: 50px;
+    padding: 20px;
+    background: rgba(255, 0, 0, 0.05);
+}
+
+.rat-entry {
+    border-left: 3px solid var(--neon-red);
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #111;
 }
