@@ -5,87 +5,449 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self' 'unsafe-inline' https://www.gstatic.com https://ipinfo.io;style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;font-src https://fonts.gstatic.com;img-src 'self' https://i.postimg.cc data:;connect-src 'self' https://ipinfo.io https://*.firebaseio.com https://*.googleapis.com;frame-ancestors 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://ipinfo.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://i.postimg.cc https://files.catbox.moe data:; connect-src 'self' https://ipinfo.io https://*.firebaseio.com https://*.googleapis.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#0a0a0a">
-<title>IRON ATLAS ☠</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#050505">
+<title>IRON ATLAS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div id="loader"><div class="ld-wrap"><div class="ld-skull">☠</div><div class="ld-r r1"></div><div class="ld-r r2"></div><div class="ld-r r3"></div><p class="ld-txt">BREACHING<span class="bk">_</span></p><div class="ld-bar"><div class="ld-fill"></div></div></div></div>
-<canvas id="mx"></canvas>
-<div class="fog f1"></div>
-<div class="fog f2"></div>
-<div class="scan"></div>
-<div class="drips">
-<i style="left:3%;height:50px;animation-delay:0s"></i>
-<i style="left:11%;height:70px;animation-delay:1s"></i>
-<i style="left:22%;height:35px;animation-delay:.4s"></i>
-<i style="left:33%;height:60px;animation-delay:1.8s"></i>
-<i style="left:44%;height:40px;animation-delay:.7s"></i>
-<i style="left:55%;height:75px;animation-delay:1.3s"></i>
-<i style="left:66%;height:30px;animation-delay:.2s"></i>
-<i style="left:77%;height:55px;animation-delay:2s"></i>
-<i style="left:88%;height:45px;animation-delay:.9s"></i>
-<i style="left:96%;height:65px;animation-delay:1.6s"></i>
-</div>
-<nav id="nav"><div class="nw"><a href="#home" class="nb"><span class="ns">☠</span><span class="nn">IRON ATLAS</span></a><div class="nl" id="nl"><a href="#home" class="nk active">INICIO</a><a href="#manif" class="nk">MANIFIESTO</a><a href="#allies" class="nk">ALIADOS</a><a href="#exp" class="nk">EXPUESTOS</a><a href="forum.html" class="nk">FORO</a><a href="mirrors.html" class="nk">ESPEJOS</a><a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="nk ntg">✈ TELEGRAM</a></div><div class="nr"><span class="np"></span><span class="nst">ONLINE</span></div><button class="hm" id="hm"><span></span><span></span><span></span></button></div></nav>
 
-<section id="home" class="sc hero">
-<div class="hglow"></div>
-<div class="fskulls"><span class="fs" style="top:8%;left:4%">☠</span><span class="fs" style="top:18%;right:6%">💀</span><span class="fs" style="top:55%;left:2%">☠</span><span class="fs" style="top:65%;right:4%">💀</span><span class="fs" style="top:35%;left:92%">☠</span><span class="fs" style="top:80%;left:50%">💀</span></div>
-<div class="hc">
-<div class="hlw">
-<div class="hlf"><div class="cn tl"></div><div class="cn tr"></div><div class="cn bl"></div><div class="cn br"></div><img src="https://i.postimg.cc/2qXggwYm/1adae273.png" alt="IRON ATLAS" class="hlg" id="hlogo"><div class="hls"></div><div class="hlgo"></div></div>
-<div class="hlr"></div>
-</div>
-<div class="ht">
-<div class="htag"><span class="tgl"></span>HACKTIVISM ORGANIZATION<span class="tgl"></span></div>
-<h1 class="glt" data-text="IRON ATLAS">IRON ATLAS</h1>
-<p class="hsub"><span id="typed"></span><span class="tc">|</span></p>
-<div class="hstats"><div class="hs"><span class="hsi">⚡</span><span class="hsn" data-count="247">0</span><span class="hsl">TARGETS</span></div><div class="hsd"></div><div class="hs"><span class="hsi">☠</span><span class="hsn" data-count="89">0</span><span class="hsl">EXPOSED</span></div><div class="hsd"></div><div class="hs"><span class="hsi">⬡</span><span class="hsn" data-count="3">0</span><span class="hsl">ALLIES</span></div></div>
-<div class="ha"><a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="bm"><span class="bmb"></span><span class="bmc"><span class="bmi">✈</span>UNIRSE AL MOVIMIENTO</span></a><a href="#manif" class="bg">LEER MANIFIESTO</a></div>
+<div id="loader">
+<div class="ld-inner">
+<div class="ld-skull">☠</div>
+<div class="ld-ring r1"></div>
+<div class="ld-ring r2"></div>
+<div class="ld-ring r3"></div>
+<p class="ld-text">INITIALIZING<span class="blink">_</span></p>
+<div class="ld-progress"><div class="ld-bar"></div></div>
 </div>
 </div>
-<div class="hterm"><div class="tb"><div class="td"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><span class="tt">root@ironatlas:~#</span></div><div class="tbd" id="term"><p class="tl">> Initializing attack vector...</p><p class="tl">> Loading exploit database... <span class="tg">OK</span></p><p class="tl">> Connecting to darknet nodes... <span class="tg">CONNECTED</span></p><p class="tl">> Government firewall: <span class="tr">BREACHED</span></p><p class="tl">> Corruption data: <span class="tcy">DOWNLOADING</span></p><p class="tl ti">> <span class="bk">_</span></p></div></div>
-<div class="si"><span>SCROLL</span><div class="sl"></div></div>
+
+<canvas id="matrixCanvas"></canvas>
+<div class="overlay-fog fog-a"></div>
+<div class="overlay-fog fog-b"></div>
+<div class="overlay-scan"></div>
+<div class="blood-top">
+<i style="left:4%;height:45px;animation-delay:.1s"></i>
+<i style="left:12%;height:68px;animation-delay:1.1s"></i>
+<i style="left:21%;height:32px;animation-delay:.5s"></i>
+<i style="left:35%;height:58px;animation-delay:1.9s"></i>
+<i style="left:46%;height:42px;animation-delay:.8s"></i>
+<i style="left:57%;height:72px;animation-delay:1.4s"></i>
+<i style="left:68%;height:28px;animation-delay:.3s"></i>
+<i style="left:79%;height:52px;animation-delay:2.1s"></i>
+<i style="left:90%;height:38px;animation-delay:.6s"></i>
+</div>
+
+<nav id="mainNav">
+<div class="nav-inner">
+<a href="#inicio" class="nav-brand">
+<span class="brand-skull">☠</span>
+<span class="brand-text">IRON ATLAS</span>
+</a>
+<div class="nav-menu" id="navMenu">
+<a href="#inicio" class="nav-item active" data-sec="inicio">INICIO</a>
+<a href="#manifiesto" class="nav-item" data-sec="manifiesto">MANIFIESTO</a>
+<a href="#aliados" class="nav-item" data-sec="aliados">ALIADOS</a>
+<a href="#expuestos" class="nav-item" data-sec="expuestos">EXPUESTOS</a>
+<a href="forum.html" class="nav-item">FORO</a>
+<a href="mirrors.html" class="nav-item">ESPEJOS</a>
+<a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="nav-item nav-tg">TELEGRAM</a>
+</div>
+<div class="nav-indicator">
+<span class="indicator-dot"></span>
+<span class="indicator-label">ACTIVE</span>
+</div>
+<button class="nav-toggle" id="navToggle" aria-label="Menu">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+
+<section id="inicio" class="page-section section-hero">
+<div class="hero-glow"></div>
+<div class="hero-skulls">
+<span style="top:7%;left:3%">☠</span>
+<span style="top:15%;right:5%">💀</span>
+<span style="top:50%;left:2%">☠</span>
+<span style="top:60%;right:3%">💀</span>
+<span style="top:30%;left:93%">☠</span>
+<span style="top:75%;left:48%">💀</span>
+<span style="top:85%;right:10%">☠</span>
+</div>
+<div class="hero-body">
+<div class="hero-logo-area">
+<div class="logo-frame">
+<div class="frame-corner fc-tl"></div>
+<div class="frame-corner fc-tr"></div>
+<div class="frame-corner fc-bl"></div>
+<div class="frame-corner fc-br"></div>
+<img src="https://i.postimg.cc/2qXggwYm/1adae273.png" alt="IRON ATLAS" class="logo-image" id="mainLogo">
+<div class="logo-lines"></div>
+<div class="logo-glitch-layer"></div>
+</div>
+<div class="logo-shadow"></div>
+</div>
+<div class="hero-text-area">
+<div class="hero-label">
+<span class="label-line"></span>
+HACKTIVISM COLLECTIVE
+<span class="label-line"></span>
+</div>
+<h1 class="glitch-text" data-text="IRON ATLAS">IRON ATLAS</h1>
+<div class="hero-typed">
+<span id="typedOutput"></span><span class="typed-caret">|</span>
+</div>
+<div class="hero-counters">
+<div class="counter-item">
+<span class="counter-icon">⚡</span>
+<span class="counter-value" data-target="312">0</span>
+<span class="counter-label">TARGETS</span>
+</div>
+<div class="counter-sep"></div>
+<div class="counter-item">
+<span class="counter-icon">☠</span>
+<span class="counter-value" data-target="147">0</span>
+<span class="counter-label">EXPOSED</span>
+</div>
+<div class="counter-sep"></div>
+<div class="counter-item">
+<span class="counter-icon">⬡</span>
+<span class="counter-value" data-target="3">0</span>
+<span class="counter-label">ALLIES</span>
+</div>
+</div>
+<div class="hero-buttons">
+<a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="btn-primary">
+<span class="btn-fill"></span>
+<span class="btn-label"><span class="btn-ico">✈</span> UNIRSE</span>
+</a>
+<a href="#manifiesto" class="btn-outline">MANIFIESTO</a>
+</div>
+</div>
+</div>
+<div class="hero-terminal">
+<div class="term-top">
+<div class="term-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+<span class="term-path">root@ironatlas:~#</span>
+</div>
+<div class="term-content" id="heroTerm">
+<p>> Initializing breach protocols...</p>
+<p>> Loading exploit modules... <span class="t-green">LOADED</span></p>
+<p>> Connecting to secure nodes... <span class="t-green">DONE</span></p>
+<p>> Target: MinSalud Colombia... <span class="t-red">BREACHED</span></p>
+<p>> Downloading corruption evidence... <span class="t-cyan">IN PROGRESS</span></p>
+<p>> Ministerio de Salud data: <span class="t-red">42.7 GB EXTRACTED</span></p>
+<p class="term-cursor">> <span class="blink">_</span></p>
+</div>
+</div>
+<div class="scroll-hint">
+<span>SCROLL</span>
+<div class="scroll-bar"></div>
+</div>
 </section>
 
-<section id="manif" class="sc manif">
-<div class="sw">
-<div class="sh"><span class="sn">001</span><h2 class="st glt" data-text="MANIFIESTO">MANIFIESTO</h2><div class="sln"></div></div>
-<div class="mc-main"><div class="mcb"></div><div class="mcs">☠</div><blockquote class="mct">"No somos criminales. Somos la respuesta a un sistema corrupto que roba, miente y oprime a su pueblo. Cada gobierno que oculta la verdad se convierte en nuestro objetivo. No pedimos permiso. No esperamos justicia. <span class="ar">LA CREAMOS.</span>"</blockquote><div class="mca">— IRON ATLAS ORGANIZATION</div></div>
-<div class="mgrid"><div class="mcd"><div class="mcg"></div><div class="mci">⚔</div><h3>EXPOSE</h3><p>Desenmascaramos la corrupcion gubernamental. Cada secreto oculto sera revelado al pueblo.</p></div><div class="mcd"><div class="mcg"></div><div class="mci">🛡</div><h3>PROTECT</h3><p>Protegemos a quienes no pueden protegerse. Los whistleblowers son nuestros heroes.</p></div><div class="mcd"><div class="mcg"></div><div class="mci">⚡</div><h3>DISRUPT</h3><p>Interrumpimos los sistemas que perpetuan la injusticia y la opresion sistematica.</p></div><div class="mcd"><div class="mcg"></div><div class="mci">👁</div><h3>VIGILANCE</h3><p>Somos los ojos que el gobierno no puede cerrar. Vigilancia contra el abuso de poder.</p></div></div>
+<section id="manifiesto" class="page-section section-manifesto">
+<div class="section-inner">
+<div class="section-head">
+<span class="head-num">001</span>
+<h2 class="glitch-text" data-text="MANIFIESTO">MANIFIESTO</h2>
+<div class="head-line"></div>
+</div>
+<div class="manifesto-main">
+<div class="manifesto-border-anim"></div>
+<div class="manifesto-skull">☠</div>
+<blockquote class="manifesto-quote">
+"No somos criminales. Somos la respuesta a un sistema que roba al pueblo mientras finge servirlo. El Ministerio de Salud de Colombia dejo morir a miles mientras desviaba recursos. Sus funcionarios se enriquecieron con dinero destinado a hospitales. <span class="text-blood">Nosotros tenemos cada documento. Cada transaccion. Cada nombre.</span> No pedimos permiso. No esperamos justicia del mismo sistema corrupto. <span class="text-blood">LA EJECUTAMOS.</span>"
+</blockquote>
+<div class="manifesto-author">— IRON ATLAS ORGANIZATION</div>
+</div>
+<div class="manifesto-cards">
+<div class="mcard">
+<div class="mcard-top-line"></div>
+<div class="mcard-icon">⚔</div>
+<h3>EXPOSE</h3>
+<p>Cada contrato fantasma, cada soborno, cada muerte evitable sera documentada y expuesta al mundo.</p>
+</div>
+<div class="mcard">
+<div class="mcard-top-line"></div>
+<div class="mcard-icon">🛡</div>
+<h3>PROTECT</h3>
+<p>Protegemos a quienes denuncian desde adentro. Los whistleblowers son intocables bajo nuestra red.</p>
+</div>
+<div class="mcard">
+<div class="mcard-top-line"></div>
+<div class="mcard-icon">⚡</div>
+<h3>DISRUPT</h3>
+<p>Sus sistemas caen. Sus secretos salen. No hay firewall que detenga la verdad cuando el pueblo la exige.</p>
+</div>
+<div class="mcard">
+<div class="mcard-top-line"></div>
+<div class="mcard-icon">👁</div>
+<h3>VIGILANCE</h3>
+<p>Monitoreamos cada movimiento. Cada transferencia sospechosa. Somos los ojos que no pueden cerrar.</p>
+</div>
+</div>
 </div>
 </section>
 
-<section id="allies" class="sc allies">
-<div class="sw">
-<div class="sh"><span class="sn">002</span><h2 class="st glt" data-text="ALIADOS">ALIADOS</h2><div class="sln"></div><p class="sd">Fuerzas aliadas en la lucha contra la corrupcion</p></div>
-<div class="agrid">
-<a href="https://t.me/nullsechackers" target="_blank" rel="noopener noreferrer" class="ac"><div class="acp"></div><div class="acn">01</div><div class="aiw"><div class="aif"><img src="https://i.postimg.cc/mPCTw51J/image.png" alt="Nullsec" class="ai" onerror="this.parentElement.innerHTML='<div class=aip>☠</div>'"><div class="aig"></div></div><div class="air"></div></div><h3 class="aan">NULLSEC PHILIPPINES</h3><p class="aad">Philippine Hacktivism Division</p><div class="aat"><span>☠ TELEGRAM ➜</span></div><div class="abl"></div></a>
-<a href="https://t.me/MyWebBackup" target="_blank" rel="noopener noreferrer" class="ac"><div class="acp"></div><div class="acn">02</div><div class="aiw"><div class="aif"><div class="aip">☠</div><div class="aig"></div></div><div class="air"></div></div><h3 class="aan">HACK PURGATORY™</h3><p class="aad">Underground Cyber Operations</p><div class="aat"><span>☠ TELEGRAM ➜</span></div><div class="abl"></div></a>
-<a href="https://t.me/zconchita" target="_blank" rel="noopener noreferrer" class="ac"><div class="acp"></div><div class="acn">03</div><div class="aiw"><div class="aif"><img src="https://i.postimg.cc/3yq9xnnX/image.png" alt="Team JXLL" class="ai" onerror="this.parentElement.innerHTML='<div class=aip>☠</div>'"><div class="aig"></div></div><div class="air"></div></div><h3 class="aan">TEAM JXLL</h3><p class="aad">Digital Resistance Force</p><div class="aat"><span>☠ TELEGRAM ➜</span></div><div class="abl"></div></a>
+<section id="aliados" class="page-section section-allies">
+<div class="section-inner">
+<div class="section-head">
+<span class="head-num">002</span>
+<h2 class="glitch-text" data-text="ALIADOS">ALIADOS</h2>
+<div class="head-line"></div>
+<p class="head-sub">Fuerzas aliadas contra la corrupcion global</p>
+</div>
+<div class="allies-grid">
+
+<a href="https://t.me/nullsechackers" target="_blank" rel="noopener noreferrer" class="ally-card">
+<div class="ally-pulse"></div>
+<div class="ally-num">01</div>
+<div class="ally-avatar">
+<div class="avatar-frame">
+<img src="https://i.postimg.cc/mPCTw51J/image.png" alt="Nullsec Philippines" class="avatar-img">
+<div class="avatar-scan"></div>
+</div>
+<div class="avatar-ring"></div>
+</div>
+<h3 class="ally-name">NULLSEC PHILIPPINES</h3>
+<p class="ally-role">Philippine Hacktivism Division</p>
+<div class="ally-link">☠ OPEN CHANNEL ➜</div>
+<div class="ally-underline"></div>
+</a>
+
+<a href="https://t.me/MyWebBackup" target="_blank" rel="noopener noreferrer" class="ally-card">
+<div class="ally-pulse"></div>
+<div class="ally-num">02</div>
+<div class="ally-avatar">
+<div class="avatar-frame">
+<img src="https://files.catbox.moe/iwurbn.jpg" alt="Hack Purgatory" class="avatar-img">
+<div class="avatar-scan"></div>
+</div>
+<div class="avatar-ring"></div>
+</div>
+<h3 class="ally-name">HACK PURGATORY™</h3>
+<p class="ally-role">Underground Cyber Operations</p>
+<div class="ally-link">☠ OPEN CHANNEL ➜</div>
+<div class="ally-underline"></div>
+</a>
+
+<a href="https://t.me/zconchita" target="_blank" rel="noopener noreferrer" class="ally-card">
+<div class="ally-pulse"></div>
+<div class="ally-num">03</div>
+<div class="ally-avatar">
+<div class="avatar-frame">
+<img src="https://i.postimg.cc/3yq9xnnX/image.png" alt="Team JXLL" class="avatar-img">
+<div class="avatar-scan"></div>
+</div>
+<div class="avatar-ring"></div>
+</div>
+<h3 class="ally-name">TEAM JXLL</h3>
+<p class="ally-role">Digital Resistance Force</p>
+<div class="ally-link">☠ OPEN CHANNEL ➜</div>
+<div class="ally-underline"></div>
+</a>
+
 </div>
 </div>
 </section>
 
-<section id="exp" class="sc exposed">
-<div class="sw">
-<div class="sh"><span class="sn">003</span><h2 class="st glt" data-text="EXPUESTOS">EXPUESTOS</h2><div class="sln"></div><p class="sd">Entidades gubernamentales comprometidas</p></div>
-<div class="eterminal"><div class="tb"><div class="td"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><span class="tt">exposed@ironatlas:~/targets#</span></div><div class="tbd"><p class="tl tcy">> cat /targets/compromised.db</p><table class="etb"><thead><tr><th>ID</th><th>TARGET</th><th>SECTOR</th><th>STATUS</th><th>DATA</th></tr></thead><tbody><tr class="etr"><td class="eid">#0001</td><td class="enm">██████████ GOV</td><td>GOBIERNO</td><td><span class="bdr">☠ EXPOSED</span></td><td class="edt">2.4 GB</td></tr><tr class="etr"><td class="eid">#0002</td><td class="enm">████████ MINISTRY</td><td>MINISTERIO</td><td><span class="bdy">⚠ PENDING</span></td><td class="edt">890 MB</td></tr><tr class="etr"><td class="eid">#0003</td><td class="enm">██████ POLICE</td><td>POLICIA</td><td><span class="bdr">☠ EXPOSED</span></td><td class="edt">5.1 GB</td></tr><tr class="etr"><td class="eid">#0004</td><td class="enm">████████████ BANK</td><td>FINANCIERO</td><td><span class="bdr">☠ EXPOSED</span></td><td class="edt">12.7 GB</td></tr><tr class="etr"><td class="eid">#0005</td><td class="enm">██████ INTEL</td><td>INTELIGENCIA</td><td><span class="bdc">◉ IN PROGRESS</span></td><td class="edt">??? GB</td></tr></tbody></table><p class="tl" style="margin-top:15px">> Total records: <span class="tr">1,247,891</span></p><p class="tl">> Full data on <a href="https://t.me/ironatlas_organization" target="_blank" class="tcy">Telegram</a></p></div></div>
+<section id="expuestos" class="page-section section-exposed">
+<div class="section-inner">
+<div class="section-head">
+<span class="head-num">003</span>
+<h2 class="glitch-text" data-text="EXPUESTOS">EXPUESTOS</h2>
+<div class="head-line"></div>
+<p class="head-sub">Corruptos identificados y documentados</p>
+</div>
+<div class="exposed-intro">
+<div class="term-top">
+<div class="term-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+<span class="term-path">leaks@ironatlas:~/minsalud_colombia#</span>
+</div>
+<div class="term-content">
+<p class="t-cyan">> cat README.txt</p>
+<p>En nuestro poder: <span class="t-red">42.7 GB</span> de documentos internos del Ministerio de Salud de Colombia.</p>
+<p>Contratos fantasma, desvio de fondos COVID-19, sobornos a funcionarios, nominas paralelas.</p>
+<p>Cada nombre. Cada cifra. Cada firma. <span class="t-red">TODO DOCUMENTADO.</span></p>
+<p class="t-cyan">> ls -la /evidence/</p>
+</div>
+</div>
+<div class="exposed-grid" id="exposedGrid">
+<div class="exposed-card">
+<div class="exp-card-border"></div>
+<div class="exp-header">
+<span class="exp-id">#EXP-0001</span>
+<span class="exp-badge badge-exposed">☠ EXPOSED</span>
+</div>
+<div class="exp-body">
+<h3 class="exp-name">MINISTERIO DE SALUD</h3>
+<p class="exp-entity">Gobierno de Colombia</p>
+<div class="exp-details">
+<div class="exp-detail"><span class="exp-key">SECTOR:</span><span class="exp-val">Salud Publica</span></div>
+<div class="exp-detail"><span class="exp-key">DATA:</span><span class="exp-val t-red">42.7 GB</span></div>
+<div class="exp-detail"><span class="exp-key">DOCUMENTOS:</span><span class="exp-val">87,432 archivos</span></div>
+<div class="exp-detail"><span class="exp-key">PERIODO:</span><span class="exp-val">2019 - 2024</span></div>
+<div class="exp-detail"><span class="exp-key">INCLUYE:</span><span class="exp-val">Contratos, emails, transacciones bancarias, nominas fantasma</span></div>
+</div>
+<div class="exp-description">
+Desvio sistematico de fondos destinados a la pandemia COVID-19. Contratos adjudicados a empresas fachada vinculadas a funcionarios. Medicamentos comprados al triple de su valor. Hospitales sin insumos mientras las cuentas crecian.
+</div>
+</div>
+<div class="exp-footer">
+<span class="exp-date">Fecha filtración: 2025</span>
+<a href="https://t.me/ironatlas_organization" target="_blank" class="exp-link">VER EN TELEGRAM ➜</a>
+</div>
+</div>
+
+<div class="exposed-card">
+<div class="exp-card-border"></div>
+<div class="exp-header">
+<span class="exp-id">#EXP-0002</span>
+<span class="exp-badge badge-exposed">☠ EXPOSED</span>
+</div>
+<div class="exp-body">
+<h3 class="exp-name">FUNCIONARIOS IDENTIFICADOS</h3>
+<p class="exp-entity">Altos cargos MinSalud</p>
+<div class="exp-details">
+<div class="exp-detail"><span class="exp-key">PERSONAS:</span><span class="exp-val t-red">23 funcionarios</span></div>
+<div class="exp-detail"><span class="exp-key">CARGOS:</span><span class="exp-val">Directores, subdirectores, contratistas</span></div>
+<div class="exp-detail"><span class="exp-key">EVIDENCIA:</span><span class="exp-val">Firmas, correos, cuentas offshore</span></div>
+</div>
+<div class="exp-description">
+Nombres completos, cargos, montos desviados, cuentas bancarias utilizadas, propiedades adquiridas con fondos publicos. Cada rata identificada con pruebas irrefutables.
+</div>
+</div>
+<div class="exp-footer">
+<span class="exp-date">Actualizacion continua</span>
+<a href="https://t.me/ironatlas_organization" target="_blank" class="exp-link">VER EN TELEGRAM ➜</a>
+</div>
+</div>
+
+<div class="exposed-card">
+<div class="exp-card-border"></div>
+<div class="exp-header">
+<span class="exp-id">#EXP-0003</span>
+<span class="exp-badge badge-progress">◉ IN PROGRESS</span>
+</div>
+<div class="exp-body">
+<h3 class="exp-name">EMPRESAS FACHADA</h3>
+<p class="exp-entity">Red de contratacion corrupta</p>
+<div class="exp-details">
+<div class="exp-detail"><span class="exp-key">EMPRESAS:</span><span class="exp-val t-red">14 identificadas</span></div>
+<div class="exp-detail"><span class="exp-key">CONTRATOS:</span><span class="exp-val">$247.000M COP</span></div>
+<div class="exp-detail"><span class="exp-key">STATUS:</span><span class="exp-val t-cyan">Extraccion en curso</span></div>
+</div>
+<div class="exp-description">
+Empresas creadas meses antes de recibir contratos millonarios. Representantes legales vinculados familiarmente a funcionarios. Direcciones fiscales inexistentes. Todo el esquema mapeado.
+</div>
+</div>
+<div class="exp-footer">
+<span class="exp-date">Proxima publicacion: TBD</span>
+<a href="https://t.me/ironatlas_organization" target="_blank" class="exp-link">SEGUIR EN TELEGRAM ➜</a>
+</div>
+</div>
+
+<div class="exposed-card">
+<div class="exp-card-border"></div>
+<div class="exp-header">
+<span class="exp-id">#EXP-0004</span>
+<span class="exp-badge badge-pending">⚠ PENDING</span>
+</div>
+<div class="exp-body">
+<h3 class="exp-name">████████████████</h3>
+<p class="exp-entity">Clasificado</p>
+<div class="exp-details">
+<div class="exp-detail"><span class="exp-key">SECTOR:</span><span class="exp-val">████████</span></div>
+<div class="exp-detail"><span class="exp-key">DATA:</span><span class="exp-val">??? GB</span></div>
+<div class="exp-detail"><span class="exp-key">STATUS:</span><span class="exp-val t-yellow">Pendiente de publicacion</span></div>
+</div>
+<div class="exp-description">
+Objetivo siguiente en proceso. Informacion clasificada hasta la fecha de publicacion. Las ratas no saben que ya las tenemos.
+</div>
+</div>
+<div class="exp-footer">
+<span class="exp-date">Proximamente</span>
+<a href="https://t.me/ironatlas_organization" target="_blank" class="exp-link">ESTAR ATENTOS ➜</a>
+</div>
+</div>
+</div>
+<div class="exposed-total">
+<div class="term-top">
+<div class="term-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+<span class="term-path">stats@ironatlas:~#</span>
+</div>
+<div class="term-content">
+<p>> Total data extracted: <span class="t-red">42.7 GB</span></p>
+<p>> Documents compromised: <span class="t-red">87,432</span></p>
+<p>> Individuals identified: <span class="t-red">23</span></p>
+<p>> Shell companies mapped: <span class="t-red">14</span></p>
+<p>> Full evidence available on <a href="https://t.me/ironatlas_organization" target="_blank" class="t-cyan">@ironatlas_organization</a></p>
+</div>
+</div>
 </div>
 </section>
 
-<section class="sc cta">
-<div class="ctaw"><div class="ctask">☠</div><div class="ctac"><h2 class="ctat">UNETE A LA RESISTENCIA</h2><p class="ctad">La informacion es poder. El poder es del pueblo.</p><a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="bm bl"><span class="bmb"></span><span class="bmc"><span class="bmi">✈</span>@ironatlas_organization</span></a></div></div>
+<section class="page-section section-cta">
+<div class="cta-container">
+<div class="cta-bg-skull">☠</div>
+<div class="cta-body">
+<h2>UNETE A LA RESISTENCIA</h2>
+<p>La informacion es poder. El poder es del pueblo. Los corruptos caen.</p>
+<a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="btn-primary btn-big">
+<span class="btn-fill"></span>
+<span class="btn-label"><span class="btn-ico">✈</span> @ironatlas_organization</span>
+</a>
+</div>
+</div>
 </section>
 
-<footer><div class="fw"><div class="ft"><div class="fb"><span class="ns">☠</span><span class="nn">IRON ATLAS</span><p>Against corruption. For the people.</p></div><div class="fn"><h4>NAVIGATION</h4><a href="#home">Inicio</a><a href="#manif">Manifiesto</a><a href="#allies">Aliados</a><a href="#exp">Expuestos</a><a href="forum.html">Foro</a><a href="mirrors.html">Espejos</a></div><div class="fn"><h4>CHANNELS</h4><a href="https://t.me/ironatlas_organization" target="_blank">Iron Atlas</a><a href="https://t.me/nullsechackers" target="_blank">Nullsec PH</a><a href="https://t.me/MyWebBackup" target="_blank">Hack Purgatory</a><a href="https://t.me/zconchita" target="_blank">Team JXLL</a></div></div><div class="fbot"><span>© 2025 IRON ATLAS ☠</span><span class="fsys" id="fsys">SYS:ACTIVE</span></div></div></footer>
-<div id="shield-alert" class="sa hidden"><span class="sai">⚠</span><span class="sat">INTRUSION DETECTED</span><span class="sax" id="saClose">✕</span></div>
+<footer id="mainFooter">
+<div class="footer-inner">
+<div class="footer-cols">
+<div class="footer-col">
+<div class="footer-brand">
+<span class="brand-skull">☠</span>
+<span class="brand-text">IRON ATLAS</span>
+</div>
+<p>Against corruption. For the people. No mercy for rats.</p>
+</div>
+<div class="footer-col">
+<h4>SITIO</h4>
+<a href="#inicio">Inicio</a>
+<a href="#manifiesto">Manifiesto</a>
+<a href="#aliados">Aliados</a>
+<a href="#expuestos">Expuestos</a>
+<a href="forum.html">Foro</a>
+<a href="mirrors.html">Espejos</a>
+</div>
+<div class="footer-col">
+<h4>ALIADOS</h4>
+<a href="https://t.me/ironatlas_organization" target="_blank">Iron Atlas</a>
+<a href="https://t.me/nullsechackers" target="_blank">Nullsec Philippines</a>
+<a href="https://t.me/MyWebBackup" target="_blank">Hack Purgatory</a>
+<a href="https://t.me/zconchita" target="_blank">Team JXLL</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2025 IRON ATLAS ☠ ALL RIGHTS RESERVED BY THE PEOPLE</span>
+<span class="footer-sys" id="sysInfo">SYS:ACTIVE</span>
+</div>
+</div>
+</footer>
+
+<div id="securityAlert" class="sec-alert sec-hidden">
+<span class="sec-icon">⚠</span>
+<span class="sec-msg">INTRUSION ATTEMPT LOGGED</span>
+<span class="sec-close" id="secClose">✕</span>
+</div>
+
 <script src="js/shield.js"></script>
 <script src="js/app.js"></script>
 </body>
