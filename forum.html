@@ -1,112 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://ipinfo.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://i.postimg.cc https://files.catbox.moe data:; connect-src 'self' https://ipinfo.io https://*.firebaseio.com https://*.googleapis.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
-<meta name="referrer" content="no-referrer">
-<meta name="robots" content="noindex,nofollow">
-<title>IRON ATLAS ☠ FORUM</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    <meta charset="UTF-8">
+    <title>IRON ATLAS | SECURITY FORUM</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="crt-filter">
 
-<canvas id="matrixCanvas"></canvas>
-<div class="overlay-scan"></div>
+    <div class="forum-container">
+        <header style="text-align: center;">
+            <img src="https://i.postimg.cc/3kCVbCSY/logo-iron.png" style="width:100px; filter: grayscale(1) invert(1);">
+            <h1 class="glitch-text">ACCESO AL FORO DE INTELIGENCIA</h1>
+        </header>
 
-<nav id="mainNav" class="scrolled">
-<div class="nav-inner">
-<a href="index.html" class="nav-brand">
-<span class="brand-skull">☠</span>
-<span class="brand-text">IRON ATLAS</span>
-</a>
-<div class="nav-menu" id="navMenu">
-<a href="index.html" class="nav-item">INICIO</a>
-<a href="index.html#aliados" class="nav-item">ALIADOS</a>
-<a href="index.html#expuestos" class="nav-item">EXPUESTOS</a>
-<a href="forum.html" class="nav-item active">FORO</a>
-<a href="mirrors.html" class="nav-item">ESPEJOS</a>
-<a href="https://t.me/ironatlas_organization" target="_blank" rel="noopener noreferrer" class="nav-item nav-tg">TELEGRAM</a>
-</div>
-<button class="nav-toggle" id="navToggle" aria-label="Menu">
-<span></span><span></span><span></span>
-</button>
-</div>
-</nav>
+        <div class="login-box" id="loginArea">
+            <p>>_ IDENTIFÍQUESE PARA CONTINUAR</p><br>
+            <input type="text" id="userInput" placeholder="USER_ID" autocomplete="off">
+            <div id="passField" style="display: none;">
+                <input type="password" id="passInput" placeholder="PASSWORD">
+                <button onclick="checkAuth()">DESBLOQUEAR ARCHIVOS</button>
+            </div>
+        </div>
 
-<div class="forum-page">
-<div class="forum-container">
-<a href="index.html" class="back-link">← VOLVER AL INICIO</a>
-<div class="forum-header">
-<h1>☠ FORO <span class="text-blood">RESISTENCIA</span></h1>
-<p>> Comunidad contra la corrupcion gubernamental</p>
-</div>
+        <div id="adminPanel">
+            <h2 style="color:var(--neon-red)">ADMIN COMMAND CENTER [GOD_MODE]</h2>
+            <div class="tools">
+                <p>>_ CONTROL DE RATAS EXPUUESTAS</p>
+                <textarea id="ratData" placeholder="INFO DE LA RATA..."></textarea>
+                <button onclick="addRat()">PUBLICAR EVIDENCIA</button>
+            </div>
+            <div id="exposedList" style="margin-top:20px;"></div>
+        </div>
+    </div>
 
-<div class="forum-compose">
-<div class="compose-row">
-<input type="text" class="form-field" id="forumAlias" placeholder="Tu alias..." maxlength="30" autocomplete="off" spellcheck="false">
-</div>
-<div class="compose-row">
-<textarea class="form-field" id="forumMessage" placeholder="Escribe tu mensaje... (Ctrl+Enter para enviar)" maxlength="1000" spellcheck="false"></textarea>
-</div>
-<div class="compose-footer">
-<span class="compose-rules">☠ Sin links | Sin scripts | Max 1000 chars</span>
-<button class="compose-submit" id="forumSubmit">PUBLICAR ☠</button>
-</div>
-</div>
-
-<div class="forum-stats">
-<span id="msgCount">0</span> mensajes | <span id="onlineCount">~</span> activos
-</div>
-
-<ul class="forum-list" id="forumList">
-<li class="forum-empty">> Cargando mensajes...<span class="blink">_</span></li>
-</ul>
-</div>
-</div>
-
-<button class="admin-btn" id="adminBtn" title="Admin Panel">⚙</button>
-
-<div class="admin-overlay" id="adminOverlay">
-<div class="admin-panel">
-<h3>☠ ADMIN PANEL</h3>
-<input type="password" class="form-field" id="adminPassword" placeholder="Password" autocomplete="off">
-<div class="admin-actions">
-<button class="compose-submit" id="adminLoginBtn">ACCEDER</button>
-<button class="compose-submit admin-cancel" id="adminCancelBtn">CANCELAR</button>
-</div>
-<div class="admin-tools" id="adminTools" style="display:none">
-<h4>HERRAMIENTAS</h4>
-<div class="admin-tool-row">
-<input type="text" class="form-field" id="banIpInput" placeholder="IP a bloquear">
-<button class="compose-submit" id="banIpBtn">BLOQUEAR IP</button>
-</div>
-<div class="admin-tool-row">
-<button class="compose-submit" id="clearAllBtn">BORRAR TODO</button>
-<button class="compose-submit" id="exportBtn">EXPORTAR LOGS</button>
-</div>
-<div class="admin-blocked-list">
-<h4>IPs BLOQUEADAS</h4>
-<ul id="blockedList"></ul>
-</div>
-</div>
-</div>
-</div>
-
-<div id="securityAlert" class="sec-alert sec-hidden">
-<span class="sec-icon">⚠</span>
-<span class="sec-msg">INTRUSION ATTEMPT LOGGED</span>
-<span class="sec-close" id="secClose">✕</span>
-</div>
-
-<script src="js/shield.js"></script>
-<script src="js/forum.js"></script>
+    <script src="forum.js"></script>
+    <script src="shield.js"></script>
 </body>
 </html>
