@@ -1,52 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="robots" content="noindex,nofollow">
-<title>☠ WRONG TURN</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap');
-body{background:#050505;color:#888;font-family:'Share Tech Mono',monospace;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;text-align:center}
-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.05}
-.wrap{position:relative;z-index:2;max-width:600px;padding:2rem}
-.skull{font-size:6rem;animation:p 2s ease infinite;display:block;margin-bottom:1.5rem}
-@keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.1)}}
-h1{font-family:'Orbitron',sans-serif;font-size:7rem;color:#DC143C;text-shadow:0 0 30px rgba(220,20,60,.4);margin-bottom:.5rem}
-.sub{font-size:1.1rem;color:#DC143C;letter-spacing:4px;margin-bottom:2rem}
-.msg{font-size:.85rem;color:#555;margin-bottom:.8rem;line-height:1.8}
-.taunt{color:#DC143C;font-size:.9rem;margin:2rem 0;line-height:1.8;border:1px solid rgba(220,20,60,.2);padding:1.5rem;background:rgba(220,20,60,.03)}
-a{display:inline-block;margin-top:1.5rem;color:#050505;background:#DC143C;padding:14px 40px;font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:4px;font-weight:900;transition:all .3s}
-a:hover{box-shadow:0 0 50px rgba(220,20,60,.5);transform:translateY(-3px)}
-.ip{font-size:.6rem;color:#333;margin-top:2rem;letter-spacing:2px}
-</style>
+    <meta charset="UTF-8">
+    <title>404 | ACCESS_DENIED</title>
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="refresh" content="5;url=https://t.me/ironatlas_organization">
 </head>
-<body>
-<canvas id="c"></canvas>
-<div class="wrap">
-<span class="skull">☠</span>
-<h1>404</h1>
-<p class="sub">ENDPOINT DOES NOT EXIST</p>
-<p class="msg">> ERROR: The path you requested leads nowhere.</p>
-<p class="msg">> Our infrastructure runs on custom hardened servers.</p>
-<p class="msg">> Good luck finding anything useful here.</p>
-<div class="taunt">
-> You thought you could enumerate our directories? ☠<br>
-> Fuzzing won't help you. Brute force won't help you.<br>
-> Every attempt is logged. Every IP is recorded.<br>
-> You're not dealing with a WordPress blog.<br>
-> <span style="color:#fff">Go home. Or don't. We enjoy the entertainment.</span>
-</div>
-<a href="index.html">RETREAT TO SAFETY</a>
-<p class="ip">YOUR IP HAS BEEN LOGGED | SESSION RECORDED</p>
-</div>
-<script>
-var c=document.getElementById('c'),x=c.getContext('2d');
-c.width=innerWidth;c.height=innerHeight;
-var ch='☠01ERROR404DENIED'.split(''),fs=14,co=Math.floor(c.width/fs),dr=[];
-for(var i=0;i<co;i++)dr[i]=Math.random()*c.height/fs;
-(function d(){x.fillStyle='rgba(5,5,5,.05)';x.fillRect(0,0,c.width,c.height);x.font=fs+'px monospace';x.fillStyle='rgba(139,0,0,.4)';for(var i=0;i<dr.length;i++){x.fillText(ch[Math.floor(Math.random()*ch.length)],i*fs,dr[i]*fs);if(dr[i]*fs>c.height&&Math.random()>.975)dr[i]=0;dr[i]++}requestAnimationFrame(d)})();
-</script>
+<body class="crt-filter" style="display:flex; align-items:center; justify-content:center; height:100vh; text-align:center;">
+    <div class="terminal">
+        <h1 class="glitch-text" data-text="ERROR_404">ERROR_404</h1>
+        <div class="warn-box" style="border: 1px solid red; padding: 20px; color: red;">
+            [!] RASTREO DETECTADO. <br>
+            HAS ENTRADO EN UN ÁREA DE CUARENTENA DEL PURGATORIO.<br>
+            TU IP HA SIDO VINCULADA A ESTE INTENTO DE INTRUSIÓN.
+        </div>
+        <p>>_ REDIRIGIENDO AL NODO CENTRAL EN 5 SEGUNDOS...</p>
+        <a href="index.html">VOLVER A LA SOMBRA</a>
+    </div>
 </body>
 </html>
