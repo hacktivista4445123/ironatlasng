@@ -4,49 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://files.catbox.moe https://postimg.cc;">
-    <title>IRON ATLAS | GATEWAY</title>
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <title>IRON ATLAS FOUNDATION | Next-Gen Offensive Security</title>
     
-    <link rel="stylesheet" href="css/style.css?v=1.1">
+    <link rel="stylesheet" href="css/style.css?v=2.0">
 </head>
 <body>
 
-<div class="noise-overlay"></div>
-<div class="scanline"></div>
+<div class="noise"></div>
+<div class="lines"></div>
 
-<header class="top-bar">
-    <div class="brand">
-        <span class="symbol">♅</span> IRON ATLAS <span class="blink">_</span>
+<header class="site-header">
+    <div class="logo">
+        <span class="crit">♅</span> IRON ATLAS <span class="blink">_</span>
     </div>
-    <nav class="menu">
-        <a href="index.html" class="active">SISTEMA</a>
+    <nav class="main-nav">
+        <a href="index.html" class="active">CORE</a>
         <a href="aliados.html">NODOS</a>
         <a href="expuestos.html">DATALAKE</a>
     </nav>
 </header>
 
-<main class="main-frame">
-    <div class="central-node">
-        <h1 class="glitch-effect" data-text="NEW GENERATION">NEW GENERATION</h1>
-        <div class="security-status">
-            <div class="status-item">
-                <span class="label">PROTOCOLO:</span>
-                <span class="value">E2EE / AES-256</span>
+<main class="main-content">
+    <section class="hero-corporate">
+        <div class="glitch-wrapper">
+            <h1 class="glitch-text" data-text="DOMINIO ASIMÉTRICO">DOMINIO ASIMÉTRICO</h1>
+        </div>
+        
+        <div class="corporate-text">
+            <p class="lead">Bienvenido a la infraestructura central de Iron Atlas Foundation.</p>
+            
+            <p>Operamos en la convergencia de la inteligencia de amenazas avanzada y la ejecución ofensiva táctica. Nuestra misión es simple: proporcionar a nuestros aliados una ventaja estratégica asimétrica en el ciberespacio. No nos limitamos a defender; neutralizamos vectores de amenaza antes de que se materialicen.</p>
+            
+            <p>Utilizando protocolos de cifrado de extremo a extremo (E2EE) propietarias y arquitecturas de red distribuidas, garantizamos la integridad de las operaciones y la confidencialidad absoluta de nuestros nodos asociados. La seguridad no es un producto, es un estado de dominio constante.</p>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-node">
+                <span class="status-label">ESTADO DEL CORE:</span>
+                <span class="status-value secure">NOMINAL [E2EE_ACTIVE]</span>
             </div>
-            <div class="status-item">
-                <span class="label">ANTIFUZZ:</span>
-                <span class="value cyan">ACTIVO</span>
+            <div class="status-node">
+                <span class="status-label">RED DE ALIADOS:</span>
+                <span class="status-value cyan">MALLA DISTRIBUIDA OK</span>
             </div>
         </div>
-        <div class="button-group">
-            <a href="aliados.html" class="btn btn-red">ACCEDER A LA RED</a>
-            <a href="https://github.com/hacktivista4445123/ironatlasng" target="_blank" class="btn btn-dark">REPOSITORIO</a>
+
+        <div class="cta-group">
+            <a href="aliados.html" class="btn btn-primary">VERIFICAR ALIADOS TÁCTICOS</a>
+            <a href="https://github.com/hacktivista4445123/ironatlasng" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">REPOSITORIO</a>
         </div>
-    </div>
+    </section>
 </main>
 
-<footer class="bottom-info">
-    <div class="log-stream">LOG: CONNECTION_ESTABLISHED... OK</div>
-    <div class="copyright">IRON ATLAS © 2026</div>
+<footer class="site-footer">
+    <div class="footer-log">
+        <p>:: [LOG] CORE_GATEWAY::CONNECTION_ESTABLISHED::IP_ANONYMIZED::</p>
+    </div>
+    <div class="footer-copy">
+        <p>IRON ATLAS © 2026 | INFRAESTRUCTURA DE SEGURIDAD CRÍTICA</p>
+    </div>
 </footer>
 
 <script src="js/app.js"></script>
