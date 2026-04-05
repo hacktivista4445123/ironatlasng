@@ -3,51 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://files.catbox.moe https://postimg.cc; connect-src 'self';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://files.catbox.moe https://postimg.cc; connect-src 'self'; object-src 'none'; base-uri 'self';">
-    <meta name="referrer" content="no-referrer">
-    <title>IRON ATLAS | Official Gateway</title>
+    <title>♅ IRON ATLAS ♅ | CORE SYSTEM</title>
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="overlay"></div>
+<div class="scanner"></div>
 
-<header class="main-nav">
-    <div class="logo-container">
-        <span class="glitch" data-text="IRON ATLAS">IRON ATLAS</span>
-    </div>
-    <nav class="nav-links">
-        <a href="index.html" class="active">CORE</a>
-        <a href="aliados.html">NETWORK</a>
+<header class="header">
+    <div class="logo">IRON ATLAS <span class="version">v3.0</span></div>
+    <nav class="nav">
+        <a href="index.html" class="active">INICIO</a>
+        <a href="aliados.html">ALIADOS</a>
         <a href="expuestos.html">DATABASE</a>
     </nav>
 </header>
 
-<main class="hero-section">
-    <div class="terminal-box">
-        <div class="status-bar">
-            <span class="dot"></span>
-            <span class="terminal-title">STATION_ID: ATLAS_GATEWAY</span>
+<main class="core-container">
+    <div class="access-box">
+        <h2 class="glitch" data-text="NEW GENERATION">NEW GENERATION</h2>
+        <div class="stats">
+            <p>ENCRYPTION: <span class="active-status">AES-256-GCM / E2EE</span></p>
+            <p>FIREWALL: <span class="active-status">ACTIVE [ANTI-FUZZ]</span></p>
         </div>
-        <div class="content">
-            <h2 class="main-title">NEW GENERATION</h2>
-            <p class="typewriter">SYSTEM STATUS: <span class="secure">ENCRYPTED [E2EE]</span></p>
-            <div class="action-grid">
-                <a href="aliados.html" class="btn-primary">ACCESS NETWORK</a>
-                <a href="https://github.com/hacktivista4445123/ironatlasng" target="_blank" class="btn-secondary">VIEW SOURCE</a>
-            </div>
+        <div class="actions">
+            <a href="aliados.html" class="btn-main">CONEXIÓN RED</a>
+            <a href="expuestos.html" class="btn-sub">VER EXPUESTOS</a>
         </div>
     </div>
 </main>
 
-<footer class="footer-minimal">
-    <div class="security-info">
-        <span>AES-256-GCM ACTIVE</span>
-        <span class="separator">|</span>
-        <span>NO-LOG POLICY</span>
-    </div>
+<footer class="footer">
+    <p>ESTABLISHED 2026 | PROTECTED BY IRON ATLAS INFRASTRUCTURE</p>
 </footer>
 
 <script src="js/app.js"></script>
