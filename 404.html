@@ -1,0 +1,41 @@
+<!-- /404.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>404 FATAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;}
+body{background:#030303;color:#ff0033;font-family:'Share Tech Mono',monospace;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;}
+.box{border:1px solid #ff0033;padding:40px 30px;background:rgba(255,0,51,.05);box-shadow:0 0 30px rgba(255,0,51,.2);max-width:500px;}
+h1{font-size:4rem;margin-bottom:15px;text-shadow:0 0 20px #ff0033;animation:b .1s infinite;}
+@keyframes b{0%,100%{opacity:1;}50%{opacity:.8;}}
+p{font-size:1rem;margin-bottom:15px;line-height:1.6;}
+.warn{color:#888;font-size:.85rem;margin:20px 0;line-height:1.6;}
+a{color:#030303;background:#ff0033;text-decoration:none;padding:12px 25px;display:inline-block;margin-top:15px;font-weight:bold;transition:.3s;font-size:.85rem;}
+a:hover{box-shadow:0 0 20px #ff0033;}
+.ip{font-size:.7rem;color:#333;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>404</h1>
+<p>ENDPOINT NO EXISTE</p>
+<div class="warn">
+¿Intentando fuzzing? ¿Buscando directorios ocultos?<br>
+Qué ridículo. Esta es una infraestructura estática y endurecida.<br>
+Tu IP ha sido registrada y enviada a nuestros operadores.<br>
+Lárgate, rata.
+</div>
+<a href="index.html">VOLVER</a>
+<p class="ip" id="ipInfo">Obteniendo IP...</p>
+</div>
+<script>
+fetch('https://ipinfo.io/json').then(r=>r.json()).then(d=>{
+document.getElementById('ipInfo').textContent=`[IP: ${d.ip||'UKN'} | ${d.city||''}/${d.country||''}]`;
+}).catch(()=>{document.getElementById('ipInfo').textContent='[IP: OCULTA]';});
+</script>
+</body>
+</html>
