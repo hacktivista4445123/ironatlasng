@@ -1,28 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iron Atlas</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://files.catbox.moe https://postimg.cc; connect-src 'self'; object-src 'none'; base-uri 'self';">
+    <meta name="referrer" content="no-referrer">
+    <title>IRON ATLAS | Official Gateway</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<header class="nav">
-  <h1 class="logo">IRON ATLAS</h1>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="aliados.html">Aliados</a>
-    <a href="expuestos.html">Expuestos</a>
-  </nav>
+<div class="overlay"></div>
+
+<header class="main-nav">
+    <div class="logo-container">
+        <span class="glitch" data-text="IRON ATLAS">IRON ATLAS</span>
+    </div>
+    <nav class="nav-links">
+        <a href="index.html" class="active">CORE</a>
+        <a href="aliados.html">NETWORK</a>
+        <a href="expuestos.html">DATABASE</a>
+    </nav>
 </header>
 
-<section class="hero">
-  <h2>New Generation Cybersecurity</h2>
-  <p>Dominio. Inteligencia. Control.</p>
-</section>
+<main class="hero-section">
+    <div class="terminal-box">
+        <div class="status-bar">
+            <span class="dot"></span>
+            <span class="terminal-title">STATION_ID: ATLAS_GATEWAY</span>
+        </div>
+        <div class="content">
+            <h2 class="main-title">NEW GENERATION</h2>
+            <p class="typewriter">SYSTEM STATUS: <span class="secure">ENCRYPTED [E2EE]</span></p>
+            <div class="action-grid">
+                <a href="aliados.html" class="btn-primary">ACCESS NETWORK</a>
+                <a href="https://github.com/hacktivista4445123/ironatlasng" target="_blank" class="btn-secondary">VIEW SOURCE</a>
+            </div>
+        </div>
+    </div>
+</main>
 
+<footer class="footer-minimal">
+    <div class="security-info">
+        <span>AES-256-GCM ACTIVE</span>
+        <span class="separator">|</span>
+        <span>NO-LOG POLICY</span>
+    </div>
+</footer>
+
+<script src="js/app.js"></script>
 </body>
 </html>
