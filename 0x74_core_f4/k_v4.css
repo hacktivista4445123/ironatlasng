@@ -1,1 +1,84 @@
 
+:root {
+    --r: #ff0000;
+    --dr: #440000;
+    --b: #000;
+    --g: #0a0a0a;
+    --c: #00f2ff;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px var(--r); }
+    50% { box-shadow: 0 0 20px var(--r); }
+    100% { box-shadow: 0 0 5px var(--r); }
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.glitch-logo {
+    animation: pulse 3s infinite;
+    transition: 0.5s;
+}
+
+.glitch-logo:hover {
+    animation: glitch 0.2s infinite;
+    filter: brightness(1.5);
+}
+
+.system-gate {
+    background-color: var(--b);
+    color: #666;
+    overflow: hidden;
+}
+
+
+.auth-vault {
+    border: 1px solid #1a1a1a;
+    background: var(--g);
+    position: relative;
+}
+
+.auth-vault::after {
+    content: "UNAUTHORIZED ACCESS IS LOGGED";
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    font-size: 0.5rem;
+    color: #222;
+}
+
+input {
+    background: #000 !important;
+    border: 1px solid #222 !important;
+    color: var(--r) !important;
+    caret-color: var(--c);
+}
+
+.btn-access {
+    border: 1px solid var(--r) !important;
+    color: var(--r) !important;
+    background: transparent;
+    cursor: crosshair;
+}
+
+.btn-access:hover {
+    background: var(--r) !important;
+    color: #fff !important;
+}
+
+
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 2px;
+    z-index: 1000;
+    pointer-events: none;
+}
