@@ -3,214 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <title>MINSALUD - SISTEMA INTEGRADO DE INFORMACIÓN</title>
+    <link rel="stylesheet" href="0x_sys_void/k_v4.css">
     <meta name="robots" content="noindex, nofollow">
-    <title>TERMINAL_ID_NG_4401</title>
-    
-    <style>
-  
-        :root {
-            --red: #ff0000;
-            --dark: #050505;
-            --panel: #0a0a0a;
-            --text-dim: #555;
-            --cyan: #00f2ff;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
-
-        body {
-            background-color: #000;
-            color: var(--text-dim);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-       
-        .scanlines {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 3px; z-index: 1000; pointer-events: none;
-        }
-
-        .noise {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.05; z-index: 999; pointer-events: none;
-        }
-
-        
-        header {
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #111;
-            background: #000;
-        }
-
-        .logo-box { display: flex; align-items: center; gap: 15px; }
-        .main-logo { height: 45px; filter: drop-shadow(0 0 5px var(--red)); }
-        .sys-title { color: #fff; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; }
-
-      
-        main {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .auth-vault {
-            width: 100%;
-            max-width: 420px;
-            background: var(--panel);
-            border: 1px solid #1a1a1a;
-            padding: 40px;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-        }
-
-        .auth-vault::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--red); box-shadow: 0 0 15px var(--red);
-        }
-
-        .term-header { font-size: 0.7rem; color: #333; margin-bottom: 25px; text-align: center; }
-
-        /* FORMULARIO DE ACCESO */
-        .input-group { margin-bottom: 20px; position: relative; }
-        .input-group label { display: block; font-size: 0.6rem; color: #444; margin-bottom: 8px; text-transform: uppercase; }
-        
-        input {
-            width: 100%;
-            background: #000;
-            border: 1px solid #222;
-            padding: 15px;
-            color: var(--red);
-            font-size: 1rem;
-            outline: none;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        input:focus { border-color: var(--red); box-shadow: 0 0 10px rgba(255,0,0,0.1); }
-
-        .btn-access {
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            border: 1px solid var(--red);
-            color: var(--red);
-            font-weight: bold;
-            cursor: pointer;
-            letter-spacing: 2px;
-            transition: 0.4s;
-            text-transform: uppercase;
-        }
-
-        .btn-access:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px var(--red); }
-
- 
-        #denied-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 5000; display: none;
-            flex-direction: column; justify-content: center; align-items: center;
-        }
-        #denied-screen h1 { font-size: 5rem; color: var(--red); margin-bottom: 10px; }
-
-        .hidden { display: none; }
-
-        footer {
-            padding: 15px 40px;
-            font-size: 0.6rem;
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid #111;
-        }
-    </style>
 </head>
-<body>
+<body class="hack-theme">
 
-    <div class="scanlines"></div>
-    <div class="noise"></div>
+<div class="scanlines"></div>
+<div class="noise"></div>
 
-    <header>
-        <div class="logo-box">
-            <img src="https://i.postimg.cc/3kCVbCSY/logo.png" alt="IRON ATLAS" class="main-logo">
-            <span class="sys-title">IRON ATLAS [NG]</span>
-        </div>
-        <div style="font-size: 0.6rem;">NODE_STATUS: <span style="color: var(--cyan);">STABLE</span></div>
-    </header>
+<div id="loader">
+    <p class="blink">INICIALIZANDO PROTOCOLO DE SEGURIDAD E2EE...</p>
+    <div class="progress-bar"><div class="progress"></div></div>
+</div>
 
-    <main>
-        <section class="auth-vault" id="gate">
-            <div class="term-header">// INICIALIZANDO_NODO_DE_AUTENTICACIÓN //</div>
-            
-            <div id="step-1">
-                <div class="input-group">
-                    <label>IDENTIFICADOR_DE_NODO (CORREO)</label>
-                    <input type="email" id="email" placeholder="USER@IRONATLAS.COM" spellcheck="false">
-                </div>
-                <button class="btn-access" onclick="requestOTP()">GENERAR_TOKEN_ACCESO</button>
-            </div>
-
-            <div id="step-2" class="hidden">
-                <div class="input-group">
-                    <label>TOKEN_DE_SEGURIDAD_ENVIADO</label>
-                    <input type="password" id="otp" placeholder="••••••">
-                </div>
-                <button class="btn-access" onclick="verifyOTP()">VALIDAR_ACCESO_ROOT</button>
-            </div>
-        </section>
-    </main>
-
-    <div id="denied-screen">
-        <h1>404</h1>
-        <p style="color: #fff; letter-spacing: 5px;">ACCESS_DENIED</p>
-        <p style="margin-top: 20px; font-size: 0.7rem;">Your IP has been logged and sent to NULLSEC nodes.</p>
-        <button onclick="location.reload()" style="margin-top:30px; background:none; border:1px solid #333; color:#333; padding:10px;">REBOOT</button>
+<header class="top-nav">
+    <div class="brand">
+        <img src="https://i.postimg.cc/3kCVbCSY/logo.png" class="logo-main" alt="IRON ATLAS">
+        <span class="version-tag">NODE_v4.0_COL</span>
     </div>
+    <nav class="links">
+        <a href="#" onclick="showTab('intel')">CENTRO_INTEL</a>
+        <a href="#" onclick="showTab('allies')">NODOS_ALIADOS</a>
+        <a href="#" onclick="showTab('admin')" class="red-glow">ADMIN_ROOT</a>
+    </nav>
+</header>
 
-    <footer>
-        <div>SECURE_TRANSIT: <span style="color: #00ff41;">ENCRYPTED</span></div>
-        <div>IRON ATLAS FOUNDATION © 2026</div>
-    </footer>
+<main class="viewport">
+    
+    <section id="intel" class="tab-content active">
+        <h1 class="glitch" data-text="MINSALUD_BREACH">MINSALUD_BREACH</h1>
+        <div class="intel-box">
+            <p class="status-msg">> ESTADO: <span class="red-text">ACCESO_TOTAL_CONFIRMADO</span></p>
+            <p>> DATA_EXTRACTED: 45.2GB (Registros Médicos, Presupuestos, Contratos)</p>
+            <p>> ORIGEN: Servidores Centrales - Ministerio de Salud de Colombia</p>
+            <div class="terminal-text">
+                "La corrupción en la salud cuesta vidas. Nosotros tenemos las pruebas. No habrá rincón donde esconderse."
+            </div>
+        </div>
+    </section>
 
-    <script>
-       
-        const _K = "O\\NA41:K'rEh7;~'nQ$jC<JKk-:Ip4_$=z0?1Oo-c|>IuAQL";
+    <section id="allies" class="tab-content">
+        <h2 class="section-title">// NODOS_ALIADOS_CONFIRMADOS</h2>
+        <div class="allies-grid">
+            <div class="ally-card">
+                <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Nullsec">
+                <h3>Nullsec Philippines</h3>
+                <a href="https://t.me/nullsechackers" target="_blank" class="btn-connect">CONECTAR_TÚNEL</a>
+            </div>
+            <div class="ally-card">
+                <img src="https://files.catbox.moe/iwurbn.jpg" alt="Purgatory">
+                <h3>𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</h3>
+                <a href="https://t.me/MyWebBackup" target="_blank" class="btn-connect">CONECTAR_TÚNEL</a>
+            </div>
+            <div class="ally-card">
+                <img src="https://i.postimg.cc/3yq9xnnX/jxll.jpg" alt="JXLL">
+                <h3>𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</h3>
+                <a href="https://t.me/zconchita" target="_blank" class="btn-connect">CONECTAR_TÚNEL</a>
+            </div>
+        </div>
+    </section>
 
-        function requestOTP() {
-            const email = document.getElementById('email').value;
-            if(email.includes('@')) {
-               
-                document.getElementById('step-1').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('step-1').classList.add('hidden');
-                    document.getElementById('step-2').classList.remove('hidden');
-                }, 300);
-            } else {
-                alert("ERROR: IDENTIFICADOR INVÁLIDO");
-            }
-        }
+    <section id="admin" class="tab-content">
+        <div class="login-gate">
+            <h3>ROOT_AUTHENTICATION</h3>
+            <p>INGRESE LLAVE MAESTRA CIFRADA</p>
+            <input type="password" id="master-key" placeholder="••••••••••••••••">
+            <button class="btn-auth" onclick="validateRoot()">DESCIFRAR_SISTEMA</button>
+        </div>
+    </section>
 
-        function verifyOTP() {
-            const val = document.getElementById('otp').value;
-            
-          
-            if(val === _K || val === "123456") {
-                alert("ACCESO CONCEDIDO // REDIRIGIENDO AL VAULT");
-               
-                window.location.href = "0x91_vault_z9/auth.html"; 
-            } else {
-              
-                document.getElementById('denied-screen').style.display = 'flex';
-            }
-        }
-    </script>
+</main>
+
+<div id="denied-404" class="hidden">
+    <div class="error-msg">
+        <h1>404</h1>
+        <p>¿Perdido, Script Kiddie?</p>
+        <p class="dim">Tu IP ha sido enviada a los nodos de Nullsec para análisis de estrés.</p>
+        <button onclick="location.reload()">VOLVER A LAS SOMBRAS</button>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="logs">LOG: Connection_Stable | Encryption: AES-256 | Target: MinSalud_CO</div>
+    <div class="brand-footer">IRON ATLAS NG © 2026</div>
+</footer>
+
+<script src="0x_sys_void/e_v4.js"></script>
 </body>
 </html>
