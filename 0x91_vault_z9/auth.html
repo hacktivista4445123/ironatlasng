@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ROOT_PANEL // IRON_ATLAS_NG</title>
+    <link rel="stylesheet" href="../0x74_core_f4/k_v4.css">
+    
+    <script>
 
+        if (!sessionStorage.getItem('IA_AUTH_STATE')) {
+            window.location.href = "../index.html?error=unauthorized_access";
+        }
+    </script>
+
+    <style>
+        .dashboard { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+
+        .sidebar { 
+            background: #050505; 
+            border-right: 1px solid #111; 
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-group { margin-bottom: 40px; }
+        .nav-group h4 { font-size: 0.6rem; color: #333; letter-spacing: 2px; margin-bottom: 15px; border-bottom: 1px solid #111; padding-bottom: 5px; }
+        .nav-item { display: block; color: #666; text-decoration: none; font-size: 0.75rem; padding: 10px 0; transition: 0.3s; }
+        .nav-item:hover { color: var(--r); padding-left: 5px; }
+        .nav-item.active { color: var(--r); border-left: 2px solid var(--r); padding-left: 10px; }
+
+        /* Contenedor de Datos */
+        .content { padding: 40px; background: #000; overflow-y: auto; }
+        .header-main { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid #111; padding-bottom: 20px; }
+        
+        /* Tarjetas de Ratas / Objetivos */
+        .target-card { 
+            background: #080808; 
+            border: 1px solid #111; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            position: relative;
+            transition: 0.3s;
+        }
+        .target-card:hover { border-color: var(--r); background: #0a0000; }
+        .target-header { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .status-tag { font-size: 0.6rem; padding: 2px 8px; border: 1px solid var(--r); color: var(--r); text-transform: uppercase; }
+        
+        .intel-data { font-size: 0.8rem; color: #888; line-height: 1.6; }
+        .intel-data b { color: #ccc; }
+
+        .btn-ops { 
+            background: transparent; border: 1px solid #333; color: #555; 
+            padding: 5px 12px; font-size: 0.65rem; cursor: pointer; margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn-ops:hover { border-color: var(--r); color: var(--r); }
+
+
+        .mini-logo { height: 30px; opacity: 0.5; filter: grayscale(1); }
+    </style>
+</head>
+<body class="system-gate">
+
+<div class="crt-overlay"></div>
+
+<div class="dashboard">
+    <aside class="sidebar">
+        <img src="https://i.postimg.cc/3kCVbCSY/logo.png" style="width: 80%; margin-bottom: 40px; filter: drop-shadow(0 0 10px #f00);">
+        
+        <div class="nav-group">
+            <h4>OPERACIONES</h4>
+            <a href="#" class="nav-item active">> RATAS_DATABASE</a>
+            <a href="#" class="nav-item">> OSINT_SCANNER</a>
+            <a href="#" class="nav-item">> TELEGRAM_BRIDGE</a>
+        </div>
+
+        <div class="nav-group">
+            <h4>SISTEMA</h4>
+            <a href="#" class="nav-item">> LOGS_DE_ACCESO</a>
+            <a href="#" class="nav-item">> CONFIG_CIFRADO</a>
+            <a href="#" onclick="logout()" class="nav-item" style="color: #444;">> DISCONNECT</a>
+        </div>
+    </aside>
+
+    <main class="content">
+        <header class="header-main">
+            <div>
+                <h1 style="color: #fff; font-size: 1.5rem; letter-spacing: 4px;">DATABASE_EXPUESTOS</h1>
+                <p style="font-size: 0.6rem; color: #444;">MOSTRANDO REGISTROS DE ACTIVIDAD HOSTIL DETECTADA</p>
+            </div>
+            <div style="text-align: right;">
+                <div style="color: var(--c); font-size: 0.7rem;">NODO: IANG_MASTER</div>
+                <div style="color: #333; font-size: 0.6rem;">SESIÓN_ID: IA-9941-2026</div>
+            </div>
+        </header>
+
+        <section id="ratas-list">
+            
+            <div class="target-card">
+                <div class="target-header">
+                    <span class="status-tag">EXPUESTO / SCAMMER</span>
+                    <span style="font-size: 0.6rem; color: #333;">HASH: 0xFB8821...</span>
+                </div>
+                <div class="intel-data">
+                    <p><b>ALIAS:</b> <span style="color: var(--r);">Rata_Negra_05</span></p>
+                    <p><b>IP_DETECTADA:</b> 186.120.XX.XX (Colombia, Bogotá)</p>
+                    <p><b>DELITO:</b> Intento de robo de base de datos y suplantación de identidad en Telegram.</p>
+                    <p><b>INFO:</b> Se detectó uso de herramientas automatizadas para fuerza bruta contra el nodo central.</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-ops" onclick="alert('Enviando paquete de saturación...')">BLOQUEAR_IP</button>
+                    <button class="btn-ops">VER_DOX_COMPLETO</button>
+                </div>
+            </div>
+
+            <div class="target-card" style="border-left-color: #333;">
+                <div class="target-header">
+                    <span class="status-tag" style="border-color:#333; color:#333;">PENDIENTE_OSINT</span>
+                </div>
+                <div class="intel-data">
+                    <p><b>ALIAS:</b> Desconocido_Shadow</p>
+                    <p><b>ESTADO:</b> Recopilando metadatos de imágenes y perfiles sociales vinculados.</p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<script>
+    function logout() {
+        sessionStorage.clear();
+        window.location.href = "../index.html";
+    }
+
+    console.log("IRON ATLAS NG: Panel de Control Cargado Satisfactoriamente.");
+</script>
+
+</body>
+</html>
