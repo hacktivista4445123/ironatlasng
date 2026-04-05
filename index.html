@@ -1,25 +1,34 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>IRON ATLAS | Secure Intelligence Portal</title>
-  <meta name="description" content="Iron Atlas secure intelligence portal">
-  <meta name="referrer" content="no-referrer">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.postimg.cc https://files.catbox.moe data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Secure intelligence portal – neon macabre aesthetic">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; 
+                script-src 'self' 'unsafe-inline' https://www.gstatic.com https://ipinfo.io;
+                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                font-src https://fonts.gstatic.com;
+                img-src 'self' https://i.postimg.cc https://files.catbox.moe data:;
+                connect-src 'self' https://ipinfo.io https://*.firebaseio.com https://*.googleapis.com;
+                frame-ancestors 'none';
+                base-uri 'self';
+                form-action 'self'">
   <link rel="stylesheet" href="0x74_core_f4/k_v4.css">
 </head>
-<body class="ia-body">
+<body>
   <canvas id="bg-grid"></canvas>
   <div class="ia-noise"></div>
   <div class="ia-vignette"></div>
-  <div class="ia-loader" id="iaLoader">
+
+  <div id="iaLoader" class="ia-loader">
     <div class="ia-loader-core"></div>
     <div class="ia-loader-ring r1"></div>
     <div class="ia-loader-ring r2"></div>
@@ -29,50 +38,35 @@
 
   <header class="ia-topbar">
     <div class="ia-brand">
-      <img src="assets/logo_ng.png" alt="Iron Atlas" class="ia-logo">
+      <img src="assets/logo_ng.png" alt="Iron Atlas Logo" class="ia-logo">
       <div>
         <div class="ia-brand-name">IRON ATLAS</div>
         <div class="ia-brand-sub">SECURE INTELLIGENCE DIVISION</div>
       </div>
     </div>
     <nav class="ia-nav">
-      <a href="#overview">OVERVIEW</a>
-      <a href="#allies">ALLIES</a>
-      <a href="#network">NETWORK</a>
-      <a href="#access">ACCESS</a>
+      <a href="#overview" class="ia-nav-item">OVERVIEW</a>
+      <a href="#allies" class="ia-nav-item">ALLIES</a>
+      <a href="#network" class="ia-nav-item">NETWORK</a>
+      <a href="#access" class="ia-nav-item">ACCESS</a>
     </nav>
-    <div class="ia-status">
-      <span class="dot"></span>
-      <span>SECURE</span>
-    </div>
+    <div class="ia-status"><span class="dot"></span><span>SECURE</span></div>
   </header>
 
   <main class="ia-main">
     <section class="hero" id="overview">
       <div class="hero-left">
-        <div class="hero-tag">ENTERPRISE THREAT INTELLIGENCE</div>
-        <h1 class="hero-title">
-          <span>IRON</span>
-          <span class="glow">ATLAS</span>
-        </h1>
+        <div class="hero-tagline">ENTERPRISE THREAT INTELLIGENCE</div>
+        <h1 class="hero-title"><span>IRON</span><span class="glow">ATLAS</span></h1>
         <p class="hero-sub" id="typeTarget"></p>
         <div class="hero-actions">
           <a href="#access" class="btn-primary">REQUEST ACCESS</a>
           <a href="#allies" class="btn-secondary">VIEW ALLIES</a>
         </div>
         <div class="hero-metrics">
-          <div class="metric">
-            <span class="metric-num" data-count="24">0</span>
-            <span class="metric-label">ACTIVE NODES</span>
-          </div>
-          <div class="metric">
-            <span class="metric-num" data-count="3">0</span>
-            <span class="metric-label">TRUSTED ALLIES</span>
-          </div>
-          <div class="metric">
-            <span class="metric-num" data-count="99">0</span>
-            <span class="metric-label">SECURITY SCORE</span>
-          </div>
+          <div class="metric"><span class="metric-num" data-count="24">0</span><span class="metric-label">ACTIVE NODES</span></div>
+          <div class="metric"><span class="metric-num" data-count="3">0</span><span class="metric-label">TRUSTED ALLIES</span></div>
+          <div class="metric"><span class="metric-num" data-count="99">0</span><span class="metric-label">SECURITY SCORE</span></div>
         </div>
       </div>
       <div class="hero-right">
@@ -84,69 +78,30 @@
     </section>
 
     <section class="ia-panel-grid">
-      <article class="panel">
-        <div class="panel-head">CORE</div>
-        <h3>SECURE OPERATIONS</h3>
-        <p>Hardened front-end structure, strict policy headers and defensive client controls for a polished public-facing portal.</p>
-      </article>
-      <article class="panel">
-        <div class="panel-head">VISUAL</div>
-        <h3>NEON IDENTITY</h3>
-        <p>High-contrast cyber aesthetic with disciplined spacing, glow hierarchy, terminal elements and premium UI composition.</p>
-      </article>
-      <article class="panel">
-        <div class="panel-head">ACCESS</div>
-        <h3>CONTROLLED ENTRY</h3>
-        <p>Dedicated access gateway and segregated internal section structure for administration and moderation workflows.</p>
-      </article>
+      <article class="panel"><div class="panel-head">CORE</div><h3>SECURE OPERATIONS</h3><p>Hardened front‑end structure with strict policy headers and disciplined client controls.</p></article>
+      <article class="panel"><div class="panel-head">VISUAL</div><h3>NEON IDENTITY</h3><p>High‑contrast cyber aesthetic with disciplined spacing, glow hierarchy, terminal elements and premium UI composition.</p></article>
+      <article class="panel"><div class="panel-head">ACCESS</div><h3>CONTROLLED ENTRY</h3><p>Dedicated entry gateway and segregated internal structure for moderation and workflow.</p></article>
     </section>
 
     <section class="allies-section" id="allies">
-      <div class="section-title-wrap">
-        <span class="section-kicker">TRUSTED CHANNELS</span>
-        <h2>ALLIED NETWORK</h2>
-      </div>
+      <div class="section-title"><span class="section-kicker">TRUSTED CHANNELS</span><h2>ALLIED NETWORK</h2></div>
       <div class="ally-grid">
-        <a class="ally-card" href="https://t.me/nullsechackers" target="_blank" rel="noopener noreferrer">
-          <div class="ally-image-wrap">
-            <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Nullsec Philippines">
-          </div>
-          <div class="ally-body">
-            <h3>NULLSEC PHILIPPINES</h3>
-            <p>Trusted allied signal node</p>
-            <span>OPEN CHANNEL ↗</span>
-          </div>
-        </a>
+        <a href="https://t.me/nullsechackers" target="_blank" rel="noopener noreferrer" class="ally-card">
+          <div class="ally-image-wrap"><img src="assets/nullsec.jpg" alt="Nullsec Philippines"></div>
+          <div class="ally-body"><h3>NULLSEC PHILIPPINES</h3><p>Trusted allied signal node</p><span>OPEN CHANNEL ↗</span></div></a>
 
-        <a class="ally-card" href="https://t.me/MyWebBackup" target="_blank" rel="noopener noreferrer">
-          <div class="ally-image-wrap">
-            <img src="https://files.catbox.moe/iwurbn.jpg" alt="Hack Purgatory">
-          </div>
-          <div class="ally-body">
-            <h3>HACK PURGATORY™</h3>
-            <p>External communications relay</p>
-            <span>OPEN CHANNEL ↗</span>
-          </div>
-        </a>
+        <a href="https://t.me/MyWebBackup" target="_blank" rel="noopener noreferrer" class="ally-card">
+          <div class="ally-image-wrap"><img src="assets/purgatory.jpg" alt="Hack Purgatory"></div>
+          <div class="ally-body"><h3>HACK PURGATORY™</h3><p>External communications relay</p><span>OPEN CHANNEL ↗</span></div></a>
 
-        <a class="ally-card" href="https://t.me/zconchita" target="_blank" rel="noopener noreferrer">
-          <div class="ally-image-wrap">
-            <img src="https://i.postimg.cc/3yq9xnnX/jxll.jpg" alt="Team JXLL">
-          </div>
-          <div class="ally-body">
-            <h3>TEAM JXLL</h3>
-            <p>Strategic partner endpoint</p>
-            <span>OPEN CHANNEL ↗</span>
-          </div>
-        </a>
+        <a href="https://t.me/zconchita" target="_blank" rel="noopener noreferrer" class="ally-card">
+          <div class="ally-image-wrap"><img src="assets/jxll.png" alt="Team JXLL"></div>
+          <div class="ally-body"><h3>TEAM JXLL</h3><p>Strategic partner endpoint</p><span>OPEN CHANNEL ↗</span></div></a>
       </div>
     </section>
 
     <section class="network-section" id="network">
-      <div class="section-title-wrap">
-        <span class="section-kicker">ARCHITECTURE</span>
-        <h2>SECURE NETWORK MAP</h2>
-      </div>
+      <div class="section-title"><span class="section-kicker">ARCHITECTURE</span><h2>SECURE NETWORK MAP</h2></div>
       <div class="network-console">
         <div class="console-head">node@ironatlas:~/network</div>
         <div class="console-body" id="consoleFeed">
@@ -159,33 +114,16 @@
     </section>
 
     <section class="access-section" id="access">
-      <div class="section-title-wrap">
-        <span class="section-kicker">CONTROLLED AREA</span>
-        <h2>ACCESS GATEWAY</h2>
-      </div>
+      <div class="section-title"><span class="section-kicker">CONTROLLED ENTRY</span><h2>ACCESS GATEWAY</h2></div>
       <div class="access-grid">
-        <a class="vault-card" href="0x91_vault_z9/auth.html">
-          <div class="vault-label">VAULT</div>
-          <h3>AUTH PANEL</h3>
-          <p>Moderation and internal access gateway.</p>
-        </a>
-        <a class="vault-card" href="0x74_core_f4/">
-          <div class="vault-label">CORE</div>
-          <h3>SYSTEM LAYER</h3>
-          <p>Protected visual and behavioral assets.</p>
-        </a>
+        <a href="0x91_vault_z9/auth.html" class="vault-card"><div class="vault-label">VAULT</div><h3>AUTH PANEL</h3><p>Moderation and internal access gateway.</p></a>
+        <a href="0x74_core_f4/" class="vault-card"><div class="vault-label">CORE</div><h3>SYSTEM LAYER</h3><p>Protected visual and behavioral assets.</p></a>
       </div>
     </section>
   </main>
 
   <footer class="ia-footer">
-    <div class="ticker">
-      <span>IRON ATLAS</span>
-      <span>SECURE NODE ACTIVE</span>
-      <span>PUBLIC SURFACE HARDENED</span>
-      <span>ALLY LINKS VERIFIED</span>
-      <span>CONTROLLED ACCESS ENABLED</span>
-    </div>
+    <div class="ticker">IRON ATLAS • SECURE NODE ACTIVE • PUBLIC SURFACE HARDENED • ALLY LINKS VERIFIED • CONTROLLED ACCESS ENABLED</div>
   </footer>
 
   <script src="0x74_core_f4/e_v4.js"></script>
