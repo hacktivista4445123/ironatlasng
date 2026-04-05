@@ -1,84 +1,45 @@
+:root { --blood: #880000; --pure-red: #ff0000; --bg: #030303; }
 
-:root {
-    --r: #ff0000;
-    --dr: #440000;
-    --b: #000;
-    --g: #0a0a0a;
-    --c: #00f2ff;
+body { background: var(--bg); color: #777; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+
+.blood-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 60%, rgba(136, 0, 0, 0.2) 100%);
+    z-index: 10; pointer-events: none;
 }
 
-@keyframes pulse {
-    0% { box-shadow: 0 0 5px var(--r); }
-    50% { box-shadow: 0 0 20px var(--r); }
-    100% { box-shadow: 0 0 5px var(--r); }
+.glitch-scanner {
+    position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+    background: var(--pure-red); box-shadow: 0 0 15px var(--pure-red);
+    z-index: 100; animation: scan 4s linear infinite;
 }
 
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
+.dead-title {
+    color: #fff; text-shadow: 0 0 10px var(--pure-red);
+    font-size: 1.8rem; text-align: center; margin-bottom: 30px;
+    animation: flicker 0.1s infinite;
 }
 
-.glitch-logo {
-    animation: pulse 3s infinite;
-    transition: 0.5s;
+.terminal-container {
+    max-width: 900px; margin: 50px auto; background: #000;
+    border: 1px solid #1a1a1a; padding: 2px; box-shadow: 0 0 50px rgba(0,0,0,1);
 }
 
-.glitch-logo:hover {
-    animation: glitch 0.2s infinite;
-    filter: brightness(1.5);
+.term-header { background: #111; color: #444; padding: 5px 15px; font-size: 0.7rem; }
+.term-body { padding: 40px; border: 1px solid #0a0a0a; }
+
+.btn-void {
+    display: block; border: 1px solid var(--blood); color: var(--blood);
+    text-decoration: none; padding: 15px; text-align: center;
+    font-weight: bold; margin-bottom: 10px; transition: 0.3s;
 }
 
-.system-gate {
-    background-color: var(--b);
-    color: #666;
-    overflow: hidden;
-}
+.btn-void:hover { background: var(--blood); color: #fff; box-shadow: 0 0 20px var(--pure-red); }
 
+.ally-void { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+.ally-node img { width: 60px; height: 60px; filter: grayscale(1) contrast(1.5); border: 1px solid #222; }
+.ally-node a { display: block; font-size: 0.6rem; color: #333; text-decoration: none; text-align: center; margin-top: 5px; }
+.ally-node:hover img { filter: grayscale(0); border-color: var(--pure-red); }
 
-.auth-vault {
-    border: 1px solid #1a1a1a;
-    background: var(--g);
-    position: relative;
-}
-
-.auth-vault::after {
-    content: "UNAUTHORIZED ACCESS IS LOGGED";
-    position: absolute;
-    bottom: -20px;
-    right: 0;
-    font-size: 0.5rem;
-    color: #222;
-}
-
-input {
-    background: #000 !important;
-    border: 1px solid #222 !important;
-    color: var(--r) !important;
-    caret-color: var(--c);
-}
-
-.btn-access {
-    border: 1px solid var(--r) !important;
-    color: var(--r) !important;
-    background: transparent;
-    cursor: crosshair;
-}
-
-.btn-access:hover {
-    background: var(--r) !important;
-    color: #fff !important;
-}
-
-
-.crt-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-    background-size: 100% 2px;
-    z-index: 1000;
-    pointer-events: none;
-}
+@keyframes scan { 0% { top: -5%; } 100% { top: 105%; } }
+@keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 0.9; } }
