@@ -1,68 +1,150 @@
+<!-- /0x91_vault_z9/auth.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IRON ATLAS | Auth Gateway</title>
-  <meta name="referrer" content="no-referrer">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../0x74_core_f4/k_v4.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>IA VAULT</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030303;--red:#ff0033;--cyan:#00f0ff;--text:#e8e8e8;--dim:#777;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:radial-gradient(circle at center,#1a0005 0%,var(--bg) 100%);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.crt{position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0px,transparent 1px,transparent 2px,rgba(0,0,0,.15) 3px);pointer-events:none;z-index:9999;opacity:.03;}
+.auth-box,.panel-box{background:rgba(5,5,5,.95);border:1px solid var(--red);width:100%;max-width:450px;box-shadow:0 0 40px rgba(255,0,51,.25);}
+.panel-box{max-width:1000px;display:none;}
+.auth-header,.panel-header{background:rgba(102,0,21,.8);color:#fff;font-family:'Share Tech Mono',monospace;padding:12px 20px;text-align:center;letter-spacing:3px;font-size:.85rem;border-bottom:1px solid var(--red);}
+.panel-header{display:flex;justify-content:space-between;align-items:center;}
+.auth-body{padding:35px 25px;text-align:center;}
+.auth-msg{font-family:'Share Tech Mono',monospace;color:var(--dim);margin-bottom:25px;letter-spacing:2px;font-size:.9rem;}
+.auth-input{width:100%;background:#000;border:1px solid rgba(255,0,51,.3);color:var(--red);padding:15px;font-family:'Share Tech Mono',monospace;text-align:center;outline:none;margin-bottom:20px;transition:.3s;font-size:.9rem;}
+.auth-input:focus{border-color:var(--red);box-shadow:0 0 15px rgba(255,0,51,.3);}
+.btn{font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;padding:14px 28px;border:none;cursor:pointer;transition:all .3s;background:var(--red);color:#fff;width:100%;box-shadow:0 0 15px rgba(255,0,51,.4);}
+.btn:hover{background:#fff;color:var(--red);box-shadow:0 0 25px var(--red);}
+.auth-err{color:var(--red);font-family:'Share Tech Mono',monospace;font-size:.75rem;margin-top:15px;min-height:20px;}
+.btn-sm{padding:10px 20px;font-size:.7rem;width:auto;background:transparent;border:1px solid var(--cyan);color:var(--cyan);}
+.btn-sm:hover{background:var(--cyan);color:#000;}
+.panel-body{padding:30px 25px;}
+.panel-controls{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;margin-bottom:30px;}
+.panel-input{background:#000;border:1px solid #333;color:var(--text);padding:12px;font-family:'Rajdhani',sans-serif;outline:none;font-size:.9rem;}
+.panel-input:focus{border-color:var(--cyan);}
+.rats-list{border:1px solid #222;}
+.rat-item{display:grid;grid-template-columns:1fr 1fr 1.2fr auto;gap:12px;padding:15px;border-bottom:1px solid #111;align-items:center;background:rgba(255,255,255,.02);font-size:.9rem;}
+.rat-item:hover{background:rgba(0,240,255,.05);}
+.rat-del{background:transparent;border:none;color:var(--red);cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:1.1rem;}
+@media(max-width:900px){
+.panel-controls{grid-template-columns:1fr;gap:10px;}
+.panel-controls .btn{width:100%;}
+.rat-item{grid-template-columns:1fr;gap:8px;font-size:.85rem;}
+.rat-del{text-align:right;}
+.panel-body{padding:20px 15px;}
+}
+</style>
 </head>
 <body>
-  <div class="auth-shell">
-    <div class="auth-panel">
-      <div class="auth-top">
-        <img src="../assets/logo_ng.png" alt="Iron Atlas">
-        <div>
-          <h1>AUTH GATEWAY</h1>
-          <p>CONTROLLED ENTRY NODE</p>
-        </div>
-      </div>
-      <div class="sec-row">
-        <input id="user" class="sec-input" type="text" placeholder="IDENTIFIER" autocomplete="off">
-      </div>
-      <div class="sec-row">
-        <input id="pass" class="sec-input" type="password" placeholder="PASSPHRASE" autocomplete="off">
-      </div>
-      <button id="enter" class="sec-btn">VERIFY ACCESS</button>
-      <div class="sec-msg" id="msg"></div>
-    </div>
-  </div>
+<div class="crt"></div>
 
-  <script>
-    (() => {
-      const enter = document.getElementById('enter')
-      const msg = document.getElementById('msg')
-      const user = document.getElementById('user')
-      const pass = document.getElementById('pass')
-      const adminUserHash = '6ee7b6991c58d35f211574b40b13a57dac04a2fc3b376997c8676f3bdaebefe4'
-      const adminPassHash = 'c6d30ab0202f4f8a4514bf0cbaf6638f4bf73a1d8f6f1911091cf07bba468e25'
-      const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('')
-      const sha = async t => hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))
-      const verify = async () => {
-        msg.textContent = 'VALIDATING...'
-        const uh = await sha(user.value.trim())
-        const ph = await sha(pass.value)
-        if (uh === adminUserHash && ph === adminPassHash) {
-          sessionStorage.setItem('ia_gate', 'ok')
-          msg.style.color = '#4dffb8'
-          msg.textContent = 'ACCESS GRANTED'
-        } else {
-          msg.style.color = '#ff9ab8'
-          msg.textContent = 'ACCESS DENIED'
-        }
-      }
-      enter.addEventListener('click', verify)
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Enter') verify()
-      })
-      document.addEventListener('contextmenu', e => e.preventDefault())
-    })()
-  </script>
+<div class="auth-box" id="authBox">
+<div class="auth-header">RESTRICTED ACCESS</div>
+<div class="auth-body">
+<p class="auth-msg">PANEL DE ADMINISTRACIÓN</p>
+<input type="password" id="passInput" class="auth-input" placeholder="ENTER MASTER KEY" autocomplete="off" spellcheck="false">
+<button id="authBtn" class="btn">DECRYPT</button>
+<p id="authErr" class="auth-err"></p>
+</div>
+</div>
+
+<div class="panel-box" id="panelBox">
+<div class="panel-header">
+<h2 style="font-size:1rem;letter-spacing:2px;font-family:'Orbitron',sans-serif;color:var(--cyan);">REGISTRO DE RATAS - MINSALUD</h2>
+<button id="exitBtn" class="btn btn-sm">SALIR</button>
+</div>
+<div class="panel-body">
+<div class="panel-controls">
+<input type="text" id="ratName" class="panel-input" placeholder="Nombre completo">
+<input type="text" id="ratPos" class="panel-input" placeholder="Cargo / Entidad">
+<input type="text" id="ratData" class="panel-input" placeholder="Monto / Evidencia">
+<button id="addRat" class="btn">AÑADIR</button>
+</div>
+<div class="rats-list" id="ratsList"></div>
+</div>
+</div>
+
+<script>
+(function(){
+var t="O\\NA41:K'rEh7;~'n`Q$jC<JKk-:Ip4_$=`z0?1Oo-c|>IuAQL";
+var h="";
+async function sha(s){
+var b=new TextEncoder().encode(s);
+var d=await crypto.subtle.digest("SHA-256",b);
+return Array.from(new Uint8Array(d)).map(v=>v.toString(16).padStart(2,"0")).join("");
+}
+sha(t).then(r=>{h=r;});
+var aB=document.getElementById("authBox");
+var pB=document.getElementById("panelBox");
+var pI=document.getElementById("passInput");
+var aBtn=document.getElementById("authBtn");
+var aErr=document.getElementById("authErr");
+var eBtn=document.getElementById("exitBtn");
+var rN=document.getElementById("ratName");
+var rP=document.getElementById("ratPos");
+var rD=document.getElementById("ratData");
+var aR=document.getElementById("addRat");
+var rL=document.getElementById("ratsList");
+function render(){
+var rats=JSON.parse(localStorage.getItem("ia_rats")||"[]");
+rL.innerHTML="";
+if(rats.length===0){
+rL.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim);font-family:\'Share Tech Mono\',monospace;font-size:.85rem;">Sin registros. Añade la primera rata.</div>';
+return;
+}
+rats.forEach((r,i)=>{
+var d=document.createElement("div");
+d.className="rat-item";
+d.innerHTML=`<div><strong style="color:var(--red);">NOMBRE:</strong> ${r.n}</div><div><strong style="color:var(--red);">CARGO:</strong> ${r.p}</div><div><strong style="color:var(--red);">EVIDENCIA:</strong> ${r.d}</div><button class="rat-del" data-i="${i}">✕</button>`;
+rL.appendChild(d);
+});
+document.querySelectorAll(".rat-del").forEach(b=>{
+b.onclick=function(){
+var idx=this.getAttribute("data-i");
+rats.splice(idx,1);
+localStorage.setItem("ia_rats",JSON.stringify(rats));
+render();
+};
+});
+}
+aBtn.onclick=async function(){
+var v=pI.value;
+var c=await sha(v);
+if(c===h){
+aB.style.display="none";
+pB.style.display="block";
+pI.value="";
+render();
+}else{
+aErr.textContent="ACCESO DENEGADO. INTENTO REGISTRADO.";
+pI.value="";
+setTimeout(()=>{aErr.textContent="";},3000);
+}
+};
+pI.onkeydown=e=>{if(e.key==="Enter")aBtn.click();};
+eBtn.onclick=function(){
+pB.style.display="none";
+aB.style.display="block";
+};
+aR.onclick=function(){
+var n=rN.value.trim();
+var p=rP.value.trim();
+var d=rD.value.trim();
+if(!n||!p||!d){alert("TODOS LOS CAMPOS SON OBLIGATORIOS");return;}
+var rats=JSON.parse(localStorage.getItem("ia_rats")||"[]");
+rats.push({n:n,p:p,d:d});
+localStorage.setItem("ia_rats",JSON.stringify(rats));
+rN.value="";rP.value="";rD.value="";
+render();
+};
+})();
+</script>
 </body>
 </html>
