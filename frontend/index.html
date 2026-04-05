@@ -1,205 +1,256 @@
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Iron Atlas Foundation">
-    <meta name="description" content="Proprietary Offensive Intelligence System">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://i.postimg.cc https://files.catbox.moe https://postimg.cc; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+    <title>♅ IRON ATLAS | NEW GENERATION ♅</title>
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://files.catbox.moe https://postimg.cc https://i.postimg.cc;">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
-    
-    <title>SYSTEM_ROOT // IRON_ATLAS</title>
-    <link rel="stylesheet" href="css/style.css?v=6.6.6">
+    <style>
+        /* CSS INTEGRADO PARA EVITAR FALLOS DE RUTA EN GITHUB */
+        :root {
+            --bg: #020202;
+            --red: #ff0000;
+            --dark-red: #660000;
+            --cyan: #00f2ff;
+            --gray: #121212;
+            --text: #a0a0a0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* CAPAS DE AMBIENTACIÓN */
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            background-size: 100% 4px; z-index: 100; pointer-events: none;
+        }
+
+        .vignette {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, black 150%);
+            z-index: 101; pointer-events: none;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #1a1a1a;
+            background: #000;
+            z-index: 200;
+        }
+
+        .logo-box { display: flex; align-items: center; gap: 15px; }
+        .main-logo { height: 50px; filter: drop-shadow(0 0 5px var(--red)); }
+        .brand-name { color: #fff; font-weight: bold; letter-spacing: 3px; font-size: 1.2rem; }
+
+        nav a {
+            color: #555; text-decoration: none; margin-left: 20px;
+            font-size: 0.8rem; transition: 0.3s; font-weight: bold;
+        }
+
+        nav a:hover, nav a.active { color: var(--red); text-shadow: 0 0 10px var(--red); }
+
+        /* SECCIONES */
+        .container { flex-grow: 1; padding: 60px 40px; z-index: 150; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HERO AREA */
+        .hero { text-align: center; margin-bottom: 80px; }
+        .glitch { font-size: 4.5rem; color: #fff; letter-spacing: 15px; position: relative; }
+        .status-bar { margin: 20px 0; font-size: 0.9rem; color: #00ff41; text-shadow: 0 0 5px #00ff41; }
+
+        /* GRID DE ALIADOS */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 40px; }
+        .card { background: #080808; border: 1px solid #1a1a1a; padding: 20px; text-align: center; transition: 0.3s; }
+        .card:hover { border-color: var(--red); transform: translateY(-5px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; filter: grayscale(1); margin-bottom: 15px; border: 1px solid #222; }
+        .card:hover img { filter: grayscale(0); }
+        .card h4 { color: #fff; margin-bottom: 10px; }
+        .btn-link { display: inline-block; padding: 8px 15px; border: 1px solid var(--red); color: var(--red); text-decoration: none; font-size: 0.7rem; }
+
+        /* SECCIÓN RATAS (EXPUESTOS) */
+        .ratas-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #050505; }
+        .ratas-table th { background: #000; color: var(--red); padding: 15px; text-align: left; border-bottom: 2px solid var(--red); }
+        .ratas-table td { padding: 15px; border-bottom: 1px solid #111; font-size: 0.85rem; }
+        .red-text { color: var(--red); font-weight: bold; }
+
+        /* PANEL DE LOGIN / VAULT */
+        .vault-box { max-width: 500px; margin: 40px auto; background: #000; border: 1px solid var(--red); padding: 40px; text-align: center; box-shadow: 0 0 30px rgba(255,0,0,0.1); }
+        .vault-box input { width: 100%; padding: 15px; background: #111; border: 1px solid #333; color: #fff; margin: 20px 0; text-align: center; }
+        .btn-auth { width: 100%; padding: 15px; background: var(--red); color: #fff; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-auth:hover { background: var(--dark-red); box-shadow: 0 0 15px var(--red); }
+
+        .hidden { display: none; }
+        .directory { text-align: left; margin-top: 30px; border-top: 1px dashed #333; padding-top: 20px; }
+        .directory li { list-style: none; padding: 8px 0; font-size: 0.9rem; }
+
+        /* FOOTER */
+        footer { padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; font-size: 0.7rem; color: #444; }
+
+        /* 404 OVERLAY */
+        #error-404 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        #error-404 h1 { font-size: 6rem; color: var(--red); }
+    </style>
 </head>
-<body class="terminal-theme">
+<body>
 
-    <div class="noise"></div>
-    <div class="vhs-overlay"></div>
-    <div class="scanline"></div>
+<div class="scanlines"></div>
+<div class="vignette"></div>
 
-    <header class="sys-nav">
-        <div class="nav-container">
-            <div class="sys-id">
-                <span class="blink">●</span> ATLAS_OS <span class="dim">[v4.0.1_STABLE]</span>
+<header>
+    <div class="logo-box">
+        <img src="https://i.postimg.cc/3kCVbCSY/logo.png" alt="IRON ATLAS LOGO" class="main-logo">
+        <span class="brand-name">IRON ATLAS</span>
+    </div>
+    <nav>
+        <a href="#" onclick="showTab('main')" class="nav-item active" id="nav-main">CORE_SYSTEM</a>
+        <a href="#" onclick="showTab('allies')" class="nav-item" id="nav-allies">NODOS_ALIADOS</a>
+        <a href="#" onclick="showTab('dox')" class="nav-item" id="nav-dox">RATAS_DB</a>
+        <a href="#" onclick="showTab('vault')" class="nav-item" id="nav-vault">VAULT_ACCESS</a>
+    </nav>
+</header>
+
+<div class="container">
+    
+    <section id="main" class="tab-content active">
+        <div class="hero">
+            <h1 class="glitch">DOMINIO ASIMÉTRICO</h1>
+            <p class="status-bar">PROTECCIÓN E2EE NIVEL 7 ACTIVADA // IP_ENCRYPTED</p>
+            <div style="max-width: 700px; margin: 0 auto; text-align: justify; line-height: 1.8;">
+                <p>Bienvenido al núcleo de <strong>Iron Atlas New Generation</strong>. Operamos como una entidad de hacktivismo estratégico, enfocada en la desarticulación de redes de corrupción y la exposición táctica de actores maliciosos. Nuestra infraestructura está optimizada para la resiliencia total y la ofuscación de huellas digitales.</p>
             </div>
-            <nav class="ops-menu">
-                <button onclick="switchTab('core')" class="tab-link active">MAIN_CORE</button>
-                <button onclick="switchTab('nodos')" class="tab-link">NODOS_RED</button>
-                <button onclick="switchTab('expuestos')" class="tab-link">RATAS_DB</button>
-                <button onclick="switchTab('foro')" class="tab-link">FORO_INTEL</button>
-                <button onclick="openAdmin()" class="admin-access">ADMIN_ROOT</button>
-            </nav>
         </div>
-    </header>
+    </section>
 
-    <main class="viewport">
+    <section id="allies" class="tab-content">
+        <h2 style="color: #fff; margin-bottom: 30px;">// RED DE OPERACIONES CONJUNTAS</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://i.postimg.cc/mPCTw51J/image.jpg" alt="Nullsec">
+                <h4>Nullsec Philippines</h4>
+                <a href="https://t.me/nullsechackers" class="btn-link">ESTABLECER TUNEL</a>
+            </div>
+            <div class="card">
+                <img src="https://files.catbox.moe/iwurbn.jpg" alt="Purgatory">
+                <h4>HACK [PURGATORY]™</h4>
+                <a href="https://t.me/MyWebBackup" class="btn-link">CONECTAR BACKUP</a>
+            </div>
+            <div class="card">
+                <img src="https://i.postimg.cc/3yq9xnnX/image.jpg" alt="JXLL">
+                <h4>TEAM JXLL</h4>
+                <a href="https://t.me/zconchita" class="btn-link">ORDEN OPERATIVA</a>
+            </div>
+        </div>
+    </section>
 
-        <section id="core" class="tab-content active">
-            <div class="glitch-box">
-                <h1 class="main-title" data-text="IRON ATLAS">IRON ATLAS</h1>
-                <h2 class="sub-title">HACKTIVISMO E INTELIGENCIA OFENSIVA</h2>
-            </div>
-            
-            <div class="intel-block">
-                <div class="block-header">// MANIFIESTO_SISTEMICO</div>
-                <div class="block-body">
-                    <p>Iron Atlas no es un proveedor, es una coalición. En un mundo infectado por la corrupción sistémica y la impunidad digital, nosotros operamos como el cirujano táctico. Nuestra infraestructura está diseñada para la exposición de ratas y la protección de la verdad cifrada.</p>
-                    <p>Todo puerto en este nodo está lógicamente cerrado. Cada interacción es filtrada por un firewall de comportamiento asimétrico. Si estás viendo esto, tu firma de red ha sido indexada bajo el protocolo <strong>Zero-Knowledge</strong>.</p>
-                </div>
-            </div>
+    <section id="dox" class="tab-content">
+        <h2 style="color: var(--red); margin-bottom: 20px;">INDEX_RATAS_EXPUERTAS</h2>
+        <table class="ratas-table">
+            <thead>
+                <tr>
+                    <th>IDENTIDAD / ALIAS</th>
+                    <th>DETECCIÓN_IP</th>
+                    <th>VÍNCULO / DELITO</th>
+                    <th>DATA_HASH</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="red-text">TARGET_ALPHA_01</td>
+                    <td>190.12.xxx.xx</td>
+                    <td>CORRUPCIÓN ESTATAL</td>
+                    <td><span style="font-size: 0.6rem;">8f3d...a21e</span></td>
+                </tr>
+                <tr>
+                    <td class="red-text">SCAMMER_COL_X</td>
+                    <td>181.45.xxx.xx</td>
+                    <td>ESTAFA CRIPTO / PHISHING</td>
+                    <td><span style="font-size: 0.6rem;">4c11...fb90</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-            <div class="security-grid">
-                <div class="stat-card">
-                    <span class="label">ENCRYPT_ENGINE</span>
-                    <span class="val">AES-256-GCM / RSA-4096</span>
-                </div>
-                <div class="stat-card">
-                    <span class="label">IP_TRACKING</span>
-                    <span class="val green">ENABLED [HONEYPOT_ACTIVE]</span>
-                </div>
-            </div>
-        </section>
+    <section id="vault" class="tab-content">
+        <div class="vault-box">
+            <img src="https://i.postimg.cc/3kCVbCSY/logo.png" style="height: 40px; margin-bottom: 20px;">
+            <h3>ROOT_AUTHENTICATION</h3>
+            <p style="font-size: 0.7rem; color: #444; margin-top: 10px;">Llave requerida para el directorio de usuarios</p>
+            <input type="password" id="accessKey" placeholder="INGRESE CLAVE MAESTRA">
+            <button class="btn-auth" onclick="unlockVault()">DESCIFRAR DIRECTORIO</button>
 
-        <section id="nodos" class="tab-content">
-            <h2 class="section-head">RED DE ALIANZA ESTRATÉGICA</h2>
-            <div class="nodes-grid">
-                <article class="node-card">
-                    <div class="node-img" style="background-image: url('https://i.postimg.cc/mPCTw51J/image.jpg');"></div>
-                    <div class="node-info">
-                        <h3>Nullsec Philippines</h3>
-                        <p>Inteligencia de red y contramedidas tácticas.</p>
-                        <a href="https://t.me/nullsechackers" target="_blank" class="node-btn">ESTABLECER TUNEL</a>
-                    </div>
-                </article>
-                <article class="node-card">
-                    <div class="node-img" style="background-image: url('https://files.catbox.moe/iwurbn.jpg');"></div>
-                    <div class="node-info">
-                        <h3>𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</h3>
-                        <p>Almacenamiento redundante y backup de bases críticas.</p>
-                        <a href="https://t.me/MyWebBackup" target="_blank" class="node-btn">RESCATAR DATA</a>
-                    </div>
-                </article>
-                <article class="node-card">
-                    <div class="node-img" style="background-image: url('https://i.postimg.cc/3yq9xnnX/image.jpg');"></div>
-                    <div class="node-info">
-                        <h3>𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</h3>
-                        <p>Operaciones conjuntas y despliegue de payloads.</p>
-                        <a href="https://t.me/zconchita" target="_blank" class="node-btn">CONTACTO JXLL</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section id="expuestos" class="tab-content">
-            <div class="dox-header">
-                <h2 class="red-title">BASE DE DATOS DE RATAS EXPUESAS</h2>
-                <p>Información recolectada mediante ingeniería social, OSINT y filtraciones directas.</p>
-            </div>
-            
-            <div class="dox-table-wrapper">
-                <table class="dox-table">
-                    <thead>
-                        <tr>
-                            <th>IDENTIDAD / ALIAS</th>
-                            <th>ULTIMA IP DETECTADA</th>
-                            <th>DELITO / MOTIVO</th>
-                            <th>EVIDENCIA_HASH</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ratas-list">
-                        <tr>
-                            <td class="red">Muestra_Rata_01</td>
-                            <td>182.xx.xxx.xx</td>
-                            <td>CORRUPCIÓN / ESTAFA</td>
-                            <td><button class="view-btn">DESCIFRAR_DATA</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="foro" class="tab-content">
-            <div class="forum-container">
-                <div class="forum-sidebar">
-                    <h3>CANALES_INTEL</h3>
+            <div id="userDirectory" class="hidden">
+                <div class="directory">
+                    <h4 style="color: var(--red); margin-bottom: 15px;">DIRECTORIO DE USUARIOS AUTORIZADOS</h4>
                     <ul>
-                        <li class="active">#General_Ops</li>
-                        <li>#Exploits_ZeroDay</li>
-                        <li>#Corrupcion_Politica</li>
+                        <li><span class="red-text">[FOUNDER]</span> ATLAS_ROOT_01 - <span style="color: #00ff41;">ONLINE</span></li>
+                        <li><span class="red-text">[ADMIN]</span> SEC_OPERATOR_05 - <span style="color: #00ff41;">ACTIVE</span></li>
+                        <li><span class="red-text">[INTEL]</span> GHOST_UNIT_09 - <span style="color: #444;">IDLE</span></li>
                     </ul>
-                </div>
-                <div class="forum-main">
-                    <div class="chat-log" id="chat-log">
-                        <div class="msg"><span class="user">[Admin_Atlas]:</span> Sistema de foro inicializado. Todo mensaje es borrado cada 24h.</div>
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" placeholder="Escribir mensaje cifrado..." id="msg-input">
-                        <button onclick="sendMsg()">ENVIAR</button>
+                    <div style="margin-top: 20px;">
+                        <button class="btn-auth" style="background: #111; border: 1px solid #333;">BLOQUEAR IPS ATACANTES</button>
                     </div>
                 </div>
             </div>
-        </section>
-
-    </main>
-
-    <div id="adminModal" class="modal">
-        <div class="modal-content">
-            <h3>ROOT_ACCESS_REQUIRED</h3>
-            <p class="dim">Ingrese llave de acceso de nivel 7</p>
-            <input type="password" id="adminPass" placeholder="PASSWORD_HASH">
-            <div class="modal-btns">
-                <button onclick="validateAdmin()" class="btn-auth">AUTENTICAR</button>
-                <button onclick="closeAdmin()" class="btn-close">ABORTAR</button>
-            </div>
         </div>
-    </div>
+    </section>
 
-    <div id="fake404" class="hidden-404">
-        <div class="error-msg">
-            <h1>404 - ACCESS_DENIED</h1>
-            <p>Nice try, script kiddie. Your IP has been logged and sent to the local nodes.</p>
-            <p>Tracing connection... 12%... 45%... 89%...</p>
-            <button onclick="hide404()">RETURN_TO_SHADOWS</button>
-        </div>
-    </div>
+</div>
 
-    <footer class="sys-footer">
-        <div class="footer-left">
-            SERVER_LOCATION: <span class="cyan">UNDISCLOSED_VAULT</span>
-        </div>
-        <div class="footer-right">
-            IRON ATLAS © 2026 | NO LOGS. NO MERCY.
-        </div>
-    </footer>
+<div id="error-404">
+    <h1>404</h1>
+    <p style="color: #fff; letter-spacing: 5px;">ACCESS_DENIED</p>
+    <p style="color: #444; margin-top: 20px;">Tracing connection... Trace route sent to Nullsec nodes.<br>IP_LOGGED: 192.168.0.x (Simulated)</p>
+    <button onclick="close404()" style="margin-top: 40px; padding: 10px 20px; background: var(--red); border: none; color: #fff; cursor: pointer;">RETURN TO SHADOWS</button>
+</div>
 
-    <script>
-        // La contraseña se maneja como un hash o string directo para el ejemplo
-        const SECRET_KEY = "O\\NA41:K'rEh7;~'nQ$jC<JKk-:Ip4_$=z0?1Oo-c|>IuAQL";
+<footer>
+    <div>SYSTEM_LOG: CONNECTION_ENCRYPTED // NO_LOGS_SAVED</div>
+    <div>IRON ATLAS © 2026 | INFRAESTRUCTURA DE SEGURIDAD CRÍTICA</div>
+</footer>
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+<script>
+    const MASTER_KEY = "O\\NA41:K'rEh7;~'nQ$jC<JKk-:Ip4_$=z0?1Oo-c|>IuAQL";
+
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        document.getElementById('nav-' + tabId).classList.add('active');
+    }
+
+    function unlockVault() {
+        const input = document.getElementById('accessKey').value;
+        if(input === MASTER_KEY) {
+            document.getElementById('userDirectory').classList.remove('hidden');
+            alert("NIVEL 7: ACCESO AL DIRECTORIO CONCEDIDO");
+        } else {
+            document.getElementById('error-404').style.display = 'flex';
         }
+    }
 
-        function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
-
-        function validateAdmin() {
-            const pass = document.getElementById('adminPass').value;
-            if(pass === SECRET_KEY) {
-                alert("ACCESS_GRANTED: Bienvenido Founder.");
-                // Aquí podrías habilitar el panel de bloqueo de IP
-            } else {
-                document.getElementById('fake404').classList.add('show');
-            }
-        }
-
-        function hide404() { document.getElementById('fake404').classList.remove('show'); }
-    </script>
+    function close404() {
+        document.getElementById('error-404').style.display = 'none';
+        document.getElementById('accessKey').value = "";
+    }
+</script>
 
 </body>
 </html>
