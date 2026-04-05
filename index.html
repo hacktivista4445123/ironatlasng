@@ -1,73 +1,193 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DISECCIÓN SISTEMA MINSALUD COLOMBIA">
-    <title>IRON ATLAS [NG] | EXHUMACIÓN_MINSALUD</title>
-    <link rel="stylesheet" href="0x74_core_f4/k_v4.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRON ATLAS | Secure Intelligence Portal</title>
+  <meta name="description" content="Iron Atlas secure intelligence portal">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.postimg.cc https://files.catbox.moe data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="0x74_core_f4/k_v4.css">
 </head>
-<body class="dead-node">
+<body class="ia-body">
+  <canvas id="bg-grid"></canvas>
+  <div class="ia-noise"></div>
+  <div class="ia-vignette"></div>
+  <div class="ia-loader" id="iaLoader">
+    <div class="ia-loader-core"></div>
+    <div class="ia-loader-ring r1"></div>
+    <div class="ia-loader-ring r2"></div>
+    <div class="ia-loader-ring r3"></div>
+    <div class="ia-loader-text">INITIALIZING SECURE NODE</div>
+  </div>
 
-<div class="blood-overlay"></div>
-<div class="glitch-scanner"></div>
-
-<header class="top-bar">
-    <div class="id-brand">
-        <img src="https://i.postimg.cc/3kCVbCSY/logo.png" class="atlas-logo">
-        <div class="org-name">IRON ATLAS NEW GENERATION</div>
+  <header class="ia-topbar">
+    <div class="ia-brand">
+      <img src="assets/logo_ng.png" alt="Iron Atlas" class="ia-logo">
+      <div>
+        <div class="ia-brand-name">IRON ATLAS</div>
+        <div class="ia-brand-sub">SECURE INTELLIGENCE DIVISION</div>
+      </div>
     </div>
-    <div class="cipher-status">SECURITY_LEVEL: <span class="blood">MAXIMUM</span></div>
-</header>
-
-<section class="main-exhumation">
-    <div class="terminal-container">
-        <div class="term-header">ENTRY_LOG_2026_COL_MINSALUD</div>
-        <div class="term-body">
-            <h1 class="dead-title">⚰️ EL CADÁVER DE MINSALUD HA SIDO DISECCIONADO ⚰️</h1>
-            
-            <div class="manifesto">
-                <p class="txt-row">La seguridad del gobierno colombiano es una broma de mal gusto. Un chiste macabro.</p>
-                <p class="txt-row">No es que tenga agujeros, es que ES un agujero negro de incompetencia.</p>
-                <p class="txt-row">Mientras el pueblo sufre, ellos invierten en sistemas con la robustez de papel mojado.</p>
-                <br>
-                <p class="warning">EL CUERPO HA SIDO EXTRAÍDO Y PRESERVADO PARA LA POSTERIDAD.</p>
-            </div>
-
-            <div class="action-grid">
-                <a href="https://www.mediafire.com/folder/xq3mb86job9tk/Backup+MINISTERIO+DE+SALUD+COLOMBIA+BY+IRON+ATLAS+NEW+GENERATION" class="btn-void" target="_blank">
-                    DESCARGAR_ENTRAÑAS_BACKUP
-                </a>
-                <a href="https://t.me/+X1EFZ6v0Vlo4YTI5" class="btn-void" target="_blank">
-                    ACCEDER_AL_FORO
-                </a>
-            </div>
-        </div>
+    <nav class="ia-nav">
+      <a href="#overview">OVERVIEW</a>
+      <a href="#allies">ALLIES</a>
+      <a href="#network">NETWORK</a>
+      <a href="#access">ACCESS</a>
+    </nav>
+    <div class="ia-status">
+      <span class="dot"></span>
+      <span>SECURE</span>
     </div>
+  </header>
 
-    <div class="ally-void">
-        <div class="ally-node">
-            <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg">
-            <a href="https://t.me/nullsechackers">NULLSEC_PH</a>
+  <main class="ia-main">
+    <section class="hero" id="overview">
+      <div class="hero-left">
+        <div class="hero-tag">ENTERPRISE THREAT INTELLIGENCE</div>
+        <h1 class="hero-title">
+          <span>IRON</span>
+          <span class="glow">ATLAS</span>
+        </h1>
+        <p class="hero-sub" id="typeTarget"></p>
+        <div class="hero-actions">
+          <a href="#access" class="btn-primary">REQUEST ACCESS</a>
+          <a href="#allies" class="btn-secondary">VIEW ALLIES</a>
         </div>
-        <div class="ally-node">
-            <img src="https://files.catbox.moe/iwurbn.jpg">
-            <a href="https://t.me/MyWebBackup">PURGATORY_SYS</a>
+        <div class="hero-metrics">
+          <div class="metric">
+            <span class="metric-num" data-count="24">0</span>
+            <span class="metric-label">ACTIVE NODES</span>
+          </div>
+          <div class="metric">
+            <span class="metric-num" data-count="3">0</span>
+            <span class="metric-label">TRUSTED ALLIES</span>
+          </div>
+          <div class="metric">
+            <span class="metric-num" data-count="99">0</span>
+            <span class="metric-label">SECURITY SCORE</span>
+          </div>
         </div>
-        <div class="ally-node">
-            <img src="https://i.postimg.cc/3yq9xnnX/jxll.jpg">
-            <a href="https://t.me/zconchita">TEAM_JXLL</a>
+      </div>
+      <div class="hero-right">
+        <div class="hero-frame">
+          <img src="assets/logo_ng.png" alt="Iron Atlas Seal" class="hero-logo">
+          <div class="frame-glow"></div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<footer class="bottom-info">
+    <section class="ia-panel-grid">
+      <article class="panel">
+        <div class="panel-head">CORE</div>
+        <h3>SECURE OPERATIONS</h3>
+        <p>Hardened front-end structure, strict policy headers and defensive client controls for a polished public-facing portal.</p>
+      </article>
+      <article class="panel">
+        <div class="panel-head">VISUAL</div>
+        <h3>NEON IDENTITY</h3>
+        <p>High-contrast cyber aesthetic with disciplined spacing, glow hierarchy, terminal elements and premium UI composition.</p>
+      </article>
+      <article class="panel">
+        <div class="panel-head">ACCESS</div>
+        <h3>CONTROLLED ENTRY</h3>
+        <p>Dedicated access gateway and segregated internal section structure for administration and moderation workflows.</p>
+      </article>
+    </section>
+
+    <section class="allies-section" id="allies">
+      <div class="section-title-wrap">
+        <span class="section-kicker">TRUSTED CHANNELS</span>
+        <h2>ALLIED NETWORK</h2>
+      </div>
+      <div class="ally-grid">
+        <a class="ally-card" href="https://t.me/nullsechackers" target="_blank" rel="noopener noreferrer">
+          <div class="ally-image-wrap">
+            <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Nullsec Philippines">
+          </div>
+          <div class="ally-body">
+            <h3>NULLSEC PHILIPPINES</h3>
+            <p>Trusted allied signal node</p>
+            <span>OPEN CHANNEL ↗</span>
+          </div>
+        </a>
+
+        <a class="ally-card" href="https://t.me/MyWebBackup" target="_blank" rel="noopener noreferrer">
+          <div class="ally-image-wrap">
+            <img src="https://files.catbox.moe/iwurbn.jpg" alt="Hack Purgatory">
+          </div>
+          <div class="ally-body">
+            <h3>HACK PURGATORY™</h3>
+            <p>External communications relay</p>
+            <span>OPEN CHANNEL ↗</span>
+          </div>
+        </a>
+
+        <a class="ally-card" href="https://t.me/zconchita" target="_blank" rel="noopener noreferrer">
+          <div class="ally-image-wrap">
+            <img src="https://i.postimg.cc/3yq9xnnX/jxll.jpg" alt="Team JXLL">
+          </div>
+          <div class="ally-body">
+            <h3>TEAM JXLL</h3>
+            <p>Strategic partner endpoint</p>
+            <span>OPEN CHANNEL ↗</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="network-section" id="network">
+      <div class="section-title-wrap">
+        <span class="section-kicker">ARCHITECTURE</span>
+        <h2>SECURE NETWORK MAP</h2>
+      </div>
+      <div class="network-console">
+        <div class="console-head">node@ironatlas:~/network</div>
+        <div class="console-body" id="consoleFeed">
+          <div>> Booting secure mesh...</div>
+          <div>> Verifying integrity signatures...</div>
+          <div>> Locking public surface policies...</div>
+          <div>> Routing to protected modules...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="access-section" id="access">
+      <div class="section-title-wrap">
+        <span class="section-kicker">CONTROLLED AREA</span>
+        <h2>ACCESS GATEWAY</h2>
+      </div>
+      <div class="access-grid">
+        <a class="vault-card" href="0x91_vault_z9/auth.html">
+          <div class="vault-label">VAULT</div>
+          <h3>AUTH PANEL</h3>
+          <p>Moderation and internal access gateway.</p>
+        </a>
+        <a class="vault-card" href="0x74_core_f4/">
+          <div class="vault-label">CORE</div>
+          <h3>SYSTEM LAYER</h3>
+          <p>Protected visual and behavioral assets.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ia-footer">
     <div class="ticker">
-        BY: @importatlas // ACABANDO CON LA CORRUPCIÓN // SISTEMA_MINSALUD: DISECCIONADO // IRON ATLAS ORG // 
+      <span>IRON ATLAS</span>
+      <span>SECURE NODE ACTIVE</span>
+      <span>PUBLIC SURFACE HARDENED</span>
+      <span>ALLY LINKS VERIFIED</span>
+      <span>CONTROLLED ACCESS ENABLED</span>
     </div>
-    <a href="https://t.me/ironatlas_organization" class="org-link">OFFICIAL_CANAL</a>
-</footer>
+  </footer>
 
-<script src="0x74_core_f4/e_v4.js"></script>
+  <script src="0x74_core_f4/e_v4.js"></script>
 </body>
 </html>
