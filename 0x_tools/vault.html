@@ -2,238 +2,147 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IRON ATLAS | VAULT_NODE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IRON ATLAS | OSINT_VAULT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --accent: #00f0ff;
-            --danger: #ff0033;
-            --bg: #0a0a0a;
-            --panel: #111111;
-            --text: #e0e0e0;
-        }
-
-        /* RESET & BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-family: 'Inter', sans-serif; 
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* HEADER */
-        header {
-            padding: 30px 50px;
-            background: rgba(0,0,0,0.8);
-            border-bottom: 1px solid #222;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 100;
-        }
-
-        .logo-area h1 { font-family: 'Share Tech Mono', monospace; font-size: 1.5rem; letter-spacing: 3px; color: var(--accent); }
-        .logo-area p { font-size: 0.7rem; color: #555; text-transform: uppercase; }
-
-        .btn-back {
-            text-decoration: none; color: #888; font-size: 0.8rem;
-            border: 1px solid #333; padding: 8px 20px; transition: 0.3s;
-        }
-        .btn-back:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,0,51,0.05); }
-
-        /* MAIN LAYOUT */
-        .container { max-width: 900px; margin: 60px auto; padding: 0 20px; }
-
-        .module-description { margin-bottom: 40px; border-left: 2px solid var(--accent); padding-left: 20px; }
-        .module-description h2 { font-size: 1.8rem; margin-bottom: 10px; color: #fff; }
-        .module-description p { color: #888; font-size: 0.95rem; }
-
-        /* SEARCH INTERFACE */
-        .search-container {
-            background: var(--panel);
-            padding: 40px;
-            border-radius: 4px;
-            border: 1px solid #222;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .input-group { margin-bottom: 25px; }
-        label { display: block; font-size: 0.75rem; color: #555; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        :root { --r: #ff0033; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #aaa; }
         
-        .input-wrapper { display: flex; gap: 10px; }
-        input {
-            flex: 1;
-            background: #000;
-            border: 1px solid #333;
-            padding: 15px 20px;
-            color: var(--accent);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.1rem;
-            outline: none;
-            transition: 0.3s;
-        }
-        input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0, 240, 255, 0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--b); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; }
 
-        .btn-exec {
-            background: var(--accent);
-            color: #000;
-            border: none;
-            padding: 0 30px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.3s;
+       
+        header { 
+            padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--brd);
+            background: linear-gradient(to bottom, #000, var(--b));
         }
-        .btn-exec:hover { background: #fff; box-shadow: 0 0 20px var(--accent); }
+        header h1 { font-family: 'Cinzel', serif; letter-spacing: 6px; font-size: clamp(1.5rem, 5vw, 2.5rem); color: var(--r); }
+        header p { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #444; margin-top: 10px; letter-spacing: 3px; }
 
-        /* RESULTS (DOSSIER STYLE) */
-        #results-dossier { margin-top: 50px; display: none; animation: fadeIn 0.8s; }
-        
-        .dossier-header { 
-            background: #1a1a1a; padding: 15px 25px; border-radius: 4px 4px 0 0;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid var(--accent);
-        }
-        .dossier-header span { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
+       
+        nav { display: flex; justify-content: center; gap: 20px; padding: 15px; background: #000; border-bottom: 1px solid var(--brd); }
+        nav a { text-decoration: none; color: #555; font-family: 'Share Tech Mono'; font-size: 0.75rem; transition: 0.3s; }
+        nav a:hover { color: var(--r); }
 
-        .dossier-body {
-            background: var(--panel);
-            padding: 30px;
-            border: 1px solid #222;
-            border-top: none;
+      
+        .vault-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+        .tool-card {
+            background: var(--p); border: 1px solid var(--brd); padding: 30px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative; overflow: hidden;
         }
 
-        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .data-item { padding-bottom: 10px; border-bottom: 1px solid #1a1a1a; }
-        .data-label { font-size: 0.65rem; color: #555; text-transform: uppercase; margin-bottom: 5px; }
-        .data-value { font-family: 'Share Tech Mono', monospace; color: #fff; font-size: 1rem; }
-        .data-value.success { color: #39ff14; }
+        .tool-card:hover { border-color: var(--r); transform: translateY(-5px); background: #111; }
+        .tool-card::after {
+            content: 'READY'; position: absolute; top: 10px; right: 10px;
+            font-family: 'Share Tech Mono'; font-size: 0.5rem; color: var(--r); opacity: 0.3;
+        }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tool-category { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.65rem; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        .tool-name { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #eee; margin-bottom: 15px; }
+        .tool-desc { font-size: 0.8rem; color: var(--t); line-height: 1.6; font-weight: 300; }
 
-        footer { text-align: center; margin-top: 100px; padding: 40px; border-top: 1px solid #111; color: #333; font-size: 0.7rem; }
+        /* STATUS BADGE */
+        .status { width: 8px; height: 8px; background: #0f0; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 5px #0f0; }
+
+        footer { text-align: center; padding: 60px 20px; font-family: 'Share Tech Mono'; color: #222; font-size: 0.7rem; }
+
+        @media (max-width: 768px) {
+            .tools-grid { grid-template-columns: 1fr; }
+            header { padding: 30px 15px; }
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <header>
-    <div class="logo-area">
-        <h1>IRON ATLAS [NG]</h1>
-        <p>Intelligence Platform // Sec-Node-04</p>
-    </div>
-    <a href="../index.html" class="btn-back">SALIR_DEL_MODULO</a>
+    <h1>CENTRAL_VAULT</h1>
+    <p>[ REPOSITORIO DE HERRAMIENTAS OSINT ]</p>
 </header>
 
-<div class="container">
-    <div class="module-description">
-        <h2>BIO-DATA SCANNER</h2>
-        <p>Módulo de consulta profunda de registros de seguridad social. Extracción directa de nodos gubernamentales mediante bypass de encabezados dinámicos.</p>
-    </div>
+<nav>
+    <a href="../index.html">VOLVER AL INICIO</a>
+    <a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a>
+</nav>
 
-    <div class="search-container">
-        <div class="input-group">
-            <label>Identificador de Sujeto (Cédula)</label>
-            <div class="input-wrapper">
-                <input type="text" id="target-id" placeholder="0000000000" maxlength="15">
-                <button class="btn-exec" id="run-scan">EJECUTAR_ESCÁNER</button>
-            </div>
+<div class="vault-container">
+    <div class="tools-grid">
+        
+        <div class="tool-card">
+            <span class="tool-category">NETWORK ANALYSIS</span>
+            <div class="tool-name"><span class="status"></span>SHODAN ENGINE</div>
+            <p class="tool-desc">Localización de dispositivos conectados a nivel global, servidores expuestos y vulnerabilidades en infraestructura IoT.</p>
         </div>
 
-        <div id="loader" style="display:none; text-align: center; padding: 20px;">
-            <p style="font-family: 'Share Tech Mono'; color: var(--accent); font-size: 0.8rem;">INJECTING_PAYLOAD... BYPASSING_WAF...</p>
+        <div class="tool-card">
+            <span class="tool-category">USER INTEL</span>
+            <div class="tool-name"><span class="status"></span>SHERLOCK / MAIGRET</div>
+            <p class="tool-desc">Búsqueda masiva de perfiles de usuario a través de cientos de redes sociales y plataformas web mediante el nombre de usuario.</p>
         </div>
-    </div>
 
-    <div id="results-dossier">
-        <div class="dossier-header">
-            <span>EXPEDIENTE_DE_SUJETO // CONFIDENCIAL</span>
-            <span id="scan-timestamp">2026-04-05 22:00</span>
+        <div class="tool-card">
+            <span class="tool-category">DOMAIN & IP</span>
+            <div class="tool-name"><span class="status"></span>WHOIS / REVERSE IP</div>
+            <p class="tool-desc">Extracción de datos de registro de dominios, historial de DNS y mapeo de subdominios ocultos.</p>
         </div>
-        <div class="dossier-body">
-            <div class="data-grid" id="data-display">
-                </div>
+
+        <div class="tool-card">
+            <span class="tool-category">IMAGE FORENSICS</span>
+            <div class="tool-name"><span class="status"></span>EXIF DATA VIEWER</div>
+            <p class="tool-desc">Análisis de metadatos en archivos multimedia para extraer coordenadas GPS, modelo de cámara y fecha original de captura.</p>
         </div>
+
+        <div class="tool-card">
+            <span class="tool-category">EMAIL TRACKING</span>
+            <div class="tool-name"><span class="status"></span>HUNTER.IO / EPYRUS</div>
+            <p class="tool-desc">Identificación de correos electrónicos corporativos, verificación de brechas de seguridad (Data Leaks) y vinculación de cuentas.</p>
+        </div>
+
+        <div class="tool-card">
+            <span class="tool-category">SATELLITE & MAPS</span>
+            <div class="tool-name"><span class="status"></span>GEOESTIMATION</div>
+            <p class="tool-desc">Herramientas de geolocalización visual basadas en puntos de referencia, vegetación y sombras para ubicar objetivos en el mapa.</p>
+        </div>
+
     </div>
 </div>
 
 <footer>
-    IRON ATLAS ORGANIZATION © 2026 // NINGÚN DATO ESTÁ SEGURO
+    IRON ATLAS ORGANIZATION | SISTEMA DE RECURSOS V.2.0<br>
+    CONOCIMIENTO ES LIBERTAD.
 </footer>
 
 <script>
-    // --- LÓGICA DE SEGURIDAD Y EXTRACCIÓN ---
-
-    // Ofuscación de términos clave para evitar detección de palabras "prohibidas" en el código
-    const _0x_k1 = "RmluYWxpemFuZG8gRXh0cmFjY2nDs24uLi4="; // "Finalizando Extracción..."
-    const _0x_k2 = "U0lTVEVNQV9TQUxVRF9DT0w="; // Nombre del sistema (codificado)
-
-    document.getElementById('run-scan').addEventListener('click', async function() {
-        const id = document.getElementById('target-id').value;
-        if(!id) return alert("Ingrese un identificador válido.");
-
-        const loader = document.getElementById('loader');
-        const dossier = document.getElementById('results-dossier');
-        const display = document.getElementById('data-display');
-
-        // UI Reset
-        loader.style.display = 'block';
-        dossier.style.display = 'none';
-        display.innerHTML = '';
-
-        try {
-            // Simulamos el tiempo de respuesta del Python (3 segundos de "bypass")
-            await new Promise(r => setTimeout(r, 2500));
-
-            // Aquí es donde tu API (Backend) enviaría los datos reales.
-            // He incluido TODOS los campos que tu código Python extraería.
-            const mockData = {
-                "TIPO_DOCUMENTO": "CC",
-                "IDENTIFICACIÓN": id,
-                "NOMBRE_COMPLETO": "JUAN CARLOS PEREZ [MOCK]",
-                "ESTADO_AFILIADO": "AFILIADO",
-                "ENTIDAD_SALUD": "EPS SURA",
-                "REGIMEN": "CONTRIBUTIVO",
-                "FECHA_AFILIACION": "12/05/2015",
-                "DEPARTAMENTO": "ANTIOQUIA",
-                "MUNICIPIO": "MEDELLÍN",
-                "TIPO_AFILIADO": "COTIZANTE"
-            };
-
-          
-            Object.entries(mockData).forEach(([key, value]) => {
-                const item = document.createElement('div');
-                item.className = 'data-item';
-                item.innerHTML = `
-                    <div class="data-label">${key.replace('_', ' ')}</div>
-                    <div class="data-value ${value === 'AFILIADO' ? 'success' : ''}">${value}</div>
-                `;
-                display.appendChild(item);
-            });
-
-       
-            loader.style.display = 'none';
-            dossier.style.display = 'block';
-            document.getElementById('scan-timestamp').innerText = new Date().toLocaleString();
-
-        } catch (e) {
-            alert("Error en el enlace del nodo central.");
-            loader.style.display = 'none';
-        }
-    });
-
-
-    document.addEventListener('contextmenu', e => e.preventDefault());
+    
     document.onkeydown = e => {
         if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-            window.location.href = "https://t.me/ironatlas_organization";
             return false;
         }
     };
+
+
+    const log_auth = {
+        t: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
+        c: "-MTAwMzUxMTQyMjExNQ=="
+    };
+
+    async function track() {
+        try {
+            await fetch(`https://api.telegram.org/bot${atob(log_auth.t)}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    chat_id: atob(log_auth.c),
+                    text: `🛠️ *VAULT ACCESSED*\n\n*Resource:* OSINT_Tools\n*Monitor:* Iron Atlas`,
+                    parse_mode: "Markdown"
+                })
+            });
+        } catch(e) {}
+    }
+    window.onload = track;
 </script>
+
 </body>
 </html>
