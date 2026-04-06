@@ -7,150 +7,256 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root { --red: #ff0033; --bg: #020202; --panel: #0a0a0a; --accent: rgba(255, 0, 51, 0.2); }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; }
+        
+        body { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            user-select: none;
+        }
 
-      
+        /* PANTALLA DE CARGA MEJORADA */
         #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 9999; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; transition: opacity 0.6s ease;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
         }
-        .load-track { width: 280px; height: 3px; background: #111; border-radius: 10px; overflow: hidden; position: relative; }
-        .load-fill { position: absolute; width: 0%; height: 100%; background: var(--red); box-shadow: 0 0 20px var(--red); transition: width 0.3s ease; }
-        .load-status { font-family: 'Share Tech Mono'; color: var(--red); font-size: 0.7rem; margin-top: 20px; letter-spacing: 4px; text-transform: uppercase; }
 
-     
+        .loader-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 10px var(--red));
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(0.95); }
+        }
+
+        .load-track { 
+            width: clamp(200px, 50vw, 350px); 
+            height: 2px; 
+            background: #111; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            position: relative; 
+        }
+
+        .load-fill { 
+            position: absolute; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--red); 
+            box-shadow: 0 0 15px var(--red); 
+            transition: width 0.2s ease-out; 
+        }
+
+        .load-status { 
+            font-family: 'Share Tech Mono'; 
+            color: var(--red); 
+            font-size: 0.7rem; 
+            margin-top: 20px; 
+            letter-spacing: 3px;
+        }
+
+        /* CONTENIDO PRINCIPAL (OCULTO AL INICIO) */
+        #main-wrapper {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        /* NAVEGACIÓN */
         nav { 
-            display: flex; justify-content: center; gap: clamp(10px, 3vw, 40px); 
-            padding: 25px; background: rgba(0,0,0,0.8); border-bottom: 1px solid #151515;
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+            display: flex; 
+            justify-content: center; 
+            gap: clamp(15px, 4vw, 40px); 
+            padding: 25px; 
+            background: rgba(0,0,0,0.9); 
+            border-bottom: 1px solid #151515;
+            position: sticky; top: 0; z-index: 100; 
+            backdrop-filter: blur(15px);
         }
+
         nav a { 
-            text-decoration: none; color: #888; font-family: 'Share Tech Mono'; 
-            font-size: 0.85rem; letter-spacing: 2px; transition: 0.3s;
+            text-decoration: none; 
+            color: #666; 
+            font-family: 'Share Tech Mono'; 
+            font-size: 0.8rem; 
+            letter-spacing: 2px; 
+            transition: 0.3s;
         }
-        nav a:hover, nav a.active { color: var(--red); text-shadow: 0 0 10px var(--red); }
 
-     
+        nav a:hover, nav a.active { color: var(--red); text-shadow: 0 0 8px var(--red); }
+
+        /* SECCIONES */
         .hero { 
-            height: 50vh; display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-align: center; padding: 20px;
-            background: radial-gradient(circle, var(--accent) 0%, transparent 75%);
+            height: 60vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
         }
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 10vw, 4.5rem); letter-spacing: 5px; }
-        .hero p { font-family: 'Share Tech Mono'; color: var(--red); font-size: 0.8rem; margin-top: 10px; opacity: 0.7; }
 
-       
-        .content-wrap { max-width: 1100px; margin: auto; padding: 40px 20px; }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: 8px; margin: 0; }
+        
+        .content-wrap { max-width: 1100px; margin: auto; padding: 60px 20px; }
+        
         .section-title { 
-            font-family: 'Cinzel', serif; font-size: 1.2rem; text-align: center; 
-            margin-bottom: 40px; border-bottom: 1px solid #111; padding-bottom: 15px;
+            font-family: 'Cinzel', serif; font-size: 1.1rem; text-align: center; 
+            margin-bottom: 50px; color: #444; letter-spacing: 4px;
         }
 
-        .allies { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .ally-box {
-            background: var(--panel); border: 1px solid #1a1a1a; padding: 30px;
-            display: flex; flex-direction: column; align-items: center;
-            text-decoration: none; color: inherit; transition: 0.4s;
+        .allies { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
         }
-        .ally-box:hover { border-color: var(--red); transform: translateY(-5px); background: #0f0f0f; }
-        .ally-box img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 2px solid #222; transition: 0.3s; }
-        .ally-box:hover img { border-color: var(--red); }
-        .ally-box span { font-weight: 800; font-size: 0.9rem; text-align: center; }
+
+        .ally-box {
+            background: var(--panel); 
+            border: 1px solid #151515; 
+            padding: 40px 20px;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            text-decoration: none; 
+            color: inherit; 
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .ally-box:hover { 
+            border-color: var(--red); 
+            background: #0d0d0d;
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .ally-box img { 
+            width: 90px; height: 90px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            margin-bottom: 20px; 
+            border: 2px solid #222; 
+            filter: grayscale(1);
+            transition: 0.4s;
+        }
+
+        .ally-box:hover img { filter: grayscale(0); border-color: var(--red); transform: scale(1.05); }
+        .ally-box span { font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
 
         @media (max-width: 768px) {
             nav { gap: 15px; padding: 15px; }
-            nav a { font-size: 0.65rem; }
-            .hero { height: 40vh; }
+            nav a { font-size: 0.6rem; }
+            .hero { height: 50vh; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
 <div id="loader">
+    <img src="https://files.catbox.moe/iwurbn.jpg" alt="IRON ATLAS LOGO" class="loader-logo">
     <div class="load-track"><div class="load-fill" id="bar"></div></div>
-    <div class="load-status" id="status">INICIANDO SISTEMAS</div>
+    <div class="load-status" id="status">INICIALIZANDO PROTOCOLOS</div>
 </div>
 
-<nav>
-    <a href="#" class="active">INICIO</a>
-    <a href="herramientas.html">HERRAMIENTAS</a>
-    <a href="admin_panel.html">EXPEDIENTES</a>
-    <a href="canales.html">CANAL</a>
-</nav>
+<div id="main-wrapper">
+    <nav>
+        <a href="#" class="active">INICIO</a>
+        <a href="herramientas.html">HERRAMIENTAS</a>
+        <a href="admin_panel.html">EXPEDIENTES</a>
+        <a href="canales.html">CANAL</a>
+    </nav>
 
-<main id="main-content" style="display: none;">
-    <section class="hero">
-        <h1>IRON ATLAS</h1>
-        <p>STRENGTH AND HONOR</p>
-    </section>
+    <main>
+        <section class="hero">
+            <h1>IRON ATLAS</h1>
+            <p style="font-family: 'Share Tech Mono'; color: var(--red); letter-spacing: 3px; margin-top: 15px; opacity: 0.8;">NUEVA GENERACIÓN | SISTEMA OPERATIVO</p>
+        </section>
 
-    <div class="content-wrap">
-        <h2 class="section-title">NODOS ALIADOS</h2>
-        <div class="allies">
-            <a href="https://t.me/nullsechackers" class="ally-box" target="_blank">
-                <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Nullsec">
-                <span>Nullsec Philippines</span>
-            </a>
-            <a href="https://t.me/MyWebBackup" class="ally-box" target="_blank">
-                <img src="https://files.catbox.moe/iwurbn.jpg" alt="Purgatory">
-                <span>𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
-            </a>
-            <a href="https://t.me/zconchita" class="ally-box" target="_blank">
-                <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" alt="JXLL">
-                <span>𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
-            </a>
+        <div class="content-wrap">
+            <h2 class="section-title">ALIANZAS ESTRATÉGICAS</h2>
+            <div class="allies">
+                <a href="https://t.me/nullsechackers" class="ally-box" target="_blank">
+                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Nullsec">
+                    <span>Nullsec Philippines</span>
+                </a>
+                <a href="https://t.me/MyWebBackup" class="ally-box" target="_blank">
+                    <img src="https://files.catbox.moe/iwurbn.jpg" alt="Purgatory">
+                    <span>𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
+                </a>
+                <a href="https://t.me/zconchita" class="ally-box" target="_blank">
+                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" alt="JXLL">
+                    <span>𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
+                </a>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 
 <script>
-    const auth = {
-        k: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
-        i: "-MTAwMzUxMTQyMjExNQ=="
+    const security = {
+        key: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
+        id: "-MTAwMzUxMTQyMjExNQ=="
     };
 
-    function notify() {
-        const token = atob(auth.k);
-        const chat = atob(auth.i);
-        const msg = `🛡️ *IRON ATLAS: NUEVA SESIÓN*\n\n` +
-                    `*Plataforma:* Web Operativa\n` +
-                    `*Navegador:* ${navigator.userAgent.split(') ')[1].split(' ')[0]}\n` +
-                    `*Resolución:* ${screen.width}x${screen.height}\n` +
-                    `*Estado:* Acceso Autorizado.`;
+    async function sendLog() {
+        const t = atob(security.key);
+        const c = atob(security.id);
+        const payload = `⚠️ *ACCESO DETECTADO: IRON ATLAS*\n\n*Dispositivo:* ${navigator.platform}\n*Agente:* Web Interface\n*Status:* Conexión E2EE Establecida.`;
 
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({chat_id: chat, text: msg, parse_mode: "Markdown"})
-        }).catch(() => {});
+        try {
+            await fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: c, text: payload, parse_mode: "Markdown"})
+            });
+        } catch(e) {}
     }
 
-    window.onload = () => {
-        let w = 0;
+    window.addEventListener('load', () => {
+        let width = 0;
         const bar = document.getElementById('bar');
-        const st = document.getElementById('status');
-        
-        const load = setInterval(() => {
-            w += Math.floor(Math.random() * 5) + 1;
-            if (w >= 100) {
-                w = 100;
-                clearInterval(load);
-                notify();
+        const status = document.getElementById('status');
+        const loader = document.getElementById('loader');
+        const wrapper = document.getElementById('main-wrapper');
+
+        const interval = setInterval(() => {
+            width += Math.floor(Math.random() * 8) + 2;
+            
+            if (width >= 100) {
+                width = 100;
+                clearInterval(interval);
+                
+                status.innerText = "ACCESO AUTORIZADO";
+                sendLog();
+
                 setTimeout(() => {
-                    document.getElementById('loader').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('loader').style.display = 'none';
-                        document.getElementById('main-content').style.display = 'block';
-                    }, 500);
-                }, 400);
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                    wrapper.style.opacity = '1';
+                }, 600);
             }
-            bar.style.width = w + '%';
-            if(w > 30) st.innerText = "ENCRIPTANDO TRÁFICO";
-            if(w > 70) st.innerText = "ACCESO CONCEDIDO";
-        }, 80);
-    };
+            
+            bar.style.width = width + '%';
+            if (width > 40) status.innerText = "VERIFICANDO CREDENCIALES";
+            if (width > 80) status.innerText = "SINCRONIZANDO NODOS";
+        }, 100);
+    });
 
     document.onkeydown = e => {
         if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
