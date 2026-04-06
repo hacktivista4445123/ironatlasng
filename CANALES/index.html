@@ -1,1 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IRON ATLAS | DIRECTORIO_NODOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --r: #ff0033; --c: #00f0ff; --b: #000; --p: rgba(5, 5, 5, 0.9); --brd: #1a1a1a; }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background: var(--b); color: #ccc; font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; user-select: none; min-height: 100vh;
+        }
 
+        /* FONDO ANIMADO PREMIUM (VÓRTICE DE DATOS) */
+        canvas#bg-vortex {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; opacity: 0.3; pointer-events: none;
+        }
+
+        /* LAYOUT PRINCIPAL */
+        .wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* HEADER & NAV */
+        header { 
+            background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--brd); 
+            padding: 15px 30px; position: sticky; top: 0; backdrop-filter: blur(10px);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: auto; }
+        .brand { font-family: 'Cinzel', serif; color: #fff; font-size: 1.1rem; letter-spacing: 3px; }
+        .nav-links { display: flex; gap: 20px; }
+        nav a { 
+            text-decoration: none; color: #666; font-family: 'Share Tech Mono'; 
+            font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s;
+        }
+        nav a:hover { color: var(--r); text-shadow: 0 0 8px var(--r); }
+
+        /* TÍTULO SECCIÓN */
+        .page-title { 
+            text-align: center; padding: 60px 20px; 
+            background: radial-gradient(circle, rgba(255,0,51,0.05) 0%, transparent 70%);
+        }
+        .page-title h1 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 6vw, 2.8rem); color: #fff; letter-spacing: 8px; margin-bottom: 10px; }
+        .page-title p { font-family: 'Share Tech Mono'; color: #444; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; }
+
+        /* GRID DE CANALES (Premium & Animado) */
+        .nodes-container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+
+        .node-card {
+            background: var(--p); border: 1px solid var(--brd); padding: 30px;
+            display: flex; align-items: center; gap: 25px;
+            text-decoration: none; color: inherit; 
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative; overflow: hidden;
+        }
+
+        /* EFECTO HOVER PREMIUM (LÁSER SCAN & GLOW) */
+        .node-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--r), transparent);
+            transition: 0.5s;
+        }
+        .node-card:hover { border-color: var(--r); transform: translateY(-5px); box-shadow: 0 10px 40px rgba(255,0,51,0.15); }
+        .node-card:hover::before { left: 100%; }
+
+        /* ESTILOS DE CARTA */
+        .node-img { 
+            width: 90px; height: 90px; object-fit: cover; 
+            border: 1px solid #222; transition: 0.4s; flex-shrink: 0;
+        }
+        .node-card:hover .node-img { border-color: var(--r); transform: scale(1.05) rotate(-3deg); }
+
+        .node-info { flex: 1; }
+        .node-name { font-family: 'Cinzel', serif; font-size: 1rem; color: #fff; margin-bottom: 8px; line-height: 1.2; }
+        .node-desc { font-size: 0.8rem; color: #777; font-weight: 300; margin-bottom: 12px; }
+        .node-tag { 
+            display: inline-block; font-family: 'Share Tech Mono'; font-size: 0.65rem; 
+            color: var(--c); background: rgba(0, 240, 255, 0.05);
+            padding: 3px 10px; border: 1px solid rgba(0, 240, 255, 0.2); 
+        }
+        .node-card:hover .node-tag { color: #fff; background: var(--r); border-color: var(--r); }
+
+        /* FOOTER SERIO */
+        footer { 
+            text-align: center; padding: 40px; border-top: 1px solid var(--brd); 
+            font-size: 0.7rem; color: #222; font-family: 'Share Tech Mono';
+        }
+
+        /* AJUSTES RESPONSIVOS */
+        @media (max-width: 768px) {
+            header { padding: 15px; }
+            .nav-links { display: none; } /* Ocultar menú en móvil para limpieza */
+            .nodes-grid { grid-template-columns: 1fr; gap: 20px; }
+            .node-card { padding: 20px; gap: 15px; }
+            .node-img { width: 70px; height: 70px; }
+            .node-name { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<canvas id="bg-vortex"></canvas>
+
+<div class="wrapper">
+    <header>
+        <nav>
+            <div class="brand">IRON ATLAS</div>
+            <div class="nav-links">
+                <a href="../index.html">INICIO</a>
+                <a href="../0x_tools/vault.html">HERRAMIENTAS</a>
+                <a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a>
+                <a href="#" style="color:var(--r);">CANAL</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-title">
+            <h1>RED DE NODOS</h1>
+            <p>Directorio Central de Comunicaciones</p>
+        </div>
+
+        <section class="nodes-container">
+            <div class="nodes-grid">
+                
+                <a href="https://t.me/ironatlas_organization" class="node-card" target="_blank" style="border-color: #333; background: rgba(10,0,0,0.5);">
+                    <img src="../assets/logo_ng.png" class="node-img" style="border-color: var(--r);">
+                    <div class="node-info">
+                        <div class="node-name">ɪʀᴏɴ ᴀᴛʟᴀꜱ ɴᴇᴡ ɢᴇɴᴇʀᴀᴛɪᴏɴ</div>
+                        <p class="node-desc">Nodo Central. Hacktivismo, Inteligencia Digital y Operaciones.</p>
+                        <span class="node-tag" style="color: var(--r); border-color: var(--r);">MAIN_NODE [CORE]</span>
+                    </div>
+                </a>
+
+                <a href="https://t.me/nullsechackers" class="node-card" target="_blank">
+                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">Nullsec Philippines</div>
+                        <p class="node-desc">Expertos en penetración de red y contrainteligencia.</p>
+                        <span class="node-tag">OPERATIVE_ALLY</span>
+                    </div>
+                </a>
+
+                <a href="https://t.me/MyWebBackup" class="node-card" target="_blank">
+                    <img src="https://files.catbox.moe/iwurbn.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</div>
+                    <p class="node-desc">Especialistas en aseguramiento de datos y fugas de info.</p>
+                        <span class="node-tag">INTEL_NODE</span>
+                    </div>
+                </a>
+
+                <a href="https://t.me/zconchita" class="node-card" target="_blank">
+                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</div>
+                        <p class="node-desc">Fuerza operativa para despliegues rápidos en la red.</p>
+                        <span class="node-tag">STRIKE_TEAM</span>
+                    </div>
+                </a>
+
+                <a href="https://t.me/founder_cashcol" class="node-card" target="_blank">
+                    <img src="https://i.postimg.cc/bSjWV9Zg/cashcol.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">CASHCOL</div>
+                        <p class="node-desc">Nodo enfocado en logística y transacciones seguras.</p>
+                        <span class="node-tag">LOGISTICS_SEC</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        BY: @IMPORTATLAS | IRON ATLAS ORGANIZATION © 2026<br>
+        LA UNIÓN HACE LA FUERZA. EL CÓDIGO NOS HACE LIBRES.
+    </footer>
+</div>
+
+<script>
+    // --- CANVAS ANIMATION (VORTEX DE DATOS) ---
+    const canvas = document.getElementById('bg-vortex');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.z = Math.random() * canvas.width;
+            this.size = 1;
+            this.color = Math.random() > 0.1 ? '#ff0033' : '#ffffff';
+        }
+        update() {
+            this.z -= 5;
+            if (this.z <= 0) this.reset();
+        }
+        draw() {
+            let k = 128 / this.z;
+            let px = this.x * k + canvas.width / 2;
+            let py = this.y * k + canvas.height / 2;
+            let size = (1 - this.z / canvas.width) * 3;
+            
+            if (px > 0 && px < canvas.width && py > 0 && py < canvas.height) {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(px, py, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+    }
+
+    for (let i = 0; i < 300; i++) particles.push(new Particle());
+
+    function animate() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // --- PROTECCIONES (ANTI-GUFA) ---
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = e => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+            return false;
+        }
+    };
+</script>
+</body>
+</html>
