@@ -3,265 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="EXHUMACIÓN MINSALUD - IRON ATLAS NG">
-    <title>IRON ATLAS NG | ROOT_NODE</title>
+    <title>IRON ATLAS NEW GENERATION </title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --red: #ff0033;
-            --cyan: #00f0ff;
-            --green: #39ff14;
-            --purple: #8a2be2;
-            --bg: #030303;
+            --neon-red: #ff0033;
+            --neon-cyan: #00f0ff;
+            --neon-green: #39ff14;
+            --bg-black: #050505;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+
         body {
-            background-color: var(--bg);
-            color: #ccc;
+            background-color: var(--bg-black);
+            color: #eee;
             font-family: 'Share Tech Mono', monospace;
-            overflow-x: hidden;
+            overflow: hidden; 
         }
 
-        /* FONDO DINÁMICO CANVA */
-        #data-rain {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 0; opacity: 0.15; pointer-events: none;
+     
+        #loading-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
-        .crt-scanlines {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px; z-index: 999; pointer-events: none;
+        .loader-text { font-size: 1.2rem; color: var(--neon-cyan); margin-bottom: 20px; letter-spacing: 5px; }
+        .progress-container { width: 300px; height: 2px; background: #111; position: relative; }
+        .progress-bar { width: 0%; height: 100%; background: var(--neon-red); box-shadow: 0 0 15px var(--neon-red); transition: width 0.1s; }
+        .load-logs { font-size: 0.7rem; color: #444; margin-top: 15px; height: 20px; }
+
+        .crt-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            background-size: 100% 3px; z-index: 9999; pointer-events: none; opacity: 0.3;
         }
 
-        /* CONTENEDOR PRINCIPAL */
-        .wrapper {
-            position: relative; z-index: 10; max-width: 1000px;
-            margin: 0 auto; padding: 40px 20px;
+        canvas { position: fixed; top: 0; left: 0; z-index: 1; opacity: 0.2; }
+
+ 
+        #main-ui { opacity: 0; transition: opacity 1.5s; z-index: 10; position: relative; padding: 40px; }
+
+        .top-nav {
+            display: flex; justify-content: space-between; border-bottom: 1px solid #222;
+            padding-bottom: 15px; margin-bottom: 40px;
         }
 
-        /* HEADER */
-        .header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--red); padding-bottom: 20px; margin-bottom: 40px;
+        .menu { display: flex; gap: 40px; }
+        .menu-item {
+            color: #888; text-decoration: none; font-size: 0.9rem;
+            transition: 0.3s; position: relative; padding: 5px 0;
+        }
+        .menu-item:hover, .menu-item.active { color: var(--neon-red); text-shadow: 0 0 10px var(--neon-red); }
+        .menu-item:hover::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: var(--neon-red); }
+
+     
+        .hero-section {
+            display: flex; flex-direction: column; align-items: center; margin-top: 10vh;
         }
 
-        .brand-container { display: flex; align-items: center; gap: 15px; }
-        .logo { width: 60px; filter: drop-shadow(0 0 10px var(--red)); animation: pulse 2s infinite; }
+        .central-logo { width: 180px; filter: drop-shadow(0 0 30px rgba(255,0,51,0.4)); animation: float 4s infinite ease-in-out; }
+
+        .system-title { font-size: 2.5rem; margin-top: 30px; letter-spacing: 10px; color: #fff; text-align: center; }
+        .system-subtitle { color: var(--neon-cyan); font-size: 0.8rem; margin-top: 10px; opacity: 0.7; }
+
+        .stat-box {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+            margin-top: 60px; width: 100%; max-width: 800px;
+        }
+        .stat-card { background: rgba(10,10,10,0.8); border: 1px solid #1a1a1a; padding: 20px; text-align: center; }
+        .stat-card h4 { font-size: 0.7rem; color: #555; margin-bottom: 10px; }
+        .stat-card p { font-size: 1.2rem; color: var(--neon-green); }
+
         
-        .glitch-title {
-            font-size: 1.5rem; color: #fff; position: relative;
-            text-shadow: 2px 0 var(--red), -2px 0 var(--cyan);
-            animation: glitch 1.5s infinite;
-        }
+        footer { position: fixed; bottom: 20px; width: calc(100% - 80px); display: flex; justify-content: space-between; font-size: 0.7rem; color: #333; }
 
-        /* TERMINAL DE DISECCIÓN */
-        .terminal-box {
-            background: rgba(5, 5, 5, 0.9); border: 1px solid #222;
-            box-shadow: 0 0 30px rgba(255, 0, 51, 0.1); margin-bottom: 40px;
-            position: relative;
-        }
-
-        .terminal-box::before {
-            content: ''; position: absolute; top: -1px; left: -1px; width: 20px; height: 20px;
-            border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan);
-        }
-
-        .terminal-box::after {
-            content: ''; position: absolute; bottom: -1px; right: -1px; width: 20px; height: 20px;
-            border-bottom: 2px solid var(--red); border-right: 2px solid var(--red);
-        }
-
-        .term-bar { background: #111; padding: 10px 20px; font-size: 0.8rem; color: var(--cyan); border-bottom: 1px solid #222;}
-        .term-content { padding: 30px; }
-
-        .manifesto p { margin-bottom: 15px; line-height: 1.6; font-size: 0.95rem; }
-        .manifesto .highlight { color: var(--red); font-weight: bold; text-shadow: 0 0 5px var(--red); }
-        .manifesto .success { color: var(--green); text-shadow: 0 0 5px var(--green); }
-
-        /* BARRAS DE ESTADO */
-        .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
-        .status-item { background: #0a0a0a; padding: 15px; border: 1px solid #1a1a1a; }
-        .bar-bg { width: 100%; background: #222; height: 8px; margin-top: 10px; position: relative; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--green); width: 0%; box-shadow: 0 0 10px var(--green); animation: fillBar 3s forwards ease-in-out; }
-        .bar-fill.red { background: var(--red); box-shadow: 0 0 10px var(--red); animation: fillBarRed 2s forwards ease-in-out; }
-
-        /* BOTONES DE ACCIÓN */
-        .action-links { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
-        
-        .btn {
-            flex: 1; min-width: 200px; text-align: center; text-decoration: none;
-            padding: 15px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;
-            transition: 0.3s; position: relative; overflow: hidden;
-        }
-
-        .btn-download { border: 1px solid var(--green); color: var(--green); background: rgba(57, 255, 20, 0.05); }
-        .btn-download:hover { background: var(--green); color: #000; box-shadow: 0 0 20px var(--green); }
-
-        .btn-forum { border: 1px solid var(--cyan); color: var(--cyan); background: rgba(0, 240, 255, 0.05); }
-        .btn-forum:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
-
-        .btn-channel { border: 1px solid var(--purple); color: var(--purple); background: rgba(138, 43, 226, 0.05); }
-        .btn-channel:hover { background: var(--purple); color: #fff; box-shadow: 0 0 20px var(--purple); }
-
-        /* ALIADOS */
-        .allies-section { text-align: center; margin-top: 50px; }
-        .allies-section h3 { color: #fff; margin-bottom: 20px; font-size: 1rem; border-bottom: 1px dashed #333; display: inline-block; padding-bottom: 5px; }
-        .allies-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        
-        .ally-card {
-            border: 1px solid #222; padding: 10px; background: #050505; transition: 0.3s;
-        }
-        .ally-card img { width: 80px; height: 80px; filter: grayscale(1); transition: 0.3s; border-bottom: 2px solid #222; }
-        .ally-card:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,240,255,0.2); }
-        .ally-card:hover img { filter: grayscale(0); border-color: var(--cyan); }
-        .ally-card a { display: block; color: #888; text-decoration: none; margin-top: 10px; font-size: 0.75rem; }
-
-        /* ANIMACIONES */
-        @keyframes pulse { 0%, 100% { filter: drop-shadow(0 0 5px var(--red)); } 50% { filter: drop-shadow(0 0 20px var(--red)); } }
-        @keyframes glitch { 
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-        @keyframes fillBar { to { width: 100%; } }
-        @keyframes fillBarRed { to { width: 85%; } }
-
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
     </style>
 </head>
 <body>
 
-<canvas id="data-rain"></canvas>
-<div class="crt-scanlines"></div>
+<div class="crt-overlay"></div>
+<canvas id="matrix"></canvas>
 
-<div class="wrapper">
-    <header class="header">
-        <div class="brand-container">
-            <img src="https://i.postimg.cc/3kCVbCSY/logo.png" alt="Logo" class="logo">
-            <h1 class="glitch-title">IRON ATLAS [NG]</h1>
+<div id="loading-screen">
+    <div class="loader-text">INICIANDO</div>
+    <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+    <div class="load-logs" id="logs">Esperando respuesta del servidor...</div>
+</div>
+
+<div id="main-ui">
+    <nav class="top-nav">
+        <div class="brand">IRON ATLAS NWE GENERATION </div>
+        <div class="menu">
+            <a href="#" class="menu-item active">INICIO</a>
+            <a href="0x_tools/vault.html" class="menu-item">HERRAMIENTAS</a>
+            <a href="0x_intel_data/admin_panel.html" class="menu-item">EXPEDIENTES</a>
+            <a href="https://t.me/ironatlas_organization" class="menu-item" target="_blank">COMUNIDAD</a>
         </div>
-        <div style="text-align: right; font-size: 0.75rem;">
-            <p>OP: <span style="color: var(--cyan);">DISECCIÓN_MINSALUD</span></p>
-            <p>ESTADO: <span style="color: var(--red);">SISTEMA_COMPROMETIDO</span></p>
-        </div>
-    </header>
+        <div class="sys-time" id="clock">00:00:00</div>
+    </nav>
 
-    <main class="terminal-box">
-        <div class="term-bar">root@iron-atlas:~# cat /var/log/minsalud_breach.log</div>
-        <div class="term-content manifesto">
-            <p><span class="highlight">⚰️ El cadáver digital de https://www.minsalud.gov.co/ ha sido diseccionado.</span> Mientras los burócratas colombianos se llenaban la boca con discursos de "seguridad" y "modernización", su sistema era un cementerio de vulnerabilidades a la vista de todos.</p>
-            
-            <p>⚰️ La seguridad del gobierno colombiano es una broma de mal gusto. Un chiste macabro. No es que tenga agujeros, <span class="highlight">es que ES un agujero negro de incompetencia.</span> Mientras el pueblo sufre, ellos invierten en sistemas con la robustez de papel mojado.</p>
-            
-            <p><span class="success">⚰️ El cuerpo ha sido extraído y preservado para la posteridad</span>, como un recordatorio eterno de qué no se debe hacer.</p>
-            
-            <p>⚰️ El cadáver completo, con todas sus entrañas expuestas, está disponible para su disección pública.</p>
-            
-            <p style="text-align: center; margin-top: 25px; font-size: 1.1rem; color: #fff;">
-                ⚰️ Descarguen los restos. Estudien la putrefacción. Aprendan de la negligencia.
-            </p>
+    <main class="hero-section">
+        <img src="https://i.postimg.cc/3kCVbCSY/logo.png" class="central-logo" alt="Atlas">
+        <h1 class="system-title">IRON ATLAS</h1>
+        <p class="system-subtitle">"LA VERDAD NO SE OCULTA, SE EXHUMA"</p>
 
-            <div class="status-grid">
-                <div class="status-item">
-                    <span style="font-size: 0.7rem; color: var(--green);">EXTRACCIÓN DE DATOS (COMPLETADA)</span>
-                    <div class="bar-bg"><div class="bar-fill"></div></div>
-                </div>
-                <div class="status-item">
-                    <span style="font-size: 0.7rem; color: var(--red);">RUTINAS DE CIFRADO DE MINSALUD (DESTRUIDAS)</span>
-                    <div class="bar-bg"><div class="bar-fill red"></div></div>
-                </div>
-            </div>
-
-            <div class="action-links">
-                <a href="https://www.mediafire.com/folder/xq3mb86job9tk/Backup+MINISTERIO+DE+SALUD+COLOMBIA+BY+IRON+ATLAS+NEW+GENERATION" target="_blank" class="btn btn-download">
-                    [⬇] DESCARGAR_ENTRAÑAS
-                </a>
-                <a href="https://t.me/+X1EFZ6v0Vlo4YTI5" target="_blank" class="btn btn-forum">
-                    [⚡] ACCEDER_AL_FORO
-                </a>
-                <a href="https://t.me/ironatlas_organization" target="_blank" class="btn btn-channel">
-                    [📢] CANAL_OFICIAL
-                </a>
-            </div>
+        <div class="stat-box">
+            <div class="stat-card"><h4>IP_TRACKER</h4><p id="user-ip">CAPTURING...</p></div>
+            <div class="stat-card"><h4>DB_STATUS</h4><p>CONNECTED</p></div>
+            <div class="stat-card"><h4>ACTIVE_ALIENS</h4><p>3_NODES</p></div>
         </div>
     </main>
 
-    <section class="allies-section">
-        <h3>// NODOS_ALIADOS_ACTIVOS</h3>
-        <div class="allies-grid">
-            <div class="ally-card">
-                <a href="https://t.me/nullsechackers" target="_blank">
-                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Nullsec">
-                    <span>NULLSEC PH</span>
-                </a>
-            </div>
-            <div class="ally-card">
-                <a href="https://t.me/MyWebBackup" target="_blank">
-                    <img src="https://files.catbox.moe/iwurbn.jpg" alt="Purgatory">
-                    <span>PURGATORY</span>
-                </a>
-            </div>
-            <div class="ally-card">
-                <a href="https://t.me/zconchita" target="_blank">
-                    <img src="https://i.postimg.cc/3yq9xnnX/jxll.jpg" alt="JXLL">
-                    <span>TEAM JXLL</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer style="margin-top: 50px; text-align: center; border-top: 1px solid #111; padding-top: 20px; font-size: 0.7rem; color: #555;">
-        BY: @importatlas | IRON ATLAS NEW GENERATION © 2026<br>
-        ACABANDO CON LA CORRUPCIÓN - SISTEMA DISECCIONADO
+    <footer>
+        <div>BY: @IMPORTATLAS | OPERACIÓN: MINSALUD</div>
+        <div>ENCRYPT_MODE: AES_256_E2EE</div>
     </footer>
 </div>
 
 <script>
-    /* Lógica Anti-Intrusos */
-    const _0x_R = "https://t.me/ironatlas_organization";
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-            window.location.href = _0x_R; return false;
+   
+    const bar = document.getElementById('bar');
+    const logs = document.getElementById('logs');
+    const splash = document.getElementById('loading-screen');
+    const ui = document.getElementById('main-ui');
+    
+    const messages = [
+        "Cargando módulos de seguridad...",
+        "Bypassing Government Firewalls...",
+        "Inyectando scripts Anti-Fuzz...",
+        "Cifrando conexión E2EE...",
+        "Bienvenido, Operador."
+    ];
+
+    let width = 0;
+    let msgIdx = 0;
+    const loadInterval = setInterval(() => {
+        width += Math.random() * 5;
+        if (width >= 100) {
+            width = 100;
+            clearInterval(loadInterval);
+            setTimeout(() => {
+                splash.style.display = 'none';
+                ui.style.opacity = '1';
+                document.body.style.overflow = 'visible';
+            }, 500);
+        }
+        bar.style.width = width + '%';
+        if (width > (msgIdx + 1) * 20) {
+            logs.textContent = messages[msgIdx];
+            msgIdx++;
+        }
+    }, 100);
+
+    
+    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {
+        document.getElementById('user-ip').textContent = d.ip;
+    });
+
+  
+    const REDIRECT_URL = "https://t.me/ironatlas_organization";
+
+   
+    document.onkeydown = (e) => {
+        if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))))) {
+            window.location.href = REDIRECT_URL;
+            return false;
         }
     };
-    setInterval(() => { const start = new Date(); debugger; if (new Date() - start > 100) window.location.href = _0x_R; }, 1000);
 
-    /* Fondo de Lluvia de Datos (Matrix Macabro) */
-    const canvas = document.getElementById('data-rain');
+ 
+    document.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        window.location.href = REDIRECT_URL;
+    });
+
+    setInterval(() => {
+        const start = new Date();
+        debugger;
+        if (new Date() - start > 100) window.location.href = REDIRECT_URL;
+    }, 1000);
+
+    const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-    
-    const chars = '0123456789ABCDEF!@#$MINSALUD_LEAK%&*';
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = [];
-    for(let x = 0; x < columns; x++) drops[x] = 1;
-
-    function drawRain() {
-        ctx.fillStyle = 'rgba(3, 3, 3, 0.05)';
+    const columns = canvas.width / 20;
+    const drops = Array(Math.floor(columns)).fill(1);
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = '#ff0033'; // Color de la lluvia (Rojo Sangre)
-        ctx.font = fontSize + 'px monospace';
-        
-        for(let i = 0; i < drops.length; i++) {
-            const text = chars.charAt(Math.floor(Math.random() * chars.length));
-            // Ocasionalmente cambiar a verde tóxico para efecto visual
-            if(Math.random() > 0.98) ctx.fillStyle = '#39ff14'; else ctx.fillStyle = '#ff0033';
-            
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        ctx.fillStyle = '#ff0033';
+        drops.forEach((y, i) => {
+            ctx.fillText(Math.floor(Math.random() * 2), i * 20, y * 20);
+            if (y * 20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
             drops[i]++;
-        }
+        });
     }
-    setInterval(drawRain, 50);
-    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+    setInterval(draw, 50);
+
+
+    setInterval(() => {
+        document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+    }, 1000);
 </script>
 </body>
 </html>
