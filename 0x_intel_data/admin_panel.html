@@ -2,53 +2,175 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>IRON ATLAS </title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IRON ATLAS NEW GENERATION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #ff0033; --bg: #080808; --panel: #121212; }
-        body { background: var(--bg); color: #eee; font-family: 'Inter', sans-serif; margin: 0; }
+        :root { --r: #ff0033; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #d0d0d0; }
         
-        .admin-header { padding: 40px; border-bottom: 1px solid #222; text-align: center; }
-        .admin-header h1 { font-family: 'Share Tech Mono'; letter-spacing: 5px; color: var(--red); }
+        * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background: var(--b); 
+            color: var(--t); 
+            font-family: 'Inter', sans-serif; 
+            user-select: none; 
+            overflow-x: hidden;
+        }
+
+       
+        .admin-header { 
+            padding: clamp(30px, 8vw, 60px) 20px; 
+            border-bottom: 1px solid var(--brd); 
+            text-align: center;
+            background: linear-gradient(to bottom, #0a0a0a, var(--b));
+        }
+        
+        .admin-header h1 { 
+            font-family: 'Share Tech Mono'; 
+            letter-spacing: clamp(2px, 2vw, 8px); 
+            color: var(--r); 
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            text-transform: uppercase;
+        }
+
+        .access-lvl { 
+            font-size: 0.7rem; 
+            color: #444; 
+            margin-top: 10px; 
+            font-family: 'Share Tech Mono';
+            letter-spacing: 2px;
+        }
 
         .target-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 25px; padding: 50px; max-width: 1200px; margin: auto;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            padding: clamp(20px, 5vw, 50px); 
+            max-width: 1200px; 
+            margin: auto; 
         }
 
+     
         .target-card {
-            background: var(--panel); border: 1px solid #222; padding: 20px;
-            display: flex; align-items: center; gap: 20px;
-            text-decoration: none; color: inherit; transition: 0.3s;
+            background: var(--p); 
+            border: 1px solid var(--brd); 
+            padding: 20px;
+            display: flex; 
+            align-items: center; 
+            gap: 20px;
+            text-decoration: none; 
+            color: inherit; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .target-card:hover { border-color: var(--red); transform: translateY(-5px); background: #1a1a1a; }
-        
-        .target-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #333; }
-        .target-info h3 { font-size: 1rem; color: #fff; margin-bottom: 5px; }
-        .target-info span { font-size: 0.7rem; color: var(--red); font-family: 'Share Tech Mono'; }
+        .target-card:hover { 
+            border-color: var(--r); 
+            background: #111;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 51, 0.1);
+        }
 
-        .status-badge { font-size: 0.6rem; background: #200; color: var(--red); padding: 2px 8px; border-radius: 10px; }
+        .target-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 2px; height: 100%;
+            background: var(--r);
+            transform: scaleY(0);
+            transition: 0.3s;
+        }
+
+        .target-card:hover::before { transform: scaleY(1); }
+
+        .target-img { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 2px solid #222; 
+            flex-shrink: 0;
+            filter: grayscale(0.5);
+            transition: 0.3s;
+        }
+
+        .target-card:hover .target-img { filter: grayscale(0); border-color: var(--r); }
+
+        .target-info h3 { 
+            font-size: 1rem; 
+            color: #fff; 
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .target-id { 
+            font-size: 0.75rem; 
+            color: var(--r); 
+            font-family: 'Share Tech Mono'; 
+            display: block;
+        }
+
+        .status-badge { 
+            display: inline-block;
+            font-size: 0.6rem; 
+            background: #200; 
+            color: var(--r); 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            margin-bottom: 8px;
+            font-weight: bold;
+            border: 1px solid #400;
+        }
+
+        /* MEDIA QUERIES PARA MÓVIL EXTREMO */
+        @media (max-width: 480px) {
+            .target-card { padding: 15px; gap: 15px; }
+            .target-img { width: 60px; height: 60px; }
+            .target-info h3 { font-size: 0.9rem; }
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <div class="admin-header">
-    <h1>DATABASE_EXPLORER</h1>
-    <p style="font-size: 0.8rem; color: #555;">[ ACCESO AUTORIZADO - NIVEL 5 ]</p>
+    <h1>IRON ATLAS [NG]</h1>
+    <p class="access-lvl">[ DISPOSITIVO_AUTORIZADO: IDENTIFICADO ]</p>
+    <p class="access-lvl" style="color: #666;">DATA BASE RATAS-ESTAFADORES</p>
 </div>
 
 <div class="target-grid">
     <a href="targets/henxx.html" class="target-card">
         <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" class="target-img">
         <div class="target-info">
-            <span class="status-badge">FRAUD_ALERT</span>
-            <h3>HEXN 『𝕮𝖔𝖒𝖚𝖓𝖞𝖙𝕳』</h3>
-            <span>ID: 1032404606</span>
+            <span class="status-badge">ALERTA :ESTAFADOR </span>
+            <h3>MIGUEL ORTIZ</h3>
+            <span class="target-id">ID TELEGRAM: 8404892062</span>
+            <span style="font-size: 0.6rem; color: #444;">Alias: HEXN</span>
         </div>
     </a>
 
     </div>
+
+<script>
+   
+    document.addEventListener('keydown', function(e) {
+        if (
+            e.keyCode == 123 || 
+            (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
+            (e.ctrlKey && e.keyCode == 85) 
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+  
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 1) e.preventDefault();
+    }, {passive: false});
+</script>
 
 </body>
 </html>
