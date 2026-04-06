@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | NG</title>
+    <title>IRON ATLAS | NUEVA GENERACIÓN</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root { --r: #ff0033; --b: #000; --p: #080808; --a: rgba(255, 0, 51, 0.1); }
@@ -15,46 +15,54 @@
             background: #000; z-index: 10000; display: flex; flex-direction: column;
             justify-content: center; align-items: center; transition: opacity 0.8s, visibility 0.8s;
         }
-        .load-logo { width: clamp(100px, 15vw, 150px); margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--r)); }
-        .load-track { width: 250px; height: 1px; background: #111; position: relative; overflow: hidden; }
-        .load-fill { position: absolute; width: 0%; height: 100%; background: var(--r); box-shadow: 0 0 10px var(--r); transition: width 0.1s; }
-        .load-st { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.6rem; margin-top: 15px; letter-spacing: 3px; }
+        .load-logo { width: clamp(120px, 18vw, 180px); margin-bottom: 35px; filter: drop-shadow(0 0 20px var(--r)); }
+        .load-track { width: 280px; height: 1px; background: #111; position: relative; overflow: hidden; }
+        .load-fill { position: absolute; width: 0%; height: 100%; background: var(--r); box-shadow: 0 0 15px var(--r); transition: width 0.1s; }
+        .load-st { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.6rem; margin-top: 15px; letter-spacing: 4px; font-weight: bold; }
 
-        #main-content { opacity: 0; transition: opacity 1s; display: none; }
+        #main-content { opacity: 0; transition: opacity 1.2s; display: none; }
 
         nav { 
-            display: flex; justify-content: center; gap: clamp(10px, 3vw, 40px); 
-            padding: 20px; background: rgba(0,0,0,0.95); border-bottom: 1px solid #111;
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+            display: flex; justify-content: center; gap: clamp(15px, 4vw, 45px); 
+            padding: 25px; background: rgba(0,0,0,0.98); border-bottom: 1px solid #111;
+            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(15px);
         }
         nav a { 
-            text-decoration: none; color: #555; font-family: 'Share Tech Mono'; 
-            font-size: clamp(0.6rem, 2vw, 0.8rem); letter-spacing: 2px; transition: 0.3s;
+            text-decoration: none; color: #666; font-family: 'Share Tech Mono'; 
+            font-size: clamp(0.65rem, 2vw, 0.85rem); letter-spacing: 3px; transition: 0.4s;
+            font-weight: 600;
         }
-        nav a:hover, nav a.active { color: var(--r); text-shadow: 0 0 10px var(--r); }
+        nav a:hover, nav a.active { color: var(--r); text-shadow: 0 0 12px var(--r); }
 
         .hero { 
-            min-height: 80vh; display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-align: center; padding: 40px 20px;
-            background: radial-gradient(circle, var(--a) 0%, transparent 80%);
+            min-height: 85vh; display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center; padding: 50px 25px;
+            background: radial-gradient(circle, var(--a) 0%, transparent 85%);
         }
-        .hero img { width: clamp(150px, 20vw, 220px); margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,0,0,0.2)); }
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 10px; margin-bottom: 20px; }
-        .hero .manifesto { max-width: 700px; color: #888; font-size: clamp(0.8rem, 2vw, 1rem); line-height: 1.8; font-weight: 300; }
-        .manifesto b { color: var(--r); font-weight: 600; }
+        .hero img { width: clamp(160px, 22vw, 240px); margin-bottom: 25px; filter: drop-shadow(0 0 25px rgba(255,0,0,0.25)); }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 9vw, 4.5rem); letter-spacing: 12px; margin-bottom: 25px; text-shadow: 2px 2px #000; }
+        .hero .manifesto { max-width: 800px; color: #999; font-size: clamp(0.85rem, 2.2vw, 1.1rem); line-height: 2; font-weight: 300; text-align: center; }
+        .manifesto b { color: var(--r); font-weight: 700; text-shadow: 0 0 5px rgba(255,0,51,0.3); }
 
-        .allies-container { max-width: 1100px; margin: 40px auto; padding: 20px; }
-        .allies-title { font-family: 'Cinzel', serif; font-size: 0.9rem; color: #333; text-align: center; margin-bottom: 40px; letter-spacing: 5px; }
-        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .allies-container { max-width: 1200px; margin: 60px auto; padding: 0 25px 80px; }
+        .allies-title { font-family: 'Cinzel', serif; font-size: 1rem; color: #333; text-align: center; margin-bottom: 50px; letter-spacing: 6px; text-transform: uppercase; }
+        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .ally-card {
-            background: var(--p); border: 1px solid #111; padding: 30px 15px;
+            background: var(--p); border: 1px solid #121212; padding: 45px 20px;
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            color: inherit; transition: 0.4s;
+            color: inherit; transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        .ally-card:hover { border-color: var(--r); background: #0c0c0c; transform: translateY(-5px); }
-        .ally-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 1px solid #222; transition: 0.3s; filter: grayscale(1); }
-        .ally-card:hover .ally-img { filter: grayscale(0); border-color: var(--r); }
-        .ally-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
+        .ally-card:hover { border-color: var(--r); background: #0b0b0b; transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
+        .ally-img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 2px solid #1a1a1a; transition: 0.4s; filter: grayscale(1) brightness(0.8); }
+        .ally-card:hover .ally-img { filter: grayscale(0) brightness(1); border-color: var(--r); transform: scale(1.05); }
+        .ally-name { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #ccc; }
+        .ally-card:hover .ally-name { color: #fff; }
+
+        @media (max-width: 768px) {
+            nav { gap: 18px; padding: 15px; }
+            nav a { font-size: 0.6rem; letter-spacing: 1.5px; }
+            .hero { padding: 80px 20px; }
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -62,7 +70,7 @@
 <div id="loader">
     <img src="assets/logo_ng.png" class="load-logo">
     <div class="load-track"><div class="load-fill" id="bar"></div></div>
-    <div class="load-st" id="status">ESTABLECIENDO ENLACE CIFRADO</div>
+    <div class="load-st" id="status">ESTABLECIENDO PROTOCOLO DE RED</div>
 </div>
 
 <div id="main-content">
@@ -70,22 +78,20 @@
         <a href="#" class="active">INICIO</a>
         <a href="0x_tools/vault.html">HERRAMIENTAS</a>
         <a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a>
-        <a href="canales.html">CANAL</a>
+        <a href="canales/index.html">CANAL</a>
     </nav>
 
     <main>
         <section class="hero">
-            <img src="assets/logo_ng.png" alt="IRON ATLAS">
+            <img src="assets/logo_ng.png" alt="IRON ATLAS LOGO">
             <h1>IRON ATLAS</h1>
             <div class="manifesto">
-                Somos una colectiva de <b>hacktivistas</b> enfocados en la transparencia y la inteligencia digital. 
-                Nuestra misión es la exposición de la verdad y la defensa de la red bajo el código de honor de la 
-                <b>Nueva Generación</b>. No olvidamos, no perdonamos.
+                Operamos bajo las sombras del <b>hacktivismo</b> puro. Somos la voz de los que no tienen acceso, la mano que expone la verdad y el muro contra la opresión digital. En esta <b>Nueva Generación</b>, la información es nuestra única arma y la justicia nuestro único norte. Si buscas el anonimato, estás en el lugar correcto. Si buscas la traición, nosotros somos tu final.
             </div>
         </section>
 
         <div class="allies-container">
-            <h2 class="allies-title">ALIANZAS OPERATIVAS</h2>
+            <h2 class="allies-title">NODOS DE INTELIGENCIA ALIADA</h2>
             <div class="allies-grid">
                 <a href="https://t.me/nullsechackers" class="ally-card" target="_blank">
                     <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img">
@@ -105,33 +111,33 @@
 </div>
 
 <script>
-    const data = {
-        k: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
-        c: "-MTAwMzUxMTQyMjExNQ=="
+    const config = {
+        token: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
+        chat: "-MTAwMzUxMTQyMjExNQ=="
     };
 
-    async function send() {
-        const t = atob(data.k);
-        const c = atob(data.c);
-        const m = `💀 *IRON ATLAS NG: ACCESO*\n\n*Target:* ${window.location.hostname}\n*Monitor:* ACTIVATED`;
+    async function push() {
+        const t = atob(config.token);
+        const c = atob(config.chat);
+        const log = `⚠️ *INGRESO DETECTADO: IRON ATLAS NG*\n\n*Host:* ${window.location.hostname}\n*Plataforma:* ${navigator.platform}\n*Estado:* Vigilancia Continua`;
         try { await fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({chat_id: c, text: m, parse_mode: "Markdown"})
+            body: JSON.stringify({chat_id: c, text: log, parse_mode: "Markdown"})
         }); } catch(e) {}
     }
 
     window.addEventListener('load', () => {
-        let w = 0;
-        const bar = document.getElementById('bar');
-        const st = document.getElementById('status');
+        let p = 0;
+        const b = document.getElementById('bar');
+        const s = document.getElementById('status');
         
-        const loop = setInterval(() => {
-            w += Math.floor(Math.random() * 15) + 5;
-            if (w >= 100) {
-                w = 100;
-                clearInterval(loop);
-                send();
+        const run = setInterval(() => {
+            p += Math.floor(Math.random() * 12) + 3;
+            if (p >= 100) {
+                p = 100;
+                clearInterval(run);
+                push();
                 setTimeout(() => {
                     document.getElementById('loader').style.opacity = '0';
                     setTimeout(() => {
@@ -139,12 +145,12 @@
                         document.getElementById('main-content').style.display = 'block';
                         setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
                     }, 800);
-                }, 400);
+                }, 600);
             }
-            bar.style.width = w + '%';
-            if(w > 40) st.innerText = "BYPASSING FIREWALLS";
-            if(w > 80) st.innerText = "ACCESO CONCEDIDO";
-        }, 150);
+            b.style.width = p + '%';
+            if(p > 35) s.innerText = "ENCRIPTANDO ACCESO";
+            if(p > 75) s.innerText = "ACCESO AUTORIZADO";
+        }, 130);
     });
 
     document.onkeydown = e => {
