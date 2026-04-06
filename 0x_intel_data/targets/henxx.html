@@ -3,141 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REPORT_ID: 1032404606 | IRON ATLAS</title>
+    <title>REPORTE: 1032404606 | IRON ATLAS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #ff0033; --cyan: #00f0ff; --bg: #050505; --panel: #0d0d0d; --border: #222; }
+        :root { --red: #ff0033; --cyan: #00f0ff; --bg: #050505; --panel: #0d0d0d; --border: #1a1a1a; --text: #d0d0d0; }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: #bbb; font-family: 'Inter', sans-serif; line-height: 1.5; padding-bottom: 50px; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.4; padding-bottom: 80px; }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
 
-        .container { max-width: 1100px; margin: auto; padding: 20px; }
-
-        /* CABECERA */
-        .dossier-header {
-            display: flex; gap: 30px; background: var(--panel); border: 1px solid var(--border);
-            padding: 30px; border-left: 5px solid var(--red); margin-bottom: 20px; align-items: center;
+     
+        .header-dossier {
+            display: flex; gap: 40px; background: var(--panel); border: 1px solid var(--border);
+            padding: 40px; border-left: 8px solid var(--red); margin-bottom: 30px; align-items: flex-start;
         }
-        .profile-img { width: 180px; height: 180px; object-fit: cover; border: 2px solid #333; filter: grayscale(0.5); }
-        .header-info h1 { color: #fff; font-size: 1.8rem; margin-bottom: 5px; text-transform: uppercase; }
-        .status-alert { color: var(--red); font-family: 'Share Tech Mono'; font-weight: bold; font-size: 0.9rem; }
-
-        /* SECCIONES */
-        .section { background: var(--panel); border: 1px solid var(--border); margin-bottom: 15px; }
-        .section-title { 
-            background: #151515; padding: 10px 20px; border-bottom: 1px solid var(--border);
-            color: var(--cyan); font-family: 'Share Tech Mono'; font-size: 0.85rem; letter-spacing: 2px;
-            display: flex; justify-content: space-between;
-        }
-
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; padding: 20px; }
-        .data-item { border-bottom: 1px solid #1a1a1a; padding-bottom: 8px; }
-        .label { display: block; font-size: 0.65rem; color: #555; text-transform: uppercase; margin-bottom: 2px; }
-        .value { color: #eee; font-family: 'Share Tech Mono'; font-size: 0.95rem; word-break: break-all; }
+        .profile-img { width: 220px; height: 220px; object-fit: cover; border: 2px solid #222; }
+        .header-content h1 { color: #fff; font-size: 2rem; margin-bottom: 10px; font-weight: 700; }
+        .target-id { font-family: 'Share Tech Mono'; color: var(--cyan); margin-bottom: 15px; display: block; font-size: 1.1rem; }
         
-        /* BLOQUES ESPECIALES */
-        .full-width { grid-column: 1 / -1; }
-        .osint-block { padding: 20px; border-top: 1px solid #1a1a1a; }
-        .osint-sub { color: var(--cyan); font-weight: bold; margin-bottom: 5px; display: block; font-size: 0.8rem; }
-        
-        .tag-list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
-        .tag { background: #200; color: var(--red); padding: 2px 8px; font-size: 0.7rem; border-radius: 3px; font-weight: bold; }
+        .tags-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+        .tag { background: #200; color: var(--red); padding: 5px 12px; font-size: 0.75rem; font-weight: bold; border: 1px solid #400; }
 
-        .btn-back { 
-            display: inline-block; margin-bottom: 15px; color: #666; text-decoration: none; 
-            font-size: 0.8rem; transition: 0.3s;
+    
+        .section { background: var(--panel); border: 1px solid var(--border); margin-bottom: 25px; overflow: hidden; }
+        .section-header { 
+            background: #151515; padding: 12px 25px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .btn-back:hover { color: var(--cyan); }
+        .section-header h3 { font-family: 'Share Tech Mono'; color: var(--cyan); font-size: 0.9rem; letter-spacing: 2px; }
+        .section-header span { color: #444; font-size: 0.7rem; font-family: 'Share Tech Mono'; }
 
-        .highlight { color: var(--cyan); }
+        .data-content { padding: 25px; }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
+        .data-block { border-bottom: 1px solid #151515; padding-bottom: 10px; }
+        .label { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; margin-bottom: 5px; font-weight: 600; }
+        .value { color: #fff; font-family: 'Share Tech Mono'; font-size: 1rem; }
+        .full { grid-column: 1 / -1; }
+
+       
+        .osint-entry { border-left: 2px solid var(--cyan); padding-left: 15px; margin-bottom: 20px; }
+        .osint-title { color: var(--cyan); font-weight: bold; font-size: 0.85rem; margin-bottom: 8px; display: block; }
+        .sub-data { display: block; font-size: 0.85rem; color: #888; margin-bottom: 3px; }
+
+        .back-nav { padding: 20px 0; }
+        .back-nav a { color: #555; text-decoration: none; font-size: 0.8rem; font-family: 'Share Tech Mono'; transition: 0.3s; }
+        .back-nav a:hover { color: var(--cyan); }
+
+        .highlight-text { color: var(--cyan); }
+        .success-text { color: #39ff14; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <a href="../admin_panel.html" class="btn-back">◄ VOLVER AL DIRECTORIO CENTRAL</a>
+    <nav class="back-nav"><a href="../admin_panel.html"> < [ RETURN_TO_DATABASE ]</a></nav>
 
-    <div class="dossier-header">
-        <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" alt="TARGET_PHOTO" class="profile-img">
-        <div class="header-info">
-            <span class="status-alert">[!] TARGET_STATUS: DOXXED / FRAUD_DETECTION</span>
-            <h1>HEXN 『𝕮𝖔𝖒𝖚𝖓𝖞𝖙𝕳』</h1>
-            <p>ID_SISTEMA: <span class="highlight">47045708</span> | RECOLECTADO POR: <span class="highlight">IRON ATLAS [NG]</span></p>
-            <div class="tag-list">
-                <span class="tag">TRAICIÓN</span><span class="tag">ESTAFA</span><span class="tag">ACOSO</span><span class="tag">TOXICIDAD</span><span class="tag">ROBO</span>
+    <header class="header-dossier">
+        <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" alt="HEXN" class="profile-img">
+        <div class="header-content">
+            <span class="target-id">ID: 47045708 // STATUS: ESTAFADOR</span>
+            <h1>𝙈𝙄𝙂𝙐𝙀𝙇 𝙊𝙎𝙒𝘼𝙇𝘿𝙊 𝙊𝙍𝙏𝙄𝙕 𝙈𝘼𝙍𝙄𝙉</h1>
+            <p style="color: #888;">Reporte consolidado de actividad fraudulenta y exposición de datos.</p>
+            <div class="tags-container">
+                <span class="tag">TRAICIÓN</span><span class="tag">ESTAFA</span><span class="tag">ACOSO</span>
+                <span class="tag">TOXICIDAD</span><span class="tag">ROBO</span><span class="tag">BURLA</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="section-header"><h3>DATOS PERSONALES </h3><span>IDENTIFICACIÓN</span></div>
+        <div class="data-content">
+            <div class="data-grid">
+                <div class="data-block"><span class="label">Nombre Completo</span><span class="value">MIGUEL OSWALDO ORTIZ MARIN</span></div>
+                <div class="data-block"><span class="label">Cédula Ciudadanía</span><span class="value">1032404606</span></div>
+                <div class="data-block"><span class="label">Fecha Nacimiento</span><span class="value">06 de Febrero de 1988</span></div>
+                <div class="data-block"><span class="label">Fecha Expedición</span><span class="value">2006-02-06</span></div>
+                <div class="data-block"><span class="label">Estatura / Sexo</span><span class="value">169 cm / Hombre</span></div>
+                <div class="data-block"><span class="label">RH</span><span class="value">1</span></div>
+                <div class="data-block"><span class="label">Ubicación</span><span class="value">Bogotá, D.C. (Colombia)</span></div>
+                <div class="data-block"><span class="label">Entorno Familiar</span><span class="value">MIGUEL (P) / ORTENCIA (M)</span></div>
+                <div class="data-block full"><span class="label">Dirección (No Confirmada)</span><span class="value">DIAG 142 B NO 137 44 CESAR</span></div>
             </div>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-title"><span>IDENTIDAD_CIVIL_COL</span><span>DOC_TYPE: CC</span></div>
-        <div class="data-grid">
-            <div class="data-item"><span class="label">Nombre Completo</span><span class="value">MIGUEL OSWALDO ORTIZ MARIN</span></div>
-            <div class="data-item"><span class="label">Documento</span><span class="value">1032404606</span></div>
-            <div class="data-item"><span class="label">Nacimiento</span><span class="value">06/02/1988</span></div>
-            <div class="data-item"><span class="label">Estatura</span><span class="value">169 CM</span></div>
-            <div class="data-item"><span class="label">Sexo / RH</span><span class="value">Hombre / RH 1</span></div>
-            <div class="data-item"><span class="label">Padres</span><span class="value">MIGUEL / ORTENCIA</span></div>
-            <div class="data-item"><span class="label">Ubicación</span><span class="value">Bogotá, D.C. (COL)</span></div>
-            <div class="data-item"><span class="label">EPS</span><span class="value">FAMISANAR E.P.S. LTDA</span></div>
-            <div class="data-item full-width"><span class="label">Dirección (No confirmada)</span><span class="value">DIAG 142 B NO 137 44 CESAR</span></div>
+        <div class="section-header"><h3>SISTEMA DE SALUD</h3><span>HENXX</span></div>
+        <div class="data-content">
+            <div class="data-grid">
+                <div class="data-block"><span class="label">Régimen</span><span class="value">Contributivo</span></div>
+                <div class="data-block"><span class="label">Aseguradora (EPS)</span><span class="value">FAMISANAR E.P.S. LTDA - CAFAM</span></div>
+                <div class="data-block"><span class="label">Estado</span><span class="value success-text">ACTIVO</span></div>
+                <div class="data-block"><span class="label">Fallecido</span><span class="value">No</span></div>
+            </div>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-title"><span>LOGÍSTICA_Y_MOVILIDAD</span><span>RUNT_QUERY: ACTIVE</span></div>
-        <div class="data-grid">
-            <div class="data-item"><span class="label">Placa</span><span class="value">DVB11E</span></div>
-            <div class="data-item"><span class="label">Clase / Marca</span><span class="value">MOTOCICLETA / TVS</span></div>
-            <div class="data-item"><span class="label">Modelo / Línea</span><span class="value">2016 / APACHE RTR 180</span></div>
-            <div class="data-item"><span class="label">Color / Cilindraje</span><span class="value">BLANCO / 177 CC</span></div>
-            <div class="data-item"><span class="label">Nro Motor</span><span class="value">0E6AG2136997</span></div>
-            <div class="data-item"><span class="label">Nro Chasis</span><span class="value">MD634KE61G2A32539</span></div>
-            <div class="data-item"><span class="label">Seguro (SOAT)</span><span class="value">MUNDIAL DE SEGUROS (Venció 17/10/2024)</span></div>
-            <div class="data-item"><span class="label">Nro Inscripción RUNT</span><span class="value">14160027 (28/01/2014)</span></div>
-            <div class="data-item full-width"><span class="label">Historial Licencias</span><span class="value">A2 (08/04/2014 - LOTTUS) | C1 (16/06/2017 - AUDIMOVIL)</span></div>
+        <div class="section-header"><h3>ACTIVOS VEHICULARES</h3><span>RUNT</span></div>
+        <div class="data-content">
+            <div class="data-grid">
+                <div class="data-block"><span class="label">Placa del Vehículo</span><span class="value">DVB11E</span></div>
+                <div class="data-block"><span class="label">Clase / Marca</span><span class="value">MOTOCICLETA / TVS</span></div>
+                <div class="data-block"><span class="label">Línea</span><span class="value">TVS APACHE RTR 180</span></div>
+                <div class="data-block"><span class="label">Modelo / Color</span><span class="value">2016 / BLANCO</span></div>
+                <div class="data-block"><span class="label">Cilindraje</span><span class="value">177 CC</span></div>
+                <div class="data-block"><span class="label">Número Motor</span><span class="value">0E6AG2136997</span></div>
+                <div class="data-block"><span class="label">Número Chasis</span><span class="value">MD634KE61G2A32539</span></div>
+                <div class="data-block"><span class="label">SOAT Vigencia</span><span class="value">17/10/2023 - 17/10/2024</span></div>
+                <div class="data-block"><span class="label">Estado Póliza</span><span class="value" style="color: var(--red);">INACTIVA</span></div>
+                <div class="data-block"><span class="label">Autoridad Tránsito</span><span class="value">STRIA TTEyMOV CUND/EL ROSAL</span></div>
+            </div>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-title"><span>DIGITAL_FOOTPRINT</span><span>COMMS_INTEL</span></div>
-        <div class="data-grid">
-            <div class="data-item"><span class="label">Telegram Alias</span><span class="value">@HEXXN_x / @Coderebel_oficial</span></div>
-            <div class="data-item"><span class="label">Telegram IDs</span><span class="value">8202859378 | 8404892062</span></div>
-            <div class="data-item"><span class="label">Teléfonos</span><span class="value">+57 3159676757 | +57 3159674675</span></div>
-            <div class="data-item"><span class="label">Financiero (Nequi)</span><span class="value">3159674675 (@NEQUIMAR745036)</span></div>
-            <div class="data-item"><span class="label">PayPal</span><span class="value">tap82838 (Miguel Ortiz)</span></div>
-            <div class="data-item full-width"><span class="label">Emails Relacionados</span><span class="value">hayhexn@gmail.com | smman9098@gmail.com</span></div>
+        <div class="section-header"><h3>TRÁMITES RUNT </h3><span>CONDUCTOR RECORRIDOS</span></div>
+        <div class="data-content">
+            <div class="osint-entry">
+                <span class="osint-title">LICENCIAS REGISTRADAS</span>
+                <span class="sub-data">ID: 11529613 | Cat: A2 | CEA: LOTTUS (08/04/2014)</span>
+                <span class="sub-data">ID: 15081910 | Cat: C1 | CEA: AUDIMOVIL (16/06/2017)</span>
+            </div>
+            <div class="osint-entry">
+                <span class="osint-title">ÚLTIMAS SOLICITUDES</span>
+                <span class="sub-data">240747555 (29/06/2024): Refrendación Licencia - BOGOTÁ (AUTORIZADA)</span>
+                <span class="sub-data">240642048 (28/06/2024): Certificado Aptitud Física - RECONOCER IPS</span>
+                <span class="sub-data">160644823 (11/09/2021): Traspaso Vehículo TWE18E - SOACHA</span>
+                <span class="sub-data">114815806 (13/07/2018): Certificado Tradición DVB11E - EL ROSAL</span>
+            </div>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-title"><span>OSINT_EXTENDED_REPORT</span><span>NETWORK_SCAN</span></div>
-        <div class="osint-block">
-            <span class="osint-sub">GOOGLE_MAPS_ACTIVITY (ID: 102977041759889271609)</span>
-            <p class="value" style="font-size: 0.8rem; color: #888;">
-                [28/02/2025] Reseña: "Hotel Cabañas Tolú" (9.5276337, -75.582536)<br>
-                Comentario: "Excelente hotel con servicio impecable... Totalmente recomendado!"
-            </p>
+        <div class="section-header"><h3>HUELLA DIGITAL Y COMUNICACIONES</h3><span>NETWORK</span></div>
+        <div class="data-content">
+            <div class="data-grid">
+                <div class="data-block"><span class="label">Telegram Alias</span><span class="value">@HEXXN_x / @Coderebel_oficial</span></div>
+                <div class="data-block"><span class="label">IDs Telegram</span><span class="value">8202859378 | 8404892062</span></div>
+                <div class="data-block"><span class="label">Números de Teléfono</span><span class="value">+57 3159676757 | +57 3159674675</span></div>
+                <div class="data-block"><span class="label">GitHub</span><span class="value">/Fuentdesconocida | /HEXNCOLOMBIA/</span></div>
+                <div class="data-block full"><span class="label">Emails Activos</span><span class="value">hayhexn@gmail.com | smman9098@gmail.com</span></div>
+            </div>
+            <div style="margin-top:20px;">
+                <span class="osint-title">GRUPOS RELACIONADOS</span>
+                <span class="sub-data">t.me/banwhtsApphexn</span>
+                <span class="sub-data">t.me/referencias_hexn</span>
+                <span class="sub-data">t.me/hexncol</span>
+            </div>
         </div>
-        <div class="osint-block">
-            <span class="osint-sub">MICROSOFT_SERVICE_LOGS</span>
-            <p class="value" style="font-size: 0.8rem; color: #888;">
-                Cuenta: kalet joses | OneDrive Activo desde 14/02/2024<br>
-                Última actividad detectada: 11/04/2025 - 01:43:52
-            </p>
+    </div>
+
+    <div class="section">
+        <div class="section-header"><h3>06_REGISTROS_FINANCIEROS</h3><span>MONEY_TRAIL</span></div>
+        <div class="data-content">
+            <div class="data-grid">
+                <div class="data-block"><span class="label">Nequi</span><span class="value">3159674675 (@NEQUIMAR745036)</span></div>
+                <div class="data-block"><span class="label">PayPal</span><span class="value">tap82838 (Miguel Ortiz)</span></div>
+            </div>
         </div>
-        <div class="osint-block">
-            <span class="osint-sub">SOCIAL_ENGINEERING_DATA</span>
-            <p class="value" style="font-size: 0.8rem; color: #888;">
-                GitHub: /Fuentdesconocida | /HEXNCOLOMBIA/<br>
-                SoloLearn: Marin Ortiz (Nivel 2, XP: 90, Creado: 03/05/2025)<br>
-                AliExpress: Sm233Mañ (Nivel A1, Ubicación: CO)
-            </p>
+    </div>
+
+    <div class="section">
+        <div class="section-header"><h3>07_OSINT_REPORT_EXTENDED</h3><span>PLATFORM_SCAN</span></div>
+        <div class="data-content">
+            <div class="osint-entry">
+                <span class="osint-title">GOOGLE MAPS (ID: 102977041759889271609)</span>
+                <span class="sub-data">Nivel 2 | 1 Reseña | 3 Respuestas</span>
+                <p class="value" style="font-size: 0.85rem; margin-top: 10px; color: #aaa;">
+                    [28/02/2025] Reseña en Hotel Cabañas Tolú: "Excelente hotel con servicio impecable..."
+                </p>
+            </div>
+            <div class="osint-entry">
+                <span class="osint-title">MICROSOFT / ONEDRIVE</span>
+                <span class="sub-data">User: kalet joses | Location: Colombia</span>
+                <span class="sub-data">OneDrive Init: 14/02/2024 | Last Seen: 11/04/2025</span>
+            </div>
+            <div class="data-grid">
+                <div class="data-block"><span class="label">Plex ID</span><span class="value">bb4261a93342ef60 (sm233ma)</span></div>
+                <div class="data-block"><span class="label">SoloLearn ID</span><span class="value">34009940 (Marin Ortiz)</span></div>
+                <div class="data-block"><span class="label">AliExpress</span><span class="value">S***3 M. (Comprador A1)</span></div>
+                <div class="data-block"><span class="label">Wix ID</span><span class="value">327412b7-ccaa-467b-bd19-7bb8b6f91351</span></div>
+            </div>
         </div>
     </div>
 
 </div>
+
+<script>
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = e => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false;
+    };
+</script>
 
 </body>
 </html>
