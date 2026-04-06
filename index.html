@@ -3,205 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | OPERACIONES</title>
+    <title>IRON ATLAS | NG</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #ff0033; --bg: #020202; --panel: #0a0a0a; --accent: rgba(255, 0, 51, 0.2); }
-        
+        :root { --r: #ff0033; --b: #000; --p: #080808; --a: rgba(255, 0, 51, 0.1); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--bg); 
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden; 
-            user-select: none;
-        }
+        body { background: var(--b); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; }
 
-        /* PANTALLA DE CARGA MEJORADA */
         #loader {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #000;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: opacity 0.8s, visibility 0.8s;
         }
+        .load-logo { width: clamp(100px, 15vw, 150px); margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--r)); }
+        .load-track { width: 250px; height: 1px; background: #111; position: relative; overflow: hidden; }
+        .load-fill { position: absolute; width: 0%; height: 100%; background: var(--r); box-shadow: 0 0 10px var(--r); transition: width 0.1s; }
+        .load-st { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.6rem; margin-top: 15px; letter-spacing: 3px; }
 
-        .loader-logo {
-            width: 120px;
-            height: auto;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 10px var(--red));
-            animation: pulse 2s infinite;
-        }
+        #main-content { opacity: 0; transition: opacity 1s; display: none; }
 
-        @keyframes pulse {
-            0% { opacity: 0.5; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.5; transform: scale(0.95); }
-        }
-
-        .load-track { 
-            width: clamp(200px, 50vw, 350px); 
-            height: 2px; 
-            background: #111; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            position: relative; 
-        }
-
-        .load-fill { 
-            position: absolute; 
-            width: 0%; 
-            height: 100%; 
-            background: var(--red); 
-            box-shadow: 0 0 15px var(--red); 
-            transition: width 0.2s ease-out; 
-        }
-
-        .load-status { 
-            font-family: 'Share Tech Mono'; 
-            color: var(--red); 
-            font-size: 0.7rem; 
-            margin-top: 20px; 
-            letter-spacing: 3px;
-        }
-
-        /* CONTENIDO PRINCIPAL (OCULTO AL INICIO) */
-        #main-wrapper {
-            opacity: 0;
-            transition: opacity 1s ease-in;
-        }
-
-        /* NAVEGACIÓN */
         nav { 
-            display: flex; 
-            justify-content: center; 
-            gap: clamp(15px, 4vw, 40px); 
-            padding: 25px; 
-            background: rgba(0,0,0,0.9); 
-            border-bottom: 1px solid #151515;
-            position: sticky; top: 0; z-index: 100; 
-            backdrop-filter: blur(15px);
+            display: flex; justify-content: center; gap: clamp(10px, 3vw, 40px); 
+            padding: 20px; background: rgba(0,0,0,0.95); border-bottom: 1px solid #111;
+            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
         }
-
         nav a { 
-            text-decoration: none; 
-            color: #666; 
-            font-family: 'Share Tech Mono'; 
-            font-size: 0.8rem; 
-            letter-spacing: 2px; 
-            transition: 0.3s;
+            text-decoration: none; color: #555; font-family: 'Share Tech Mono'; 
+            font-size: clamp(0.6rem, 2vw, 0.8rem); letter-spacing: 2px; transition: 0.3s;
         }
+        nav a:hover, nav a.active { color: var(--r); text-shadow: 0 0 10px var(--r); }
 
-        nav a:hover, nav a.active { color: var(--red); text-shadow: 0 0 8px var(--red); }
-
-        /* SECCIONES */
         .hero { 
-            height: 60vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center;
-            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            min-height: 80vh; display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center; padding: 40px 20px;
+            background: radial-gradient(circle, var(--a) 0%, transparent 80%);
         }
+        .hero img { width: clamp(150px, 20vw, 220px); margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,0,0,0.2)); }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 10px; margin-bottom: 20px; }
+        .hero .manifesto { max-width: 700px; color: #888; font-size: clamp(0.8rem, 2vw, 1rem); line-height: 1.8; font-weight: 300; }
+        .manifesto b { color: var(--r); font-weight: 600; }
 
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: 8px; margin: 0; }
-        
-        .content-wrap { max-width: 1100px; margin: auto; padding: 60px 20px; }
-        
-        .section-title { 
-            font-family: 'Cinzel', serif; font-size: 1.1rem; text-align: center; 
-            margin-bottom: 50px; color: #444; letter-spacing: 4px;
+        .allies-container { max-width: 1100px; margin: 40px auto; padding: 20px; }
+        .allies-title { font-family: 'Cinzel', serif; font-size: 0.9rem; color: #333; text-align: center; margin-bottom: 40px; letter-spacing: 5px; }
+        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .ally-card {
+            background: var(--p); border: 1px solid #111; padding: 30px 15px;
+            display: flex; flex-direction: column; align-items: center; text-decoration: none;
+            color: inherit; transition: 0.4s;
         }
-
-        .allies { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
-        }
-
-        .ally-box {
-            background: var(--panel); 
-            border: 1px solid #151515; 
-            padding: 40px 20px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            text-decoration: none; 
-            color: inherit; 
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .ally-box:hover { 
-            border-color: var(--red); 
-            background: #0d0d0d;
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .ally-box img { 
-            width: 90px; height: 90px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            margin-bottom: 20px; 
-            border: 2px solid #222; 
-            filter: grayscale(1);
-            transition: 0.4s;
-        }
-
-        .ally-box:hover img { filter: grayscale(0); border-color: var(--red); transform: scale(1.05); }
-        .ally-box span { font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        @media (max-width: 768px) {
-            nav { gap: 15px; padding: 15px; }
-            nav a { font-size: 0.6rem; }
-            .hero { height: 50vh; }
-        }
+        .ally-card:hover { border-color: var(--r); background: #0c0c0c; transform: translateY(-5px); }
+        .ally-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 1px solid #222; transition: 0.3s; filter: grayscale(1); }
+        .ally-card:hover .ally-img { filter: grayscale(0); border-color: var(--r); }
+        .ally-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
 <div id="loader">
-    <img src="https://files.catbox.moe/iwurbn.jpg" alt="IRON ATLAS LOGO" class="loader-logo">
+    <img src="ironatlasng/assets/logo_ng.png" class="load-logo">
     <div class="load-track"><div class="load-fill" id="bar"></div></div>
-    <div class="load-status" id="status">INICIALIZANDO PROTOCOLOS</div>
+    <div class="load-st" id="status">ESTABLECIENDO ENLACE CIFRADO</div>
 </div>
 
-<div id="main-wrapper">
+<div id="main-content">
     <nav>
         <a href="#" class="active">INICIO</a>
-        <a href="herramientas.html">HERRAMIENTAS</a>
-        <a href="admin_panel.html">EXPEDIENTES</a>
+        <a href="ironatlasng/0x_tools/vault.html">HERRAMIENTAS</a>
+        <a href="ironatlasng/0x_intel_data/admin_panel.html">EXPEDIENTES</a>
         <a href="canales.html">CANAL</a>
     </nav>
 
     <main>
         <section class="hero">
+            <img src="ironatlasng/assets/logo_ng.png" alt="IRON ATLAS">
             <h1>IRON ATLAS</h1>
-            <p style="font-family: 'Share Tech Mono'; color: var(--red); letter-spacing: 3px; margin-top: 15px; opacity: 0.8;">NUEVA GENERACIÓN | SISTEMA OPERATIVO</p>
+            <div class="manifesto">
+                Somos una colectiva de <b>hacktivistas</b> enfocados en la transparencia y la inteligencia digital. 
+                Nuestra misión es la exposición de la verdad y la defensa de la red bajo el código de honor de la 
+                <b>Nueva Generación</b>. No olvidamos, no perdonamos.
+            </div>
         </section>
 
-        <div class="content-wrap">
-            <h2 class="section-title">ALIANZAS ESTRATÉGICAS</h2>
-            <div class="allies">
-                <a href="https://t.me/nullsechackers" class="ally-box" target="_blank">
-                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Nullsec">
-                    <span>Nullsec Philippines</span>
+        <div class="allies-container">
+            <h2 class="allies-title">ALIANZAS OPERATIVAS</h2>
+            <div class="allies-grid">
+                <a href="https://t.me/nullsechackers" class="ally-card" target="_blank">
+                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img">
+                    <span class="ally-name">Nullsec Philippines</span>
                 </a>
-                <a href="https://t.me/MyWebBackup" class="ally-box" target="_blank">
-                    <img src="https://files.catbox.moe/iwurbn.jpg" alt="Purgatory">
-                    <span>𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
+                <a href="https://t.me/MyWebBackup" class="ally-card" target="_blank">
+                    <img src="https://files.catbox.moe/iwurbn.jpg" class="ally-img">
+                    <span class="ally-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
                 </a>
-                <a href="https://t.me/zconchita" class="ally-box" target="_blank">
-                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" alt="JXLL">
-                    <span>𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
+                <a href="https://t.me/zconchita" class="ally-card" target="_blank">
+                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="ally-img">
+                    <span class="ally-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
                 </a>
             </div>
         </div>
@@ -209,59 +105,48 @@
 </div>
 
 <script>
-    const security = {
-        key: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
-        id: "-MTAwMzUxMTQyMjExNQ=="
+    const data = {
+        k: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
+        c: "-MTAwMzUxMTQyMjExNQ=="
     };
 
-    async function sendLog() {
-        const t = atob(security.key);
-        const c = atob(security.id);
-        const payload = `⚠️ *ACCESO DETECTADO: IRON ATLAS*\n\n*Dispositivo:* ${navigator.platform}\n*Agente:* Web Interface\n*Status:* Conexión E2EE Establecida.`;
-
-        try {
-            await fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({chat_id: c, text: payload, parse_mode: "Markdown"})
-            });
-        } catch(e) {}
+    async function send() {
+        const t = atob(data.k);
+        const c = atob(data.c);
+        const m = `💀 *IRON ATLAS NG: ACCESO*\n\n*Target:* ${window.location.hostname}\n*Engine:* ${navigator.platform}\n*Monitor:* ON`;
+        try { await fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({chat_id: c, text: m, parse_mode: "Markdown"})
+        }); } catch(e) {}
     }
 
     window.addEventListener('load', () => {
-        let width = 0;
+        let w = 0;
         const bar = document.getElementById('bar');
-        const status = document.getElementById('status');
-        const loader = document.getElementById('loader');
-        const wrapper = document.getElementById('main-wrapper');
-
-        const interval = setInterval(() => {
-            width += Math.floor(Math.random() * 8) + 2;
-            
-            if (width >= 100) {
-                width = 100;
-                clearInterval(interval);
-                
-                status.innerText = "ACCESO AUTORIZADO";
-                sendLog();
-
+        const st = document.getElementById('status');
+        
+        const loop = setInterval(() => {
+            w += Math.floor(Math.random() * 10) + 1;
+            if (w >= 100) {
+                w = 100;
+                clearInterval(loop);
+                send();
                 setTimeout(() => {
-                    loader.style.opacity = '0';
-                    loader.style.visibility = 'hidden';
-                    wrapper.style.opacity = '1';
-                }, 600);
+                    document.getElementById('loader').style.opacity = '0';
+                    document.getElementById('loader').style.visibility = 'hidden';
+                    document.getElementById('main-content').style.display = 'block';
+                    setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
+                }, 500);
             }
-            
-            bar.style.width = width + '%';
-            if (width > 40) status.innerText = "VERIFICANDO CREDENCIALES";
-            if (width > 80) status.innerText = "SINCRONIZANDO NODOS";
-        }, 100);
+            bar.style.width = w + '%';
+            if(w > 50) st.innerText = "BYPASSING FIREWALLS";
+            if(w > 85) st.innerText = "ACCESO CONCEDIDO";
+        }, 120);
     });
 
     document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-            return false;
-        }
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
 </script>
 
