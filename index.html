@@ -60,7 +60,7 @@
 <body oncontextmenu="return false;">
 
 <div id="loader">
-    <img src="ironatlasng/assets/logo_ng.png" class="load-logo">
+    <img src="assets/logo_ng.png" class="load-logo">
     <div class="load-track"><div class="load-fill" id="bar"></div></div>
     <div class="load-st" id="status">ESTABLECIENDO ENLACE CIFRADO</div>
 </div>
@@ -68,14 +68,14 @@
 <div id="main-content">
     <nav>
         <a href="#" class="active">INICIO</a>
-        <a href="ironatlasng/0x_tools/vault.html">HERRAMIENTAS</a>
-        <a href="ironatlasng/0x_intel_data/admin_panel.html">EXPEDIENTES</a>
+        <a href="0x_tools/vault.html">HERRAMIENTAS</a>
+        <a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a>
         <a href="canales.html">CANAL</a>
     </nav>
 
     <main>
         <section class="hero">
-            <img src="ironatlasng/assets/logo_ng.png" alt="IRON ATLAS">
+            <img src="assets/logo_ng.png" alt="IRON ATLAS">
             <h1>IRON ATLAS</h1>
             <div class="manifesto">
                 Somos una colectiva de <b>hacktivistas</b> enfocados en la transparencia y la inteligencia digital. 
@@ -113,7 +113,7 @@
     async function send() {
         const t = atob(data.k);
         const c = atob(data.c);
-        const m = `💀 *IRON ATLAS NG: ACCESO*\n\n*Target:* ${window.location.hostname}\n*Engine:* ${navigator.platform}\n*Monitor:* ON`;
+        const m = `💀 *IRON ATLAS NG: ACCESO*\n\n*Target:* ${window.location.hostname}\n*Monitor:* ACTIVATED`;
         try { await fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -127,22 +127,24 @@
         const st = document.getElementById('status');
         
         const loop = setInterval(() => {
-            w += Math.floor(Math.random() * 10) + 1;
+            w += Math.floor(Math.random() * 15) + 5;
             if (w >= 100) {
                 w = 100;
                 clearInterval(loop);
                 send();
                 setTimeout(() => {
                     document.getElementById('loader').style.opacity = '0';
-                    document.getElementById('loader').style.visibility = 'hidden';
-                    document.getElementById('main-content').style.display = 'block';
-                    setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
-                }, 500);
+                    setTimeout(() => {
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('main-content').style.display = 'block';
+                        setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
+                    }, 800);
+                }, 400);
             }
             bar.style.width = w + '%';
-            if(w > 50) st.innerText = "BYPASSING FIREWALLS";
-            if(w > 85) st.innerText = "ACCESO CONCEDIDO";
-        }, 120);
+            if(w > 40) st.innerText = "BYPASSING FIREWALLS";
+            if(w > 80) st.innerText = "ACCESO CONCEDIDO";
+        }, 150);
     });
 
     document.onkeydown = e => {
