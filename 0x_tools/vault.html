@@ -1,147 +1,185 @@
+Gemini said
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | OSINT_VAULT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root { --r: #ff0033; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #aaa; }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--b); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IRON ATLAS </title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root { --r: #ff0033; --b: #020202; --p: #0a0a0a; --brd: #151515; --t: #888; }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { background: var(--b); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; min-height: 100vh; }
 
-       
-        header { 
-            padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--brd);
-            background: linear-gradient(to bottom, #000, var(--b));
-        }
-        header h1 { font-family: 'Cinzel', serif; letter-spacing: 6px; font-size: clamp(1.5rem, 5vw, 2.5rem); color: var(--r); }
-        header p { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #444; margin-top: 10px; letter-spacing: 3px; }
+    .bg-lines {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(rgba(255,0,51,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,0,51,0.03) 1px, transparent 1px);
+        background-size: 50px 50px; z-index: -1;
+        mask-image: radial-gradient(circle at center, black, transparent 80%);
+    }
 
-       
-        nav { display: flex; justify-content: center; gap: 20px; padding: 15px; background: #000; border-bottom: 1px solid var(--brd); }
-        nav a { text-decoration: none; color: #555; font-family: 'Share Tech Mono'; font-size: 0.75rem; transition: 0.3s; }
-        nav a:hover { color: var(--r); }
+    header { 
+        padding: 80px 20px 40px; text-align: center; position: relative;
+        animation: fadeInDown 1s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    
+    .glitch {
+        font-family: 'Cinzel', serif; font-size: clamp(2rem, 6vw, 3.5rem);
+        letter-spacing: 12px; color: #fff; position: relative;
+        text-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+    }
+    
+    .glitch::before, .glitch::after {
+        content: 'CENTRAL_VAULT'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: var(--b); clip: rect(44px, 450px, 56px, 0);
+    }
+    .glitch::before { left: 2px; text-shadow: -2px 0 var(--r); animation: glitch-anim 2s infinite linear alternate-reverse; }
+    .glitch::after { left: -2px; text-shadow: -2px 0 #00fff9; animation: glitch-anim 3s infinite linear alternate-reverse; }
 
-      
-        .vault-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+    @keyframes glitch-anim {
+        0% { clip: rect(31px, 9999px, 94px, 0); }
+        20% { clip: rect(62px, 9999px, 42px, 0); }
+        40% { clip: rect(16px, 9999px, 78px, 0); }
+        60% { clip: rect(81px, 9999px, 13px, 0); }
+        80% { clip: rect(55px, 9999px, 49px, 0); }
+        100% { clip: rect(98px, 9999px, 22px, 0); }
+    }
 
-        .tool-card {
-            background: var(--p); border: 1px solid var(--brd); padding: 30px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative; overflow: hidden;
-        }
+    header p { font-family: 'Share Tech Mono'; font-size: 0.8rem; color: var(--r); margin-top: 15px; letter-spacing: 5px; opacity: 0.8; }
 
-        .tool-card:hover { border-color: var(--r); transform: translateY(-5px); background: #111; }
-        .tool-card::after {
-            content: 'READY'; position: absolute; top: 10px; right: 10px;
-            font-family: 'Share Tech Mono'; font-size: 0.5rem; color: var(--r); opacity: 0.3;
-        }
+    nav { 
+        display: flex; justify-content: center; gap: 30px; padding: 20px; 
+        position: sticky; top: 0; z-index: 100; background: rgba(2,2,2,0.9);
+        backdrop-filter: blur(10px); border-bottom: 1px solid var(--brd);
+    }
+    nav a { 
+        text-decoration: none; color: #555; font-family: 'Share Tech Mono'; 
+        font-size: 0.75rem; letter-spacing: 2px; transition: 0.4s; font-weight: 600;
+    }
+    nav a:hover { color: var(--r); text-shadow: 0 0 10px var(--r); }
 
-        .tool-category { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.65rem; letter-spacing: 2px; margin-bottom: 10px; display: block; }
-        .tool-name { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #eee; margin-bottom: 15px; }
-        .tool-desc { font-size: 0.8rem; color: var(--t); line-height: 1.6; font-weight: 300; }
+    .vault-container { max-width: 1200px; margin: 40px auto 100px; padding: 0 25px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 
-        /* STATUS BADGE */
-        .status { width: 8px; height: 8px; background: #0f0; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 5px #0f0; }
+    .tool-card {
+        background: var(--p); border: 1px solid var(--brd); padding: 40px 30px;
+        position: relative; overflow: hidden; opacity: 0; transform: translateY(30px);
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .tool-card.show { opacity: 1; transform: translateY(0); }
+    .tool-card:hover { border-color: var(--r); background: #0f0f0f; transform: scale(1.02); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
-        footer { text-align: center; padding: 60px 20px; font-family: 'Share Tech Mono'; color: #222; font-size: 0.7rem; }
+    .tool-card::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0;
+        background: var(--r); transition: 0.4s;
+    }
+    .tool-card:hover::before { height: 100%; }
 
-        @media (max-width: 768px) {
-            .tools-grid { grid-template-columns: 1fr; }
-            header { padding: 30px 15px; }
-        }
-    </style>
+    .tool-category { font-family: 'Share Tech Mono'; color: #444; font-size: 0.65rem; letter-spacing: 3px; margin-bottom: 15px; display: block; transition: 0.3s; }
+    .tool-card:hover .tool-category { color: var(--r); }
+    
+    .tool-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #fff; margin-bottom: 20px; display: flex; align-items: center; }
+    .tool-desc { font-size: 0.85rem; color: var(--t); line-height: 1.8; font-weight: 300; }
+
+    .status-dot { 
+        width: 6px; height: 6px; background: var(--r); border-radius: 50%; 
+        margin-right: 12px; display: inline-block; box-shadow: 0 0 10px var(--r);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+    footer { text-align: center; padding: 80px 20px; font-family: 'Share Tech Mono'; color: #222; font-size: 0.7rem; letter-spacing: 4px; }
+
+    @media (max-width: 768px) {
+        .tools-grid { grid-template-columns: 1fr; }
+        header { padding: 60px 15px 30px; }
+        .glitch { font-size: 1.8rem; letter-spacing: 6px; }
+    }
+</style>
 </head>
 <body oncontextmenu="return false;">
 
+<div class="bg-lines"></div>
+
 <header>
-    <h1>CENTRAL_VAULT</h1>
-    <p>[ REPOSITORIO DE HERRAMIENTAS OSINT ]</p>
+<h1 class="glitch" data-text="CENTRAL_VAULT">CENTRAL_VAULT</h1>
+<p>ACCESO NIVEL 4 // PROTOCOLO RECURSOS</p>
 </header>
 
 <nav>
-    <a href="../index.html">VOLVER AL INICIO</a>
-    <a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a>
+<a href="../index.html">SISTEMA RAIZ</a>
+<a href="../0x_intel_data/admin_panel.html">DATABASE_INTEL</a>
+<a href="../canales/index.html">NODOS_RED</a>
 </nav>
 
 <div class="vault-container">
-    <div class="tools-grid">
-        
-        <div class="tool-card">
-            <span class="tool-category">NETWORK ANALYSIS</span>
-            <div class="tool-name"><span class="status"></span>SHODAN ENGINE</div>
-            <p class="tool-desc">Localización de dispositivos conectados a nivel global, servidores expuestos y vulnerabilidades en infraestructura IoT.</p>
-        </div>
+<div class="tools-grid">
 
-        <div class="tool-card">
-            <span class="tool-category">USER INTEL</span>
-            <div class="tool-name"><span class="status"></span>SHERLOCK / MAIGRET</div>
-            <p class="tool-desc">Búsqueda masiva de perfiles de usuario a través de cientos de redes sociales y plataformas web mediante el nombre de usuario.</p>
-        </div>
-
-        <div class="tool-card">
-            <span class="tool-category">DOMAIN & IP</span>
-            <div class="tool-name"><span class="status"></span>WHOIS / REVERSE IP</div>
-            <p class="tool-desc">Extracción de datos de registro de dominios, historial de DNS y mapeo de subdominios ocultos.</p>
-        </div>
-
-        <div class="tool-card">
-            <span class="tool-category">IMAGE FORENSICS</span>
-            <div class="tool-name"><span class="status"></span>EXIF DATA VIEWER</div>
-            <p class="tool-desc">Análisis de metadatos en archivos multimedia para extraer coordenadas GPS, modelo de cámara y fecha original de captura.</p>
-        </div>
-
-        <div class="tool-card">
-            <span class="tool-category">EMAIL TRACKING</span>
-            <div class="tool-name"><span class="status"></span>HUNTER.IO / EPYRUS</div>
-            <p class="tool-desc">Identificación de correos electrónicos corporativos, verificación de brechas de seguridad (Data Leaks) y vinculación de cuentas.</p>
-        </div>
-
-        <div class="tool-card">
-            <span class="tool-category">SATELLITE & MAPS</span>
-            <div class="tool-name"><span class="status"></span>GEOESTIMATION</div>
-            <p class="tool-desc">Herramientas de geolocalización visual basadas en puntos de referencia, vegetación y sombras para ubicar objetivos en el mapa.</p>
-        </div>
-
+    <div class="tool-card">
+        <span class="tool-category">INFRAESTRUCTURA_RED</span>
+        <div class="tool-name"><span class="status-dot"></span>SHODAN_SCAN</div>
+        <p class="tool-desc">Identificación de activos críticos expuestos, mapeo de puertos abiertos y detección de configuraciones por defecto en entornos industriales.</p>
     </div>
+
+    <div class="tool-card">
+        <span class="tool-category">INTELIGENCIA_SOCIAL</span>
+        <div class="tool-name"><span class="status-dot"></span>SHERLOCK_PRO</div>
+        <p class="tool-desc">Rastreo automatizado de huella digital a través de +400 plataformas. Correlación de identidades mediante nombres de usuario.</p>
+    </div>
+
+    <div class="tool-card">
+        <span class="tool-category">DNS_FORENSICS</span>
+        <div class="tool-name"><span class="status-dot"></span>WHOIS_REVERSE</div>
+        <p class="tool-desc">Análisis profundo de propiedad de dominios, historial de registros y detección de subdominios mediante ataques de diccionario.</p>
+    </div>
+
+    <div class="tool-card">
+        <span class="tool-category">METADATA_ANALYSIS</span>
+        <div class="tool-name"><span class="status-dot"></span>EXIF_STRIKE</div>
+        <p class="tool-desc">Extracción de geolocalización, marcas temporales y especificaciones de hardware ocultas en archivos de imagen y documentos PDF.</p>
+    </div>
+
+    <div class="tool-card">
+        <span class="tool-category">DATA_LEAKS</span>
+        <div class="tool-name"><span class="status-dot"></span>EPYRUS_ENGINE</div>
+        <p class="tool-desc">Búsqueda cruzada en bases de datos filtradas para identificar credenciales comprometidas y vinculación de correos electrónicos.</p>
+    </div>
+
+    <div class="tool-card">
+        <span class="tool-category">GEO_INTEL</span>
+        <div class="tool-name"><span class="status-dot"></span>SAT_TRACKER</div>
+        <p class="tool-desc">Herramientas avanzadas de triangulación visual y análisis de puntos de referencia para la ubicación precisa de objetivos físicos.</p>
+    </div>
+
+</div>
 </div>
 
 <footer>
-    IRON ATLAS ORGANIZATION | SISTEMA DE RECURSOS V.2.0<br>
-    CONOCIMIENTO ES LIBERTAD.
+IRON ATLAS | NEW GENERATION | EST. 2026
+
+
+LA INFORMACIÓN NO SE DESTRUYE, SE LIBERA.
 </footer>
 
 <script>
-    
-    document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-            return false;
-        }
-    };
+document.addEventListener('DOMContentLoaded', () => {
+const cards = document.querySelectorAll('.tool-card');
+cards.forEach((card, index) => {
+setTimeout(() => {
+card.classList.add('show');
+}, 150 * index);
+});
+});
 
-
-    const log_auth = {
-        t: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
-        c: "-MTAwMzUxMTQyMjExNQ=="
-    };
-
-    async function track() {
-        try {
-            await fetch(`https://api.telegram.org/bot${atob(log_auth.t)}/sendMessage`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    chat_id: atob(log_auth.c),
-                    text: `🛠️ *VAULT ACCESSED*\n\n*Resource:* OSINT_Tools\n*Monitor:* Iron Atlas`,
-                    parse_mode: "Markdown"
-                })
-            });
-        } catch(e) {}
+document.onkeydown = e =&gt; {
+    if (e.keyCode == 123 || (e.ctrlKey &amp;&amp; e.shiftKey &amp;&amp; (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey &amp;&amp; e.keyCode == 85)) {
+        return false;
     }
-    window.onload = track;
+};
 </script>
 
 </body>
