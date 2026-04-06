@@ -1,41 +1,72 @@
-<!-- /404.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>404 FATAL</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;}
-body{background:#030303;color:#ff0033;font-family:'Share Tech Mono',monospace;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;}
-.box{border:1px solid #ff0033;padding:40px 30px;background:rgba(255,0,51,.05);box-shadow:0 0 30px rgba(255,0,51,.2);max-width:500px;}
-h1{font-size:4rem;margin-bottom:15px;text-shadow:0 0 20px #ff0033;animation:b .1s infinite;}
-@keyframes b{0%,100%{opacity:1;}50%{opacity:.8;}}
-p{font-size:1rem;margin-bottom:15px;line-height:1.6;}
-.warn{color:#888;font-size:.85rem;margin:20px 0;line-height:1.6;}
-a{color:#030303;background:#ff0033;text-decoration:none;padding:12px 25px;display:inline-block;margin-top:15px;font-weight:bold;transition:.3s;font-size:.85rem;}
-a:hover{box-shadow:0 0 20px #ff0033;}
-.ip{font-size:.7rem;color:#333;margin-top:20px;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SÁCATE A LA VERGA | 404</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --r: #ff0033; --b: #050505; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--b); color: var(--r); font-family: 'Share Tech Mono', monospace; 
+            display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden;
+        }
+        .noise {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://media.giphy.com/media/oEI9uWUicG57v7Zf2W/giphy.gif');
+            opacity: 0.03; pointer-events: none; z-index: 10;
+        }
+        .box {
+            max-width: 550px; padding: 50px; border: 2px solid var(--r);
+            background: rgba(10, 0, 0, 0.95); box-shadow: 0 0 60px rgba(255, 0, 51, 0.3);
+            text-align: center; position: relative; z-index: 20;
+        }
+        h1 { 
+            font-size: clamp(5rem, 15vw, 9rem); font-weight: 900; letter-spacing: -5px; 
+            margin-bottom: 10px; text-shadow: 5px 5px #000; animation: shake 0.2s infinite;
+        }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-1px, -2px) rotate(-1deg); }
+            40% { transform: translate(-3px, 0px) rotate(1deg); }
+            60% { transform: translate(3px, 2px) rotate(0deg); }
+            80% { transform: translate(1px, -1px) rotate(1deg); }
+            100% { transform: translate(-1px, 2px) rotate(-1deg); }
+        }
+        .msg { font-size: 1.4rem; font-weight: bold; text-transform: uppercase; margin-bottom: 25px; border-bottom: 1px solid var(--r); padding-bottom: 15px; }
+        .insult { font-size: 0.9rem; color: #888; line-height: 1.6; margin-bottom: 30px; text-align: justify; }
+        .insult b { color: #fff; }
+        .btn {
+            display: inline-block; padding: 15px 40px; background: var(--r); color: #000;
+            text-decoration: none; font-weight: 900; font-size: 1rem; border: 2px solid var(--r); transition: 0.3s;
+        }
+        .btn:hover { background: transparent; color: var(--r); box-shadow: 0 0 30px var(--r); }
+        .f-code { margin-top: 25px; font-size: 0.65rem; color: #222; letter-spacing: 5px; }
+    </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
+
+<div class="noise"></div>
+
 <div class="box">
-<h1>404</h1>
-<p>DIRECTORIO NO EXISTE TE CREES LA VERGA O QUE</p>
-<div class="warn">
-¿Intentando fuzzing? ¿Buscando directorios ocultos?<br>
-Qué ridículo. Esta es una infraestructura estática y endurecida.<br>
-Tu IP ha sido registrada y enviada a nuestros operadores.<br>
-Lárgate, rata.
+    <h1>404</h1>
+    <div class="msg">¿QUÉ PUTAS BUSCAS AQUÍ?</div>
+    
+    <div class="insult">
+        Ese directorio no existe, pedazo de animal. Deja de estar haciendo <b>fuzzing</b> o intentando encontrar archivos ocultos como un pinche niño de 12 años. Aquí no hay puertas traseras para mediocres. Si sigues de castroso intentando romper la estructura, mejor lárgate a jugar con tu abuela. <b>Iron Atlas</b> no es un parque de juegos para ratas.
+    </div>
+
+    <a href="index.html" class="btn">LARGARME DE AQUÍ</a>
+
+    <div class="f-code">ERROR CODE: IDIOTA DETECTADO</div>
 </div>
-<a href="index.html">VOLVER</a>
-<p class="ip" id="ipInfo">Obteniendo IP...</p>
-</div>
+
 <script>
-fetch('https://ipinfo.io/json').then(r=>r.json()).then(d=>{
-document.getElementById('ipInfo').textContent=`[IP: ${d.ip||'UKN'} | ${d.city||''}/${d.country||''}]`;
-}).catch(()=>{document.getElementById('ipInfo').textContent='[IP: OCULTA]';});
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    }
 </script>
+
 </body>
 </html>
