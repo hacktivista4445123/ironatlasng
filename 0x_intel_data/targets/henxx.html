@@ -2,62 +2,63 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EXPEDIENTE_1032404606</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EXPEDIENTE 1032404606</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root { --r: #ff0033; --c: #00f0ff; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #d0d0d0; }
-        * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; }
-        body { background: var(--b); color: var(--t); font-family: 'Inter', sans-serif; line-height: 1.4; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--b); color: var(--t); font-family: 'Inter', sans-serif; line-height: 1.4; user-select: none; }
         .container { max-width: 1000px; margin: auto; padding: clamp(10px, 4vw, 30px); }
         
         .header-box {
             display: flex; gap: 30px; background: var(--p); border: 1px solid var(--brd);
             padding: 30px; border-left: 6px solid var(--r); margin-bottom: 25px; align-items: center;
         }
-        .profile-img { width: 180px; height: 180px; object-fit: cover; border: 1px solid #222; flex-shrink: 0; }
-        .header-content h1 { color: #fff; font-size: clamp(1.2rem, 5vw, 1.8rem); margin-bottom: 5px; }
+        .profile-img { width: 180px; height: 180px; object-fit: cover; border: 1px solid #222; flex-shrink: 0; filter: grayscale(0.3); }
+        .header-content h1 { color: #fff; font-size: clamp(1.2rem, 5vw, 1.8rem); margin-bottom: 5px; text-transform: uppercase; }
         .id-label { font-family: 'Share Tech Mono'; color: var(--c); font-size: 1rem; display: block; margin-bottom: 10px; }
         
         .tags { display: flex; gap: 8px; flex-wrap: wrap; }
         .tag { background: #200; color: var(--r); padding: 3px 10px; font-size: 0.7rem; font-weight: bold; border: 1px solid #400; }
 
         .section { background: var(--p); border: 1px solid var(--brd); margin-bottom: 20px; }
-        .section-h { background: #121212; padding: 10px 20px; border-bottom: 1px solid var(--brd); display: flex; justify-content: space-between; align-items: center; }
-        .section-h h3 { font-family: 'Share Tech Mono'; color: var(--c); font-size: 0.8rem; letter-spacing: 1px; }
+        .section-h { background: #121212; padding: 12px 20px; border-bottom: 1px solid var(--brd); display: flex; justify-content: space-between; }
+        .section-h h3 { font-family: 'Share Tech Mono'; color: var(--c); font-size: 0.85rem; letter-spacing: 1px; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; padding: 20px; }
-        .block { border-bottom: 1px solid #151515; padding-bottom: 8px; }
-        .lbl { display: block; font-size: 0.6rem; color: #555; text-transform: uppercase; margin-bottom: 3px; font-weight: 700; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
+        .block { border-bottom: 1px solid #151515; padding-bottom: 10px; }
+        .lbl { display: block; font-size: 0.65rem; color: #555; text-transform: uppercase; margin-bottom: 4px; font-weight: 700; }
         .val { color: #fff; font-family: 'Share Tech Mono'; font-size: 0.95rem; word-break: break-all; }
         .wide { grid-column: 1 / -1; }
 
-        .entry { border-left: 2px solid var(--c); padding-left: 15px; margin: 15px 20px; padding-bottom: 10px; }
-        .entry-t { color: var(--c); font-weight: bold; font-size: 0.8rem; margin-bottom: 5px; display: block; }
-        .entry-d { display: block; font-size: 0.85rem; color: #888; margin-bottom: 2px; }
+        .entry { border-left: 2px solid var(--c); padding: 5px 15px; margin: 15px 20px; background: rgba(0,240,255,0.02); }
+        .entry-t { color: var(--c); font-weight: bold; font-size: 0.8rem; margin-bottom: 5px; display: block; text-transform: uppercase; }
+        .entry-d { display: block; font-size: 0.85rem; color: #888; margin-bottom: 3px; }
 
         .nav-back { padding-bottom: 15px; }
-        .nav-back a { color: #555; text-decoration: none; font-size: 0.75rem; font-family: 'Share Tech Mono'; }
-        .nav-back a:hover { color: var(--c); }
+        .nav-back a { color: #444; text-decoration: none; font-size: 0.75rem; font-family: 'Share Tech Mono'; transition: 0.3s; }
+        .nav-back a:hover { color: var(--r); }
 
         @media (max-width: 768px) {
-            .header-box { flex-direction: column; text-align: center; padding: 20px; }
-            .profile-img { width: 140px; height: 140px; }
-            .grid { grid-template-columns: 1fr; padding: 15px; }
+            .header-box { flex-direction: column; text-align: center; padding: 20px; gap: 15px; }
+            .profile-img { width: 150px; height: 150px; }
+            .grid { grid-template-columns: 1fr; padding: 15px; gap: 15px; }
+            .section-h { padding: 10px 15px; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <div class="container">
-    <nav class="nav-back"><a href="../admin_panel.html">DATABASE_CENTRAL / VOLVER</a></nav>
+    <nav class="nav-back"><a href="../admin_panel.html">DATABASE ESTAFADORES Y RATAS </a></nav>
 
     <header class="header-box">
         <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" alt="TARGET" class="profile-img">
         <div class="header-content">
-            <span class="id-label">EXPEDIENTE: 47045708</span>
+            <span class="id-label">CÉDULA: 1032404606</span>
             <h1>MIGUEL OSWALDO ORTIZ MARIN</h1>
-            <p style="font-size: 0.9rem; color: #666;">Alias: HEXN『𝕮𝖔𝖒𝖚𝖓𝖞𝖙𝕳』 | @HEXXN_x</p>
+            <p style="font-size: 0.9rem; color: #777; margin-bottom: 10px;">Alias: HEXN『𝕮𝖔𝖒𝖚𝖓𝖞𝖙𝕳』 | @HEXXN_x</p>
             <div class="tags">
                 <span class="tag">TRAICIÓN</span><span class="tag">ESTAFA</span><span class="tag">ROBO</span>
                 <span class="tag">ACOSO</span><span class="tag">TOXICIDAD</span><span class="tag">BURLA</span>
@@ -66,95 +67,110 @@
     </header>
 
     <div class="section">
-        <div class="section-h"><h3>INFORMACION PERSONAL</h3></div>
+        <div class="section-h"><h3>01. IDENTIDAD CIVIL COMPLETA</h3></div>
         <div class="grid">
-            <div class="block"><span class="lbl">ID Persona</span><span class="val">47045708</span></div>
-            <div class="block"><span class="lbl">Documento</span><span class="val">C.C. 1032404606</span></div>
-            <div class="block"><span class="lbl">Fecha Nacimiento</span><span class="val">06/02/1988</span></div>
-            <div class="block"><span class="lbl">Expedición</span><span class="val">2006-02-06</span></div>
-            <div class="block"><span class="lbl">Estatura</span><span class="val">169 cm</span></div>
-            <div class="block"><span class="lbl">RH</span><span class="val">1</span></div>
-            <div class="block"><span class="lbl">Sexo</span><span class="val">Hombre</span></div>
-            <div class="block"><span class="lbl">Ubicación</span><span class="val">Bogotá, D.C.</span></div>
-            <div class="block"><span class="lbl">Padres</span><span class="val">MIGUEL / ORTENCIA</span></div>
-            <div class="block"><span class="lbl">EPS</span><span class="val">FAMISANAR E.P.S. LTDA</span></div>
-            <div class="block wide"><span class="lbl">Dirección</span><span class="val">DIAG 142 B NO 137 44 CESAR (No confirmada)</span></div>
+            <div class="block"><span class="lbl">ID Sistema</span><span class="val">47045708</span></div>
+            <div class="block"><span class="lbl">Cédula de Ciudadanía</span><span class="val">1032404606</span></div>
+            <div class="block"><span class="lbl">Nacimiento</span><span class="val">06/02/1988</span></div>
+            <div class="block"><span class="lbl">Expedición Documento</span><span class="val">2006-02-06</span></div>
+            <div class="block"><span class="lbl">Estatura / Sexo</span><span class="val">169 cm / Hombre</span></div>
+            <div class="block"><span class="lbl">RH / Estado</span><span class="val">1 / Vivo</span></div>
+            <div class="block"><span class="lbl">Padre / Madre</span><span class="val">MIGUEL / ORTENCIA</span></div>
+            <div class="block"><span class="lbl">Residencia</span><span class="val">Bogotá, D.C. (Colombia)</span></div>
+            <div class="block wide"><span class="lbl">Aseguradora (EPS)</span><span class="val">FAMISANAR E.P.S. LTDA - CAFAM - COLSUBSIDIO</span></div>
+            <div class="block wide"><span class="lbl">Dirección de Registro</span><span class="val">DIAG 142 B NO 137 44 CESAR (Sin verificar)</span></div>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-h"><h3>LOGISTICA VEHICULAR</h3></div>
+        <div class="section-h"><h3>02. REGISTRO VEHICULAR Y MOVILIDAD</h3></div>
         <div class="grid">
             <div class="block"><span class="lbl">Placa</span><span class="val">DVB11E</span></div>
-            <div class="block"><span class="lbl">Tipo / Marca</span><span class="val">MOTOCICLETA / TVS</span></div>
+            <div class="block"><span class="lbl">Clase / Marca</span><span class="val">MOTOCICLETA / TVS</span></div>
             <div class="block"><span class="lbl">Línea / Modelo</span><span class="val">APACHE RTR 180 / 2016</span></div>
-            <div class="block"><span class="lbl">Color / Cilindraje</span><span class="val">BLANCO / 177</span></div>
-            <div class="block"><span class="lbl">Nro Motor</span><span class="val">0E6AG2136997</span></div>
-            <div class="block"><span class="lbl">Nro Chasis</span><span class="val">MD634KE61G2A32539</span></div>
-            <div class="block"><span class="lbl">Licencia Conducción</span><span class="val">10011396912 (Activa)</span></div>
-            <div class="block"><span class="lbl">Seguro (SOAT)</span><span class="val">104382456 (INACTIVA)</span></div>
-            <div class="block wide"><span class="lbl">Vigencia SOAT</span><span class="val">17/10/2023 hasta 17/10/2024</span></div>
+            <div class="block"><span class="lbl">Cilindraje / Color</span><span class="val">177 CC / BLANCO</span></div>
+            <div class="block"><span class="lbl">Número Motor</span><span class="val">0E6AG2136997</span></div>
+            <div class="block"><span class="lbl">Número Chasis</span><span class="val">MD634KE61G2A32539</span></div>
+            <div class="block"><span class="lbl">Nro Licencia</span><span class="val">10011396912 (ACTIVA)</span></div>
+            <div class="block"><span class="lbl">SOAT Póliza</span><span class="val">104382456 (Mundial Seguros)</span></div>
+            <div class="block wide"><span class="lbl">Vigencia SOAT</span><span class="val">17/10/2023 - 17/10/2024 (VENCIDO)</span></div>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-h"><h3>REGISTROS RUNT</h3></div>
+        <div class="section-h"><h3>03. HISTORIAL RUNT Y TRAMITES</h3></div>
         <div class="entry">
-            <span class="entry-t">LICENCIAS</span>
-            <span class="entry-d">11529613 - A2 (08/04/2014) LOTTUS</span>
-            <span class="entry-d">15081910 - C1 (16/06/2017) AUDIMOVIL</span>
+            <span class="entry-t">Licencias de Conducción</span>
+            <span class="entry-d">11529613 - A2 (08/04/2014) CEA LOTTUS</span>
+            <span class="entry-d">15081910 - C1 (16/06/2017) CEA AUDIMOVIL</span>
         </div>
         <div class="entry">
-            <span class="entry-t">HISTORIAL SOLICITUDES</span>
-            <span class="entry-d">29/06/2024: Refrendación Licencia (240747555) BOGOTA</span>
-            <span class="entry-d">28/06/2024: Aptitud Física RECONOCER IPS (240642048)</span>
-            <span class="entry-d">11/09/2021: Traspaso TWE18E SOACHA (160644823)</span>
-            <span class="entry-d">13/07/2018: Certificado Tradición DVB11E (114815806)</span>
-            <span class="entry-d">19/08/2017: Expedición Licencia BOGOTA (102634381)</span>
+            <span class="entry-t">Trazabilidad de Solicitudes</span>
+            <span class="entry-d">29/06/2024: Refrendación Licencia (240747555) Sec. Movilidad Bogotá</span>
+            <span class="entry-d">28/06/2024: Certificado Aptitud Física (240642048) RECONOCER IPS</span>
+            <span class="entry-d">11/09/2021: Traspaso Vehículo Placa TWE18E (160644823) Soacha</span>
+            <span class="entry-d">13/07/2018: Certificado Tradición DVB11E (114815806) El Rosal</span>
+            <span class="entry-d">19/08/2017: Expedición Licencia C1 (102634381) Bogotá</span>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-h"><h3>HUELLA DIGITAL Y COMUNICACIONES</h3></div>
+        <div class="section-h"><h3>04. ENTORNO DIGITAL Y PAGOS</h3></div>
         <div class="grid">
-            <div class="block"><span class="lbl">Teléfono 1</span><span class="val">+57 3159676757 (Movistar/Prepago)</span></div>
-            <div class="block"><span class="lbl">Teléfono 2</span><span class="val">+57 3159674675 (Movistar)</span></div>
-            <div class="block"><span class="lbl">Telegram IDs</span><span class="val">8202859378 / 8404892062</span></div>
-            <div class="block"><span class="lbl">Cuentas Anteriores</span><span class="val">@Coderebel_oficial</span></div>
-            <div class="block"><span class="lbl">GitHub</span><span class="val">Fuentdesconocida / HEXNCOLOMBIA</span></div>
-            <div class="block"><span class="lbl">Pagos</span><span class="val">NEQUI: 3159674675 / PAYPAL: tap82838</span></div>
+            <div class="block"><span class="lbl">Teléfonos</span><span class="val">+57 3159676757 / +57 3159674675</span></div>
+            <div class="block"><span class="lbl">Telegram IDs</span><span class="val">8202859378 (Ficticio) / 8404892062 (Hexn)</span></div>
+            <div class="block"><span class="lbl">User Anterior</span><span class="val">@Coderebel_oficial</span></div>
+            <div class="block"><span class="lbl">Finanzas</span><span class="val">NEQUI: 3159674675 / PAYPAL: tap82838</span></div>
             <div class="block wide"><span class="lbl">Correos</span><span class="val">hayhexn@gmail.com / smman9098@gmail.com</span></div>
         </div>
         <div class="entry">
-            <span class="entry-t">GRUPOS TELEGRAM</span>
-            <span class="entry-d">https://t.me/+BWy-P1iHsXlkMzcx</span>
-            <span class="entry-d">t.me/banwhtsApphexn</span>
-            <span class="entry-d">https://t.me/referencias_hexn</span>
-            <span class="entry-d">https://t.me/hexncol</span>
+            <span class="entry-t">Dominios Relacionados</span>
+            <span class="entry-d">GitHub: github.com/Fuentdesconocida / github.com/HEXNCOLOMBIA/</span>
+            <span class="entry-d">Telegram: t.me/banwhtsApphexn | t.me/hexncol | t.me/referencias_hexn</span>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-h"><h3>PLATAFORMAS OSINT</h3></div>
+        <div class="section-h"><h3>05. ANALISIS OSINT MULTIPLATAFORMA</h3></div>
         <div class="entry">
-            <span class="entry-t">MICROSOFT CLOUD</span>
-            <span class="entry-d">Nombre: kalet joses | Init: 14/02/2024 | Last: 11/04/2025</span>
-            <span class="entry-d">Update Perfil: 11/04/2025 | OneDrive Active</span>
+            <span class="entry-t">Google Maps (ID: 102977041759889271609)</span>
+            <span class="entry-d">User: Marin Ortiz | 28/02/2025: Reseña Hotel Cabañas Tolú</span>
+            <span class="entry-d">Coord: 9.5276337, -75.582536 | Comentario: "Excelente hotel..."</span>
         </div>
         <div class="entry">
-            <span class="entry-t">GOOGLE MAPS (ID: 102977041759889271609)</span>
-            <span class="entry-d">28/02/2025: Reseña Hotel Cabañas Tolú (9.5276337, -75.582536)</span>
-            <span class="entry-d">"Excelente hotel... Totalmente recomendado!"</span>
+            <span class="entry-t">Microsoft / OneDrive</span>
+            <span class="entry-d">Nombre: kalet joses | Activo desde: 14/02/2024</span>
+            <span class="entry-d">Última Actividad: 11/04/2025 - Perfil Actualizado</span>
         </div>
         <div class="grid">
-            <div class="block"><span class="lbl">SoloLearn</span><span class="val">ID: 34009940 (Marin Ortiz) Nivel 2</span></div>
-            <div class="block"><span class="lbl">AliExpress</span><span class="val">Sm233Mañ (A1 / Colombia)</span></div>
-            <div class="block"><span class="lbl">Plex</span><span class="val">bb4261a93342ef60 (sm233ma)</span></div>
-            <div class="block"><span class="lbl">Wix / Academia</span><span class="val">327412b7-ccaa... / Sm233</span></div>
+            <div class="block"><span class="lbl">SoloLearn</span><span class="val">Marin Ortiz (Nivel 2 / XP 90) - ID: 34009940</span></div>
+            <div class="block"><span class="lbl">AliExpress</span><span class="val">Sm233Mañ (Nivel A1 / Colombia)</span></div>
+            <div class="block"><span class="lbl">Plex</span><span class="val">sm233ma (ID: bb4261a93342ef60)</span></div>
+            <div class="block"><span class="lbl">Wix / Academia</span><span class="val">ID: 327412b7-ccaa... / Perfil: Sm233</span></div>
         </div>
     </div>
 
 </div>
+
+<script>
+   
+    document.addEventListener('keydown', function(e) {
+        if (
+            e.keyCode == 123 || 
+            (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
+            (e.ctrlKey && e.keyCode == 85)
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    
+    document.querySelectorAll('img').forEach(img => {
+        img.onmousedown = () => false;
+    });
+</script>
 
 </body>
 </html>
