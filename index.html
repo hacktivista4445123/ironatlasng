@@ -6,60 +6,102 @@
     <title>IRON ATLAS NEW GENERATION</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0033; --b: #000; --p: #080808; --a: rgba(255, 0, 51, 0.1); }
+        :root { --r: #ff0033; --b: #030303; --p: #0a0a0a; --a: rgba(255, 0, 51, 0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: var(--b); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; }
 
+     
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 3px 100%; pointer-events: none; z-index: 999;
+        }
+
+    
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; transition: opacity 0.8s, visibility 0.8s;
+            justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out, visibility 0.8s;
         }
-        .load-logo { width: clamp(120px, 18vw, 180px); margin-bottom: 35px; filter: drop-shadow(0 0 20px var(--r)); }
-        .load-track { width: 280px; height: 1px; background: #111; position: relative; overflow: hidden; }
-        .load-fill { position: absolute; width: 0%; height: 100%; background: var(--r); box-shadow: 0 0 15px var(--r); transition: width 0.1s; }
-        .load-st { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.6rem; margin-top: 15px; letter-spacing: 4px; font-weight: bold; }
+        .load-logo { 
+            width: clamp(120px, 18vw, 180px); margin-bottom: 35px; 
+            filter: drop-shadow(0 0 20px var(--r));
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { transform: translate(0) skew(0deg); filter: drop-shadow(0 0 20px var(--r)) hue-rotate(0deg); }
+            20% { transform: translate(-2px, 2px) skew(-2deg); filter: drop-shadow(0 0 30px var(--r)) hue-rotate(10deg); }
+            40% { transform: translate(2px, -2px) skew(2deg); filter: drop-shadow(0 0 10px var(--r)) hue-rotate(-10deg); }
+            60% { transform: translate(-1px, 1px) skew(0deg); filter: drop-shadow(0 0 25px var(--r)) hue-rotate(0deg); }
+            100% { transform: translate(0) skew(0deg); filter: drop-shadow(0 0 20px var(--r)) hue-rotate(0deg); }
+        }
 
-        #main-content { opacity: 0; transition: opacity 1.2s; display: none; }
+        .load-track { width: 280px; height: 2px; background: #111; position: relative; overflow: hidden; border-radius: 2px; }
+        .load-fill { position: absolute; width: 0%; height: 100%; background: var(--r); box-shadow: 0 0 20px var(--r); transition: width 0.1s ease-out; }
+        .load-st { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.65rem; margin-top: 15px; letter-spacing: 5px; font-weight: bold; text-transform: uppercase; }
+
+      
+        #main-content { display: none; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 1, 0.2, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
         nav { 
             display: flex; justify-content: center; gap: clamp(15px, 4vw, 45px); 
-            padding: 25px; background: rgba(0,0,0,0.98); border-bottom: 1px solid #111;
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(15px);
+            padding: 25px; background: rgba(0,0,0,0.95); border-bottom: 1px solid #1a1a1a;
+            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px);
         }
         nav a { 
             text-decoration: none; color: #666; font-family: 'Share Tech Mono'; 
             font-size: clamp(0.65rem, 2vw, 0.85rem); letter-spacing: 3px; transition: 0.4s;
-            font-weight: 600;
+            font-weight: 600; position: relative;
         }
-        nav a:hover, nav a.active { color: var(--r); text-shadow: 0 0 12px var(--r); }
+        nav a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px;
+            background: var(--r); transition: 0.4s; box-shadow: 0 0 10px var(--r);
+        }
+        nav a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a.active { color: var(--r); text-shadow: 0 0 12px var(--r); }
 
         .hero { 
             min-height: 85vh; display: flex; flex-direction: column; justify-content: center; 
             align-items: center; text-align: center; padding: 50px 25px;
-            background: radial-gradient(circle, var(--a) 0%, transparent 85%);
+            background: radial-gradient(circle at center, var(--a) 0%, transparent 70%);
         }
-        .hero img { width: clamp(160px, 22vw, 240px); margin-bottom: 25px; filter: drop-shadow(0 0 25px rgba(255,0,0,0.25)); }
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 9vw, 4.5rem); letter-spacing: 12px; margin-bottom: 25px; text-shadow: 2px 2px #000; }
-        .hero .manifesto { max-width: 800px; color: #999; font-size: clamp(0.85rem, 2.2vw, 1.1rem); line-height: 2; font-weight: 300; text-align: center; }
-        .manifesto b { color: var(--r); font-weight: 700; text-shadow: 0 0 5px rgba(255,0,51,0.3); }
+        .hero img { width: clamp(160px, 22vw, 240px); margin-bottom: 25px; filter: drop-shadow(0 0 30px rgba(255,0,0,0.3)); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .allies-container { max-width: 1200px; margin: 60px auto; padding: 0 25px 80px; }
-        .allies-title { font-family: 'Cinzel', serif; font-size: 1rem; color: #333; text-align: center; margin-bottom: 50px; letter-spacing: 6px; text-transform: uppercase; }
-        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 9vw, 4.5rem); letter-spacing: 12px; margin-bottom: 25px; text-shadow: 2px 2px 10px #000; }
+        .hero .manifesto { max-width: 800px; color: #aaa; font-size: clamp(0.85rem, 2vw, 1.1rem); line-height: 2.2; font-weight: 300; text-align: center; }
+        .manifesto b { color: var(--r); font-weight: 700; text-shadow: 0 0 8px rgba(255,0,51,0.4); }
+
+        .allies-container { max-width: 1200px; margin: 40px auto 100px; padding: 0 25px; }
+        .allies-title { font-family: 'Cinzel', serif; font-size: 1rem; color: #444; text-align: center; margin-bottom: 50px; letter-spacing: 8px; text-transform: uppercase; }
+        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
         .ally-card {
-            background: var(--p); border: 1px solid #121212; padding: 45px 20px;
+            background: var(--p); border: 1px solid #151515; padding: 45px 20px;
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
             color: inherit; transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative; overflow: hidden;
         }
-        .ally-card:hover { border-color: var(--r); background: #0b0b0b; transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
-        .ally-img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 2px solid #1a1a1a; transition: 0.4s; filter: grayscale(1) brightness(0.8); }
-        .ally-card:hover .ally-img { filter: grayscale(0) brightness(1); border-color: var(--r); transform: scale(1.05); }
-        .ally-name { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #ccc; }
-        .ally-card:hover .ally-name { color: #fff; }
+       
+        .ally-card::before {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 0, 51, 0.15), transparent);
+            transform: skewX(-25deg); transition: 0.7s;
+        }
+        .ally-card:hover::before { left: 150%; }
+        .ally-card:hover { border-color: var(--r); background: #080808; transform: translateY(-10px); box-shadow: 0 15px 40px rgba(255,0,51,0.1); }
+        
+        .ally-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; border: 2px solid #222; transition: 0.5s; filter: grayscale(1) brightness(0.7); }
+        .ally-card:hover .ally-img { filter: grayscale(0) brightness(1.2); border-color: var(--r); transform: scale(1.1); box-shadow: 0 0 20px rgba(255,0,51,0.4); }
+        
+        .ally-name { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #888; transition: 0.3s; }
+        .ally-card:hover .ally-name { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
         @media (max-width: 768px) {
-            nav { gap: 18px; padding: 15px; }
+            nav { gap: 15px; padding: 15px; }
             nav a { font-size: 0.6rem; letter-spacing: 1.5px; }
             .hero { padding: 80px 20px; }
         }
@@ -78,30 +120,30 @@
         <a href="#" class="active">INICIO</a>
         <a href="0x_tools/vault.html">HERRAMIENTAS</a>
         <a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a>
-        <a href="CANALES/index.html">CANALES</a>
+        <a href="canales/index.html">CANALES</a>
     </nav>
 
     <main>
         <section class="hero">
-            <img src="assets/logo_ng.png" alt="IRON ATLAS LOGO">
-            <h1>IRON ATLAS</h1>
-            <div class="manifesto">
+            <img src="assets/logo_ng.png" alt="IRON ATLAS LOGO" class="reveal" style="transition-delay: 0.1s;">
+            <h1 class="reveal" style="transition-delay: 0.3s;">IRON ATLAS</h1>
+            <div class="manifesto reveal" style="transition-delay: 0.5s;">
                 Operamos bajo las sombras del <b>hacktivismo</b> puro. Somos la voz de los que no tienen acceso, la mano que expone la verdad y el muro contra la opresión digital. En esta <b>Nueva Generación</b>, la información es nuestra única arma y la justicia nuestro único norte. Si buscas el anonimato, estás en el lugar correcto. Si buscas la traición, nosotros somos tu final.
             </div>
         </section>
 
         <div class="allies-container">
-            <h2 class="allies-title">NODOS DE INTELIGENCIA ALIADA</h2>
+            <h2 class="allies-title reveal" style="transition-delay: 0.7s;">NODOS DE INTELIGENCIA ALIADA</h2>
             <div class="allies-grid">
-                <a href="https://t.me/nullsechackers" class="ally-card" target="_blank">
+                <a href="https://t.me/nullsechackers" class="ally-card reveal" style="transition-delay: 0.8s;" target="_blank">
                     <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img">
                     <span class="ally-name">Nullsec Philippines</span>
                 </a>
-                <a href="https://t.me/HackPurgatory" class="ally-card" target="_blank">
+                <a href="https://t.me/HackPurgatory" class="ally-card reveal" style="transition-delay: 0.9s;" target="_blank">
                     <img src="https://files.catbox.moe/iwurbn.jpg" class="ally-img">
                     <span class="ally-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
                 </a>
-                <a href="https://t.me/zconchita" class="ally-card" target="_blank">
+                <a href="https://t.me/zconchita" class="ally-card reveal" style="transition-delay: 1.0s;" target="_blank">
                     <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="ally-img">
                     <span class="ally-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
                 </a>
@@ -111,50 +153,54 @@
 </div>
 
 <script>
-    const config = {
-        token: "ODcxMjQzNzQxOTpBQUhXSDBRRXdzNmpjVzRlX0dPUzQ0a2ZhUWljS2NiMWROOA==",
-        chat: "-MTAwMzUxMTQyMjExNQ=="
-    };
-
-    async function push() {
-        const t = atob(config.token);
-        const c = atob(config.chat);
-        const log = `⚠️ *INGRESO DETECTADO: IRON ATLAS NG*\n\n*Host:* ${window.location.hostname}\n*Plataforma:* ${navigator.platform}\n*Estado:* Vigilancia Continua`;
-        try { await fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({chat_id: c, text: log, parse_mode: "Markdown"})
-        }); } catch(e) {}
-    }
-
+    
     window.addEventListener('load', () => {
-        let p = 0;
-        const b = document.getElementById('bar');
-        const s = document.getElementById('status');
+        let progress = 0;
+        const bar = document.getElementById('bar');
+        const statusText = document.getElementById('status');
         
-        const run = setInterval(() => {
-            p += Math.floor(Math.random() * 12) + 3;
-            if (p >= 100) {
-                p = 100;
-                clearInterval(run);
-                push();
+        const loaderInterval = setInterval(() => {
+         
+            progress += Math.floor(Math.random() * 10) + 2;
+            
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loaderInterval);
+                statusText.innerText = "SISTEMA OPERATIVO";
+                
+         
                 setTimeout(() => {
                     document.getElementById('loader').style.opacity = '0';
                     setTimeout(() => {
                         document.getElementById('loader').style.display = 'none';
-                        document.getElementById('main-content').style.display = 'block';
-                        setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
+                        const mainContent = document.getElementById('main-content');
+                        mainContent.style.display = 'block';
+                        
+                    
+                        setTimeout(() => {
+                            const reveals = document.querySelectorAll('.reveal');
+                            reveals.forEach(el => el.classList.add('visible'));
+                        }, 50);
+                        
                     }, 800);
-                }, 600);
+                }, 500);
             }
-            b.style.width = p + '%';
-            if(p > 35) s.innerText = "ENCRIPTANDO ACCESO";
-            if(p > 75) s.innerText = "ACCESO AUTORIZADO";
-        }, 130);
+            
+            bar.style.width = progress + '%';
+        
+            if (progress > 30 && progress < 60) statusText.innerText = "DESENCRIPTANDO MÓDULOS";
+            if (progress >= 60 && progress < 90) statusText.innerText = "ESTABLECIENDO CONEXIÓN SEGURA";
+            if (progress >= 90) statusText.innerText = "ACCESO AUTORIZADO";
+            
+        }, 100);
     });
 
+  
     document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+            e.preventDefault();
+            return false;
+        }
     };
 </script>
 
