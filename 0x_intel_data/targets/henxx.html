@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORT_ID: 1032404606 | IRON ATLAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --red: #ff0033; --cyan: #00f0ff; --bg: #050505; --panel: #0d0d0d; --border: #222; }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: #bbb; font-family: 'Inter', sans-serif; line-height: 1.5; padding-bottom: 50px; }
+
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+
+        /* CABECERA */
+        .dossier-header {
+            display: flex; gap: 30px; background: var(--panel); border: 1px solid var(--border);
+            padding: 30px; border-left: 5px solid var(--red); margin-bottom: 20px; align-items: center;
+        }
+        .profile-img { width: 180px; height: 180px; object-fit: cover; border: 2px solid #333; filter: grayscale(0.5); }
+        .header-info h1 { color: #fff; font-size: 1.8rem; margin-bottom: 5px; text-transform: uppercase; }
+        .status-alert { color: var(--red); font-family: 'Share Tech Mono'; font-weight: bold; font-size: 0.9rem; }
+
+        /* SECCIONES */
+        .section { background: var(--panel); border: 1px solid var(--border); margin-bottom: 15px; }
+        .section-title { 
+            background: #151515; padding: 10px 20px; border-bottom: 1px solid var(--border);
+            color: var(--cyan); font-family: 'Share Tech Mono'; font-size: 0.85rem; letter-spacing: 2px;
+            display: flex; justify-content: space-between;
+        }
+
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; padding: 20px; }
+        .data-item { border-bottom: 1px solid #1a1a1a; padding-bottom: 8px; }
+        .label { display: block; font-size: 0.65rem; color: #555; text-transform: uppercase; margin-bottom: 2px; }
+        .value { color: #eee; font-family: 'Share Tech Mono'; font-size: 0.95rem; word-break: break-all; }
+        
+        /* BLOQUES ESPECIALES */
+        .full-width { grid-column: 1 / -1; }
+        .osint-block { padding: 20px; border-top: 1px solid #1a1a1a; }
+        .osint-sub { color: var(--cyan); font-weight: bold; margin-bottom: 5px; display: block; font-size: 0.8rem; }
+        
+        .tag-list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+        .tag { background: #200; color: var(--red); padding: 2px 8px; font-size: 0.7rem; border-radius: 3px; font-weight: bold; }
+
+        .btn-back { 
+            display: inline-block; margin-bottom: 15px; color: #666; text-decoration: none; 
+            font-size: 0.8rem; transition: 0.3s;
+        }
+        .btn-back:hover { color: var(--cyan); }
+
+        .highlight { color: var(--cyan); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="../admin_panel.html" class="btn-back">◄ VOLVER AL DIRECTORIO CENTRAL</a>
+
+    <div class="dossier-header">
+        <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" alt="TARGET_PHOTO" class="profile-img">
+        <div class="header-info">
+            <span class="status-alert">[!] TARGET_STATUS: DOXXED / FRAUD_DETECTION</span>
+            <h1>HEXN 『𝕮𝖔𝖒𝖚𝖓𝖞𝖙𝕳』</h1>
+            <p>ID_SISTEMA: <span class="highlight">47045708</span> | RECOLECTADO POR: <span class="highlight">IRON ATLAS [NG]</span></p>
+            <div class="tag-list">
+                <span class="tag">TRAICIÓN</span><span class="tag">ESTAFA</span><span class="tag">ACOSO</span><span class="tag">TOXICIDAD</span><span class="tag">ROBO</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span>IDENTIDAD_CIVIL_COL</span><span>DOC_TYPE: CC</span></div>
+        <div class="data-grid">
+            <div class="data-item"><span class="label">Nombre Completo</span><span class="value">MIGUEL OSWALDO ORTIZ MARIN</span></div>
+            <div class="data-item"><span class="label">Documento</span><span class="value">1032404606</span></div>
+            <div class="data-item"><span class="label">Nacimiento</span><span class="value">06/02/1988</span></div>
+            <div class="data-item"><span class="label">Estatura</span><span class="value">169 CM</span></div>
+            <div class="data-item"><span class="label">Sexo / RH</span><span class="value">Hombre / RH 1</span></div>
+            <div class="data-item"><span class="label">Padres</span><span class="value">MIGUEL / ORTENCIA</span></div>
+            <div class="data-item"><span class="label">Ubicación</span><span class="value">Bogotá, D.C. (COL)</span></div>
+            <div class="data-item"><span class="label">EPS</span><span class="value">FAMISANAR E.P.S. LTDA</span></div>
+            <div class="data-item full-width"><span class="label">Dirección (No confirmada)</span><span class="value">DIAG 142 B NO 137 44 CESAR</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span>LOGÍSTICA_Y_MOVILIDAD</span><span>RUNT_QUERY: ACTIVE</span></div>
+        <div class="data-grid">
+            <div class="data-item"><span class="label">Placa</span><span class="value">DVB11E</span></div>
+            <div class="data-item"><span class="label">Clase / Marca</span><span class="value">MOTOCICLETA / TVS</span></div>
+            <div class="data-item"><span class="label">Modelo / Línea</span><span class="value">2016 / APACHE RTR 180</span></div>
+            <div class="data-item"><span class="label">Color / Cilindraje</span><span class="value">BLANCO / 177 CC</span></div>
+            <div class="data-item"><span class="label">Nro Motor</span><span class="value">0E6AG2136997</span></div>
+            <div class="data-item"><span class="label">Nro Chasis</span><span class="value">MD634KE61G2A32539</span></div>
+            <div class="data-item"><span class="label">Seguro (SOAT)</span><span class="value">MUNDIAL DE SEGUROS (Venció 17/10/2024)</span></div>
+            <div class="data-item"><span class="label">Nro Inscripción RUNT</span><span class="value">14160027 (28/01/2014)</span></div>
+            <div class="data-item full-width"><span class="label">Historial Licencias</span><span class="value">A2 (08/04/2014 - LOTTUS) | C1 (16/06/2017 - AUDIMOVIL)</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span>DIGITAL_FOOTPRINT</span><span>COMMS_INTEL</span></div>
+        <div class="data-grid">
+            <div class="data-item"><span class="label">Telegram Alias</span><span class="value">@HEXXN_x / @Coderebel_oficial</span></div>
+            <div class="data-item"><span class="label">Telegram IDs</span><span class="value">8202859378 | 8404892062</span></div>
+            <div class="data-item"><span class="label">Teléfonos</span><span class="value">+57 3159676757 | +57 3159674675</span></div>
+            <div class="data-item"><span class="label">Financiero (Nequi)</span><span class="value">3159674675 (@NEQUIMAR745036)</span></div>
+            <div class="data-item"><span class="label">PayPal</span><span class="value">tap82838 (Miguel Ortiz)</span></div>
+            <div class="data-item full-width"><span class="label">Emails Relacionados</span><span class="value">hayhexn@gmail.com | smman9098@gmail.com</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span>OSINT_EXTENDED_REPORT</span><span>NETWORK_SCAN</span></div>
+        <div class="osint-block">
+            <span class="osint-sub">GOOGLE_MAPS_ACTIVITY (ID: 102977041759889271609)</span>
+            <p class="value" style="font-size: 0.8rem; color: #888;">
+                [28/02/2025] Reseña: "Hotel Cabañas Tolú" (9.5276337, -75.582536)<br>
+                Comentario: "Excelente hotel con servicio impecable... Totalmente recomendado!"
+            </p>
+        </div>
+        <div class="osint-block">
+            <span class="osint-sub">MICROSOFT_SERVICE_LOGS</span>
+            <p class="value" style="font-size: 0.8rem; color: #888;">
+                Cuenta: kalet joses | OneDrive Activo desde 14/02/2024<br>
+                Última actividad detectada: 11/04/2025 - 01:43:52
+            </p>
+        </div>
+        <div class="osint-block">
+            <span class="osint-sub">SOCIAL_ENGINEERING_DATA</span>
+            <p class="value" style="font-size: 0.8rem; color: #888;">
+                GitHub: /Fuentdesconocida | /HEXNCOLOMBIA/<br>
+                SoloLearn: Marin Ortiz (Nivel 2, XP: 90, Creado: 03/05/2025)<br>
+                AliExpress: Sm233Mañ (Nivel A1, Ubicación: CO)
+            </p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
