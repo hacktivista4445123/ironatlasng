@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>IRON ATLAS </title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --red: #ff0033; --bg: #080808; --panel: #121212; }
+        body { background: var(--bg); color: #eee; font-family: 'Inter', sans-serif; margin: 0; }
+        
+        .admin-header { padding: 40px; border-bottom: 1px solid #222; text-align: center; }
+        .admin-header h1 { font-family: 'Share Tech Mono'; letter-spacing: 5px; color: var(--red); }
+
+        .target-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; padding: 50px; max-width: 1200px; margin: auto;
+        }
+
+        .target-card {
+            background: var(--panel); border: 1px solid #222; padding: 20px;
+            display: flex; align-items: center; gap: 20px;
+            text-decoration: none; color: inherit; transition: 0.3s;
+        }
+
+        .target-card:hover { border-color: var(--red); transform: translateY(-5px); background: #1a1a1a; }
+        
+        .target-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #333; }
+        .target-info h3 { font-size: 1rem; color: #fff; margin-bottom: 5px; }
+        .target-info span { font-size: 0.7rem; color: var(--red); font-family: 'Share Tech Mono'; }
+
+        .status-badge { font-size: 0.6rem; background: #200; color: var(--red); padding: 2px 8px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-header">
+    <h1>DATABASE_EXPLORER</h1>
+    <p style="font-size: 0.8rem; color: #555;">[ ACCESO AUTORIZADO - NIVEL 5 ]</p>
+</div>
+
+<div class="target-grid">
+    <a href="targets/henxx.html" class="target-card">
+        <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" class="target-img">
+        <div class="target-info">
+            <span class="status-badge">FRAUD_ALERT</span>
+            <h3>HEXN 『𝕮𝖔𝖒𝖚𝖓𝖞𝖙𝕳』</h3>
+            <span>ID: 1032404606</span>
+        </div>
+    </a>
+
+    </div>
+
+</body>
+</html>
