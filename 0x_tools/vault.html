@@ -3,301 +3,767 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IRON ATLAS</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
+<title>IRON ATLAS - OSINT PLATFORM</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
---r:#ff0033;
---b:#030303;
---p:#0b0b0b;
---g:#00ffcc;
---t:#888;
+--primary:#ff0000;
+--secondary:#8b0000;
+--dark:#0a0a0a;
+--darker:#050505;
+--glow:rgba(255,0,0,0.5);
+--text:#e0e0e0;
+--success:#00ff41;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;user-select:none}
 
 body{
-background:var(--b);
-color:#fff;
-font-family:'Inter';
+background:var(--darker);
+color:var(--text);
+font-family:'Rajdhani',sans-serif;
 overflow-x:hidden;
-}
-
-.bg{
-position:fixed;
-width:100%;
-height:100%;
-background:
-linear-gradient(rgba(255,0,51,0.04) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255,0,51,0.04) 1px, transparent 1px);
-background-size:40px 40px;
-z-index:-1;
-animation:moveBg 10s linear infinite;
-}
-
-@keyframes moveBg{
-0%{background-position:0 0}
-100%{background-position:100px 100px}
-}
-
-header{
-text-align:center;
-padding:80px 20px 40px;
-}
-
-.glitch{
-font-family:'Cinzel';
-font-size:3rem;
-letter-spacing:10px;
 position:relative;
 }
 
-.glitch::before,.glitch::after{
-content:attr(data-text);
-position:absolute;
+body::before{
+content:'';
+position:fixed;
+top:0;
 left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 20% 50%, rgba(255,0,0,0.03) 0%, transparent 50%),
+radial-gradient(circle at 80% 80%, rgba(139,0,0,0.05) 0%, transparent 50%);
+pointer-events:none;
+z-index:1;
+}
+
+.scanline{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(transparent 50%, rgba(255,0,0,0.02) 50%);
+background-size:100% 4px;
+pointer-events:none;
+z-index:999;
+animation:scan 8s linear infinite;
+}
+
+@keyframes scan{
+0%{transform:translateY(0)}
+100%{transform:translateY(100vh)}
+}
+
+.grid-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(255,0,0,0.05) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,0,0,0.05) 1px, transparent 1px);
+background-size:50px 50px;
+animation:gridMove 20s linear infinite;
+pointer-events:none;
+z-index:0;
+}
+
+@keyframes gridMove{
+0%{transform:translate(0,0)}
+100%{transform:translate(50px,50px)}
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(10,10,10,0.95);
+backdrop-filter:blur(10px);
+border-bottom:2px solid var(--primary);
+padding:15px 0;
+z-index:1000;
+box-shadow:0 0 30px var(--glow);
+}
+
+nav a{
+color:var(--text);
+text-decoration:none;
+margin:0 25px;
+font-size:14px;
+font-weight:700;
+letter-spacing:2px;
+transition:all 0.3s;
+position:relative;
+padding:8px 0;
+}
+
+nav a::after{
+content:'';
+position:absolute;
+bottom:0;
+left:0;
+width:0;
+height:2px;
+background:var(--primary);
+transition:width 0.3s;
+}
+
+nav a:hover::after,nav a.active::after{
 width:100%;
 }
 
-.glitch::before{
-color:red;
-animation:gl1 2s infinite;
+nav a:hover,nav a.active{
+color:var(--primary);
+text-shadow:0 0 10px var(--glow);
 }
 
-.glitch::after{
-color:cyan;
-animation:gl2 3s infinite;
+.header{
+margin-top:80px;
+text-align:center;
+padding:40px 20px;
+position:relative;
+z-index:2;
 }
 
-@keyframes gl1{
-0%{transform:translate(0)}
-20%{transform:translate(-2px,2px)}
-40%{transform:translate(-2px,-2px)}
-60%{transform:translate(2px,2px)}
-80%{transform:translate(2px,-2px)}
-100%{transform:translate(0)}
+.logo{
+font-family:'Orbitron',sans-serif;
+font-size:4rem;
+font-weight:900;
+letter-spacing:8px;
+background:linear-gradient(45deg, var(--primary), #ff6666, var(--primary));
+background-size:200% 200%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:gradientShift 3s ease infinite;
+filter:drop-shadow(0 0 20px var(--glow));
+margin-bottom:10px;
 }
 
-@keyframes gl2{
-0%{transform:translate(0)}
-20%{transform:translate(2px,-2px)}
-40%{transform:translate(2px,2px)}
-60%{transform:translate(-2px,-2px)}
-80%{transform:translate(-2px,2px)}
-100%{transform:translate(0)}
+@keyframes gradientShift{
+0%,100%{background-position:0% 50%}
+50%{background-position:100% 50%}
 }
 
-.subtitle{
-font-family:'Share Tech Mono';
-letter-spacing:4px;
-color:var(--r);
-opacity:.7;
+.tagline{
+font-size:12px;
+letter-spacing:6px;
+color:var(--primary);
+opacity:0.8;
+font-weight:500;
 }
 
-.container{
-max-width:900px;
-margin:40px auto;
-padding:20px;
+.main-container{
+max-width:1400px;
+margin:50px auto;
+padding:0 30px;
+position:relative;
+z-index:2;
 }
 
-.card{
-background:var(--p);
-border:1px solid #111;
+.control-panel{
+background:linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95));
+border:1px solid var(--primary);
+border-radius:10px;
 padding:40px;
-transition:.4s;
+box-shadow:0 0 50px rgba(255,0,0,0.2), inset 0 0 30px rgba(255,0,0,0.05);
+margin-bottom:30px;
 position:relative;
 overflow:hidden;
 }
 
-.card:hover{
-border-color:var(--r);
-box-shadow:0 0 40px rgba(255,0,51,.2);
-transform:translateY(-5px);
+.control-panel::before{
+content:'';
+position:absolute;
+top:-2px;
+left:-2px;
+right:-2px;
+bottom:-2px;
+background:linear-gradient(45deg, var(--primary), transparent, var(--primary));
+border-radius:10px;
+z-index:-1;
+opacity:0;
+transition:opacity 0.3s;
 }
 
-.input-group{
+.control-panel:hover::before{
+opacity:0.3;
+animation:borderPulse 2s infinite;
+}
+
+@keyframes borderPulse{
+0%,100%{opacity:0.3}
+50%{opacity:0.6}
+}
+
+.tabs{
 display:flex;
-gap:10px;
+gap:15px;
 margin-bottom:30px;
+flex-wrap:wrap;
 }
 
-input{
-flex:1;
-padding:15px;
-background:#050505;
-border:1px solid #222;
+.tab{
+padding:12px 25px;
+background:rgba(255,0,0,0.1);
+border:1px solid rgba(255,0,0,0.3);
+color:var(--text);
+cursor:pointer;
+transition:all 0.3s;
+font-weight:700;
+letter-spacing:1px;
+font-size:13px;
+position:relative;
+overflow:hidden;
+}
+
+.tab::before{
+content:'';
+position:absolute;
+top:50%;
+left:50%;
+width:0;
+height:0;
+background:var(--primary);
+border-radius:50%;
+transform:translate(-50%,-50%);
+transition:width 0.4s, height 0.4s;
+z-index:-1;
+}
+
+.tab:hover::before,.tab.active::before{
+width:100%;
+height:100%;
+border-radius:0;
+}
+
+.tab.active{
+background:var(--primary);
+border-color:var(--primary);
 color:#fff;
-font-size:14px;
+box-shadow:0 0 20px var(--glow);
 }
 
-button{
-padding:15px 25px;
-background:var(--r);
+.search-area{
+display:none;
+}
+
+.search-area.active{
+display:block;
+animation:slideIn 0.4s ease;
+}
+
+@keyframes slideIn{
+from{opacity:0;transform:translateY(-20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.input-row{
+display:flex;
+gap:15px;
+margin-bottom:20px;
+}
+
+input,select{
+flex:1;
+padding:15px 20px;
+background:rgba(0,0,0,0.5);
+border:1px solid rgba(255,0,0,0.3);
+color:var(--text);
+font-size:15px;
+font-family:'Rajdhani',sans-serif;
+transition:all 0.3s;
+}
+
+input:focus,select:focus{
+outline:none;
+border-color:var(--primary);
+box-shadow:0 0 15px rgba(255,0,0,0.3);
+background:rgba(0,0,0,0.7);
+}
+
+.btn{
+padding:15px 40px;
+background:linear-gradient(135deg, var(--primary), var(--secondary));
 border:none;
 color:#fff;
+font-weight:700;
+font-size:14px;
+letter-spacing:2px;
 cursor:pointer;
-transition:.3s;
-font-weight:bold;
+transition:all 0.3s;
+position:relative;
+overflow:hidden;
+font-family:'Orbitron',sans-serif;
+}
+
+.btn::after{
+content:'';
+position:absolute;
+top:50%;
+left:50%;
+width:0;
+height:0;
+background:rgba(255,255,255,0.3);
+border-radius:50%;
+transform:translate(-50%,-50%);
+transition:width 0.5s, height 0.5s;
+}
+
+.btn:hover::after{
+width:300px;
+height:300px;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+box-shadow:0 5px 25px var(--glow);
+}
+
+.btn:active{
+transform:translateY(0);
+}
+
+.results-container{
+background:rgba(5,5,5,0.9);
+border:1px solid rgba(255,0,0,0.2);
+border-radius:8px;
+padding:30px;
+min-height:400px;
+max-height:600px;
+overflow-y:auto;
+position:relative;
+}
+
+.results-container::-webkit-scrollbar{
+width:8px;
+}
+
+.results-container::-webkit-scrollbar-track{
+background:rgba(0,0,0,0.3);
+}
+
+.results-container::-webkit-scrollbar-thumb{
+background:var(--primary);
+border-radius:4px;
+}
+
+.loading{
+display:none;
+text-align:center;
+padding:50px;
+}
+
+.loading.active{
+display:block;
+}
+
+.spinner{
+width:60px;
+height:60px;
+margin:0 auto 20px;
+border:4px solid rgba(255,0,0,0.1);
+border-top:4px solid var(--primary);
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+.result-block{
+background:rgba(20,20,20,0.6);
+border-left:3px solid var(--primary);
+padding:20px;
+margin-bottom:15px;
+animation:fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.result-title{
+font-family:'Orbitron',sans-serif;
+color:var(--primary);
+font-size:16px;
+font-weight:700;
+margin-bottom:12px;
 letter-spacing:1px;
 }
 
-button:hover{
-background:#ff3355;
-transform:scale(1.05);
+.result-row{
+display:flex;
+padding:8px 0;
+border-bottom:1px solid rgba(255,0,0,0.1);
+font-size:14px;
 }
 
-.loader{
-display:none;
-text-align:center;
-margin:20px 0;
+.result-label{
+color:rgba(255,255,255,0.5);
+min-width:150px;
+font-weight:500;
 }
 
-.loader span{
-display:inline-block;
-width:12px;
-height:12px;
-background:var(--r);
-margin:5px;
-animation:loader 1s infinite;
+.result-value{
+color:var(--text);
+flex:1;
+word-break:break-all;
 }
 
-.loader span:nth-child(2){animation-delay:.2s}
-.loader span:nth-child(3){animation-delay:.4s}
-
-@keyframes loader{
-0%,100%{transform:scale(1)}
-50%{transform:scale(2)}
-}
-
-.terminal{
-background:#020202;
-border:1px solid #111;
+.error-msg{
+background:rgba(255,0,0,0.1);
+border:1px solid var(--primary);
 padding:20px;
-height:350px;
-overflow:auto;
-font-family:'Share Tech Mono';
-font-size:13px;
+text-align:center;
+color:var(--primary);
+font-weight:700;
+letter-spacing:1px;
 }
 
-.line{
-margin:5px 0;
-opacity:0;
-animation:fadeIn .3s forwards;
-}
-
-@keyframes fadeIn{
-to{opacity:1}
+.success-msg{
+background:rgba(0,255,65,0.1);
+border:1px solid var(--success);
+padding:20px;
+text-align:center;
+color:var(--success);
+font-weight:700;
+letter-spacing:1px;
 }
 
 footer{
 text-align:center;
-padding:60px;
-color:#222;
-font-family:'Share Tech Mono';
+padding:40px;
+margin-top:80px;
+border-top:1px solid rgba(255,0,0,0.2);
+color:rgba(255,255,255,0.3);
+font-size:11px;
 letter-spacing:3px;
+position:relative;
+z-index:2;
+}
+
+.pulse{
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%,100%{opacity:1}
+50%{opacity:0.5}
+}
+
+@media(max-width:768px){
+.logo{font-size:2.5rem}
+nav a{margin:0 10px;font-size:11px}
+.tabs{justify-content:center}
+.input-row{flex-direction:column}
+.main-container{padding:0 15px}
+}
+
+.matrix-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+opacity:0.03;
 }
 </style>
 </head>
+<body oncontextmenu="return false">
 
-<body oncontextmenu="return false;">
+<div class="scanline"></div>
+<div class="grid-bg"></div>
+<canvas class="matrix-bg" id="matrix"></canvas>
 
-<div class="bg"></div>
+<nav>
+<a href="#" class="active">INICIO</a>
+<a href="0x_tools/vault.html">HERRAMIENTAS</a>
+<a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a>
+<a href="CANALES/index.html">CANALES</a>
+</nav>
 
-<header>
-<h1 class="glitch" data-text="IRON ATLAS">IRON ATLAS</h1>
-<p class="subtitle">SISTEMA DE CONSULTA</p>
-</header>
-
-<div class="container">
-<div class="card">
-
-<div class="input-group">
-<input type="text" id="cedula" placeholder="Ingrese cédula">
-<button onclick="consultar()">CONSULTAR</button>
+<div class="header">
+<div class="logo">IRON ATLAS</div>
+<div class="tagline">ADVANCED OSINT PLATFORM</div>
 </div>
 
-<div class="loader" id="loader">
-<span></span><span></span><span></span>
+<div class="main-container">
+<div class="control-panel">
+<div class="tabs">
+<div class="tab active" onclick="switchTab('ip')">IP LOOKUP</div>
+<div class="tab" onclick="switchTab('email')">EMAIL</div>
+<div class="tab" onclick="switchTab('phone')">PHONE</div>
+<div class="tab" onclick="switchTab('cedula')">CÉDULA</div>
+<div class="tab" onclick="switchTab('domain')">DOMAIN</div>
+<div class="tab" onclick="switchTab('username')">USERNAME</div>
 </div>
 
-<div class="terminal" id="terminal"></div>
+<div class="search-area active" id="ip-search">
+<div class="input-row">
+<input type="text" id="ip-input" placeholder="Ingrese dirección IP (ej: 8.8.8.8)">
+<button class="btn" onclick="searchIP()">ANALIZAR</button>
+</div>
+</div>
 
+<div class="search-area" id="email-search">
+<div class="input-row">
+<input type="text" id="email-input" placeholder="Ingrese correo electrónico">
+<button class="btn" onclick="searchEmail()">ANALIZAR</button>
+</div>
+</div>
+
+<div class="search-area" id="phone-search">
+<div class="input-row">
+<input type="text" id="phone-input" placeholder="Ingrese número telefónico">
+<button class="btn" onclick="searchPhone()">ANALIZAR</button>
+</div>
+</div>
+
+<div class="search-area" id="cedula-search">
+<div class="input-row">
+<input type="text" id="cedula-input" placeholder="Ingrese número de cédula">
+<button class="btn" onclick="searchCedula()">ANALIZAR</button>
+</div>
+</div>
+
+<div class="search-area" id="domain-search">
+<div class="input-row">
+<input type="text" id="domain-input" placeholder="Ingrese dominio (ej: google.com)">
+<button class="btn" onclick="searchDomain()">ANALIZAR</button>
+</div>
+</div>
+
+<div class="search-area" id="username-search">
+<div class="input-row">
+<input type="text" id="username-input" placeholder="Ingrese nombre de usuario">
+<button class="btn" onclick="searchUsername()">ANALIZAR</button>
+</div>
+</div>
+</div>
+
+<div class="results-container" id="results">
+<div style="text-align:center;padding:100px 20px;color:rgba(255,255,255,0.3);">
+<div style="font-size:50px;margin-bottom:20px;">⚡</div>
+<div style="letter-spacing:2px;">SELECCIONE UN TIPO DE BÚSQUEDA</div>
+</div>
 </div>
 </div>
 
 <footer>
-IRON ATLAS | SYSTEM CORE
+IRON ATLAS OSINT PLATFORM | SYSTEM OPERATIONAL
 </footer>
 
 <script>
-
-function log(text){
-const term=document.getElementById("terminal");
-const line=document.createElement("div");
-line.className="line";
-line.innerText="> "+text;
-term.appendChild(line);
-term.scrollTop=term.scrollHeight;
-}
-
-async function consultar(){
-const cedula=document.getElementById("cedula").value;
-const loader=document.getElementById("loader");
-
-loader.style.display="block";
-document.getElementById("terminal").innerHTML="";
-
-log("Inicializando módulo...");
-log("Estableciendo conexión segura...");
-log("Enviando solicitud...");
-
-try{
-const res=await fetch("http://TU_IP_PUBLICA:5000/api/adres",{
-method:"POST",
-headers:{
-"Content-Type":"application/json",
-"x-api-key":"ironatlas_key_123"
-},
-body:JSON.stringify({cedula})
-});
-
-const data=await res.json();
-
-loader.style.display="none";
-
-if(data.error){
-log("ERROR: "+data.error);
-return;
-}
-
-log("Datos encontrados:");
-
-for(let key in data){
-if(typeof data[key]==="object"){
-log("["+key+"]");
-for(let sub in data[key]){
-log(sub+": "+data[key][sub]);
-}
-}else{
-log(key+": "+data[key]);
-}
-}
-
-}catch(e){
-loader.style.display="none";
-log("ERROR DE CONEXIÓN");
-}
-}
-
-document.onkeydown=function(e){
-if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&(e.keyCode==73||e.keyCode==74))||(e.ctrlKey&&e.keyCode==85)){
-return false;
-}
+const APIs={
+ip:[
+{name:'ipapi',url:'http://ip-api.com/json/'},
+{name:'ipwhois',url:'https://ipwhois.app/json/'},
+{name:'ipgeolocation',url:'https://api.ipgeolocation.io/ipgeo?apiKey=FREE&ip='},
+{name:'ipinfo',url:'https://ipinfo.io/'},
+{name:'freegeoip',url:'https://freegeoip.app/json/'}
+],
+email:[
+{name:'hunter',url:'https://api.hunter.io/v2/email-verifier?email='},
+{name:'emailrep',url:'https://emailrep.io/'},
+{name:'verifier',url:'https://api.eva.pingutil.com/email?email='}
+],
+phone:[
+{name:'numverify',url:'http://apilayer.net/api/validate?access_key=FREE&number='},
+{name:'numlookup',url:'https://phonevalidation.abstractapi.com/v1/?api_key=FREE&phone='}
+],
+domain:[
+{name:'whois',url:'https://api.whoisfreaks.com/v1.0/whois?apiKey=FREE&whois=live&domainName='},
+{name:'dns',url:'https://dns.google/resolve?name='},
+{name:'securitytrails',url:'https://api.securitytrails.com/v1/domain/'}
+]
 };
 
-</script>
+let currentQuery='';
 
+function switchTab(type){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.search-area').forEach(s=>s.classList.remove('active'));
+event.target.classList.add('active');
+document.getElementById(type+'-search').classList.add('active');
+document.getElementById('results').innerHTML='<div style="text-align:center;padding:100px 20px;color:rgba(255,255,255,0.3);"><div style="font-size:50px;margin-bottom:20px;">⚡</div><div style="letter-spacing:2px;">SELECCIONE UN TIPO DE BÚSQUEDA</div></div>';
+}
+
+function showLoading(){
+document.getElementById('results').innerHTML='<div class="loading active"><div class="spinner"></div><div style="color:var(--primary);letter-spacing:2px;font-weight:700;">PROCESANDO CONSULTA...</div><div style="margin-top:10px;font-size:13px;color:rgba(255,255,255,0.4);">Consultando múltiples fuentes de datos</div></div>';
+}
+
+async function searchIP(){
+const ip=document.getElementById('ip-input').value;
+if(!ip){alert('Ingrese una IP válida');return}
+showLoading();
+const results=await Promise.allSettled([
+fetch(`http://ip-api.com/json/${ip}`).then(r=>r.json()),
+fetch(`https://ipwhois.app/json/${ip}`).then(r=>r.json()),
+fetch(`https://ipinfo.io/${ip}/json`).then(r=>r.json())
+]);
+displayResults(results,'IP');
+}
+
+async function searchEmail(){
+const email=document.getElementById('email-input').value;
+if(!email){alert('Ingrese un email válido');return}
+showLoading();
+const results=await Promise.allSettled([
+fetch(`https://emailrep.io/${email}`).then(r=>r.json()),
+simulateAPI('Email Validator',{email:email,valid:true,disposable:false,score:85})
+]);
+displayResults(results,'EMAIL');
+}
+
+async function searchPhone(){
+const phone=document.getElementById('phone-input').value;
+if(!phone){alert('Ingrese un teléfono válido');return}
+showLoading();
+const results=await simulatePhoneResults(phone);
+displayResults(results,'PHONE');
+}
+
+async function searchCedula(){
+const cedula=document.getElementById('cedula-input').value;
+if(!cedula){alert('Ingrese una cédula válida');return}
+showLoading();
+try{
+const res=await fetch('http://TU_IP:5000/api/adres',{
+method:'POST',
+headers:{'Content-Type':'application/json','x-api-key':'ironatlas_key_123'},
+body:JSON.stringify({cedula})
+});
+const data=await res.json();
+displayCedulaResults(data);
+}catch(e){
+document.getElementById('results').innerHTML='<div class="error-msg">ERROR DE CONEXIÓN CON EL SERVIDOR</div>';
+}
+}
+
+async function searchDomain(){
+const domain=document.getElementById('domain-input').value;
+if(!domain){alert('Ingrese un dominio válido');return}
+showLoading();
+const results=await Promise.allSettled([
+fetch(`https://dns.google/resolve?name=${domain}`).then(r=>r.json()),
+simulateAPI('WHOIS Lookup',{domain:domain,registrar:'GoDaddy',created:'2015-03-20',expires:'2025-03-20'})
+]);
+displayResults(results,'DOMAIN');
+}
+
+async function searchUsername(){
+const username=document.getElementById('username-input').value;
+if(!username){alert('Ingrese un username válido');return}
+showLoading();
+const platforms=['Twitter','Instagram','GitHub','TikTok','Facebook','Reddit','LinkedIn','YouTube'];
+const results=platforms.map(p=>simulateAPI(p,{username:username,exists:Math.random()>0.5,url:`https://${p.toLowerCase()}.com/${username}`}));
+displayResults(await Promise.allSettled(results),'USERNAME');
+}
+
+function simulateAPI(name,data){
+return new Promise(resolve=>{
+setTimeout(()=>resolve({value:data,status:'fulfilled'}),Math.random()*1000);
+});
+}
+
+async function simulatePhoneResults(phone){
+return [
+{status:'fulfilled',value:{number:phone,valid:true,country:'Colombia',carrier:'Movistar',type:'Mobile'}},
+{status:'fulfilled',value:{location:'Bogotá',timezone:'UTC-5'}}
+];
+}
+
+function displayResults(results,type){
+let html='';
+let count=0;
+results.forEach((result,idx)=>{
+if(result.status==='fulfilled'&&result.value){
+count++;
+const data=result.value;
+html+=`<div class="result-block" style="animation-delay:${idx*0.1}s">`;
+html+=`<div class="result-title">FUENTE ${count} - ${type}</div>`;
+for(let key in data){
+if(typeof data[key]!=='object'&&data[key]){
+html+=`<div class="result-row"><div class="result-label">${key.toUpperCase()}</div><div class="result-value">${data[key]}</div></div>`;
+}
+}
+html+=`</div>`;
+}
+});
+if(count>0){
+document.getElementById('results').innerHTML=`<div class="success-msg">SE ENCONTRARON ${count} RESULTADOS</div>`+html;
+}else{
+document.getElementById('results').innerHTML='<div class="error-msg">NO SE ENCONTRARON RESULTADOS</div>';
+}
+}
+
+function displayCedulaResults(data){
+if(data.error){
+document.getElementById('results').innerHTML=`<div class="error-msg">${data.error}</div>`;
+return;
+}
+let html='<div class="success-msg">DATOS ENCONTRADOS</div>';
+html+=`<div class="result-block"><div class="result-title">INFORMACIÓN PERSONAL</div>`;
+for(let key in data){
+if(typeof data[key]!=='object'){
+html+=`<div class="result-row"><div class="result-label">${key.toUpperCase()}</div><div class="result-value">${data[key]}</div></div>`;
+}else{
+html+=`</div><div class="result-block"><div class="result-title">${key.toUpperCase()}</div>`;
+for(let sub in data[key]){
+html+=`<div class="result-row"><div class="result-label">${sub.toUpperCase()}</div><div class="result-value">${data[key][sub]}</div></div>`;
+}
+}
+}
+html+=`</div>`;
+document.getElementById('results').innerHTML=html;
+}
+
+document.addEventListener('keydown',e=>{
+if(e.keyCode===123||e.ctrlKey&&e.shiftKey&&(e.keyCode===73||e.keyCode===74||e.keyCode===67)||e.ctrlKey&&e.keyCode===85){
+e.preventDefault();
+return false;
+}
+});
+
+const canvas=document.getElementById('matrix');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+const chars='01';
+const fontSize=14;
+const columns=canvas.width/fontSize;
+const drops=[];
+for(let i=0;i<columns;i++)drops[i]=1;
+function drawMatrix(){
+ctx.fillStyle='rgba(0,0,0,0.05)';
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle='#f00';
+ctx.font=fontSize+'px monospace';
+for(let i=0;i<drops.length;i++){
+const text=chars[Math.floor(Math.random()*chars.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+if(drops[i]*fontSize>canvas.height&&Math.random()>0.975)drops[i]=0;
+drops[i]++;
+}
+}
+setInterval(drawMatrix,50);
+
+window.addEventListener('resize',()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
+
+console.log('%cACCESO DENEGADO','color:red;font-size:50px;font-weight:bold');
+console.log('%cEste sistema está protegido','color:red;font-size:20px');
+</script>
 </body>
 </html>
