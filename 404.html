@@ -3,69 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SÁCATE A LA VERGA | 404</title>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>404 | ACCESO DENEGADO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0033; --b: #050505; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--b); color: var(--r); font-family: 'Share Tech Mono', monospace; 
-            display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden;
+        :root { --red: #ff0000; --dark-red: #4b0000; --bg: #050000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        body {
+            background-color: var(--bg);
+            color: var(--red);
+            font-family: 'Courier Prime', monospace;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-transform: uppercase;
         }
-        .noise {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://media.giphy.com/media/oEI9uWUicG57v7Zf2W/giphy.gif');
-            opacity: 0.03; pointer-events: none; z-index: 10;
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
         }
-        .box {
-            max-width: 550px; padding: 50px; border: 2px solid var(--r);
-            background: rgba(10, 0, 0, 0.95); box-shadow: 0 0 60px rgba(255, 0, 51, 0.3);
-            text-align: center; position: relative; z-index: 20;
+        .scanline {
+            width: 100%; height: 100px;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 4s linear infinite;
         }
-        h1 { 
-            font-size: clamp(5rem, 15vw, 9rem); font-weight: 900; letter-spacing: -5px; 
-            margin-bottom: 10px; text-shadow: 5px 5px #000; animation: shake 0.2s infinite;
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100%; }
+        }
+        .wrapper {
+            text-align: center;
+            padding: 20px;
+            border: 5px solid var(--red);
+            background: rgba(20, 0, 0, 0.9);
+            box-shadow: 0 0 50px var(--dark-red), inset 0 0 20px var(--dark-red);
+            position: relative;
+            animation: shake 0.5s infinite;
+        }
+        h1 {
+            font-size: 12rem;
+            line-height: 0.8;
+            position: relative;
+            display: inline-block;
+        }
+        h1::before, h1::after {
+            content: "404";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg);
+        }
+        h1::before {
+            left: 2px; text-shadow: -2px 0 red;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch 2s infinite linear alternate-reverse;
+        }
+        h1::after {
+            left: -2px; text-shadow: -2px 0 red;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch 3s infinite linear alternate-reverse;
+        }
+        .alert {
+            font-size: 2rem;
+            margin: 20px 0;
+            background: var(--red);
+            color: #000;
+            padding: 5px 10px;
+            font-weight: 900;
+        }
+        .msg {
+            max-width: 600px;
+            margin: 20px auto;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            letter-spacing: 2px;
+        }
+        .btn {
+            display: block;
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px solid var(--red);
+            color: var(--red);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.1s;
+        }
+        .btn:hover {
+            background: var(--red);
+            color: #000;
+            box-shadow: 0 0 40px var(--red);
+            transform: scale(1.1) rotate(-1deg);
+        }
+        @keyframes glitch {
+            0% { clip: rect(10px, 9999px, 9px, 0); }
+            5% { clip: rect(80px, 9999px, 29px, 0); }
+            10% { clip: rect(35px, 9999px, 88px, 0); }
+            20% { clip: rect(50px, 9999px, 12px, 0); }
+            30% { clip: rect(2px, 9999px, 60px, 0); }
+            100% { clip: rect(85px, 9999px, 100px, 0); }
         }
         @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            20% { transform: translate(-1px, -2px) rotate(-1deg); }
-            40% { transform: translate(-3px, 0px) rotate(1deg); }
-            60% { transform: translate(3px, 2px) rotate(0deg); }
-            80% { transform: translate(1px, -1px) rotate(1deg); }
-            100% { transform: translate(-1px, 2px) rotate(-1deg); }
+            0% { transform: translate(0); }
+            25% { transform: translate(2px, -2px); }
+            50% { transform: translate(-2px, 2px); }
+            75% { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
         }
-        .msg { font-size: 1.4rem; font-weight: bold; text-transform: uppercase; margin-bottom: 25px; border-bottom: 1px solid var(--r); padding-bottom: 15px; }
-        .insult { font-size: 0.9rem; color: #888; line-height: 1.6; margin-bottom: 30px; text-align: justify; }
-        .insult b { color: #fff; }
-        .btn {
-            display: inline-block; padding: 15px 40px; background: var(--r); color: #000;
-            text-decoration: none; font-weight: 900; font-size: 1rem; border: 2px solid var(--r); transition: 0.3s;
-        }
-        .btn:hover { background: transparent; color: var(--r); box-shadow: 0 0 30px var(--r); }
-        .f-code { margin-top: 25px; font-size: 0.65rem; color: #222; letter-spacing: 5px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-<div class="noise"></div>
+<div class="crt-overlay"></div>
+<div class="scanline"></div>
 
-<div class="box">
+<div class="wrapper">
     <h1>404</h1>
-    <div class="msg">¿QUÉ PUTAS BUSCAS AQUÍ?</div>
-    
-    <div class="insult">
-        Ese directorio no existe, pedazo de animal. Deja de estar haciendo <b>fuzzing</b> o intentando encontrar archivos ocultos como un pinche niño de 12 años. Aquí no hay puertas traseras para mediocres. Si sigues de castroso intentando romper la estructura, mejor lárgate a jugar con tu abuela. <b>Iron Atlas</b> no es un parque de juegos para ratas.
+    <div class="alert">ACCESO RESTRINGIDO, PEDAZO DE ANIMAL</div>
+    <div class="msg">
+        ¿Te crees muy vergas intentando entrar aquí? Este no es el sótano de tu mamá. <br><br>
+        Tu intento de intrusión ha sido registrado y nos estamos riendo de tu <b>patética existencia</b>. No hay nada para ti aquí más que este mensaje. Deja de picarle a lo pendejo y lárgate antes de que te rastreemos por diversión.
     </div>
-
-    <a href="index.html" class="btn">LARGARME DE AQUÍ</a>
-
-    <div class="f-code">ERROR CODE: IDIOTA DETECTADO</div>
+    
+    <a href="javascript:history.back()" class="btn">SAQUESE A LA CHINGADA</a>
+    
+    <div style="margin-top:20px; font-size: 0.7rem; opacity: 0.5;">
+        STATUS: SISTEMA BLOQUEADO PARA IDIOTAS | TRACE_ID: [PENDEJO_DETECTADO]
+    </div>
 </div>
 
 <script>
     document.onkeydown = function(e) {
-        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
-    }
+        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+            alert('¡NI LO INTENTES, IMBÉCIL!');
+            return false;
+        }
+    };
+    setInterval(function(){
+        console.clear();
+        console.log('%c¿QUÉ BUSCAS AQUÍ, CHISMOSO?', 'color: red; font-size: 40px; font-weight: bold; -webkit-text-stroke: 1px black;');
+    }, 1);
 </script>
 
 </body>
