@@ -1,547 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --r: #ff0033;
-    --r2: #cc0022;
-    --b: #050505;
-    --p: #0d0d0d;
-    --brd: #1c1c1c;
-    --t: #c8c8c8;
-    --dim: #555;
-    --c: #00e5ff;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background: var(--b);
-    color: var(--t);
-    font-family: 'Rajdhani', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SISTEMA EN MANTENIMIENTO | IRON ATLAS NG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --r: #ff0033; --b: #040404; --p: #0c0c0c; --brd: #1c1c1c; --t: #b0b0b0; --amber: #ff8c00; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--b); color: var(--t); font-family: 'Share Tech Mono', monospace; user-select: none; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        
+        #bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        .scanline { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.06) 3px, rgba(0,0,0,.06) 4px); }
+        
+        .maint-box {
+            position: relative; z-index: 2; background: var(--p); border: 1px solid var(--brd);
+            border-left: 5px solid var(--r); padding: clamp(20px, 5vw, 50px); max-width: 600px; width: 90%;
+            text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
 
-  /* SCANLINE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
-    pointer-events: none;
-    z-index: 999;
-  }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--r); letter-spacing: 5px; margin-bottom: 20px; }
+        
+        .status-msg { font-size: 1.2rem; color: var(--amber); letter-spacing: 2px; margin-bottom: 30px; animation: blink 1.5s infinite; }
+        
+        .progress-container { width: 100%; height: 2px; background: #222; margin-bottom: 20px; overflow: hidden; position: relative; }
+        .progress-bar { height: 100%; width: 50%; background: var(--r); position: absolute; left: -50%; animation: load 3s ease-in-out infinite; box-shadow: 0 0 15px var(--r); }
 
-  /* NAV */
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    height: 56px;
-    border-bottom: 1px solid var(--brd);
-    background: rgba(5,5,5,0.95);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(8px);
-  }
-  .nav-logo {
-    font-family: 'Share Tech Mono';
-    font-size: 0.75rem;
-    color: var(--r);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .nav-logo .dot {
-    width: 6px; height: 6px;
-    background: var(--r);
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-  }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-links a {
-    font-family: 'Share Tech Mono';
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    color: var(--dim);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--t); }
-  .nav-links a.active { border-bottom: 1px solid var(--r); padding-bottom: 2px; }
+        .details { font-size: 0.75rem; color: #555; text-transform: uppercase; letter-spacing: 1px; }
 
-  /* HERO */
-  .hero {
-    padding: 80px 40px 60px;
-    text-align: center;
-    border-bottom: 1px solid var(--brd);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 50%;
-    transform: translateX(-50%);
-    width: 200px; height: 1px;
-    background: var(--r);
-    box-shadow: 0 0 20px var(--r);
-  }
-  .hero-tag {
-    font-family: 'Share Tech Mono';
-    font-size: 0.65rem;
-    color: var(--r);
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: block;
-    animation: fadeDown 0.6s ease both;
-  }
-  .hero h1 {
-    font-family: 'Share Tech Mono';
-    font-size: clamp(1.8rem, 5vw, 3rem);
-    color: #fff;
-    letter-spacing: 8px;
-    text-transform: uppercase;
-    line-height: 1.1;
-    animation: fadeDown 0.7s ease 0.1s both;
-  }
-  .hero h1 span { color: var(--r); }
-  .hero-sub {
-    font-size: 0.85rem;
-    color: var(--dim);
-    margin-top: 16px;
-    font-family: 'Share Tech Mono';
-    letter-spacing: 2px;
-    animation: fadeDown 0.7s ease 0.2s both;
-  }
+        @keyframes load { 0% { left: -50%; } 100% { left: 100%; } }
+        @keyframes blink { 50% { opacity: 0.3; } }
 
-  /* GRID TOOLS */
-  .tools-section {
-    padding: 50px 40px;
-    max-width: 1200px;
-    margin: auto;
-  }
-  .section-label {
-    font-family: 'Share Tech Mono';
-    font-size: 0.65rem;
-    color: var(--dim);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--brd);
-  }
-
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 16px;
-  }
-
-  /* TOOL CARD */
-  .tool-card {
-    background: var(--p);
-    border: 1px solid var(--brd);
-    padding: 24px;
-    cursor: pointer;
-    transition: border-color 0.2s, transform 0.15s;
-    position: relative;
-    overflow: hidden;
-    animation: fadeUp 0.5s ease both;
-  }
-  .tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--r);
-    transition: height 0.3s;
-  }
-  .tool-card:hover { border-color: #333; transform: translateY(-2px); }
-  .tool-card:hover::before { height: 100%; }
-
-  .card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-  .card-icon {
-    width: 36px; height: 36px;
-    border: 1px solid var(--brd);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Share Tech Mono';
-    font-size: 0.7rem;
-    color: var(--r);
-  }
-  .card-status {
-    font-family: 'Share Tech Mono';
-    font-size: 0.55rem;
-    letter-spacing: 2px;
-    padding: 3px 8px;
-    border: 1px solid;
-  }
-  .status-live { color: #00cc66; border-color: #00cc6633; background: #00cc6608; }
-  .status-beta { color: var(--c); border-color: #00e5ff33; background: #00e5ff08; }
-
-  .card-title {
-    font-family: 'Share Tech Mono';
-    font-size: 0.9rem;
-    color: #fff;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-  .card-desc {
-    font-size: 0.8rem;
-    color: var(--dim);
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-  .card-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .tag {
-    font-family: 'Share Tech Mono';
-    font-size: 0.55rem;
-    letter-spacing: 1px;
-    padding: 2px 8px;
-    background: #111;
-    border: 1px solid #222;
-    color: var(--dim);
-    text-transform: uppercase;
-  }
-
-  /* INTERACTIVE PANEL */
-  .panel {
-    display: none;
-    margin-top: 12px;
-    border-top: 1px solid var(--brd);
-    padding-top: 16px;
-  }
-  .panel.open { display: block; }
-  .panel input {
-    width: 100%;
-    background: #0a0a0a;
-    border: 1px solid var(--brd);
-    color: var(--t);
-    font-family: 'Share Tech Mono';
-    font-size: 0.8rem;
-    padding: 10px 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 10px;
-  }
-  .panel input:focus { border-color: var(--r); }
-  .panel input::placeholder { color: #333; }
-  .run-btn {
-    width: 100%;
-    background: transparent;
-    border: 1px solid var(--r);
-    color: var(--r);
-    font-family: 'Share Tech Mono';
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    padding: 10px;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-    text-transform: uppercase;
-  }
-  .run-btn:hover { background: var(--r); color: #fff; }
-  .output-box {
-    margin-top: 12px;
-    background: #080808;
-    border: 1px solid var(--brd);
-    border-left: 2px solid var(--r);
-    padding: 14px;
-    font-family: 'Share Tech Mono';
-    font-size: 0.75rem;
-    color: var(--c);
-    min-height: 60px;
-    white-space: pre-wrap;
-    word-break: break-all;
-    display: none;
-  }
-  .output-box.show { display: block; }
-
-  /* STATUS BAR */
-  .statusbar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 28px;
-    background: #060606;
-    border-top: 1px solid var(--brd);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    font-family: 'Share Tech Mono';
-    font-size: 0.6rem;
-    color: var(--dim);
-    z-index: 100;
-  }
-  .statusbar .live { color: #00cc66; }
-
-  /* ANIMATIONS */
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.2; }
-  }
-  @keyframes fadeDown {
-    from { opacity:0; transform: translateY(-12px); }
-    to { opacity:1; transform: none; }
-  }
-  @keyframes fadeUp {
-    from { opacity:0; transform: translateY(16px); }
-    to { opacity:1; transform: none; }
-  }
-  @keyframes blink {
-    0%,100% { opacity:1; }
-    50% { opacity:0; }
-  }
-  .blink { animation: blink 1s step-end infinite; }
-
-  /* STAGGER */
-  .tool-card:nth-child(1) { animation-delay: 0.05s; }
-  .tool-card:nth-child(2) { animation-delay: 0.1s; }
-  .tool-card:nth-child(3) { animation-delay: 0.15s; }
-  .tool-card:nth-child(4) { animation-delay: 0.2s; }
-  .tool-card:nth-child(5) { animation-delay: 0.25s; }
-  .tool-card:nth-child(6) { animation-delay: 0.3s; }
-</style>
+        @media (max-width: 600px) { .logo { font-size: 1rem; } .status-msg { font-size: 0.9rem; } }
+    </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
-<nav>
-  <div class="nav-logo">
-    <div class="dot"></div>
-    IRON ATLAS NG
-  </div>
-  <div class="nav-links">
-    <a href="#">INICIO</a>
-    <a href="#" class="active">HERRAMIENTAS</a>
-    <a href="#">EXPEDIENTES</a>
-    <a href="#">CANALES</a>
-  </div>
-</nav>
+<canvas id="bg"></canvas>
+<div class="scanline"></div>
 
-<div class="hero">
-  <span class="hero-tag">// VAULT DE HERRAMIENTAS //</span>
-  <h1>IRON ATLAS <span>NEW GENERATION</span></h1>
-  <p class="hero-sub">OSINT · RECONOCIMIENTO · ANÁLISIS DE RED <span class="blink">_</span></p>
-</div>
-
-<div class="tools-section">
-  <div class="section-label">HERRAMIENTAS ACTIVAS</div>
-  <div class="tools-grid" id="grid"></div>
-</div>
-
-<div class="statusbar">
-  <span><span class="live">● ONLINE</span> &nbsp;|&nbsp; IRON ATLAS NG v2.0</span>
-  <span id="clock"></span>
-  <span>VAULT MODULE LOADED</span>
+<div class="maint-box">
+    <div class="logo">IRON ATLAS NEW GENERATION</div>
+    <div class="status-msg">SISTEMA EN MANTENIMIENTO</div>
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+    </div>
+    <div class="details">
+        ▌ ACTUALIZANDO.... ▌<br>
+        ▌ ACCESO TEMPORALMENTE BLOQUEADO ▌<br>
+        ▌ ESTADO: mantenimiento ▌
+    </div>
 </div>
 
 <script>
-const tools = [
-  {
-    id: 'whois',
-    icon: 'WH',
-    status: 'live',
-    title: 'WHOIS LOOKUP',
-    desc: 'Consulta información de registro de dominios: propietario, fechas, servidores DNS y datos de contacto.',
-    tags: ['dominio','registro','dns'],
-    placeholder: 'Ej: example.com',
-    api: async (v) => {
-      const r = await fetch(`https://api.whoisjson.com/v1/${encodeURIComponent(v)}`);
-      if (!r.ok) throw new Error('Sin respuesta');
-      const d = await r.json();
-      return [
-        `DOMINIO   : ${d.domain || v}`,
-        `REGISTRAR : ${d.registrar?.name || 'N/D'}`,
-        `CREADO    : ${d.created || 'N/D'}`,
-        `EXPIRA    : ${d.expires || 'N/D'}`,
-        `ESTADO    : ${d.status || 'N/D'}`,
-      ].join('\n');
-    }
-  },
-  {
-    id: 'dns',
-    icon: 'DNS',
-    status: 'live',
-    title: 'DNS RESOLVER',
-    desc: 'Resuelve registros DNS de cualquier dominio: A, MX, NS, TXT usando la API pública de Google.',
-    tags: ['dns','red','infraestructura'],
-    placeholder: 'Ej: google.com',
-    api: async (v) => {
-      const tipos = ['A','MX','NS','TXT'];
-      let out = [];
-      for (const t of tipos) {
-        const r = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(v)}&type=${t}`);
-        const d = await r.json();
-        if (d.Answer) {
-          d.Answer.slice(0,3).forEach(rec => {
-            out.push(`${t.padEnd(4)} → ${rec.data}`);
-          });
+  
+    (function(){
+        'use strict';
+        const canvas = document.getElementById('bg');
+        const ctx = canvas.getContext('2d');
+        let W, H;
+        function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+        const HEX_R = 58;
+        let t = 0;
+        function hexPath(cx,cy){
+            ctx.beginPath();
+            for(let i=0; i<6; i++){
+                const a = Math.PI/3*i-Math.PI/6;
+                i===0?ctx.moveTo(cx+HEX_R*Math.cos(a),cy+HEX_R*Math.sin(a)) :ctx.lineTo(cx+HEX_R*Math.cos(a),cy+HEX_R*Math.sin(a));
+            }
+            ctx.closePath();
         }
-      }
-      return out.length ? out.join('\n') : 'Sin registros encontrados.';
-    }
-  },
-  {
-    id: 'ip',
-    icon: 'IP',
-    status: 'live',
-    title: 'IP GEOLOCATION',
-    desc: 'Geolocalización e información de una IP: país, ciudad, ISP, ASN y coordenadas aproximadas.',
-    tags: ['ip','geo','asn'],
-    placeholder: 'Ej: 8.8.8.8',
-    api: async (v) => {
-      const r = await fetch(`https://ipapi.co/${encodeURIComponent(v)}/json/`);
-      if (!r.ok) throw new Error('Sin respuesta');
-      const d = await r.json();
-      if (d.error) throw new Error(d.reason);
-      return [
-        `IP        : ${d.ip}`,
-        `PAÍS      : ${d.country_name} (${d.country_code})`,
-        `CIUDAD    : ${d.city || 'N/D'}, ${d.region || 'N/D'}`,
-        `ISP       : ${d.org || 'N/D'}`,
-        `ASN       : ${d.asn || 'N/D'}`,
-        `TIMEZONE  : ${d.timezone || 'N/D'}`,
-        `LAT/LON   : ${d.latitude}, ${d.longitude}`,
-      ].join('\n');
-    }
-  },
-  {
-    id: 'headers',
-    icon: 'HDR',
-    status: 'live',
-    title: 'HTTP HEADERS',
-    desc: 'Analiza los headers de respuesta HTTP de cualquier URL usando la API pública de httpbin.',
-    tags: ['http','web','seguridad'],
-    placeholder: 'Ej: https://example.com',
-    api: async (v) => {
-      const url = v.startsWith('http') ? v : 'https://' + v;
-      const r = await fetch(`https://httpbin.org/headers`, { headers: { 'X-Target': url } });
-      const d = await r.json();
-      const headers = d.headers || {};
-      return Object.entries(headers).map(([k,val]) => `${k.padEnd(20)}: ${val}`).join('\n');
-    }
-  },
-  {
-    id: 'ssl',
-    icon: 'SSL',
-    status: 'beta',
-    title: 'SSL INSPECTOR',
-    desc: 'Verifica el certificado SSL/TLS de un dominio: validez, emisor y fechas de expiración vía crt.sh.',
-    tags: ['ssl','tls','certificado'],
-    placeholder: 'Ej: github.com',
-    api: async (v) => {
-      const domain = v.replace(/^https?:\/\//, '').split('/')[0];
-      const r = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain)}&output=json`);
-      if (!r.ok) throw new Error('Sin datos');
-      const d = await r.json();
-      if (!d.length) return 'Sin certificados encontrados.';
-      const cert = d[0];
-      return [
-        `DOMINIO   : ${domain}`,
-        `EMISOR    : ${cert.issuer_name?.split('O=')[1]?.split(',')[0] || 'N/D'}`,
-        `EMITIDO   : ${cert.not_before || 'N/D'}`,
-        `EXPIRA    : ${cert.not_after || 'N/D'}`,
-        `CN        : ${cert.common_name || 'N/D'}`,
-        `TOTAL CERTS HISTÓRICOS: ${d.length}`,
-      ].join('\n');
-    }
-  },
-  {
-    id: 'useragent',
-    icon: 'UA',
-    status: 'live',
-    title: 'USER-AGENT PARSER',
-    desc: 'Parsea y analiza cualquier User-Agent string: SO, navegador, dispositivo y versiones.',
-    tags: ['ua','fingerprint','browser'],
-    placeholder: 'Pega un User-Agent aquí...',
-    api: async (v) => {
-      const r = await fetch(`https://api.apicagent.com/?ua=${encodeURIComponent(v)}`);
-      if (!r.ok) throw new Error('Sin respuesta');
-      const d = await r.json();
-      return [
-        `NAVEGADOR : ${d.browser?.name || 'N/D'} ${d.browser?.version || ''}`,
-        `MOTOR     : ${d.engine?.name || 'N/D'} ${d.engine?.version || ''}`,
-        `SO        : ${d.os?.name || 'N/D'} ${d.os?.version || ''}`,
-        `PLATAFORMA: ${d.device?.type || 'N/D'}`,
-      ].join('\n');
-    }
-  },
-];
+        function draw(){
+            ctx.clearRect(0,0,W,H);
+            const hx=HEX_R*Math.sqrt(3), hy=HEX_R*1.5;
+            const cols2=Math.ceil(W/hx)+3, rows2=Math.ceil(H/hy)+3;
+            for(let r=0; r<rows2; r++){
+                for(let c=0; c<cols2; c++){
+                    const cx=c*hx+(r%2)*hx/2-hx; const cy=r*hy-hy;
+                    const wave=(Math.sin(t*.0035+cx*.007+cy*.005)+1)/2;
+                    ctx.strokeStyle=`rgba(255,0,51,${wave*.045+.012})`;
+                    ctx.lineWidth=.45; hexPath(cx,cy); ctx.stroke();
+                }
+            }
+            t++; requestAnimationFrame(draw);
+        }
+        resize(); draw();
+        window.addEventListener('resize', resize);
+    })();
 
-function buildCard(t) {
-  const card = document.createElement('div');
-  card.className = 'tool-card';
-  card.innerHTML = `
-    <div class="card-top">
-      <div class="card-icon">${t.icon}</div>
-      <span class="card-status status-${t.status}">${t.status.toUpperCase()}</span>
-    </div>
-    <div class="card-title">${t.title}</div>
-    <div class="card-desc">${t.desc}</div>
-    <div class="card-tags">${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
-    <div class="panel" id="panel-${t.id}">
-      <input id="input-${t.id}" placeholder="${t.placeholder}" />
-      <button class="run-btn" id="btn-${t.id}">▶ EJECUTAR CONSULTA</button>
-      <div class="output-box" id="out-${t.id}"></div>
-    </div>
-  `;
-  card.querySelector('.card-title').addEventListener('click', () => {
-    const panel = document.getElementById(`panel-${t.id}`);
-    panel.classList.toggle('open');
-  });
-  card.querySelector(`#btn-${t.id}`).addEventListener('click', async () => {
-    const val = document.getElementById(`input-${t.id}`).value.trim();
-    const out = document.getElementById(`out-${t.id}`);
-    const btn = document.getElementById(`btn-${t.id}`);
-    if (!val) { out.textContent = '[ ERROR ] Campo vacío.'; out.classList.add('show'); return; }
-    btn.textContent = '● CONSULTANDO...';
-    btn.disabled = true;
-    out.classList.add('show');
-    out.textContent = 'Procesando solicitud...';
-    try {
-      out.textContent = await t.api(val);
-    } catch(e) {
-      out.textContent = `[ ERROR ] ${e.message}\nRevisa el valor ingresado o intenta más tarde.`;
+ 
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false;
     }
-    btn.textContent = '▶ EJECUTAR CONSULTA';
-    btn.disabled = false;
-  });
-  return card;
-}
-
-const grid = document.getElementById('grid');
-tools.forEach(t => grid.appendChild(buildCard(t)));
-
-// CLOCK
-function tick() {
-  const now = new Date();
-  document.getElementById('clock').textContent =
-    now.toISOString().replace('T',' ').slice(0,19) + ' UTC';
-}
-tick(); setInterval(tick, 1000);
 </script>
+
 </body>
 </html>
