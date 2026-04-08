@@ -21,7 +21,7 @@ HACK [PURGATORY]™
 
 TEAM JXLL
 
-CASHCOL
+Mercado Negro COL
 
 📡 CONTACTO OFICIAL
 Para operaciones, soporte o alianzas, utiliza únicamente los canales verificados:
