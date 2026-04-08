@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IRON ATLAS | CPANEL LOGIN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --r: #ff0000; --b: #050000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        body { background: var(--b); color: var(--r); font-family: 'Courier Prime', monospace; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); background-size: 100% 2px, 3px 100%; pointer-events: none; z-index: 100; }
+        .login-box { width: 400px; padding: 40px; border: 2px solid var(--r); background: rgba(15, 0, 0, 0.9); box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); position: relative; z-index: 50; text-align: center; }
+        .glitch-title { font-size: 1.8rem; margin-bottom: 30px; position: relative; animation: shake 0.3s infinite; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; background: #110000; border: 1px solid var(--r); color: var(--r); font-family: inherit; outline: none; transition: 0.3s; }
+        input:focus { box-shadow: 0 0 15px var(--r); background: #220000; }
+        .btn { width: 100%; padding: 15px; background: var(--r); color: #000; border: none; font-weight: 900; letter-spacing: 2px; transition: 0.3s; }
+        .btn:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+        #mock-msg { display: none; }
+        .insult-title { font-size: 3rem; color: #fff; text-shadow: 0 0 20px var(--r); animation: pulse 0.1s infinite; }
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(1px, -1px); } }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .status { font-size: 0.7rem; margin-top: 20px; opacity: 0.6; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="scanlines"></div>
+
+<div class="login-box" id="main-container">
+    <div id="login-form">
+        <div class="glitch-title">SISTEMA CENTRAL V.4.0</div>
+        <input type="text" id="user" placeholder="USUARIO" autocomplete="off">
+        <input type="password" id="pass" placeholder="CONTRASEÑA" autocomplete="off">
+        <button class="btn" onclick="validate()">ACCEDER AL NODO</button>
+        <div class="status">ESPERANDO CREDENCIALES DE ADMINISTRADOR...</div>
+    </div>
+
+    <div id="mock-msg">
+        <div class="insult-title">¡PEDAZO DE IDIOTA!</div>
+        <div style="margin: 20px 0; line-height: 1.5;">
+            ¿Neta pensaste que la clave era <b>admin / admin</b>? <br><br>
+            Eres el "hacker" más patético que ha pasado por aquí. Mi abuela hace mejores inyecciones SQL que tú. <br><br>
+            Lárgate a ver tutoriales de YouTube, pinche novato. Tu IP ya está en nuestra lista de payasos.
+        </div>
+        <button class="btn" onclick="location.reload()">REINTENTAR (DIGO, SI ERES MASOQUISTA)</button>
+    </div>
+</div>
+
+<script>
+    function validate() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+        const box = document.getElementById('login-form');
+        const mock = document.getElementById('mock-msg');
+
+        if(u === 'admin' && p === 'admin') {
+            box.style.display = 'none';
+            mock.style.display = 'block';
+            document.body.style.background = '#330000';
+            setInterval(() => {
+                document.body.style.background = document.body.style.background === 'rgb(51, 0, 0)' ? '#110000' : '#330000';
+            }, 50);
+        } else {
+            alert('CREDENCIALES INVÁLIDAS, LARGATE.');
+        }
+    }
+
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+            return false;
+        }
+    };
+
+    setInterval(function(){
+        console.clear();
+        console.log('%c¿BUSCANDO LA CLAVE EN EL CÓDIGO, PENDEJO?', 'color: red; font-size: 30px; font-weight: bold;');
+    }, 1);
+</script>
+
+</body>
+</html>
