@@ -1,1 +1,107 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SISTEMA - ACCESO RESTRINGIDO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --r: #ff0033; --c: #00f0ff; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #444; }
+        * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--b); color: var(--t); font-family: 'Inter', sans-serif; line-height: 1.4; user-select: none; overflow: hidden; }
+        .container { max-width: 1000px; margin: auto; padding: clamp(10px, 4vw, 30px); filter: blur(0.5px); }
+        
+   
+        .header-box {
+            display: flex; gap: 30px; background: var(--p); border: 1px solid var(--brd);
+            padding: 30px; border-left: 6px solid #222; margin-bottom: 25px; align-items: center;
+            position: relative; overflow: hidden;
+        }
+        .header-box::after {
+            content: "CENSURADO"; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            background: var(--r); color: #fff; padding: 10px 40px;
+            font-family: 'Share Tech Mono'; font-weight: bold; font-size: 2rem;
+            z-index: 10; letter-spacing: 5px; box-shadow: 0 0 20px rgba(255,0,51,0.5);
+        }
+
+        .profile-img { width: 180px; height: 180px; background: #111; flex-shrink: 0; border: 1px solid #1a1a1a; }
+        .header-content h1 { background: #222; color: transparent; width: fit-content; }
+        .id-label { color: #222; background: #222; width: 150px; margin-bottom: 10px; }
+        
+        .section { background: var(--p); border: 1px solid var(--brd); margin-bottom: 20px; opacity: 0.5; }
+        .section-h { background: #0a0a0a; padding: 12px 20px; border-bottom: 1px solid var(--brd); }
+        .section-h h3 { font-family: 'Share Tech Mono'; color: #333; font-size: 0.85rem; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
+        .block { border-bottom: 1px solid #151515; padding-bottom: 10px; }
+        .lbl { display: block; font-size: 0.65rem; color: #222; text-transform: uppercase; margin-bottom: 4px; }
+        .val { color: #222; background: #151515; text-decoration: line-through; }
+
+        .coming-soon {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 100; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px);
+        }
+        .status-tag {
+            font-family: 'Share Tech Mono'; color: var(--c); font-size: 1.2rem;
+            text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--c); animation: blink 1.5s infinite;
+        }
+        .sub-tag { color: #888; font-size: 0.8rem; text-transform: uppercase; }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        @media (max-width: 768px) {
+            .header-box { flex-direction: column; text-align: center; }
+            .coming-soon { padding: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="coming-soon">
+    <span class="status-tag">MUY PRONTO DISPONIBLE</span>
+    <span class="sub-tag">PROCESANDO BASE DE DATOS...</span>
+</div>
+
+<div class="container">
+    <header class="header-box">
+        <div class="profile-img"></div>
+        <div class="header-content">
+            <span class="id-label">XXXXXXXXXX</span>
+            <h1>NOMBRE CENSURADO</h1>
+            <p style="color: #222; background: #111; width: 200px;">@XXXXXXXX</p>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="section-h"><h3> IDENTIDAD ENCRIPTADA</h3></div>
+        <div class="grid">
+            <div class="block"><span class="lbl">ID Sistema</span><span class="val">00000000000000000</span></div>
+            <div class="block"><span class="lbl">Cédula</span><span class="val">10XXXXXXXXXXXX</span></div>
+            <div class="block"><span class="lbl">Ubicación</span><span class="val">CIUDAD - DEPARTAMENTO</span></div>
+            <div class="block"><span class="lbl">Estado</span><span class="val">PENDIENTE CARGA</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-h"><h3> REGISTROS ADICIONALES</h3></div>
+        <div class="grid">
+            <div class="block"><span class="lbl">Finanzas</span><span class="val">BLOQUEADO POR ADMIN</span></div>
+            <div class="block"><span class="lbl">Contactos</span><span class="val">RECOPILANDO INFORMACIÓN</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) {
+            e.preventDefault(); return false;
+        }
+    });
+</script>
+
+</body>
+</html>
