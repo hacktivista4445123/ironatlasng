@@ -1,187 +1,403 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS NEW GENERATION</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root { --r: #ff0033; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #d0d0d0; }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--b); 
-            color: var(--t); 
-            font-family: 'Inter', sans-serif; 
-            user-select: none; 
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IRON ATLAS NEW GENERATION</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root { --r: #ff0033; --r2: #ff3355; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #c0c0c0; }
 
-       
-        .admin-header { 
-            padding: clamp(30px, 8vw, 60px) 20px; 
-            border-bottom: 1px solid var(--brd); 
-            text-align: center;
-            background: linear-gradient(to bottom, #0a0a0a, var(--b));
-        }
-        
-        .admin-header h1 { 
-            font-family: 'Share Tech Mono'; 
-            letter-spacing: clamp(2px, 2vw, 8px); 
-            color: var(--r); 
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
-            text-transform: uppercase;
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        .access-lvl { 
-            font-size: 0.7rem; 
-            color: #444; 
-            margin-top: 10px; 
-            font-family: 'Share Tech Mono';
-            letter-spacing: 2px;
-        }
+body { background: var(--b); color: var(--t); font-family: 'Inter', sans-serif; user-select: none; overflow-x: hidden; }
 
-        .target-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px; 
-            padding: clamp(20px, 5vw, 50px); 
-            max-width: 1200px; 
-            margin: auto; 
-        }
+/* ── SCANLINES overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+  animation: scanMove 8s linear infinite;
+}
+@keyframes scanMove { to { background-position: 0 100px; } }
 
-     
-        .target-card {
-            background: var(--p); 
-            border: 1px solid var(--brd); 
-            padding: 20px;
-            display: flex; 
-            align-items: center; 
-            gap: 20px;
-            text-decoration: none; 
-            color: inherit; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
+/* ── HEADER ── */
+.header {
+  padding: clamp(30px,8vw,60px) 20px 30px;
+  border-bottom: 1px solid var(--brd);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 
-        .target-card:hover { 
-            border-color: var(--r); 
-            background: #111;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 0, 51, 0.1);
-        }
+.header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,0,51,0.12) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
 
-        .target-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 2px; height: 100%;
-            background: var(--r);
-            transform: scaleY(0);
-            transition: 0.3s;
-        }
+.logo {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(1.3rem, 5vw, 2.4rem);
+  color: var(--r);
+  letter-spacing: clamp(2px, 2vw, 8px);
+  text-transform: uppercase;
+  position: relative;
+  animation: glitch 6s infinite;
+}
+@keyframes glitch {
+  0%,92%,100%{ text-shadow: none; transform: none; }
+  93%{ transform: translate(-2px,0); text-shadow: 2px 0 #00ffff; }
+  94%{ transform: translate(2px,0); text-shadow: -2px 0 #ff00ff; }
+  95%{ transform: none; text-shadow: none; }
+  96%{ transform: translate(-1px,1px); text-shadow: 1px 0 #00ffff; }
+  97%{ transform: none; text-shadow: none; }
+}
 
-        .target-card:hover::before { transform: scaleY(1); }
+.sub { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #555; letter-spacing: 3px; margin-top: 10px; }
 
-        .target-img { 
-            width: 70px; 
-            height: 70px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 2px solid #222; 
-            flex-shrink: 0;
-            filter: grayscale(0.5);
-            transition: 0.3s;
-        }
+/* blinking cursor */
+.cursor { display: inline-block; width: 8px; height: 14px; background: var(--r); margin-left: 6px; animation: blink .8s step-end infinite; vertical-align: middle; }
+@keyframes blink { 50%{ opacity:0 } }
 
-        .target-card:hover .target-img { filter: grayscale(0); border-color: var(--r); }
+/* counter bar */
+.counter-bar {
+  display: flex; align-items: center; justify-content: center; gap: 30px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--brd);
+  font-family: 'Share Tech Mono'; font-size: 0.72rem; color: #555;
+}
+.cnt-item span { color: var(--r); font-size: 1rem; font-weight: bold; }
 
-        .target-info h3 { 
-            font-size: 1rem; 
-            color: #fff; 
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
+/* ── SEARCH ── */
+.search-wrap {
+  padding: 20px clamp(20px,5vw,50px);
+  max-width: 900px; margin: 0 auto;
+}
+.search-box {
+  width: 100%;
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
+  color: var(--t);
+  font-family: 'Share Tech Mono';
+  font-size: 0.85rem;
+  padding: 12px 18px;
+  outline: none;
+  letter-spacing: 1px;
+  transition: border-color .3s;
+}
+.search-box:focus { border-color: var(--r); }
+.search-box::placeholder { color: #333; }
 
-        .target-id { 
-            font-size: 0.75rem; 
-            color: var(--r); 
-            font-family: 'Share Tech Mono'; 
-            display: block;
-        }
+/* ── GRID ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  padding: clamp(10px,3vw,30px) clamp(20px,5vw,50px) 60px;
+  max-width: 1300px; margin: 0 auto;
+}
 
-        .status-badge { 
-            display: inline-block;
-            font-size: 0.6rem; 
-            background: #200; 
-            color: var(--r); 
-            padding: 2px 8px; 
-            border-radius: 4px; 
-            margin-bottom: 8px;
-            font-weight: bold;
-            border: 1px solid #400;
-        }
+/* ── CARD ── */
+.card {
+  background: var(--p);
+  border: 1px solid var(--brd);
+  display: flex; align-items: flex-start; gap: 16px;
+  text-decoration: none; color: inherit;
+  padding: 18px;
+  position: relative; overflow: hidden;
+  transition: border-color .35s, transform .35s, box-shadow .35s;
+  animation: cardIn .5s both;
+}
+@keyframes cardIn {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
 
-      
-        @media (max-width: 480px) {
-            .target-card { padding: 15px; gap: 15px; }
-            .target-img { width: 60px; height: 60px; }
-            .target-info h3 { font-size: 0.9rem; }
-        }
-    </style>
+.card:hover {
+  border-color: var(--r);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(255,0,51,.15), inset 0 0 30px rgba(255,0,51,.04);
+}
+
+/* left accent bar */
+.card::before {
+  content: '';
+  position: absolute; top:0; left:0; width:2px; height:100%;
+  background: linear-gradient(to bottom, transparent, var(--r), transparent);
+  transform: scaleY(0); transition: .4s;
+}
+.card:hover::before { transform: scaleY(1); }
+
+/* corner bracket top-right */
+.card::after {
+  content: '';
+  position: absolute; top:0; right:0;
+  width:14px; height:14px;
+  border-top: 2px solid var(--r);
+  border-right: 2px solid var(--r);
+  opacity:0; transition: .3s;
+}
+.card:hover::after { opacity:1; }
+
+/* scan sweep on hover */
+.card .sweep {
+  position: absolute; inset:0;
+  background: linear-gradient(105deg, transparent 45%, rgba(255,0,51,.06) 50%, transparent 55%);
+  transform: translateX(-100%); transition: .6s;
+  pointer-events: none;
+}
+.card:hover .sweep { transform: translateX(100%); }
+
+/* INDEX number */
+.card-index {
+  position: absolute; top:10px; right:14px;
+  font-family: 'Share Tech Mono'; font-size: 0.65rem; color: #2a2a2a;
+  letter-spacing: 1px; pointer-events:none;
+  transition: color .3s;
+}
+.card:hover .card-index { color: #ff003355; }
+
+/* avatar */
+.avatar-wrap { position: relative; flex-shrink:0; }
+.avatar {
+  width: 66px; height: 66px; border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #222;
+  filter: grayscale(.6) brightness(.9);
+  transition: .4s;
+}
+.card:hover .avatar {
+  filter: grayscale(0) brightness(1);
+  border-color: var(--r);
+  box-shadow: 0 0 12px rgba(255,0,51,.4);
+}
+
+/* status ring animation */
+.avatar-wrap::after {
+  content: '';
+  position: absolute; inset:-4px; border-radius:50%;
+  border: 1px solid transparent;
+  transition: .4s;
+}
+.card:hover .avatar-wrap::after {
+  border-color: var(--r);
+  animation: spin 3s linear infinite;
+}
+@keyframes spin { to{ transform: rotate(360deg); } }
+
+.info { flex:1; min-width:0; }
+
+.badge {
+  display: inline-block; font-size: 0.6rem; font-weight:600;
+  padding: 2px 9px; border-radius: 3px; margin-bottom:6px;
+  letter-spacing:.5px; text-transform: uppercase;
+}
+.badge-danger  { background:#1a0005; color:var(--r); border:1px solid #500010; }
+.badge-warning { background:#1a0e00; color:#ff8800; border:1px solid #503200; }
+.badge-info    { background:#000d1a; color:#0099ff; border:1px solid #002250; }
+.badge-purple  { background:#0d001a; color:#cc44ff; border:1px solid #3a0050; }
+
+.card-name {
+  font-family: 'Orbitron', monospace;
+  font-size: .82rem; font-weight:700;
+  color:#fff; text-transform: uppercase;
+  margin-bottom:4px;
+  white-space: nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.card-id {
+  font-family: 'Share Tech Mono'; font-size:.7rem; color: var(--r);
+  display:block; margin-bottom:3px;
+}
+.card-alias { font-size:.62rem; color:#444; display:block; }
+
+/* ── ONLINE INDICATOR ── */
+.online-dot {
+  width:7px; height:7px; border-radius:50%; background:#ff0033;
+  display:inline-block; margin-right:5px;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%,100%{ box-shadow:0 0 0 0 rgba(255,0,51,.7); }
+  50%{ box-shadow:0 0 0 5px rgba(255,0,51,0); }
+}
+
+/* ── FOOTER LINE ── */
+.footer {
+  text-align:center; padding:20px;
+  font-family:'Share Tech Mono'; font-size:.65rem; color:#2a2a2a;
+  border-top:1px solid var(--brd);
+  letter-spacing:2px;
+}
+
+/* hidden card */
+.card.hidden { display:none; }
+
+/* INIT ANIMATION stagger */
+.card:nth-child(1){animation-delay:.05s}
+.card:nth-child(2){animation-delay:.1s}
+.card:nth-child(3){animation-delay:.15s}
+.card:nth-child(4){animation-delay:.2s}
+.card:nth-child(5){animation-delay:.25s}
+.card:nth-child(6){animation-delay:.3s}
+.card:nth-child(7){animation-delay:.35s}
+.card:nth-child(8){animation-delay:.4s}
+.card:nth-child(9){animation-delay:.45s}
+.card:nth-child(10){animation-delay:.5s}
+
+@media(max-width:480px){
+  .grid{ grid-template-columns:1fr; }
+  .avatar{ width:56px; height:56px; }
+}
+</style>
 </head>
 <body oncontextmenu="return false;">
 
-<div class="admin-header">
-    <h1>IRON ATLAS NEW GENERATION </h1>
-    <p class="access-lvl">LISTA DE OBJETIVOS DE LA ORGANIZACIÓN </p>
-    <p class="access-lvl" style="color: #666;">DATABASE LIST </p>
+<div class="header">
+  <div class="logo">IRON ATLAS NEW GENERATION<span class="cursor"></span></div>
+  <p class="sub">▌ LISTA DE OBJETIVOS DE LA ORGANIZACIÓN ▌</p>
+  <p class="sub" style="color:#333; margin-top:4px;">DATABASE LIST — CLASIFICADO</p>
 </div>
 
-<div class="target-grid">
-    <a href="targets/henxx.html" class="target-card">
-        <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" class="target-img">
-        <div class="target-info">
-            <span class="status-badge">ALERTA :ESTAFADOR </span>
-            <h3>MIGUEL ORTIZ - HENXX </h3>
-            <span class="target-id">ID TELEGRAM: 8404892062</span>
-            <span style="font-size: 0.6rem; color: #444;">Alias: HEXN</span>
-        </div>
-    </a>
+<div class="counter-bar">
+  <div class="cnt-item"><span id="total-count">0</span> OBJETIVOS</div>
+  <div class="cnt-item"><span style="color:#ff8800">◉</span> SISTEMA ACTIVO</div>
+  <div class="cnt-item" id="live-time"></div>
+</div>
 
-<div class="target-grid">
-    <a href="targets/hector_lopez.html" class="target-card">
-        <img src="https://i.postimg.cc/rFHrb5VX/photo-2026-02-15-02-22-46.jpg" class="target-img">
-        <div class="target-info">
-            <span class="status-badge">ALERTA :ESTAFADOR - ABUSADOR </span>
-            <h3>Hector López </h3>
-            <span class="target-id">ID TELEGRAM: 7952283528</span>
-            <span style="font-size: 0.6rem; color: #444;">Alias: MOSCA MUERTA</span>
-        </div>
-    </a>    
+<div class="search-wrap">
+  <input class="search-box" type="text" placeholder="▸ BUSCAR OBJETIVO / ALIAS / ID..." id="searchInput" autocomplete="off">
+</div>
 
+<div class="grid" id="targetGrid">
+
+  <!-- CARD 1 -->
+  <a href="targets/henxx.html" class="card" data-name="MIGUEL ORTIZ HENXX HEXN 8404892062">
+    <div class="sweep"></div>
+    <span class="card-index">#001</span>
+    <div class="avatar-wrap">
+      <img src="https://i.postimg.cc/ZKmC8xvc/HENXX.jpg" class="avatar" onerror="this.src='https://placehold.co/66x66/0d0d0d/ff0033?text=?'">
     </div>
+    <div class="info">
+      <span class="badge badge-danger">⚠ ESTAFADOR</span>
+      <div class="card-name">MIGUEL ORTIZ — HENXX</div>
+      <span class="card-id">ID TELEGRAM: 8404892062</span>
+      <span class="card-alias"><span class="online-dot"></span>Alias: HEXN</span>
+    </div>
+  </a>
+
+  <!-- CARD 2 -->
+  <a href="targets/hector_lopez.html" class="card" data-name="HECTOR LOPEZ MOSCA MUERTA 7952283528">
+    <div class="sweep"></div>
+    <span class="card-index">#002</span>
+    <div class="avatar-wrap">
+      <img src="https://i.postimg.cc/rFHrb5VX/photo-2026-02-15-02-22-46.jpg" class="avatar" onerror="this.src='https://placehold.co/66x66/0d0d0d/ff0033?text=?'">
+    </div>
+    <div class="info">
+      <span class="badge badge-danger">⚠ ESTAFADOR / ABUSADOR</span>
+      <div class="card-name">HECTOR LÓPEZ</div>
+      <span class="card-id">ID TELEGRAM: 7952283528</span>
+      <span class="card-alias"><span class="online-dot"></span>Alias: MOSCA MUERTA</span>
+    </div>
+  </a>
+
+
+  <a href="targets/objetivo_03.html" class="card" data-name="CARLOS REYES FANTASMA 1234567890">
+    <div class="sweep"></div>
+    <span class="card-index">#003</span>
+    <div class="avatar-wrap">
+      <img src="https://placehold.co/66x66/0d0d0d/ff0033?text=CR" class="avatar">
+    </div>
+    <div class="info">
+      <span class="badge badge-warning">⚡ INFILTRADO</span>
+      <div class="card-name">CARLOS REYES</div>
+      <span class="card-id">ID TELEGRAM: 1234567890</span>
+      <span class="card-alias"><span class="online-dot"></span>Alias: FANTASMA</span>
+    </div>
+  </a>
+
+
+  <a href="targets/objetivo_04.html" class="card" data-name="DIANA MORA SERPIENTE 9876543210">
+    <div class="sweep"></div>
+    <span class="card-index">#004</span>
+    <div class="avatar-wrap">
+      <img src="https://placehold.co/66x66/0d0d0d/0099ff?text=DM" class="avatar">
+    </div>
+    <div class="info">
+      <span class="badge badge-info">🔵 SEGUIMIENTO</span>
+      <div class="card-name">DIANA MORA</div>
+      <span class="card-id">ID TELEGRAM: 9876543210</span>
+      <span class="card-alias"><span class="online-dot" style="background:#0099ff"></span>Alias: SERPIENTE</span>
+    </div>
+  </a>
+
+  <!-- CARD 5 -->
+  <a href="targets/objetivo_05.html" class="card" data-name="RODRIGO SILVA SOMBRA 1122334455">
+    <div class="sweep"></div>
+    <span class="card-index">#005</span>
+    <div class="avatar-wrap">
+      <img src="https://placehold.co/66x66/0d0d0d/cc44ff?text=RS" class="avatar">
+    </div>
+    <div class="info">
+      <span class="badge badge-purple">🟣 ESPÍA</span>
+      <div class="card-name">RODRIGO SILVA</div>
+      <span class="card-id">ID TELEGRAM: 1122334455</span>
+      <span class="card-alias"><span class="online-dot" style="background:#cc44ff"></span>Alias: SOMBRA</span>
+    </div>
+  </a>
+
+  <!-- CARD 6 -->
+  <a href="targets/objetivo_06.html" class="card" data-name="ANDRES VARGAS ESCORPION 5544332211">
+    <div class="sweep"></div>
+    <span class="card-index">#006</span>
+    <div class="avatar-wrap">
+      <img src="https://placehold.co/66x66/0d0d0d/ff8800?text=AV" class="avatar">
+    </div>
+    <div class="info">
+      <span class="badge badge-warning">⚠ FRAUDE MAYOR</span>
+      <div class="card-name">ANDRES VARGAS</div>
+      <span class="card-id">ID TELEGRAM: 5544332211</span>
+      <span class="card-alias"><span class="online-dot" style="background:#ff8800"></span>Alias: ESCORPIÓN</span>
+    </div>
+  </a>
+
+</div>
+
+<div class="footer">
+  ▌ IRON ATLAS NEW GENERATION — USO EXCLUSIVO INTERNO ▌
+</div>
 
 <script>
-   
-    document.addEventListener('keydown', function(e) {
-        if (
-            e.keyCode == 123 || 
-            (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
-            (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
-            (e.ctrlKey && e.keyCode == 85) 
-        ) {
-            e.preventDefault();
-            return false;
-        }
-    });
+ 
+  function updateTime(){
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('live-time').innerHTML =
+      `<span style="color:var(--r)">${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}</span> COT`;
+  }
+  setInterval(updateTime, 1000); updateTime();
 
   
-    document.addEventListener('touchstart', function(e) {
-        if (e.touches.length > 1) e.preventDefault();
-    }, {passive: false});
-</script>
+  const cards = document.querySelectorAll('.card');
+  document.getElementById('total-count').textContent = cards.length;
 
+  
+  document.getElementById('searchInput').addEventListener('input', function(){
+    const q = this.value.toLowerCase().trim();
+    cards.forEach(c => {
+      const data = (c.dataset.name || '').toLowerCase();
+      c.classList.toggle('hidden', q !== '' && !data.includes(q));
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.keyCode===123 || (e.ctrlKey&&e.shiftKey&&[73,74].includes(e.keyCode)) || (e.ctrlKey&&e.keyCode===85))
+      e.preventDefault();
+  });
+  document.addEventListener('touchstart', e => { if(e.touches.length>1) e.preventDefault(); },{passive:false});
+</script>
 </body>
 </html>
