@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zpequeño</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --neon-cyan: #00f0ff; 
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffde00;
+            --bg-dark: #050505; 
+            --bg-card: #0d0d0d; 
+            --border: #1a1a1a; 
+            --text: #d0d0d0; 
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg-dark); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.4; user-select: none; }
+        .container { max-width: 1000px; margin: auto; padding: 25px; }
+        
+  
+        .main-header {
+            display: flex; gap: 30px; background: var(--bg-card); border: 1px solid var(--border);
+            padding: 30px; border-left: 6px solid var(--neon-cyan); margin-bottom: 25px; align-items: center;
+        }
+        .main-img { width: 180px; height: 180px; object-fit: cover; border: 1px solid #222; }
+
+       
+        .card { 
+            background: var(--bg-card); border: 1px solid var(--border); 
+            border-left: 5px solid; margin-bottom: 25px; padding: 20px;
+        }
+        .card-title { 
+            font-family: 'Share Tech Mono'; font-size: 1.1rem; color: #fff; 
+            margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+    
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
+        .info-group { margin-bottom: 10px; }
+        .label { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
+        .value { display: block; color: #fff; font-family: 'Share Tech Mono'; font-size: 0.9rem; word-break: break-all; }
+        
+        .section-divider { 
+            background: #151515; padding: 8px 15px; font-family: 'Share Tech Mono'; 
+            font-size: 0.75rem; color: var(--text); margin: 15px 0; border-radius: 2px;
+        }
+
+        .status-active { color: #00ff00; font-weight: bold; font-family: 'Share Tech Mono'; }
+        .image-container { border: 1px solid var(--border); padding: 5px; background: #000; margin-top: 10px; max-width: 100%; }
+        .image-container img { width: 100%; height: auto; filter: grayscale(0.2); }
+
+        .license-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 4px; border: 1px dashed #333; }
+        .link-neon { 
+            display: inline-block; padding: 8px 15px; border: 1px solid; 
+            text-decoration: none; font-size: 0.75rem; font-weight: bold; transition: 0.3s;
+        }
+
+        @media (max-width: 768px) { .main-header { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <header class="main-header">
+        <img src="https://i.postimg.cc/ZnTx4Q5c/Captura-de-pantalla-2026-04-08-004755.png" alt="SISTEMA" class="main-img">
+        <div>
+            <h1 style="color: #fff; text-transform: uppercase; letter-spacing: 2px;">Expediente Familiar</h1>
+            <p style="font-family: 'Share Tech Mono'; color: var(--neon-cyan);">ACCESO LOCAL V.4.0 | RESTRICCIONES ACTIVAS</p>
+        </div>
+    </header>
+
+    <div class="card" style="border-left-color: var(--neon-cyan);">
+        <div class="card-title">👤 PEQUEÑO: NELSON ESTIVEN BARAJAS PINZON</div>
+        <div class="grid">
+            <div class="info-group"><span class="label">ID Sistema</span><span class="value">1028867220</span></div>
+            <div class="info-group"><span class="label">Tipo Documento</span><span class="value">TARJETA DE IDENTIDAD</span></div>
+            <div class="info-group"><span class="label">Nacimiento</span><span class="value">2009-06-02</span></div>
+            <div class="info-group"><span class="label">Dirección</span><span class="value">KR 104A 16H20, FONTIBON</span></div>
+            <div class="info-group"><span class="label">EPS</span><span class="value">FAMISANAR E.P.S. LTDA</span></div>
+            <div class="info-group"><span class="label">Celular</span><span class="value">3143203987</span></div>
+            <div class="info-group"><span class="label">Email</span><span class="value">NELSONESTIVENBARAJASPINZON.209@GMAIL.COM</span></div>
+            <div class="info-group"><span class="label">Cuidador</span><span class="value">ALBA YANETH PINZON GOMEZ (MADRE)</span></div>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: var(--neon-magenta);">
+        <div class="card-title">👤 TARGET: ALBA YANETH PINZON GOMEZ</div>
+        <div class="grid">
+            <div class="info-group"><span class="label">Cédula</span><span class="value">28259014</span></div>
+            <div class="info-group"><span class="label">Estado</span><span class="status-active">ACTIVA</span></div>
+            <div class="info-group"><span class="label">F. Nacimiento</span><span class="value">1971-06-16</span></div>
+            <div class="info-group"><span class="label">Email</span><span class="value">YANA192PINB@HOTMAIL.COM</span></div>
+        </div>
+        <div class="section-divider">LICENCIA Y TRÁMITES</div>
+        <div class="license-box">
+            <p class="value" style="color: var(--neon-magenta);">Cat: C1 | No: 10832563 | Organismo: FUNZA</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">Última evaluación médica: 2012-11-27 IPS S.A.S</p>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: #ffffff;">
+        <div class="card-title">👤 PROFILE: EDILFONSO BARAJAS HERNANDEZ</div>
+        <div class="grid">
+            <div class="info-group">
+                <span class="label">GEOLOCALIZACIÓN TRABAJO</span>
+                <div class="image-container">
+                    <img src="https://postimg.cc/svDQMvRY" alt="Mapa">
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="info-item"><span class="label">Cédula</span><span class="value">5691873 - 5</span></div>
+                <div class="info-item" style="margin-top:10px;"><span class="label">Dirección Trabajo</span><span class="value">Calle 18 96h B 47, Fontibon</span></div>
+                <div class="info-item" style="margin-top:10px;"><span class="label">Huellas</span><span class="value">03- U / 11- W</span></div>
+                <div class="info-item" style="margin-top:10px;"><span class="label">Matrícula CCB</span><span class="value">2818479 (ACTIVA 2025)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: var(--neon-yellow); box-shadow: 0 0 15px rgba(255, 222, 0, 0.1);">
+        <div class="card-title">👤 PROFILE: TÍA | LUZ MYREYA PINZON GOMEZ</div>
+        <div class="grid">
+            <div class="info-group">
+                <div class="image-container" style="max-width: 200px;">
+                    <img src="https://postimg.cc/zyGCYxfd" alt="Luz Myreya">
+                </div>
+                <a href="https://www.facebook.com/luz.m.gomez.718" target="_blank" class="link-neon" style="border-color: var(--neon-yellow); color: var(--neon-yellow); margin-top: 10px;">FB: luz.m.gomez.718</a>
+            </div>
+            <div class="info-group">
+                <span class="label">Identidad</span>
+                <span class="value">Doc: 63394049</span>
+                <span class="value">Padres: TOMAS PINZON / MARIA GOMEZ</span>
+                <span class="label" style="margin-top: 15px;">Localización</span>
+                <span class="value">CALLE 6Nª3-32 CENTRO</span>
+                <span class="value">Tel: 3124597391</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+   
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) return false;
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+    }
+
+  
+    document.querySelectorAll('img').forEach(img => {
+        img.onmousedown = (e) => e.preventDefault();
+    });
+</script>
+
+</body>
+</html>
