@@ -17,17 +17,17 @@
 html,body{width:100%;height:100%;overflow-x:hidden}
 body{background:var(--b);color:var(--t);font-family:'Share Tech Mono',monospace;user-select:none}
 
-/* BG CANVAS */
+
 #bg{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
 
-/* OVERLAYS */
+
 .scanline{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.06) 3px,rgba(0,0,0,.06) 4px)}
 .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 38%,rgba(0,0,0,.88) 100%)}
 
-/* APP */
+
 #app{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
 
-/* HEADER */
+
 header{padding:clamp(26px,7vw,58px) 20px 22px;text-align:center;border-bottom:1px solid var(--brd);position:relative;overflow:hidden}
 header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--r),transparent);animation:hline 3s ease-in-out infinite}
 @keyframes hline{0%,100%{opacity:.25}50%{opacity:1}}
@@ -50,18 +50,18 @@ header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;ba
 
 .sub{font-size:clamp(.58rem,.85vw,.7rem);color:var(--t2);letter-spacing:clamp(2px,.9vw,4px);margin-top:9px}
 
-/* STATUSBAR */
+
 .statusbar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(10px,2.5vw,28px);padding:11px 20px;border-bottom:1px solid var(--brd);font-size:clamp(.6rem,.78vw,.7rem);color:var(--t2)}
 .sb-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px;animation:dp 2s ease-in-out infinite}
 @keyframes dp{0%,100%{box-shadow:0 0 0 0 rgba(255,140,0,.8)}50%{box-shadow:0 0 0 5px rgba(255,140,0,0)}}
 .sv{color:#fff;font-weight:bold}
 
-/* WARN */
+
 .warn-banner{display:none;background:#150001;border:1px solid #400;color:var(--r);font-size:.68rem;padding:9px 20px;text-align:center;letter-spacing:2px;animation:wf 1s step-end infinite}
 @keyframes wf{50%{background:#280000}}
 .warn-banner.show{display:block}
 
-/* SEARCH */
+
 .search-wrap{padding:16px clamp(14px,4vw,50px) 6px;max-width:940px;margin:0 auto;width:100%}
 .search-box{width:100%;background:#080808;border:1px solid #222;border-left:3px solid var(--r);color:var(--t);font-family:'Share Tech Mono',monospace;font-size:clamp(.75rem,1.1vw,.86rem);padding:11px 16px;outline:none;letter-spacing:1px;transition:border-color .3s,box-shadow .3s}
 .search-box:focus{border-color:var(--r);box-shadow:0 0 18px rgba(255,0,51,.1)}
@@ -69,10 +69,10 @@ header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;ba
 
 .results-info{max-width:940px;margin:0 auto;width:100%;padding:5px clamp(14px,4vw,50px);font-size:.62rem;color:#2e2e2e;min-height:20px;transition:color .2s}
 
-/* GRID */
+
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr));gap:13px;padding:clamp(8px,2vw,18px) clamp(14px,4vw,50px) 60px;max-width:1400px;margin:0 auto;width:100%;flex:1}
 
-/* CARD */
+
 .card{background:var(--p);border:1px solid var(--brd);display:flex;align-items:flex-start;gap:13px;text-decoration:none;color:inherit;padding:15px;position:relative;overflow:hidden;transition:border-color .4s,transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s;animation:cardIn .5s cubic-bezier(.2,.8,.2,1) both;will-change:transform}
 @keyframes cardIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
 .card:nth-child(1){animation-delay:.04s}.card:nth-child(2){animation-delay:.08s}.card:nth-child(3){animation-delay:.12s}.card:nth-child(4){animation-delay:.16s}.card:nth-child(5){animation-delay:.20s}.card:nth-child(6){animation-delay:.24s}.card:nth-child(7){animation-delay:.28s}.card:nth-child(8){animation-delay:.32s}.card:nth-child(9){animation-delay:.36s}.card:nth-child(10){animation-delay:.40s}.card:nth-child(11){animation-delay:.44s}.card:nth-child(12){animation-delay:.48s}
@@ -87,7 +87,7 @@ header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;ba
 .card-index{position:absolute;top:9px;right:12px;font-size:.58rem;color:#222;letter-spacing:1px;pointer-events:none;transition:color .3s}
 .card:hover .card-index{color:rgba(255,0,51,.28)}
 
-/* AVATAR */
+
 .avatar-wrap{position:relative;flex-shrink:0}
 .avatar{width:clamp(52px,7.5vw,66px);height:clamp(52px,7.5vw,66px);border-radius:50%;object-fit:cover;border:2px solid #1e1e1e;filter:grayscale(.65) brightness(.85);transition:.4s;display:block}
 .card:hover .avatar{filter:grayscale(0) brightness(1.05);border-color:var(--r);box-shadow:0 0 16px rgba(255,0,51,.4)}
@@ -95,7 +95,7 @@ header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;ba
 .card:hover .avatar-wrap::after{border-color:rgba(255,0,51,.5);animation:spin 3.5s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* INFO */
+
 .info{flex:1;min-width:0}
 .badge{display:inline-block;font-size:.57rem;font-weight:600;padding:2px 8px;margin-bottom:5px;letter-spacing:.5px;text-transform:uppercase;border-radius:2px}
 .bd{background:#130003;color:var(--r);border:1px solid #380010}
@@ -111,11 +111,11 @@ header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;ba
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:5px;animation:dp 2s ease-in-out infinite}
 .dot-r{background:var(--r)}.dot-a{background:var(--amber);animation-delay:.5s}.dot-b{background:var(--blue);animation-delay:1s}.dot-p{background:var(--purple);animation-delay:1.5s}.dot-g{background:#00cc66;animation-delay:.7s}
 
-/* EMPTY */
+
 .empty{display:none;grid-column:1/-1;text-align:center;padding:60px 20px;color:#282828;font-size:.78rem;letter-spacing:2px}
 .empty.show{display:block}
 
-/* FOOTER */
+
 footer{text-align:center;padding:14px 20px;font-size:.58rem;color:#1c1c1c;border-top:1px solid var(--brd);letter-spacing:2px}
 
 .card.hidden{display:none}
@@ -187,6 +187,57 @@ footer{text-align:center;padding:14px 20px;font-size:.58rem;color:#1c1c1c;border
     </div>
   </a>
 
+    <a href="targets/objetivo_03.html" class="card" data-name="carlos reyes fantasma 1234567890 infiltrado">
+    <div class="sweep"></div><span class="card-index">#003</span>
+    <div class="avatar-wrap">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68'%3E%3Crect width='68' height='68' fill='%230d0d0d'/%3E%3Ctext x='50%25' y='50%25' fill='%23ff8c00' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3ECR%3C/text%3E%3C/svg%3E" class="avatar" alt="objetivo">
+    </div>
+    <div class="info">
+      <span class="badge bw">⚡ INFILTRADO</span>
+      <div class="card-name">CARLOS REYES</div>
+      <span class="card-id">ID TELEGRAM: 1234567890</span>
+      <span class="card-alias"><span class="dot dot-a"></span>Alias: FANTASMA</span>
+    </div>
+  </a>
+ 
+  <a href="targets/objetivo_04.html" class="card" data-name="diana mora serpiente 9876543210 seguimiento">
+    <div class="sweep"></div><span class="card-index">#004</span>
+    <div class="avatar-wrap">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68'%3E%3Crect width='68' height='68' fill='%230d0d0d'/%3E%3Ctext x='50%25' y='50%25' fill='%230088ff' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EDM%3C/text%3E%3C/svg%3E" class="avatar" alt="objetivo">
+    </div>
+    <div class="info">
+      <span class="badge bb">🔵 SEGUIMIENTO</span>
+      <div class="card-name">DIANA MORA</div>
+      <span class="card-id">ID TELEGRAM: 9876543210</span>
+      <span class="card-alias"><span class="dot dot-b"></span>Alias: SERPIENTE</span>
+    </div>
+  </a>
+ 
+  <a href="targets/objetivo_05.html" class="card" data-name="rodrigo silva sombra 1122334455 espia">
+    <div class="sweep"></div><span class="card-index">#005</span>
+    <div class="avatar-wrap">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68'%3E%3Crect width='68' height='68' fill='%230d0d0d'/%3E%3Ctext x='50%25' y='50%25' fill='%23aa33ff' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3ERS%3C/text%3E%3C/svg%3E" class="avatar" alt="objetivo">
+    </div>
+    <div class="info">
+      <span class="badge bp">🟣 ESPÍA</span>
+      <div class="card-name">RODRIGO SILVA</div>
+      <span class="card-id">ID TELEGRAM: 1122334455</span>
+      <span class="card-alias"><span class="dot dot-p"></span>Alias: SOMBRA</span>
+    </div>
+  </a>
+ 
+  <a href="targets/objetivo_06.html" class="card" data-name="andres vargas escorpion 5544332211 fraude">
+    <div class="sweep"></div><span class="card-index">#006</span>
+    <div class="avatar-wrap">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68'%3E%3Crect width='68' height='68' fill='%230d0d0d'/%3E%3Ctext x='50%25' y='50%25' fill='%2300cc66' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EAV%3C/text%3E%3C/svg%3E" class="avatar" alt="objetivo">
+    </div>
+    <div class="info">
+      <span class="badge bg">⬤ FRAUDE MAYOR</span>
+      <div class="card-name">ANDRES VARGAS</div>
+      <span class="card-id">ID TELEGRAM: 5544332211</span>
+      <span class="card-alias"><span class="dot dot-g"></span>Alias: ESCORPIÓN</span>
+    </div>
+  </a>
 
   <div class="empty" id="emptyState">▸ SIN RESULTADOS PARA LA BÚSQUEDA</div>
 
