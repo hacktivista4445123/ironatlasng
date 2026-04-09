@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceder &lsaquo; Familia Stream &mdash; WordPress</title>
+    <style>
+        body { background: #f0f0f1; color: #3c434a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        #login { width: 320px; padding: 8% 0 0; margin: auto; position: relative; z-index: 10; }
+        #login h1 a { background-image: url('https://familystreamplayer.com/wp-admin/images/w-logo-blue.png?ver=20131202'); background-repeat: no-repeat; background-size: 84px; height: 84px; width: 84px; margin: 0 auto 25px; display: block; text-indent: -9999px; }
+        .form { background: #fff; border: 1px solid #c3c4c7; box-shadow: 0 1px 3px rgba(0,0,0,.04); padding: 26px 24px 34px; font-weight: 400; }
+        .form label { font-size: 14px; line-height: 1.5; display: block; margin-bottom: 3px; }
+        .form input[type="text"], .form input[type="password"] { font-size: 24px; width: 100%; padding: 3px 10px; margin: 2px 6px 16px 0; border: 1px solid #8c8f94; background: #fff; color: #2c3338; outline: none; box-sizing: border-box; }
+        .form input:focus { border-color: #2271b1; box-shadow: 0 0 0 1px #2271b1; }
+        .submit { padding: 10px 0; }
+        .button-primary { background: #2271b1; border-color: #2271b1; color: #fff; text-decoration: none; text-shadow: none; display: inline-block; font-size: 13px; line-height: 2.15; height: auto; margin: 0; padding: 0 10px; cursor: pointer; border-width: 1px; border-style: solid; border-radius: 3px; white-space: nowrap; width: 100%; font-weight: 600; }
+        #nav, #backtoblog { margin: 24px 0 0; text-align: center; font-size: 13px; }
+        #nav a, #backtoblog a { color: #50575e; text-decoration: none; }
+        #nav a:hover, #backtoblog a:hover { color: #2271b1; }
+
+        #iron-atlas { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #ff0000; border: 15px solid #ff0000; box-sizing: border-box; }
+        .glitch { font-size: 5rem; font-weight: 900; text-transform: uppercase; animation: shake 0.1s infinite; margin-bottom: 20px; text-shadow: 3px 3px #fff; }
+        .msg { font-size: 1.5rem; max-width: 800px; font-family: 'Courier New', monospace; line-height: 1.4; padding: 20px; }
+        @keyframes shake { 0% { transform: translate(2px, 2px); } 50% { transform: translate(-2px, -2px); } 100% { transform: translate(2px, -2px); } }
+        .scanlines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div id="login">
+    <h1><a href="#">Familia Stream</a></h1>
+    <div class="form">
+        <label for="user_login">Nombre de usuario o correo electrónico</label>
+        <input type="text" id="user" class="input">
+        
+        <label for="user_pass">Contraseña</label>
+        <input type="password" id="pass" class="input">
+        
+        <p class="forgetmenot" style="margin-bottom: 20px; font-size: 13px;">
+            <input type="checkbox"> Recuérdame
+        </p>
+        
+        <div class="submit">
+            <button class="button-primary" onclick="login()">Acceder</button>
+        </div>
+    </div>
+    <p id="nav"><a href="#">¿Has olvidado tu contraseña?</a></p>
+    <p id="backtoblog"><a href="#">&larr; Ir a Familia Stream</a></p>
+</div>
+
+<div id="iron-atlas">
+    <div class="scanlines"></div>
+    <div class="glitch">¡NICE TRY, IMBÉCIL!</div>
+    <div class="msg">
+        ¿En serio intentaste <b>admin / admin</b> en un WordPress? <br><br>
+        Pensaste que entrarías al panel de <b>Familia Stream</b> así de fácil, pedazo de malvavisco. <br>
+        Tu nivel de "hacking" es tan bajo que me da pena ajena. <br><br>
+        Vuelve cuando aprendas a usar algo más que el sentido común de un niño de primaria. <br>
+        <span style="color: #fff; display: block; margin-top: 20px; font-size: 0.8rem;">[IRON ATLAS SECURITY - REGISTRANDO IP DEL PAYASO...]</span>
+    </div>
+    <button onclick="location.reload()" style="background: #ff0000; color: #000; border: none; padding: 10px 20px; font-weight: 900; margin-top: 30px; cursor: pointer;">SALIR DE MI VISTA</button>
+</div>
+
+<script>
+    function login() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+
+        if (u === 'admin' && p === 'admin') {
+            document.getElementById('login').style.display = 'none';
+            document.body.style.background = '#000';
+            const troll = document.getElementById('iron-atlas');
+            troll.style.display = 'flex';
+            
+            setInterval(() => {
+                troll.style.borderColor = (troll.style.borderColor === 'rgb(255, 0, 0)') ? '#fff' : '#ff0000';
+            }, 50);
+        } else {
+            alert('ERROR: Las credenciales no coinciden. (Intenta con algo más obvio, genio).');
+        }
+    }
+
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+            return false;
+        }
+    };
+
+    setInterval(function(){
+        console.clear();
+        console.log('%c¿QUIERES VER EL CÓDIGO? BUSCA UN TRABAJO HONESTO.', 'color: red; font-size: 30px; font-weight: bold;');
+    }, 1);
+</script>
+
+</body>
+</html>
