@@ -1,1 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IRON ATLAS | EMOJI CRYPT</title>
+    <link rel="icon" type="image/png" href="../assets/logo_ng.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --r: #ff0022; --b: #010101; --p: #080808; --m: #bc13fe; --sh: rgba(188, 19, 254, 0.4); }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
+        .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; overflow: hidden; }
+        .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(188,19,254,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(188,19,254,0.1) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); animation: grid-move 12s linear infinite; opacity: 0.8; }
+        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-300px); } }
+        canvas#particles { position: absolute; inset: 0; z-index: -1; opacity: 0.5; }
+
+        #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out; }
+        .load-container { position: relative; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; }
+        .load-svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+        .load-circle-bg { fill: none; stroke: #111; stroke-width: 4; }
+        .load-circle-fill { fill: none; stroke: var(--m); stroke-width: 4; stroke-dasharray: 628; stroke-dashoffset: 628; transition: stroke-dashoffset 0.1s linear; filter: drop-shadow(0 0 10px var(--m)); }
+        .load-logo { width: 80px; filter: drop-shadow(0 0 15px var(--m)); }
+        .load-perc { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 20px; letter-spacing: 5px; text-shadow: 0 0 10px var(--m); }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: rgba(0,0,0,0.92); border-bottom: 2px solid rgba(188,19,254,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); transition: 0.3s; flex-wrap: wrap; }
+        .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; }
+        .nav-brand img { width: 35px; filter: drop-shadow(0 0 8px var(--m)); }
+        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; justify-content: center; }
+        .nav-links a { text-decoration: none; color: #666; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--m); }
+
+        #main-content { display: none; opacity: 0; transition: opacity 1s; padding-top: 20px; width: 100%; overflow-x: hidden; }
+        .rev { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .loaded .rev { opacity: 1; transform: translateY(0); }
+
+        .header-title { text-align: center; margin-bottom: 40px; padding: 0 15px; }
+        .header-title h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 8px; text-shadow: 0 0 20px var(--m); }
+        .header-title p { font-family: 'Share Tech Mono'; color: #777; font-size: clamp(0.7rem, 3vw, 0.9rem); letter-spacing: 4px; margin-top: 10px; }
+
+        .crypt-container { max-width: 1200px; margin: 0 auto 60px; padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .crypt-box { background: rgba(5,5,5,0.85); border: 1px solid #1a1a1a; padding: 30px; backdrop-filter: blur(10px); display: flex; flex-direction: column; position: relative; border-top: 4px solid var(--m); box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
+        
+        .box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #1a1a1a; padding-bottom: 15px; }
+        .box-header h2 { font-family: 'Share Tech Mono'; font-size: 1.2rem; color: var(--m); letter-spacing: 3px; }
+        
+        textarea { width: 100%; flex-grow: 1; background: #000; border: 1px solid #222; color: #fff; padding: 20px; font-family: 'Share Tech Mono'; font-size: 1.1rem; resize: none; min-height: 250px; transition: 0.3s; }
+        textarea:focus { border-color: var(--m); box-shadow: inset 0 0 15px rgba(188, 19, 254, 0.1); }
+        textarea::placeholder { color: #333; }
+
+        .controls { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { flex: 1; background: transparent; border: 1px solid #333; color: #aaa; padding: 15px; font-family: 'Share Tech Mono'; font-size: 1rem; letter-spacing: 3px; cursor: pointer; transition: 0.4s; text-transform: uppercase; font-weight: bold; min-width: 140px; }
+        .btn:hover { background: #111; color: #fff; border-color: #555; }
+        .btn.primary { border-color: var(--m); color: var(--m); }
+        .btn.primary:hover { background: var(--m); color: #fff; box-shadow: 0 0 20px var(--m); }
+
+        .status-bar { margin-top: 40px; background: #000; border: 1px dashed #222; padding: 15px 25px; font-family: 'Share Tech Mono'; font-size: 0.85rem; color: #555; display: flex; justify-content: space-between; align-items: center; }
+        .status-msg { color: var(--m); animation: pulse 2s infinite; }
+
+        footer { background: #000; padding: 30px 20px; border-top: 1px solid #151515; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 2px; color: #444; text-transform: uppercase; font-size: 0.8rem; text-align: center; }
+        .f-neon { color: var(--m); text-shadow: 0 0 10px var(--m); }
+
+        @keyframes pulse { 50% { opacity: 0.4; } }
+
+        @media (max-width: 900px) {
+            .crypt-container { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            nav { padding: 15px; justify-content: center; gap: 15px; }
+            .nav-brand { width: 100%; justify-content: center; margin-bottom: 5px; }
+            footer { justify-content: center; flex-direction: column; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="bg-wrapper">
+    <div class="cyber-grid"></div>
+    <canvas id="particles"></canvas>
+</div>
+
+<div id="loader">
+    <div class="load-container">
+        <svg class="load-svg" viewBox="0 0 210 210">
+            <circle class="load-circle-bg" cx="105" cy="105" r="100"></circle>
+            <circle class="load-circle-fill" id="fill-circle" cx="105" cy="105" r="100"></circle>
+        </svg>
+        <img src="../assets/logo_ng.png" class="load-logo">
+    </div>
+    <div class="load-perc" id="perc-val">0%</div>
+</div>
+
+<div id="main-content">
+    <nav>
+        <div class="nav-brand"><img src="../assets/logo_ng.png">IRON ATLAS</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">INICIO</a></li>
+            <li><a href="vault.html">MÓDULOS</a></li>
+            <li><a href="../noti/noticias.html">NOTICIAS</a></li>
+            <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
+            <li><a href="../CANALES/index.html">CANALES</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header class="header-title rev">
+            <h1>EMOJI_CRYPT</h1>
+            <p>OFUSCACIÓN DE COMUNICACIONES TÁCTICAS</p>
+        </header>
+
+        <div class="crypt-container rev">
+            
+            <div class="crypt-box">
+                <div class="box-header">
+                    <h2>TEXTO_PLANO</h2>
+                    <span style="color:#555; font-size:0.8rem;">INPUT_A</span>
+                </div>
+                <textarea id="text-input" placeholder="Ingresa el texto a ofuscar..."></textarea>
+                <div class="controls">
+                    <button class="btn primary" onclick="encrypt()">ENCRIPTAR >></button>
+                    <button class="btn" onclick="clearBox('text-input')">LIMPIAR</button>
+                    <button class="btn" onclick="copyText('text-input')">COPIAR</button>
+                </div>
+            </div>
+
+            <div class="crypt-box">
+                <div class="box-header">
+                    <h2>CADENA_OFUSCADA</h2>
+                    <span style="color:#555; font-size:0.8rem;">OUTPUT_B</span>
+                </div>
+                <textarea id="emoji-input" placeholder="Ingresa la secuencia macabra para desofuscar..."></textarea>
+                <div class="controls">
+                    <button class="btn primary" onclick="decrypt()"><< DESENCRIPTAR</button>
+                    <button class="btn" onclick="clearBox('emoji-input')">LIMPIAR</button>
+                    <button class="btn" onclick="copyText('emoji-input')">COPIAR</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="crypt-container rev" style="margin-top: -30px;">
+            <div class="status-bar" style="width: 100%;">
+                <span>ALGORITMO: HEX_EMOJI_SUBSTITUTION</span>
+                <span>ESTADO: <span class="status-msg" id="action-status">ESPERANDO_INPUT</span></span>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div>© 2026 <span class="f-neon">IRON ATLAS NG</span> // MÓDULO OFENSIVO</div>
+        <div>LA IGNORANCIA ES UNA ELECCIÓN. LA VERDAD, UN ARMA.</div>
+    </footer>
+</div>
+
+<script>
+    
+    const hexToEmoji = {
+        '0': '💀', '1': '👽', '2': '👾', '3': '🤖', '4': '🎃', '5': '👹', '6': '👺', '7': '👻',
+        '8': '👁', '9': '🧠', 'a': '🦷', 'b': '🦴', 'c': '🔥', 'd': '💧', 'e': '⚡', 'f': '🌀'
+    };
+    const emojiToHex = Object.fromEntries(Object.entries(hexToEmoji).map(([k, v]) => [v, k]));
+
+    window.addEventListener('load', () => {
+        let p = 0; const fill = document.getElementById('fill-circle'); const perc = document.getElementById('perc-val');
+        const run = setInterval(() => {
+            p += Math.floor(Math.random() * 6) + 1;
+            if (p >= 100) {
+                p = 100; clearInterval(run);
+                setTimeout(() => {
+                    document.getElementById('loader').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('loader').style.display = 'none';
+                        const m = document.getElementById('main-content');
+                        m.style.display = 'block';
+                        setTimeout(() => { document.body.classList.add('loaded'); m.style.opacity = '1'; }, 50);
+                    }, 800);
+                }, 300);
+            }
+            fill.style.strokeDashoffset = 628 - (628 * p) / 100;
+            perc.innerText = p + '%';
+        }, 35);
+        initParticles();
+    });
+
+    function encrypt() {
+        const input = document.getElementById('text-input').value;
+        if (!input) return setStatus("ERROR: INPUT_VACÍO");
+        
+        const encoded = Array.from(input).map(c => {
+            const hex = c.charCodeAt(0).toString(16).padStart(2, '0');
+            return Array.from(hex).map(h => hexToEmoji[h]).join('');
+        }).join(' ');
+
+        document.getElementById('emoji-input').value = encoded;
+        setStatus("TEXTO_OFUSCADO_CORRECTAMENTE");
+    }
+
+    function decrypt() {
+        const input = document.getElementById('emoji-input').value.trim();
+        if (!input) return setStatus("ERROR: INPUT_VACÍO");
+
+        try {
+            const decoded = input.split(' ').map(emojis => {
+                const hex = Array.from(emojis).map(e => {
+                    if(emojiToHex[e] === undefined) throw new Error("INVALID_CHAR");
+                    return emojiToHex[e];
+                }).join('');
+                return String.fromCharCode(parseInt(hex, 16));
+            }).join('');
+
+            document.getElementById('text-input').value = decoded;
+            setStatus("TEXTO_DESENCRIPTADO_CORRECTAMENTE");
+        } catch (e) {
+            setStatus("ERROR: SECUENCIA_CORRUPTA");
+            document.getElementById('text-input').value = ">>> ERROR DE DESCIFRADO. LA SECUENCIA NO PERTENECE AL PROTOCOLO IRON ATLAS.";
+        }
+    }
+
+    function clearBox(id) {
+        document.getElementById(id).value = '';
+        setStatus("MEMORIA_PURGADA");
+    }
+
+    function copyText(id) {
+        const txt = document.getElementById(id);
+        if(txt.value) {
+            navigator.clipboard.writeText(txt.value);
+            setStatus("DATOS_COPIADOS_AL_PORTAPAPELES");
+        }
+    }
+
+    function setStatus(msg) {
+        document.getElementById('action-status').innerText = msg;
+    }
+
+    function initParticles() {
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let parts = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+        class P {
+            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*0.5+0.1; }
+            draw() { this.y -= this.s; if(this.y < 0) this.y = canvas.height; ctx.fillStyle = "rgba(188,19,254,0.3)"; ctx.fillRect(this.x, this.y, 2, 2); }
+        }
+        for(let i=0; i<100; i++) parts.push(new P());
+        function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); parts.forEach(p => p.draw()); requestAnimationFrame(anim); }
+        anim();
+    }
+
+    document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
+</script>
+</body>
+</html>
