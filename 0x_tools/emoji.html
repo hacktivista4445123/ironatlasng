@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | EMOJI CRYPT & OBFUSCATOR</title>
+    <title>IRON ATLAS | CRIPTOGRAFIA</title>
     <link rel="icon" type="image/png" href="../assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -11,13 +11,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
-        /* FONDO PRO ANIMADO */
+        
         .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; overflow: hidden; }
         .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(188,19,254,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(188,19,254,0.1) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); animation: grid-move 12s linear infinite; opacity: 0.8; }
         @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-300px); } }
         canvas#particles { position: absolute; inset: 0; z-index: -1; opacity: 0.4; }
 
-        /* LOADER CIRCULAR */
+      
         #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out; }
         .load-container { position: relative; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; }
         .load-svg { position: absolute; inset: 0; transform: rotate(-90deg); }
@@ -26,7 +26,7 @@
         .load-logo { width: 80px; filter: drop-shadow(0 0 15px var(--m)); }
         .load-perc { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 20px; letter-spacing: 5px; text-shadow: 0 0 10px var(--m); }
 
-        /* NAVEGACIÓN */
+       
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(0,0,0,0.92); border-bottom: 2px solid rgba(188,19,254,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); transition: 0.3s; flex-wrap: wrap; }
         .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; }
         .nav-brand img { width: 35px; filter: drop-shadow(0 0 10px var(--m)); }
@@ -44,7 +44,7 @@
         .header-title h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 8px; text-shadow: 0 0 20px var(--m); }
         .header-title p { font-family: 'Share Tech Mono'; color: #777; font-size: clamp(0.7rem, 3vw, 0.9rem); letter-spacing: 4px; margin-top: 10px; }
 
-        /* INTERFAZ DE CIFRADO */
+       
         .crypt-wrapper { max-width: 1300px; margin: 0 auto 60px; padding: 0 15px; display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
         
         .main-panel { display: flex; flex-direction: column; gap: 25px; }
@@ -55,7 +55,7 @@
         textarea { width: 100%; height: 220px; background: #000; border: 1px solid #222; color: #fff; padding: 20px; font-family: 'Share Tech Mono'; font-size: 1rem; resize: none; transition: 0.3s; }
         textarea:focus { border-color: var(--m); box-shadow: inset 0 0 15px rgba(188, 19, 254, 0.1); }
 
-        /* PANEL LATERAL DE CONTROL */
+        
         .side-panel { display: flex; flex-direction: column; gap: 20px; }
         .control-card { background: rgba(10,10,10,0.9); border: 1px solid #1a1a1a; padding: 25px; }
         .control-card h3 { font-family: 'Cinzel'; font-size: 1rem; color: #fff; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; letter-spacing: 2px; }
@@ -67,7 +67,6 @@
         .btn.primary { background: var(--m); color: #000; font-weight: bold; border: none; }
         .btn.primary:hover { transform: scale(1.02); box-shadow: 0 0 25px var(--m); color: #fff; }
 
-        /* TERMINAL DE ESTADO */
         .terminal-status { margin-top: auto; background: #000; border: 1px solid #111; padding: 20px; font-family: 'Share Tech Mono'; font-size: 0.8rem; color: #444; min-height: 150px; }
         .terminal-status b { color: var(--m); }
         .log-line { margin-bottom: 5px; border-left: 2px solid #222; padding-left: 10px; }
@@ -121,7 +120,7 @@
     <main>
         <header class="header-title rev">
             <h1>EMOJI CRIPTOGRAFIA</h1>
-            <p>SISTEMA DE COMUNICACIONES TÁCTICAS Y PROTECCIÓN DE SCRIPTS</p>
+            <p>SISTEMA DE CRIPTOGRAFIA PARA PRIVACIDAD</p>
         </header>
 
         <div class="crypt-wrapper rev">
@@ -137,8 +136,8 @@
 
                 <div class="crypt-box">
                     <div class="box-header">
-                        <h2>SALIDA PROCESADA</h2>
-                        <span style="color:#444; font-family:'Share Tech Mono'; font-size: 0.75rem;">ID_TRANSACCIÓN: ATLAS-XXXX</span>
+                        <h2>RESULTADO</h2>
+                        <span style="color:#444; font-family:'Share Tech Mono'; font-size: 0.75rem;">IRON ATLAS NEW GENERATION</span>
                     </div>
                     <textarea id="output-area" readonly placeholder="El resultado aparecerá aquí..."></textarea>
                 </div>
@@ -148,10 +147,10 @@
                 <div class="control-card">
                     <h3>OPERACIÓN</h3>
                     <div class="btn-stack">
-                        <button class="btn primary" onclick="processData('encrypt')">EJECUTAR CIFRADO</button>
-                        <button class="btn primary" onclick="processData('decrypt')">EJECUTAR DESCIFRADO</button>
+                        <button class="btn primary" onclick="processData('encrypt')">OBFUSCAR</button>
+                        <button class="btn primary" onclick="processData('decrypt')">DESOBFUSCAR</button>
                         <button class="btn" onclick="copyResult()">COPIAR SALIDA</button>
-                        <button class="btn" onclick="clearAll()">PURGAR DATOS</button>
+                        <button class="btn" onclick="clearAll()">LIMPIAR</button>
                     </div>
                 </div>
 
@@ -174,7 +173,7 @@
 
     <footer>
         <div>© 2026 <span class="f-neon">IRON ATLAS NEW GENERATION</span></div>
-        <div>STRENGTH IN ANONYMITY // TRUTH IN CODE</div>
+        <div>CRIPTOGRAFIA ATLAS</div>
     </footer>
 </div>
 
@@ -242,7 +241,7 @@
             }
         } else if (currentMode === 'obfuscate') {
             if (action === 'encrypt') {
-                // Ofuscación básica de Script (Base64 + HEX + Reemplazo)
+               
                 const b64 = btoa(input);
                 output.value = `/* OFUSCADO_BY_IRON_ATLAS */\neval(atob("${b64}"));`;
                 addLog("SCRIPT_PROTEGIDO.");
