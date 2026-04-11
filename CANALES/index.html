@@ -3,181 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | DIRECTORIO_NODOS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>IRON ATLAS |NEW GENERATION</title>
+    <link rel="icon" type="image/png" href="../assets/logo_ng.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0033; --c: #00f0ff; --b: #000; --p: rgba(5, 5, 5, 0.9); --brd: #1a1a1a; }
+        :root { --r: #ff0022; --b: #010101; --p: #080808; --sh: rgba(255, 0, 34, 0.4); --c: #00f0ff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
+
         
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--b); color: #ccc; font-family: 'Inter', sans-serif; 
-            overflow-x: hidden; user-select: none; min-height: 100vh;
-        }
-
-        canvas#bg-vortex {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; opacity: 0.3; pointer-events: none;
-        }
-
-    
-        .wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; min-height: 100vh; }
-
-   
-        header { 
-            background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--brd); 
-            padding: 15px 30px; position: sticky; top: 0; backdrop-filter: blur(10px);
-        }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: auto; }
-        .brand { font-family: 'Cinzel', serif; color: #fff; font-size: 1.1rem; letter-spacing: 3px; }
-        .nav-links { display: flex; gap: 20px; }
-        nav a { 
-            text-decoration: none; color: #666; font-family: 'Share Tech Mono'; 
-            font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s;
-        }
-        nav a:hover { color: var(--r); text-shadow: 0 0 8px var(--r); }
+        .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; overflow: hidden; }
+        .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,0,34,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,34,0.1) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); animation: grid-move 12s linear infinite; opacity: 0.5; }
+        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-300px); } }
+        canvas#bg-vortex { position: absolute; inset: 0; z-index: -1; opacity: 0.4; }
 
      
-        .page-title { 
-            text-align: center; padding: 60px 20px; 
-            background: radial-gradient(circle, rgba(255,0,51,0.05) 0%, transparent 70%);
-        }
-        .page-title h1 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 6vw, 2.8rem); color: #fff; letter-spacing: 8px; margin-bottom: 10px; }
-        .page-title p { font-family: 'Share Tech Mono'; color: #444; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(0,0,0,0.92); border-bottom: 2px solid rgba(255,0,34,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
+        .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; }
+        .nav-brand img { width: 35px; filter: drop-shadow(0 0 8px var(--r)); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #666; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--r); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--r); transition: 0.4s; }
+        .nav-links a:hover::after { width: 100%; }
 
-       
-        .nodes-container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
-        .nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+  
+        #main-content { opacity: 0; transition: opacity 1s; padding-top: 20px; }
+        .page-header { text-align: center; margin-bottom: 60px; padding: 0 15px; }
+        .page-header h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 10px; text-shadow: 0 0 25px var(--r); }
+        .page-header p { font-family: 'Share Tech Mono'; color: #444; font-size: 0.9rem; letter-spacing: 5px; margin-top: 10px; text-transform: uppercase; }
 
+
+        .nodes-container { max-width: 1300px; margin: 0 auto 100px; padding: 0 25px; }
+        .nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        
         .node-card {
-            background: var(--p); border: 1px solid var(--brd); padding: 30px;
-            display: flex; align-items: center; gap: 25px;
-            text-decoration: none; color: inherit; 
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative; overflow: hidden;
+            background: rgba(10,10,10,0.85); border: 1px solid #1a1a1a; padding: 30px;
+            display: flex; align-items: center; gap: 20px; text-decoration: none; color: inherit;
+            transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; overflow: hidden;
+            border-bottom: 3px solid #111;
         }
-
-
-        .node-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--r), transparent);
-            transition: 0.5s;
-        }
-        .node-card:hover { border-color: var(--r); transform: translateY(-5px); box-shadow: 0 10px 40px rgba(255,0,51,0.15); }
+        .node-card:hover { transform: translateY(-10px); border-color: var(--r); box-shadow: 0 20px 50px rgba(0,0,0,1); }
+        
+   
+        .node-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--r), transparent); transition: 0.5s; }
         .node-card:hover::before { left: 100%; }
 
-  
-        .node-img { 
-            width: 90px; height: 90px; object-fit: cover; 
-            border: 1px solid #222; transition: 0.4s; flex-shrink: 0;
-        }
-        .node-card:hover .node-img { border-color: var(--r); transform: scale(1.05) rotate(-3deg); }
+        .node-img { width: 85px; height: 85px; object-fit: cover; border: 1px solid #222; transition: 0.5s; filter: grayscale(1) brightness(0.8); flex-shrink: 0; }
+        .node-card:hover .node-img { filter: grayscale(0) brightness(1); border-color: var(--r); transform: scale(1.05) rotate(-2deg); box-shadow: 0 0 15px var(--r); }
 
-        .node-info { flex: 1; }
-        .node-name { font-family: 'Cinzel', serif; font-size: 1rem; color: #fff; margin-bottom: 8px; line-height: 1.2; }
-        .node-desc { font-size: 0.8rem; color: #777; font-weight: 300; margin-bottom: 12px; }
-        .node-tag { 
-            display: inline-block; font-family: 'Share Tech Mono'; font-size: 0.65rem; 
-            color: var(--c); background: rgba(0, 240, 255, 0.05);
-            padding: 3px 10px; border: 1px solid rgba(0, 240, 255, 0.2); 
-        }
-        .node-card:hover .node-tag { color: #fff; background: var(--r); border-color: var(--r); }
+        .node-info { flex: 1; min-width: 0; }
+        .node-name { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #fff; margin-bottom: 5px; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .node-desc { font-size: 0.85rem; color: #666; line-height: 1.4; margin-bottom: 10px; font-weight: 500; }
+        .node-tag { display: inline-block; font-family: 'Share Tech Mono'; font-size: 0.65rem; color: var(--c); background: rgba(0, 240, 255, 0.05); padding: 3px 10px; border: 1px solid rgba(0, 240, 255, 0.2); text-transform: uppercase; }
+        .node-card:hover .node-tag { background: var(--r); color: #fff; border-color: var(--r); box-shadow: 0 0 10px var(--r); }
 
-  
-        footer { 
-            text-align: center; padding: 40px; border-top: 1px solid var(--brd); 
-            font-size: 0.7rem; color: #222; font-family: 'Share Tech Mono';
-        }
+        footer { background: #000; padding: 40px 60px; border-top: 1px solid #151515; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 2px; color: #333; text-transform: uppercase; text-align: center; }
+        .f-red { color: var(--r); text-shadow: 0 0 10px var(--r); }
 
-     
+        .rev { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+
         @media (max-width: 768px) {
-            header { padding: 15px; }
-            .nav-links { display: none; } 
-            .nodes-grid { grid-template-columns: 1fr; gap: 20px; }
-            .node-card { padding: 20px; gap: 15px; }
-            .node-img { width: 70px; height: 70px; }
-            .node-name { font-size: 0.9rem; }
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            .page-header h1 { letter-spacing: 5px; }
+            .nodes-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-<canvas id="bg-vortex"></canvas>
+<div class="bg-wrapper">
+    <div class="cyber-grid"></div>
+    <canvas id="bg-vortex"></canvas>
+</div>
 
-<div class="wrapper">
-    <header>
-        <nav>
-            <div class="brand">IRON ATLAS</div>
-            <div class="nav-links">
-                <a href="../index.html">INICIO</a>
-                <a href="../0x_tools/vault.html">HERRAMIENTAS</a>
-                <a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a>
-                <a href="#" style="color:var(--r);">CANAL</a>
-            </div>
-        </nav>
-    </header>
+<div id="main-content">
+    <nav>
+        <div class="nav-brand"><img src="../assets/logo_ng.png">IRON ATLAS</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">INICIO</a></li>
+            <li><a href="../0x_tools/vault.html">MÓDULOS</a></li>
+            <li><a href="../noti/noticias.html">NOTICIAS</a></li>
+            <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
+            <li><a href="#" class="active">CANALES</a></li>
+        </ul>
+    </nav>
 
     <main>
-        <div class="page-title">
-            <h1>RED DE INTELIGENCIAS</h1>
-            <p>Directorio Central de Comunicaciones</p>
-        </div>
+        <header class="page-header rev">
+            <h1>CANALES</h1>
+            <p>DIRECTORIO DE CANALES </p>
+        </header>
 
         <section class="nodes-container">
             <div class="nodes-grid">
                 
-                <a href="https://t.me/ironatlas_organization" class="node-card" target="_blank" style="border-color: #333; background: rgba(10,0,0,0.5);">
+                <a href="https://t.me/ironatlas_organization" class="node-card rev" target="_blank" style="border-left: 4px solid var(--r);">
                     <img src="../assets/logo_ng.png" class="node-img" style="border-color: var(--r);">
                     <div class="node-info">
                         <div class="node-name">ɪʀᴏɴ ᴀᴛʟᴀꜱ ɴᴇᴡ ɢᴇɴᴇʀᴀᴛɪᴏɴ</div>
-                        <p class="node-desc">Nodo Central. Hacktivismo, Inteligencia Digital y Operaciones.</p>
-                        <span class="node-tag" style="color: var(--r); border-color: var(--r);">CENTRAL HACTIVISMO</span>
+                        <p class="node-desc">NODO CENTRAL. HACKTIVISMO, INTELIGENCIA DIGITAL Y OPERACIONES GLOBALES.</p>
+                        <span class="node-tag" style="color:var(--r); border-color:var(--r);">CENTRAL ATLAS</span>
                     </div>
                 </a>
 
-                <a href="https://t.me/nullsechackers" class="node-card" target="_blank">
+                <a href="https://t.me/nullsechackers" class="node-card rev" target="_blank">
                     <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="node-img">
                     <div class="node-info">
-                        <div class="node-name">Nullsec Philippines</div>
-                        <p class="node-desc">Expertos en penetración de red y contrainteligencia.</p>
-                        <span class="node-tag">HACTIVISTAS</span>
+                        <div class="node-name">NULLSEC PHILIPPINES</div>
+                        <p class="node-desc">EXPERTOS EN PENETRACIÓN DE RED, AUDITORÍA OFENSIVA Y CONTRAINTELIGENCIA.</p>
+                        <span class="node-tag">HACKTIVISTAS</span>
                     </div>
                 </a>
-                
-                <a href="https://t.me/+wLnQPrkGG004NmVh" class="node-card" target="_blank">
+
+                <a href="https://t.me/+wLnQPrkGG004NmVh" class="node-card rev" target="_blank">
                     <img src="https://i.postimg.cc/kMSWpK7v/Captura-de-pantalla-2026-04-08-012508.png" class="node-img">
                     <div class="node-info">
                         <div class="node-name">𝗠𝗲𝗿𝗰𝗮𝗡𝗲𝗴𝗿𝗼𝗖𝗢𝗟 +</div>
-                        <p class="node-desc">Expertos materiales g5.</p>
+                        <p class="node-desc">PROVEEDORES ESPECIALIZADOS EN MATERIAL G5 Y LOGÍSTICA DE RED.</p>
                         <span class="node-tag">G5 PROVEEDOR</span>
                     </div>
                 </a>
-                
-                
-                <a href="https://t.me/FloodHackingChannel" class="node-card" target="_blank">
+
+                <a href="https://t.me/FloodHackingChannel" class="node-card rev" target="_blank">
                     <img src="https://i.postimg.cc/gjcDq5nb/flood.jpg" class="node-img">
                     <div class="node-info">
-                        <div class="node-name">FloodHacking Organization</div>
-                        <p class="node-desc">Expertos en la limpieza de Canales, grupos y usuarios de Telegram</p>
+                        <div class="node-name">FLOODHACKING ORG</div>
+                        <p class="node-desc">ESPECIALISTAS EN LIMPIEZA DE CANALES, GRUPOS Y GESTIÓN DE SEGURIDAD EN TELEGRAM.</p>
                         <span class="node-tag">TELEGRAM SOPORTE</span>
                     </div>
                 </a>
-                
-                <a href="https://t.me/HackPurgatory" class="node-card" target="_blank">
+
+                <a href="https://t.me/HackPurgatory" class="node-card rev" target="_blank">
                     <img src="https://files.catbox.moe/iwurbn.jpg" class="node-img">
                     <div class="node-info">
                         <div class="node-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</div>
-                    <p class="node-desc">Especialistas en aseguramiento de datos y fugas de info.</p>
+                        <p class="node-desc">ANÁLISIS DE FUGAS DE INFORMACIÓN Y ASEGURAMIENTO DE DATOS MASIVOS.</p>
                         <span class="node-tag">INTELIGENCIA</span>
                     </div>
                 </a>
 
-                <a href="https://t.me/zconchita" class="node-card" target="_blank">
+                <a href="https://t.me/zconchita" class="node-card rev" target="_blank">
                     <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="node-img">
                     <div class="node-info">
                         <div class="node-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</div>
-                        <p class="node-desc">Fuerza operativa para despliegues rápidos en la red.</p>
-                        <span class="node-tag">TEAM HACKING</span>
+                        <p class="node-desc">FUERZA OPERATIVA PARA DESPLIEGUES RÁPIDOS Y DEFENSA DE ACTIVOS.</p>
+                        <span class="node-tag">TACTICAL TEAM</span>
                     </div>
                 </a>
 
@@ -186,73 +159,75 @@
     </main>
 
     <footer>
-        BY: @IMPORTATLAS | IRON ATLAS ORGANIZATION © 2026<br>
-        JUNTOS ACABAREMOS CONTRA EL GOBIERNO CORRUPTO
+        <div>BY: <span class="f-red">@IMPORTATLAS</span> | IRON ATLAS ORGANIZATION © 2026</div>
+        <div>JUNTOS ACABAREMOS CON LA CORRUPCIÓN</div>
     </footer>
 </div>
 
 <script>
-    
-    const canvas = document.getElementById('bg-vortex');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
 
-    class Particle {
-        constructor() {
-            this.reset();
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('main-content').style.opacity = '1';
+        const revs = document.querySelectorAll('.rev');
+        revs.forEach((r, i) => {
+            setTimeout(() => { r.style.opacity = '1'; r.style.transform = 'translateY(0)'; }, 100 * i);
+        });
+        initVortex();
+    });
+
+
+    function initVortex() {
+        const canvas = document.getElementById('bg-vortex');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.z = Math.random() * canvas.width;
-            this.size = 1;
-            this.color = Math.random() > 0.1 ? '#ff0033' : '#ffffff';
-        }
-        update() {
-            this.z -= 5;
-            if (this.z <= 0) this.reset();
-        }
-        draw() {
-            let k = 128 / this.z;
-            let px = this.x * k + canvas.width / 2;
-            let py = this.y * k + canvas.height / 2;
-            let size = (1 - this.z / canvas.width) * 3;
-            
-            if (px > 0 && px < canvas.width && py > 0 && py < canvas.height) {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(px, py, size, 0, Math.PI * 2);
-                ctx.fill();
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.z = Math.random() * canvas.width;
+                this.color = Math.random() > 0.1 ? '#ff0022' : '#ffffff';
+            }
+            update() {
+                this.z -= 4;
+                if (this.z <= 0) this.reset();
+            }
+            draw() {
+                let k = 128 / this.z;
+                let px = this.x * k + canvas.width / 2;
+                let py = this.y * k + canvas.height / 2;
+                let size = (1 - this.z / canvas.width) * 3;
+                
+                if (px > 0 && px < canvas.width && py > 0 && py < canvas.height) {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(px, py, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
         }
-    }
 
-    for (let i = 0; i < 300; i++) particles.push(new Particle());
+        for (let i = 0; i < 200; i++) particles.push(new Particle());
 
-    function animate() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
-
- 
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-            return false;
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
         }
+        animate();
+    }
+
+    document.onkeydown = e => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
 </script>
 </body>
