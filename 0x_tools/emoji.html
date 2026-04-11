@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | EMOJI CRYPT</title>
+    <title>IRON ATLAS | EMOJI CRYPT & OBFUSCATOR</title>
     <link rel="icon" type="image/png" href="../assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0022; --b: #010101; --p: #080808; --m: #bc13fe; --sh: rgba(188, 19, 254, 0.4); }
+        :root { --m: #bc13fe; --b: #010101; --p: #080808; --r: #ff0022; --sh: rgba(188, 19, 254, 0.4); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
+        /* FONDO PRO ANIMADO */
         .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; overflow: hidden; }
         .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(188,19,254,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(188,19,254,0.1) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); animation: grid-move 12s linear infinite; opacity: 0.8; }
         @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-300px); } }
-        canvas#particles { position: absolute; inset: 0; z-index: -1; opacity: 0.5; }
+        canvas#particles { position: absolute; inset: 0; z-index: -1; opacity: 0.4; }
 
+        /* LOADER CIRCULAR */
         #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out; }
         .load-container { position: relative; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; }
         .load-svg { position: absolute; inset: 0; transform: rotate(-90deg); }
@@ -24,12 +26,15 @@
         .load-logo { width: 80px; filter: drop-shadow(0 0 15px var(--m)); }
         .load-perc { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 20px; letter-spacing: 5px; text-shadow: 0 0 10px var(--m); }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: rgba(0,0,0,0.92); border-bottom: 2px solid rgba(188,19,254,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); transition: 0.3s; flex-wrap: wrap; }
+        /* NAVEGACIÓN */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(0,0,0,0.92); border-bottom: 2px solid rgba(188,19,254,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); transition: 0.3s; flex-wrap: wrap; }
         .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; }
-        .nav-brand img { width: 35px; filter: drop-shadow(0 0 8px var(--m)); }
+        .nav-brand img { width: 35px; filter: drop-shadow(0 0 10px var(--m)); }
         .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; justify-content: center; }
         .nav-links a { text-decoration: none; color: #666; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; position: relative; }
         .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--m); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--m); transition: 0.4s; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
         #main-content { display: none; opacity: 0; transition: opacity 1s; padding-top: 20px; width: 100%; overflow-x: hidden; }
         .rev { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
@@ -39,32 +44,41 @@
         .header-title h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 8px; text-shadow: 0 0 20px var(--m); }
         .header-title p { font-family: 'Share Tech Mono'; color: #777; font-size: clamp(0.7rem, 3vw, 0.9rem); letter-spacing: 4px; margin-top: 10px; }
 
-        .crypt-container { max-width: 1200px; margin: 0 auto 60px; padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .crypt-box { background: rgba(5,5,5,0.85); border: 1px solid #1a1a1a; padding: 30px; backdrop-filter: blur(10px); display: flex; flex-direction: column; position: relative; border-top: 4px solid var(--m); box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
+        /* INTERFAZ DE CIFRADO */
+        .crypt-wrapper { max-width: 1300px; margin: 0 auto 60px; padding: 0 15px; display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
         
-        .box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #1a1a1a; padding-bottom: 15px; }
-        .box-header h2 { font-family: 'Share Tech Mono'; font-size: 1.2rem; color: var(--m); letter-spacing: 3px; }
-        
-        textarea { width: 100%; flex-grow: 1; background: #000; border: 1px solid #222; color: #fff; padding: 20px; font-family: 'Share Tech Mono'; font-size: 1.1rem; resize: none; min-height: 250px; transition: 0.3s; }
+        .main-panel { display: flex; flex-direction: column; gap: 25px; }
+        .crypt-box { background: rgba(5,5,5,0.85); border: 1px solid #1a1a1a; padding: 25px; backdrop-filter: blur(10px); position: relative; border-left: 4px solid var(--m); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #151515; padding-bottom: 10px; }
+        .box-header h2 { font-family: 'Share Tech Mono'; font-size: 1rem; color: var(--m); letter-spacing: 3px; text-transform: uppercase; }
+
+        textarea { width: 100%; height: 220px; background: #000; border: 1px solid #222; color: #fff; padding: 20px; font-family: 'Share Tech Mono'; font-size: 1rem; resize: none; transition: 0.3s; }
         textarea:focus { border-color: var(--m); box-shadow: inset 0 0 15px rgba(188, 19, 254, 0.1); }
-        textarea::placeholder { color: #333; }
 
-        .controls { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
-        .btn { flex: 1; background: transparent; border: 1px solid #333; color: #aaa; padding: 15px; font-family: 'Share Tech Mono'; font-size: 1rem; letter-spacing: 3px; cursor: pointer; transition: 0.4s; text-transform: uppercase; font-weight: bold; min-width: 140px; }
+        /* PANEL LATERAL DE CONTROL */
+        .side-panel { display: flex; flex-direction: column; gap: 20px; }
+        .control-card { background: rgba(10,10,10,0.9); border: 1px solid #1a1a1a; padding: 25px; }
+        .control-card h3 { font-family: 'Cinzel'; font-size: 1rem; color: #fff; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; letter-spacing: 2px; }
+        
+        .btn-stack { display: flex; flex-direction: column; gap: 12px; }
+        .btn { width: 100%; background: transparent; border: 1px solid #333; color: #777; padding: 14px; font-family: 'Share Tech Mono'; font-size: 0.9rem; cursor: pointer; transition: 0.4s; text-transform: uppercase; letter-spacing: 2px; }
         .btn:hover { background: #111; color: #fff; border-color: #555; }
-        .btn.primary { border-color: var(--m); color: var(--m); }
-        .btn.primary:hover { background: var(--m); color: #fff; box-shadow: 0 0 20px var(--m); }
+        .btn.active { border-color: var(--m); color: var(--m); box-shadow: 0 0 15px rgba(188,19,254,0.2); }
+        .btn.primary { background: var(--m); color: #000; font-weight: bold; border: none; }
+        .btn.primary:hover { transform: scale(1.02); box-shadow: 0 0 25px var(--m); color: #fff; }
 
-        .status-bar { margin-top: 40px; background: #000; border: 1px dashed #222; padding: 15px 25px; font-family: 'Share Tech Mono'; font-size: 0.85rem; color: #555; display: flex; justify-content: space-between; align-items: center; }
-        .status-msg { color: var(--m); animation: pulse 2s infinite; }
+        /* TERMINAL DE ESTADO */
+        .terminal-status { margin-top: auto; background: #000; border: 1px solid #111; padding: 20px; font-family: 'Share Tech Mono'; font-size: 0.8rem; color: #444; min-height: 150px; }
+        .terminal-status b { color: var(--m); }
+        .log-line { margin-bottom: 5px; border-left: 2px solid #222; padding-left: 10px; }
 
         footer { background: #000; padding: 30px 20px; border-top: 1px solid #151515; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 2px; color: #444; text-transform: uppercase; font-size: 0.8rem; text-align: center; }
-        .f-neon { color: var(--m); text-shadow: 0 0 10px var(--m); }
+        .f-neon { color: var(--m); text-shadow: 0 0 8px var(--m); }
 
-        @keyframes pulse { 50% { opacity: 0.4; } }
-
-        @media (max-width: 900px) {
-            .crypt-container { grid-template-columns: 1fr; }
+        @media (max-width: 950px) {
+            .crypt-wrapper { grid-template-columns: 1fr; }
+            .side-panel { flex-direction: row; flex-wrap: wrap; }
+            .control-card { flex: 1; min-width: 280px; }
         }
         @media (max-width: 600px) {
             nav { padding: 15px; justify-content: center; gap: 15px; }
@@ -77,6 +91,7 @@
 
 <div class="bg-wrapper">
     <div class="cyber-grid"></div>
+    <div class="cyber-fog"></div>
     <canvas id="particles"></canvas>
 </div>
 
@@ -105,62 +120,71 @@
 
     <main>
         <header class="header-title rev">
-            <h1>EMOJI_CRYPT</h1>
-            <p>OFUSCACIÓN DE COMUNICACIONES TÁCTICAS</p>
+            <h1>EMOJI CRIPTOGRAFIA</h1>
+            <p>SISTEMA DE COMUNICACIONES TÁCTICAS Y PROTECCIÓN DE SCRIPTS</p>
         </header>
 
-        <div class="crypt-container rev">
+        <div class="crypt-wrapper rev">
             
-            <div class="crypt-box">
-                <div class="box-header">
-                    <h2>TEXTO_PLANO</h2>
-                    <span style="color:#555; font-size:0.8rem;">INPUT_A</span>
+            <div class="main-panel">
+                <div class="crypt-box">
+                    <div class="box-header">
+                        <h2>ENTRADA DE DATOS</h2>
+                        <span id="mode-label" style="color:#444; font-family:'Share Tech Mono'; font-size: 0.75rem;">MODO: TEXT PLAINTEXT</span>
+                    </div>
+                    <textarea id="input-area" placeholder="Escribe el mensaje o pega el código aquí..."></textarea>
                 </div>
-                <textarea id="text-input" placeholder="Ingresa el texto a ofuscar..."></textarea>
-                <div class="controls">
-                    <button class="btn primary" onclick="encrypt()">ENCRIPTAR >></button>
-                    <button class="btn" onclick="clearBox('text-input')">LIMPIAR</button>
-                    <button class="btn" onclick="copyText('text-input')">COPIAR</button>
+
+                <div class="crypt-box">
+                    <div class="box-header">
+                        <h2>SALIDA PROCESADA</h2>
+                        <span style="color:#444; font-family:'Share Tech Mono'; font-size: 0.75rem;">ID_TRANSACCIÓN: ATLAS-XXXX</span>
+                    </div>
+                    <textarea id="output-area" readonly placeholder="El resultado aparecerá aquí..."></textarea>
                 </div>
             </div>
 
-            <div class="crypt-box">
-                <div class="box-header">
-                    <h2>CADENA_OFUSCADA</h2>
-                    <span style="color:#555; font-size:0.8rem;">OUTPUT_B</span>
+            <div class="side-panel">
+                <div class="control-card">
+                    <h3>OPERACIÓN</h3>
+                    <div class="btn-stack">
+                        <button class="btn primary" onclick="processData('encrypt')">EJECUTAR CIFRADO</button>
+                        <button class="btn primary" onclick="processData('decrypt')">EJECUTAR DESCIFRADO</button>
+                        <button class="btn" onclick="copyResult()">COPIAR SALIDA</button>
+                        <button class="btn" onclick="clearAll()">PURGAR DATOS</button>
+                    </div>
                 </div>
-                <textarea id="emoji-input" placeholder="Ingresa la secuencia macabra para desofuscar..."></textarea>
-                <div class="controls">
-                    <button class="btn primary" onclick="decrypt()"><< DESENCRIPTAR</button>
-                    <button class="btn" onclick="clearBox('emoji-input')">LIMPIAR</button>
-                    <button class="btn" onclick="copyText('emoji-input')">COPIAR</button>
+
+                <div class="control-card">
+                    <h3>ALGORITMO</h3>
+                    <div class="btn-stack" id="algo-selector">
+                        <button class="btn active" onclick="setMode('crypt')">MENSAJE MACABRO</button>
+                        <button class="btn" onclick="setMode('obfuscate')">OFUSCADOR SCRIPT</button>
+                    </div>
+                </div>
+
+                <div class="terminal-status" id="terminal">
+                    <div class="log-line">> SISTEMA INICIALIZADO.</div>
+                    <div class="log-line">> ESPERANDO ...</div>
                 </div>
             </div>
 
         </div>
-
-        <div class="crypt-container rev" style="margin-top: -30px;">
-            <div class="status-bar" style="width: 100%;">
-                <span>ALGORITMO: HEX_EMOJI_SUBSTITUTION</span>
-                <span>ESTADO: <span class="status-msg" id="action-status">ESPERANDO_INPUT</span></span>
-            </div>
-        </div>
-
     </main>
 
     <footer>
-        <div>© 2026 <span class="f-neon">IRON ATLAS NG</span> // MÓDULO OFENSIVO</div>
-        <div>LA IGNORANCIA ES UNA ELECCIÓN. LA VERDAD, UN ARMA.</div>
+        <div>© 2026 <span class="f-neon">IRON ATLAS NEW GENERATION</span></div>
+        <div>STRENGTH IN ANONYMITY // TRUTH IN CODE</div>
     </footer>
 </div>
 
 <script>
-    
-    const hexToEmoji = {
+    let currentMode = 'crypt';
+    const creepyMap = {
         '0': '💀', '1': '👽', '2': '👾', '3': '🤖', '4': '🎃', '5': '👹', '6': '👺', '7': '👻',
         '8': '👁', '9': '🧠', 'a': '🦷', 'b': '🦴', 'c': '🔥', 'd': '💧', 'e': '⚡', 'f': '🌀'
     };
-    const emojiToHex = Object.fromEntries(Object.entries(hexToEmoji).map(([k, v]) => [v, k]));
+    const inverseCreepyMap = Object.fromEntries(Object.entries(creepyMap).map(([k, v]) => [v, k]));
 
     window.addEventListener('load', () => {
         let p = 0; const fill = document.getElementById('fill-circle'); const perc = document.getElementById('perc-val');
@@ -176,63 +200,79 @@
                         m.style.display = 'block';
                         setTimeout(() => { document.body.classList.add('loaded'); m.style.opacity = '1'; }, 50);
                     }, 800);
-                }, 300);
+                }, 400);
             }
             fill.style.strokeDashoffset = 628 - (628 * p) / 100;
             perc.innerText = p + '%';
-        }, 35);
+        }, 40);
         initParticles();
     });
 
-    function encrypt() {
-        const input = document.getElementById('text-input').value;
-        if (!input) return setStatus("ERROR: INPUT_VACÍO");
-        
-        const encoded = Array.from(input).map(c => {
-            const hex = c.charCodeAt(0).toString(16).padStart(2, '0');
-            return Array.from(hex).map(h => hexToEmoji[h]).join('');
-        }).join(' ');
-
-        document.getElementById('emoji-input').value = encoded;
-        setStatus("TEXTO_OFUSCADO_CORRECTAMENTE");
+    function setMode(mode) {
+        currentMode = mode;
+        const btns = document.querySelectorAll('#algo-selector .btn');
+        btns.forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('mode-label').innerText = `MODO: ${mode.toUpperCase()}`;
+        addLog(`CAMBIO_MODO: ${mode.toUpperCase()}`);
     }
 
-    function decrypt() {
-        const input = document.getElementById('emoji-input').value.trim();
-        if (!input) return setStatus("ERROR: INPUT_VACÍO");
+    function processData(action) {
+        const input = document.getElementById('input-area').value;
+        const output = document.getElementById('output-area');
+        if(!input) return addLog("ERROR: INPUT_VACÍO");
 
-        try {
-            const decoded = input.split(' ').map(emojis => {
-                const hex = Array.from(emojis).map(e => {
-                    if(emojiToHex[e] === undefined) throw new Error("INVALID_CHAR");
-                    return emojiToHex[e];
-                }).join('');
-                return String.fromCharCode(parseInt(hex, 16));
-            }).join('');
-
-            document.getElementById('text-input').value = decoded;
-            setStatus("TEXTO_DESENCRIPTADO_CORRECTAMENTE");
-        } catch (e) {
-            setStatus("ERROR: SECUENCIA_CORRUPTA");
-            document.getElementById('text-input').value = ">>> ERROR DE DESCIFRADO. LA SECUENCIA NO PERTENECE AL PROTOCOLO IRON ATLAS.";
+        if (currentMode === 'crypt') {
+            if (action === 'encrypt') {
+                const encoded = Array.from(input).map(c => {
+                    const hex = c.charCodeAt(0).toString(16).padStart(2, '0');
+                    return Array.from(hex).map(h => creepyMap[h]).join('');
+                }).join(' ');
+                output.value = encoded;
+                addLog("MENSAJE_OFUSCADO_CON_ÉXITO.");
+            } else {
+                try {
+                    const decoded = input.split(' ').map(emojis => {
+                        const hex = Array.from(emojis).map(e => inverseCreepyMap[e]).join('');
+                        return String.fromCharCode(parseInt(hex, 16));
+                    }).join('');
+                    output.value = decoded;
+                    addLog("MENSAJE_DESCIFRADO.");
+                } catch(e) { addLog("ERROR: SECUENCIA_INVÁLIDA."); }
+            }
+        } else if (currentMode === 'obfuscate') {
+            if (action === 'encrypt') {
+                // Ofuscación básica de Script (Base64 + HEX + Reemplazo)
+                const b64 = btoa(input);
+                output.value = `/* OFUSCADO_BY_IRON_ATLAS */\neval(atob("${b64}"));`;
+                addLog("SCRIPT_PROTEGIDO.");
+            } else {
+                addLog("MODO_DESOFUSCADOR_EN_DESARROLLO.");
+            }
         }
     }
 
-    function clearBox(id) {
-        document.getElementById(id).value = '';
-        setStatus("MEMORIA_PURGADA");
+    function addLog(msg) {
+        const term = document.getElementById('terminal');
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        line.innerHTML = `> ${msg}`;
+        term.appendChild(line);
+        term.scrollTop = term.scrollHeight;
     }
 
-    function copyText(id) {
-        const txt = document.getElementById(id);
-        if(txt.value) {
-            navigator.clipboard.writeText(txt.value);
-            setStatus("DATOS_COPIADOS_AL_PORTAPAPELES");
+    function copyResult() {
+        const out = document.getElementById('output-area');
+        if(out.value) {
+            navigator.clipboard.writeText(out.value);
+            addLog("DATOS_COPIADOS.");
         }
     }
 
-    function setStatus(msg) {
-        document.getElementById('action-status').innerText = msg;
+    function clearAll() {
+        document.getElementById('input-area').value = '';
+        document.getElementById('output-area').value = '';
+        addLog("MEMORIA_PURGADA.");
     }
 
     function initParticles() {
@@ -242,15 +282,18 @@
         function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resize); resize();
         class P {
-            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*0.5+0.1; }
-            draw() { this.y -= this.s; if(this.y < 0) this.y = canvas.height; ctx.fillStyle = "rgba(188,19,254,0.3)"; ctx.fillRect(this.x, this.y, 2, 2); }
+            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*0.5+0.2; }
+            draw() { this.y -= this.s; if(this.y < 0) this.y = canvas.height; ctx.fillStyle = "rgba(188,19,254,0.3)"; ctx.fillRect(this.x, this.y, 1.5, 1.5); }
         }
-        for(let i=0; i<100; i++) parts.push(new P());
+        for(let i=0; i<150; i++) parts.push(new P());
         function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); parts.forEach(p => p.draw()); requestAnimationFrame(anim); }
         anim();
     }
 
-    document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
+    document.onkeydown = e => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    };
 </script>
+
 </body>
 </html>
