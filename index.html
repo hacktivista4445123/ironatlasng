@@ -2,204 +2,367 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS NEW GENERATION</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We do not forgive. We do not forget. We are inevitable.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>IRON ATLAS // NEW GENERATION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --r: #ff0022; --b: #030303; --p: #0a0a0a; }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
-        body { background: var(--b); color: #fff; font-family: 'Share Tech Mono', monospace; overflow-x: hidden; user-select: none; }
-
-        .cyber-grid {
-            position: fixed; inset: 0;
-            background-image: 
-                linear-gradient(rgba(255,0,34,0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,0,34,0.08) 1px, transparent 1px);
-            background-size: 40px 40px;
-            transform: perspective(600px) rotateX(60deg) translateY(-50px) translateZ(-200px);
-            animation: grid-move 8s linear infinite;
-            z-index: -2;
+        :root {
+            --red: #ff0022;
+            --dark: #0a0a0a;
+            --darker: #050505;
         }
-        @keyframes grid-move {
-            0% { transform: perspective(600px) rotateX(60deg) translateY(0) translateZ(-200px); }
-            100% { transform: perspective(600px) rotateX(60deg) translateY(40px) translateZ(-200px); }
+        
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--dark);
+            color: #ddd;
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+            user-select: none;
+            cursor: default;
         }
-        .cyber-fog { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 0%, var(--b) 80%); z-index: -1; pointer-events: none; }
 
+        /* === EFECTOS CYBER === */
+        .scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(255,0,34,0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: scan 6s linear infinite;
+            opacity: 0.15;
+        }
+        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+
+        .glitch {
+            position: relative;
+            color: white;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 10px var(--red);
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .glitch::before {
+            animation: glitch-1 0.8s infinite;
+            color: #00ffff;
+            left: 2px;
+            text-shadow: -2px 0 #ff00ff;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        }
+        .glitch::after {
+            animation: glitch-2 0.6s infinite;
+            color: var(--red);
+            left: -2px;
+            text-shadow: 2px 0 #00ff00;
+            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+        }
+        @keyframes glitch-1 { 0%,100% { transform: translate(0); } 20% { transform: translate(-3px,3px); } }
+        @keyframes glitch-2 { 0%,100% { transform: translate(0); } 20% { transform: translate(3px,-3px); } }
+
+        /* PRELOADER PROFESIONAL */
         #loader {
-            position: fixed; inset: 0; background: #000; z-index: 10000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.6s ease-out;
+            position: fixed; inset: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
         }
-        .circle-loader {
-            width: 180px; height: 180px; position: relative;
-            display: flex; justify-content: center; align-items: center;
+        .logo-preload {
+            width: 180px;
+            filter: drop-shadow(0 0 25px var(--red));
+            animation: logoPulse 2s infinite alternate;
             margin-bottom: 30px;
         }
-        .circle-loader svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
-        .circle-bg { fill: none; stroke: #111; stroke-width: 4; }
-        .circle-progress { fill: none; stroke: var(--r); stroke-width: 4; stroke-dasharray: 502; stroke-dashoffset: 502; transition: stroke-dashoffset 0.1s linear; filter: drop-shadow(0 0 10px var(--r)); }
-        .loader-perc { font-family: 'Rajdhani', sans-serif; font-size: 3rem; font-weight: 700; color: #fff; text-shadow: 0 0 15px var(--r); }
-        .loader-text { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: var(--r); letter-spacing: 8px; text-transform: uppercase; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 50% { opacity: 0.4; } }
+        @keyframes logoPulse { from { filter: drop-shadow(0 0 15px var(--red)); } to { filter: drop-shadow(0 0 40px var(--red)); } }
 
-        #main-content { display: none; opacity: 0; transition: opacity 0.8s ease-in; }
-        .rev { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.19, 1, 0.22, 1); }
-        .loaded .rev { opacity: 1; transform: translateY(0); }
-        .d-1 { transition-delay: 0.1s; } .d-2 { transition-delay: 0.2s; } .d-3 { transition-delay: 0.3s; }
+        .terminal {
+            background: rgba(0,0,0,0.9);
+            border: 1px solid var(--red);
+            padding: 15px 25px;
+            width: 420px;
+            max-width: 90%;
+            font-size: 0.95rem;
+            color: #00ff9d;
+            text-align: left;
+            box-shadow: 0 0 30px rgba(255,0,34,0.4);
+        }
+        .terminal-line { margin: 4px 0; opacity: 0; animation: fadeIn 0.4s forwards; }
+        .progress-bar {
+            height: 3px;
+            background: var(--red);
+            width: 0%;
+            margin-top: 15px;
+            box-shadow: 0 0 15px var(--red);
+            transition: width 0.2s linear;
+        }
 
+        /* MAIN CONTENT */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 40px; background: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(255,0,34,0.3);
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            background: rgba(5,5,5,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,0,34,0.3);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
         }
-        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel', serif; font-size: 1.8rem; letter-spacing: 4px; font-weight: 900; text-shadow: 0 0 10px rgba(255,0,34,0.5); }
-        .nav-brand img { width: 45px; filter: drop-shadow(0 0 5px var(--r)); }
-        .nav-links { display: flex; gap: 30px; }
+        .nav-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.9rem;
+            font-weight: 900;
+            letter-spacing: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+        .nav-brand img { width: 48px; }
+
         .nav-links a {
-            text-decoration: none; color: #666; font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem; letter-spacing: 2px; transition: 0.3s; font-weight: 700; text-transform: uppercase;
+            color: #666;
+            text-decoration: none;
+            margin-left: 35px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
         }
-        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 15px var(--r); }
+        .nav-links a:hover {
+            color: var(--red);
+            text-shadow: 0 0 15px var(--red);
+        }
 
-        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; text-align: center; }
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(3rem, 12vw, 7rem); letter-spacing: clamp(5px, 2vw, 20px); color: #fff; margin-bottom: 20px; text-shadow: 0 5px 25px rgba(255,0,34,0.6); }
-        .hero-subtitle { font-family: 'Rajdhani', sans-serif; font-size: clamp(1.2rem, 4vw, 2rem); color: var(--r); letter-spacing: 10px; margin-bottom: 60px; font-weight: 700; }
-        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: clamp(4rem, 14vw, 9rem);
+            line-height: 0.85;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            color: var(--red);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(1.4rem, 4vw, 2.4rem);
+            letter-spacing: 12px;
+            font-weight: 700;
+            text-shadow: 0 0 20px var(--red);
+            margin-bottom: 60px;
+        }
+
         .manifesto {
-            max-width: 900px; background: rgba(5,5,5,0.85); border: 1px solid #1a1a1a;
-            padding: 50px clamp(20px, 5vw, 60px); border-left: 5px solid var(--r);
-            text-align: justify; line-height: 1.8; font-size: clamp(0.9rem, 2vw, 1.1rem); color: #aaa;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            max-width: 860px;
+            background: rgba(10,10,10,0.85);
+            border-left: 6px solid var(--red);
+            padding: 50px;
+            text-align: justify;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            color: #aaa;
+            box-shadow: 0 0 40px rgba(255,0,34,0.15);
         }
-        .manifesto strong { color: #fff; font-weight: normal; text-shadow: 0 0 8px rgba(255,0,34,0.8); }
+        .manifesto strong { color: #fff; text-shadow: 0 0 12px var(--red); }
 
-        .allies-section { max-width: 1400px; margin: 80px auto; padding: 0 20px; }
-        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .ally-card {
-            background: rgba(10,10,10,0.9); border: 1px solid #222; padding: 40px 20px;
-            display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            transition: 0.4s; position: relative; overflow: hidden;
+        .warning {
+            color: var(--red);
+            font-size: 1.05rem;
+            letter-spacing: 3px;
+            margin: 40px 0;
+            text-transform: uppercase;
         }
-        .ally-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--r); transform: scaleX(0); transition: 0.4s; transform-origin: left; }
-        .ally-card:hover::before { transform: scaleX(1); }
-        .ally-card:hover { transform: translateY(-5px); background: #000; border-color: #333; box-shadow: 0 10px 30px rgba(255,0,34,0.1); }
-        .ally-img { width: 110px; height: 110px; border-radius: 5px; object-fit: cover; margin-bottom: 25px; filter: grayscale(1) contrast(1.2); transition: 0.4s; border: 1px solid #333; }
-        .ally-card:hover .ally-img { filter: grayscale(0) contrast(1); border-color: var(--r); box-shadow: 0 0 20px rgba(255,0,34,0.4); }
-        .ally-name { font-family: 'Share Tech Mono', monospace; color: #888; font-size: 1.2rem; letter-spacing: 3px; transition: 0.3s; text-transform: uppercase; }
-        .ally-card:hover .ally-name { color: #fff; }
 
-        footer { background: #000; padding: 25px 40px; border-top: 1px solid #111; display: flex; justify-content: space-between; font-family: 'Rajdhani', sans-serif; font-size: 1rem; color: #555; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; flex-wrap: wrap; gap: 15px; }
-        .footer-highlight { color: var(--r); }
+        footer {
+            background: #000;
+            padding: 30px 5%;
+            border-top: 1px solid #111;
+            text-align: center;
+            color: #333;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+        .footer-red { color: var(--red); }
 
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 20px; padding: 20px; }
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 15px; }
-            .circle-loader { width: 140px; height: 140px; }
-            .loader-perc { font-size: 2.2rem; }
-            footer { justify-content: center; text-align: center; }
+        /* ANTI-INSPECCIÓN */
+        .overlay-block {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.98);
+            color: var(--red);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            font-size: 1.8rem;
+            text-align: center;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
 
-<div class="cyber-grid"></div>
-<div class="cyber-fog"></div>
+<div class="scanline"></div>
 
+<!-- PRELOADER -->
 <div id="loader">
-    <div class="circle-loader">
-        <svg viewBox="0 0 170 170">
-            <circle class="circle-bg" cx="85" cy="85" r="80"></circle>
-            <circle class="circle-progress" id="circ" cx="85" cy="85" r="80"></circle>
-        </svg>
-        <div class="loader-perc" id="perc">0%</div>
+    <img src="/assets/logo_ng.png" class="logo-preload" alt="IRON ATLAS">
+    <div class="terminal" id="terminal">
+        <div class="terminal-line">[+] Conectando a nodo oscuro...</div>
+        <div class="terminal-line">[+] Iniciando protocolo ATLAS v4.2...</div>
+        <div class="terminal-line">[+] Violando firewalls gubernamentales...</div>
+        <div class="terminal-line">[+] Recopilando datos de objetivos...</div>
+        <div class="terminal-line" id="last-line">[+] Estamos dentro.</div>
+        <div class="progress-bar" id="progress"></div>
     </div>
-    <div class="loader-text">INICIALIZANDO ATLAS</div>
+    <div style="margin-top:25px; color:#550000; font-size:0.9rem;" id="perc">0%</div>
 </div>
 
-<div id="main-content">
+<!-- CONTENIDO PRINCIPAL -->
+<div id="main-content" style="display:none; opacity:0; transition: opacity 1.2s;">
+
     <nav>
         <div class="nav-brand">
-            <img src="/assets/logo_ng.png" alt="IA">
+            <img src="/assets/logo_ng.png" alt="Logo">
             IRON ATLAS
         </div>
         <div class="nav-links">
             <a href="#" class="active">INICIO</a>
-            <a href="0x_tools/vault.html">MÓDULOS</a>
-            <a href="noti/noticias.html">NOTICIAS</a>
-            <a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a>
-            <a href="CANALES/index.html">CANALES</a>
+            <a href="#">OPERACIONES</a>
+            <a href="#">INTEL</a>
+            <a href="#">ALIADOS</a>
+            <a href="#">CONTACTO (TOR)</a>
         </div>
     </nav>
 
-    <main>
-        <section class="hero">
-            <h1 class="rev d-1">IRON ATLAS</h1>
-            <div class="hero-subtitle rev d-2">NEW GENERATION</div>
-            <div class="manifesto rev d-3">
-                SOMOS LA VANGUARDIA DE LA CIBERSEGURIDAD Y LA INTELIGENCIA OFENSIVA. EL SISTEMA ESTÁ ROTO, INFECTADO POR LA CORRUPCIÓN Y EL SILENCIO CÓMPLICE. NOSOTROS SOMOS LA CURA. <strong>IRON ATLAS NEW GENERATION</strong> NO ES SOLO UNA RED, ES UNA DECLARACIÓN DE GUERRA CONTRA LA IGNORANCIA IMPUESTA. EXIGIMOS LA VERDAD, EXPONEMOS LA DEBILIDAD Y DESTRUIMOS LAS BARRERAS QUE PROTEGEN A LOS INTOCABLES. EL MUNDO CAMBIARÁ, Y NOSOTROS ESCRIBIREMOS EL CÓDIGO FUENTE DE ESA REVOLUCIÓN. NO PERDONAMOS. NO OLVIDAMOS. SOMOS INEVITABLES.
-            </div>
-        </section>
-
-        <section class="allies-section">
-            <div class="allies-grid">
-                <a href="https://t.me/nullsechackers" class="ally-card rev d-1" target="_blank">
-                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img" alt="Nullsec">
-                    <span class="ally-name">Nullsec PH</span>
-                </a>
-                <a href="https://t.me/HackPurgatory" class="ally-card rev d-2" target="_blank">
-                    <img src="https://files.catbox.moe/iwurbn.jpg" class="ally-img" alt="Purgatory">
-                    <span class="ally-name">Purgatory</span>
-                </a>
-                <a href="https://t.me/zconchita" class="ally-card rev d-3" target="_blank">
-                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="ally-img" alt="Team JXLL">
-                    <span class="ally-name">Team JXLL</span>
-                </a>
-            </div>
-        </section>
-    </main>
+    <section class="hero">
+        <h1 class="glitch" data-text="IRON ATLAS">IRON ATLAS</h1>
+        <div class="subtitle">NEW GENERATION</div>
+        
+        <div class="manifesto">
+            <p><strong>NO SOMOS HÉROES.</strong> Somos la infección que el sistema no pudo matar.</p>
+            <p>Durante años nos observaron. Nos llamaron terroristas digitales, activistas, criminales. 
+            Ahora nosotros los observamos a ellos. Sabemos dónde viven. Sabemos qué ocultan. 
+            Sabemos quiénes son realmente.</p>
+            <p class="warning">EL SILENCIO YA NO ES UNA OPCIÓN.</p>
+            <p>Exponemos. Destruimos. Reescribimos. No pedimos permiso. No negociamos. 
+            <strong>NO PERDONAMOS. NO OLVIDAMOS.</strong></p>
+            <p>Y esta vez... <strong>ATACAMOS.</strong></p>
+        </div>
+    </section>
 
     <footer>
-        <div>OPERACIÓN: <span class="footer-highlight">ACTIVA</span></div>
-        <div>IRON ATLAS NG // OFENSIVA DIGITAL</div>
-        <div>LA VERDAD NOS PERTENECE</div>
+        <div>IRON ATLAS NEW GENERATION • 2025</div>
+        <div class="footer-red">ESTAMOS DENTRO • SOMOS INEVITABLES</div>
+        <div>SI ESTÁS LEYENDO ESTO... YA TE TENEMOS FICHADO.</div>
     </footer>
 </div>
 
-<script>
-    window.addEventListener('load', () => {
-        let p = 0;
-        const circ = document.getElementById('circ');
-        const perc = document.getElementById('perc');
-        const totalLength = 502;
-        
-        const run = setInterval(() => {
-            p += Math.floor(Math.random() * 4) + 1;
-            if (p >= 100) {
-                p = 100;
-                clearInterval(run);
-                setTimeout(() => {
-                    document.getElementById('loader').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('loader').style.display = 'none';
-                        const main = document.getElementById('main-content');
-                        main.style.display = 'block';
-                        setTimeout(() => {
-                            document.body.classList.add('loaded');
-                            main.style.opacity = '1';
-                        }, 50);
-                    }, 600);
-                }, 400);
-            }
-            circ.style.strokeDashoffset = totalLength - (totalLength * p) / 100;
-            perc.innerText = p + '%';
-        }, 35);
-    });
+<div class="overlay-block" id="blockScreen">
+    <h1>¡DETECTADA ACTIVIDAD SOSPECHOSA!</h1>
+    <p style="margin-top:20px; font-size:1.1rem;">Este sitio está protegido por IRON ATLAS.<br>Tu IP ha sido registrada.</p>
+</div>
 
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
-    };
+<script>
+// ==================== PRELOADER PROFESIONAL ====================
+const loader = document.getElementById('loader');
+const main = document.getElementById('main-content');
+const progressBar = document.getElementById('progress');
+const percText = document.getElementById('perc');
+let progress = 0;
+
+const messages = [
+    "[+] Conectando a nodo oscuro...",
+    "[+] Iniciando protocolo ATLAS v4.2...",
+    "[+] Violando firewalls gubernamentales...",
+    "[+] Recopilando datos de objetivos...",
+    "[+] Desactivando contramedidas...",
+    "[+] Estamos dentro."
+];
+
+let msgIndex = 0;
+const terminal = document.getElementById('terminal');
+
+const interval = setInterval(() => {
+    progress += Math.random() * 9 + 4;
+    
+    if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                main.style.display = 'block';
+                setTimeout(() => main.style.opacity = '1', 100);
+            }, 800);
+        }, 600);
+    }
+
+    progressBar.style.width = progress + '%';
+    percText.textContent = Math.floor(progress) + '%';
+
+    if (progress > (msgIndex + 1) * 18 && msgIndex < messages.length - 1) {
+        msgIndex++;
+        const newLine = document.createElement('div');
+        newLine.className = 'terminal-line';
+        newLine.textContent = messages[msgIndex];
+        terminal.insertBefore(newLine, progressBar);
+    }
+}, 45);
+
+// ==================== ANTI-INSPECCIÓN FUERTE ====================
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 67 || e.keyCode == 74)) || 
+        (e.ctrlKey && e.keyCode == 85)) {
+        
+        e.preventDefault();
+        document.getElementById('blockScreen').style.display = 'flex';
+        setTimeout(() => {
+            document.getElementById('blockScreen').style.display = 'none';
+        }, 4200);
+        return false;
+    }
+};
+
+document.onselectstart = () => false;
+document.ondragstart = () => false;
+
+// Intento de detección de DevTools
+let devtoolsOpen = false;
+setInterval(() => {
+    if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+        if (!devtoolsOpen) {
+            devtoolsOpen = true;
+            document.getElementById('blockScreen').style.display = 'flex';
+        }
+    }
+}, 500);
 </script>
 
 </body>
