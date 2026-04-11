@@ -4,102 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IRON ATLAS | NEW GENERATION</title>
-    <link rel="icon" type="image/png" href="/assets/logo_ng.png">
+    <link rel="icon" type="image/png" href="assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0022; --b: #020202; --p: #0a0a0a; --s: rgba(255, 0, 34, 0.4); }
+        :root { --r: #ff0022; --b: #020202; --p: #0a0a0a; --sh: rgba(255, 0, 34, 0.4); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
-        .cyber-grid {
-            position: fixed; inset: 0;
-            background-image: 
-                linear-gradient(rgba(255,0,34,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,0,34,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px);
-            animation: grid-move 10s linear infinite;
-            z-index: -2; opacity: 0.8;
-        }
-        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-350px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-350px); } }
-        
-        .cyber-fog { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 0%, var(--b) 85%); z-index: -1; pointer-events: none; }
+        .cyber-grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(255,0,34,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,34,0.08) 1px, transparent 1px); background-size: 45px 45px; transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); animation: grid-move 10s linear infinite; z-index: -2; opacity: 0.7; }
+        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(45px) translateZ(-300px); } }
+        .cyber-fog { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 0%, var(--b) 85%); z-index: -1; }
 
-        #loader {
-            position: fixed; inset: 0; background: #000; z-index: 10000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease-in-out;
-        }
-        .load-container { position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; }
+        #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out; }
+        .hex-bg-loader { position: absolute; inset: 0; font-family: 'Share Tech Mono'; font-size: 11px; color: rgba(255,0,34,0.05); overflow: hidden; pointer-events: none; line-height: 1.2; text-align: justify; word-break: break-all; z-index: 0; }
+        .load-container { position: relative; width: 200px; height: 200px; z-index: 1; display: flex; justify-content: center; align-items: center; }
         .load-svg { position: absolute; inset: 0; transform: rotate(-90deg); }
         .load-circle-bg { fill: none; stroke: #111; stroke-width: 4; }
-        .load-circle-fill { fill: none; stroke: var(--r); stroke-width: 4; stroke-dasharray: 628; stroke-dashoffset: 628; transition: stroke-dashoffset 0.1s linear; filter: drop-shadow(0 0 10px var(--r)); }
-        .load-logo-inner { width: 100px; filter: drop-shadow(0 0 20px var(--r)); animation: glitch 0.3s infinite alternate; }
-        .load-perc { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 30px; letter-spacing: 5px; text-shadow: 0 0 10px var(--r); }
+        .load-circle-fill { fill: none; stroke: var(--r); stroke-width: 4; stroke-dasharray: 628; stroke-dashoffset: 628; transition: stroke-dashoffset 0.1s linear; filter: drop-shadow(0 0 8px var(--r)); }
+        .load-logo-inner { width: 90px; filter: drop-shadow(0 0 15px var(--r)); animation: glitch 0.3s infinite alternate; }
+        .load-perc { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: #fff; margin-top: 25px; letter-spacing: 5px; text-shadow: 0 0 10px var(--r); z-index: 1; }
 
         #main-content { display: none; opacity: 0; transition: opacity 1s; }
-        .rev { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .rev { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .loaded .rev { opacity: 1; transform: translateY(0); }
-        .d-1 { transition-delay: 0.1s; } .d-2 { transition-delay: 0.3s; } .d-3 { transition-delay: 0.5s; }
 
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 60px; background: rgba(0,0,0,0.9); border-bottom: 2px solid rgba(255,0,34,0.4);
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px);
-        }
-        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel', serif; font-size: 1.6rem; letter-spacing: 5px; font-weight: 900; }
-        .nav-brand img { width: 45px; filter: drop-shadow(0 0 10px var(--r)); }
-        .nav-links { display: flex; gap: 35px; list-style: none; }
-        .nav-links a {
-            text-decoration: none; color: #777; font-size: 1rem; font-weight: 700;
-            letter-spacing: 3px; transition: 0.4s; text-transform: uppercase; position: relative;
-        }
-        .nav-links a::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 0%; height: 2px; background: var(--r); transition: 0.4s; box-shadow: 0 0 10px var(--r); }
-        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 15px var(--r); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(0,0,0,0.92); border-bottom: 2px solid rgba(255,0,34,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); transition: all 0.3s; }
+        .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; }
+        .nav-brand img { width: 35px; filter: drop-shadow(0 0 8px var(--r)); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #666; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--r); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--r); transition: 0.4s; }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 100px 20px; text-align: center; }
-        .hero-logo-float { width: clamp(200px, 28vw, 350px); margin-bottom: 40px; filter: drop-shadow(0 0 40px var(--s)); animation: float 5s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-25px) rotate(2deg); } }
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(3.5rem, 12vw, 8.5rem); letter-spacing: 15px; color: #fff; margin-bottom: 20px; text-shadow: 0 5px 35px var(--s); line-height: 0.9; }
-        .hero-sub { font-family: 'Rajdhani', sans-serif; font-size: clamp(1rem, 3vw, 1.8rem); color: var(--r); letter-spacing: 12px; font-weight: 700; margin-bottom: 60px; text-transform: uppercase; animation: flicker 3s infinite; }
-        @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } 90% { opacity: 0.9; } }
+        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 25px; text-align: center; }
+        .hero-logo-float { width: clamp(180px, 25vw, 300px); margin-bottom: 35px; filter: drop-shadow(0 0 35px var(--sh)); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(1deg); } }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.8rem, 10vw, 7rem); letter-spacing: clamp(10px, 2vw, 25px); color: #fff; margin-bottom: 20px; text-shadow: 0 5px 30px var(--sh); line-height: 1; }
+        .hero-sub { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: var(--r); letter-spacing: 12px; font-weight: 700; margin-bottom: 50px; text-transform: uppercase; }
 
-        .manifesto-container { max-width: 1100px; position: relative; z-index: 1; }
-        .manifesto-box {
-            background: rgba(10,10,10,0.85); border: 1px solid #1a1a1a; padding: clamp(30px, 6vw, 70px);
-            border-left: 8px solid var(--r); backdrop-filter: blur(10px);
-            text-align: justify; line-height: 2; font-size: clamp(0.95rem, 2vw, 1.2rem); color: #ccc;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
-        }
-        .manifesto-box b { color: #fff; text-shadow: 0 0 12px var(--r); }
+        .manifesto-box { max-width: 950px; background: rgba(8,8,8,0.85); border: 1px solid #151515; padding: clamp(25px, 5vw, 60px); border-left: 5px solid var(--r); text-align: justify; line-height: 1.8; font-size: clamp(0.95rem, 1.8vw, 1.1rem); color: #999; box-shadow: 0 25px 50px rgba(0,0,0,0.9); }
+        .manifesto-box b { color: #fff; text-shadow: 0 0 10px var(--r); }
 
-        .allies-section { max-width: 1400px; margin: 120px auto; padding: 0 25px; }
-        .allies-header { font-family: 'Share Tech Mono'; font-size: 1.2rem; color: #444; text-align: center; margin-bottom: 80px; letter-spacing: 15px; text-transform: uppercase; border-bottom: 1px solid #1a1a1a; padding-bottom: 20px; }
-        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .ally-card {
-            background: rgba(12,12,12,0.9); border: 1px solid #1a1a1a; padding: 60px 30px;
-            display: flex; flex-direction: column; align-items: center; text-decoration: none;
-            transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; overflow: hidden;
-            border-bottom: 3px solid #222;
-        }
-        .ally-card:hover { border-color: var(--r); border-bottom-color: var(--r); transform: translateY(-20px); background: #000; box-shadow: 0 25px 50px rgba(0,0,0,1), 0 0 30px rgba(255,0,34,0.1); }
-        .ally-img { width: 120px; height: 120px; border-radius: 4px; object-fit: cover; margin-bottom: 30px; border: 1px solid #222; transition: 0.5s; filter: grayscale(1) brightness(0.6); }
-        .ally-card:hover .ally-img { filter: grayscale(0) brightness(1); transform: scale(1.1); border-color: var(--r); box-shadow: 0 0 25px var(--r); }
-        .ally-name { font-family: 'Cinzel', serif; font-size: 1.3rem; color: #fff; letter-spacing: 3px; margin-bottom: 15px; transition: 0.3s; }
-        .ally-desc { font-family: 'Rajdhani', sans-serif; font-size: 0.95rem; color: #666; text-align: center; line-height: 1.6; letter-spacing: 1px; }
-        .ally-card:hover .ally-desc { color: #aaa; }
+        .allies-section { max-width: 1300px; margin: 80px auto; padding: 0 25px; }
+        .allies-title { font-family: 'Share Tech Mono'; font-size: 1rem; color: #444; text-align: center; margin-bottom: 60px; letter-spacing: 12px; text-transform: uppercase; border-bottom: 1px solid #1a1a1a; padding-bottom: 15px; }
+        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; }
+        .ally-card { background: rgba(10,10,10,0.9); border: 1px solid #151515; padding: 50px 25px; display: flex; flex-direction: column; align-items: center; text-decoration: none; transition: 0.5s; position: relative; border-bottom: 3px solid #1a1a1a; }
+        .ally-card:hover { border-color: var(--r); transform: translateY(-12px); background: #000; box-shadow: 0 15px 40px rgba(0,0,0,1); }
+        .ally-img { width: 100px; height: 100px; border-radius: 2px; object-fit: cover; margin-bottom: 25px; border: 1px solid #222; transition: 0.5s; filter: grayscale(1) brightness(0.7); }
+        .ally-card:hover .ally-img { filter: grayscale(0) brightness(1); border-color: var(--r); box-shadow: 0 0 20px var(--r); }
+        .ally-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #fff; letter-spacing: 2px; margin-bottom: 12px; }
+        .ally-desc { font-size: 0.85rem; color: #555; text-align: center; line-height: 1.6; }
 
-        footer { background: #000; padding: 40px 60px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 3px; color: #555; text-transform: uppercase; }
-        .footer-red { color: var(--r); text-shadow: 0 0 10px var(--r); }
+        footer { background: #000; padding: 35px 50px; border-top: 1px solid #151515; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 3px; color: #333; text-transform: uppercase; }
+        .f-red { color: var(--r); text-shadow: 0 0 8px var(--r); }
 
-        @keyframes glitch { 0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); } 40% { transform: translate(-2px, -2px); } 60% { transform: translate(2px, 2px); } 80% { transform: translate(2px, -2px); } 100% { transform: translate(0); } }
+        @keyframes glitch { 0% { transform: translate(0); } 20% { transform: translate(-2px, 1px); } 40% { transform: translate(-2px, -1px); } 60% { transform: translate(2px, 1px); } 80% { transform: translate(2px, -1px); } 100% { transform: translate(0); } }
 
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 25px; padding: 25px; }
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 15px; }
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            .nav-links a { font-size: 0.75rem; }
             .hero h1 { letter-spacing: 8px; }
-            footer { flex-direction: column; text-align: center; }
+            footer { flex-direction: column; text-align: center; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -109,25 +76,26 @@
 <div class="cyber-fog"></div>
 
 <div id="loader">
+    <div class="hex-bg-loader" id="hex-loader-bg"></div>
     <div class="load-container">
         <svg class="load-svg" viewBox="0 0 210 210">
             <circle class="load-circle-bg" cx="105" cy="105" r="100"></circle>
             <circle class="load-circle-fill" id="fill-circle" cx="105" cy="105" r="100"></circle>
         </svg>
-        <img src="/assets/logo_ng.png" class="load-logo-inner">
+        <img src="assets/logo_ng.png" class="load-logo-inner">
     </div>
     <div class="load-perc" id="perc-val">0%</div>
 </div>
 
 <div id="main-content">
-    <nav>
+    <nav id="navbar">
         <div class="nav-brand">
-            <img src="/assets/logo_ng.png">
+            <img src="assets/logo_ng.png">
             IRON ATLAS
         </div>
         <ul class="nav-links">
             <li><a href="#" class="active">INICIO</a></li>
-            <li><a href="0x_tools/vault.html">MÓDULOS</a></li>
+            <li><a href="0x_tools/vault.html">HERRAMIENTAS</a></li>
             <li><a href="noti/noticias.html">NOTICIAS</a></li>
             <li><a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
             <li><a href="CANALES/index.html">CANALES</a></li>
@@ -136,42 +104,40 @@
 
     <main>
         <section class="hero">
-            <img src="/assets/logo_ng.png" class="hero-logo-float rev d-1">
-            <h1 class="rev d-1">IRON ATLAS</h1>
-            <div class="hero-sub rev d-2">NEW GENERATION SECURITY COLLECTIVE // 2026</div>
-            <div class="manifesto-container">
-                <div class="manifesto-box rev d-3">
-                    <p>ESTAMOS AQUÍ PARA REVENTAR EL SILENCIO. <b>IRON ATLAS NEW GENERATION</b> ES EL ANTICUERPO NECESARIO EN UNA RED INFECTADA POR LA CORRUPCIÓN INSTITUCIONAL. OPERAMOS DESDE EL ABISMO DIGITAL PARA DESGARRAR EL VELO DE MENTIRAS QUE EL PODER USA PARA ASFIXIAR LA VERDAD. NO SOMOS SIMPLES ANALISTAS; SOMOS LA SOMBRA QUE EXPONE SUS SECRETOS MÁS PODRIDOS. NUESTRO CÓDIGO NO CONOCE LA PIEDAD, SOLO LA JUSTICIA RADICAL. SI EL SISTEMA SE PROTEGE CON EL ANONIMATO PARA OPRIMIR, NOSOTROS USAREMOS EL ANONIMATO PARA DESTRUIRLO. <b>LA VERDAD ES INEVITABLE. NOSOTROS TAMBIÉN.</b></p>
-                    <p style="text-align: center; margin-top: 40px; font-size: 1.5rem; letter-spacing: 10px; color: #fff;"><b class="footer-red">SOMOS LEGIÓN.</b></p>
-                </div>
+            <img src="assets/logo_ng.png" class="hero-logo-float rev">
+            <h1 class="rev">IRON ATLAS</h1>
+            <div class="hero-sub rev">NEW GENERATION // 2026</div>
+            <div class="manifesto-box rev">
+                <p>No somos criminales. Somos el anticuerpo de un sistema infectado por la corrupción. Operamos bajo las sombras del <b>hacktivismo</b> puro. Somos la voz de los silenciados, la mano que expone la verdad y el muro irrompible contra la opresión digital.</p>
+                <p style="margin-top: 15px;">En esta <b>Nueva Generación</b>, nacimos en la red y fuimos forjados en el abismo de la deep web. Las corporaciones nos temen porque sabemos que la información exige ser libre. Si buscas el anonimato y la verdad, estás en el lugar correcto. <b>SOMOS LEGIÓN. SOMOS ATLAS.</b></p>
             </div>
         </section>
 
         <section class="allies-section">
-            <h2 class="allies-header rev d-2">NODOS DE INTELIGENCIA ALIADA</h2>
+            <h2 class="allies-title rev">NODOS DE INTELIGENCIA ALIADA</h2>
             <div class="allies-grid">
-                <a href="https://t.me/nullsechackers" class="ally-card rev d-1" target="_blank">
+                <a href="https://t.me/nullsechackers" class="ally-card rev" target="_blank">
                     <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img">
-                    <span class="ally-name">NULLSEC PH</span>
-                    <p class="ally-desc">VANGUARDIA DE CONTRAINTELIGENCIA EN EL SUDESTE ASIÁTICO. EXPERTOS EN INFILTRACIÓN PROFUNDA Y NEUTRALIZACIÓN DE ACTIVOS CORRUPTOS.</p>
+                    <span class="ally-name">Nullsec Philippines</span>
+                    <p class="ally-desc">OPERACIONES OFENSIVAS Y AUDITORÍA DE REDES INTERNACIONALES. EL BRAZO ARMADO DIGITAL DEL SUDESTE ASIÁTICO.</p>
                 </a>
-                <a href="https://t.me/HackPurgatory" class="ally-card rev d-2" target="_blank">
+                <a href="https://t.me/HackPurgatory" class="ally-card rev" target="_blank">
                     <img src="https://files.catbox.moe/iwurbn.jpg" class="ally-img">
-                    <span class="ally-name">PURGATORY</span>
-                    <p class="ally-desc">COLECTIVO DE VIGILANCIA DIGITAL Y ANÁLISIS DE DATOS MASIVOS. JUECES Y EJECUTORES EN LAS SOMBRAS DE LA DEEP WEB.</p>
+                    <span class="ally-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
+                    <p class="ally-desc">CONTRAINTELIGENCIA Y ANÁLISIS DE DATOS MASIVOS. VIGILANTES DEL ABISMO DIGITAL Y LA PRIVACIDAD EXTREMA.</p>
                 </a>
-                <a href="https://t.me/zconchita" class="ally-card rev d-3" target="_blank">
+                <a href="https://t.me/zconchita" class="ally-card rev" target="_blank">
                     <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="ally-img">
-                    <span class="ally-name">TEAM JXLL</span>
-                    <p class="ally-desc">UNIDAD TÁCTICA DE SEGURIDAD Y DEFENSA DE SISTEMAS CRÍTICOS. EL ESCUDO INFRANQUEABLE DE LA INTEGRIDAD INFORMATIVA.</p>
+                    <span class="ally-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
+                    <p class="ally-desc">UNIDAD TÁCTICA DE SEGURIDAD Y DEFENSA DE SISTEMAS CRÍTICOS. PROTECTORES DE LA INTEGRIDAD INFORMATIVA.</p>
                 </a>
             </div>
         </section>
     </main>
 
     <footer>
-        <div>© 2026 <span class="footer-red">IRON ATLAS NEW GENERATION</span> // ALL RIGHTS RESERVED</div>
-        <div>STRENGTH IN ANONYMITY // TRUTH IN CODE</div>
+        <div>© 2026 <span class="f-red">IRON ATLAS NEW GENERATION</span></div>
+        <div>LA VERDAD NO PERTENECE A NADIE</div>
         <div>EST. 2025-2026</div>
     </footer>
 </div>
@@ -179,12 +145,19 @@
 <script>
     window.addEventListener('load', () => {
         let p = 0;
-        const fillCircle = document.getElementById('fill-circle');
-        const percVal = document.getElementById('perc-val');
-        const totalLen = 628; 
+        const fill = document.getElementById('fill-circle');
+        const perc = document.getElementById('perc-val');
+        const hexBg = document.getElementById('hex-loader-bg');
+        const total = 628;
+
+        // Generar fondo suave de códigos en el loader
+        let hexStr = "";
+        const chars = "01010101ABCDEF<>[]{}$%&#";
+        for(let i=0; i<3000; i++) hexStr += chars.charAt(Math.floor(Math.random()*chars.length));
+        hexBg.innerText = hexStr;
 
         const run = setInterval(() => {
-            p += Math.floor(Math.random() * 4) + 1;
+            p += Math.floor(Math.random() * 5) + 1;
             if (p >= 100) {
                 p = 100;
                 clearInterval(run);
@@ -199,22 +172,30 @@
                             main.style.opacity = '1';
                         }, 50);
                     }, 800);
-                }, 500);
+                }, 400);
             }
-            fillCircle.style.strokeDashoffset = totalLen - (totalLen * p) / 100;
-            percVal.innerText = p + '%';
+            fill.style.strokeDashoffset = total - (total * p) / 100;
+            perc.innerText = p + '%';
         }, 40);
     });
 
+    // Control de visibilidad del Navbar al scroll (Mobile Friendly)
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        const nav = document.getElementById('navbar');
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            nav.style.transform = 'translateY(-100%)';
+        } else {
+            nav.style.transform = 'translateY(0)';
+        }
+        lastScroll = currentScroll;
+    });
+
+    // Protecciones
     document.onkeydown = e => {
         if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
-    
-    setInterval(() => {
-        if(window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
-            document.body.innerHTML = "<div style='background:#000;color:#ff0033;height:100vh;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:1.5rem;text-align:center;padding:20px;'>INTRUSIÓN DETECTADA. SISTEMA COMPROMETIDO.</div>";
-        }
-    }, 1000);
 </script>
 
 </body>
