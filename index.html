@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | NEW GENERATION</title>
+    <title>I.A.N.G</title>
     <link rel="icon" type="image/png" href="assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -106,7 +106,7 @@
         <section class="hero">
             <img src="assets/logo_ng.png" class="hero-logo-float rev">
             <h1 class="rev">IRON ATLAS</h1>
-            <div class="hero-sub rev">NEW GENERATION // 2026</div>
+            <div class="hero-sub rev">NEW GENERATION</div>
             <div class="manifesto-box rev">
                 <p>No somos criminales. Somos el anticuerpo de un sistema infectado por la corrupción. Operamos bajo las sombras del <b>hacktivismo</b> puro. Somos la voz de los silenciados, la mano que expone la verdad y el muro irrompible contra la opresión digital.</p>
                 <p style="margin-top: 15px;">En esta <b>Nueva Generación</b>, nacimos en la red y fuimos forjados en el abismo de la deep web. Las corporaciones nos temen porque sabemos que la información exige ser libre. Si buscas el anonimato y la verdad, estás en el lugar correcto. <b>SOMOS LEGIÓN. SOMOS ATLAS.</b></p>
@@ -114,19 +114,19 @@
         </section>
 
         <section class="allies-section">
-            <h2 class="allies-title rev">NODOS DE INTELIGENCIA ALIADA</h2>
+            <h2 class="allies-title rev">A</h2>
             <div class="allies-grid">
                 <a href="https://t.me/nullsechackers" class="ally-card rev" target="_blank">
                     <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img">
                     <span class="ally-name">Nullsec Philippines</span>
                     <p class="ally-desc">OPERACIONES OFENSIVAS Y AUDITORÍA DE REDES INTERNACIONALES. EL BRAZO ARMADO DIGITAL DEL SUDESTE ASIÁTICO.</p>
                 </a>
-                <a href="https://t.me/HackPurgatory" class="ally-card rev" target="_blank">
+                <a href="https://hackpurgatory.org" class="ally-card rev" target="_blank">
                     <img src="https://files.catbox.moe/iwurbn.jpg" class="ally-img">
                     <span class="ally-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
                     <p class="ally-desc">CONTRAINTELIGENCIA Y ANÁLISIS DE DATOS MASIVOS. VIGILANTES DEL ABISMO DIGITAL Y LA PRIVACIDAD EXTREMA.</p>
                 </a>
-                <a href="https://t.me/zconchita" class="ally-card rev" target="_blank">
+                <a href="https://jxll.org/" class="ally-card rev" target="_blank">
                     <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="ally-img">
                     <span class="ally-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
                     <p class="ally-desc">UNIDAD TÁCTICA DE SEGURIDAD Y DEFENSA DE SISTEMAS CRÍTICOS. PROTECTORES DE LA INTEGRIDAD INFORMATIVA.</p>
@@ -138,7 +138,7 @@
     <footer>
         <div>© 2026 <span class="f-red">IRON ATLAS NEW GENERATION</span></div>
         <div>LA VERDAD NO PERTENECE A NADIE</div>
-        <div>EST. 2025-2026</div>
+    
     </footer>
 </div>
 
@@ -150,7 +150,7 @@
         const hexBg = document.getElementById('hex-loader-bg');
         const total = 628;
 
-        // Generar fondo suave de códigos en el loader
+      
         let hexStr = "";
         const chars = "01010101ABCDEF<>[]{}$%&#";
         for(let i=0; i<3000; i++) hexStr += chars.charAt(Math.floor(Math.random()*chars.length));
@@ -179,7 +179,7 @@
         }, 40);
     });
 
-    // Control de visibilidad del Navbar al scroll (Mobile Friendly)
+
     let lastScroll = 0;
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
@@ -192,7 +192,7 @@
         lastScroll = currentScroll;
     });
 
-    // Protecciones
+
     document.onkeydown = e => {
         if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
