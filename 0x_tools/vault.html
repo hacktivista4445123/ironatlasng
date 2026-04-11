@@ -3,107 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | DORKING AVANZADO</title>
+    <title>IRON ATLAS | BÓVEDA DE HERRAMIENTAS</title>
     <link rel="icon" type="image/png" href="../assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0022; --b: #010101; --p: #080808; --sh: rgba(255, 0, 34, 0.5); --c: #00f0ff; }
+        :root { --b: #010101; --p: #080808; --r: #ff0022; --c: #00f0ff; --g: #00ff41; --m: #bc13fe; --a: #ff8c00; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
+        /* FONDO PRO ANIMADO */
         .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; overflow: hidden; }
-        .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,0,34,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,34,0.12) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); animation: grid-move 12s linear infinite; opacity: 0.8; }
+        .cyber-grid { 
+            position: absolute; inset: 0; 
+            background-image: linear-gradient(rgba(255,0,34,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,34,0.15) 1px, transparent 1px); 
+            background-size: 50px 50px; 
+            transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); 
+            animation: grid-move 12s linear infinite; 
+            opacity: 0.8;
+        }
         @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-300px); } }
-        canvas#particles { position: absolute; inset: 0; z-index: -1; opacity: 0.4; }
+        
+        .cyber-fog { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 0%, var(--b) 85%); z-index: -1; }
+        
+        /* Partículas de datos suaves */
+        #data-particles { position: absolute; inset: 0; z-index: -1; opacity: 0.4; }
 
-     
-        #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out; }
-        .load-container { position: relative; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center; }
-        .load-svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-        .load-circle-bg { fill: none; stroke: #111; stroke-width: 4; }
-        .load-circle-fill { fill: none; stroke: var(--r); stroke-width: 4; stroke-dasharray: 628; stroke-dashoffset: 628; transition: stroke-dashoffset 0.1s linear; filter: drop-shadow(0 0 10px var(--r)); }
-        .load-logo { width: 90px; filter: drop-shadow(0 0 15px var(--r)); }
-        .load-perc { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: #fff; margin-top: 25px; letter-spacing: 5px; text-shadow: 0 0 10px var(--r); }
-
-        /* NAV */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(0,0,0,0.92); border-bottom: 2px solid rgba(255,0,34,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); transition: 0.3s; }
         .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; }
-        .nav-brand img { width: 35px; filter: drop-shadow(0 0 8px var(--r)); }
+        .nav-brand img { width: 35px; filter: drop-shadow(0 0 10px var(--r)); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #666; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; position: relative; }
+        .nav-links a { text-decoration: none; color: #666; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; }
         .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--r); }
-        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--r); transition: 0.4s; }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        #main-content { display: none; opacity: 0; transition: opacity 1s; padding-top: 40px; }
-        .rev { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-        .loaded .rev { opacity: 1; transform: translateY(0); }
+        .vault-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 1; }
+        .vault-header { text-align: center; margin-bottom: 60px; }
+        .vault-header h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 6vw, 4rem); letter-spacing: 10px; text-shadow: 0 0 25px var(--r); margin-bottom: 10px; }
+        .vault-header p { font-family: 'Share Tech Mono'; color: #555; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; }
 
-        .header-title { text-align: center; margin-bottom: 50px; }
-        .header-title h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 10px; text-shadow: 0 0 20px var(--r); }
-        .header-title p { font-family: 'Share Tech Mono'; color: #444; font-size: 0.9rem; letter-spacing: 5px; margin-top: 10px; }
-
-       
-        .search-config { max-width: 1000px; margin: 0 auto 60px; padding: 0 20px; }
-        .config-box { background: rgba(8,8,8,0.85); border: 1px solid #1a1a1a; border-left: 5px solid var(--r); padding: 40px; backdrop-filter: blur(10px); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .input-group label { display: block; font-size: 0.75rem; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
-        .input-wrapper { display: flex; background: #000; border: 1px solid #222; padding: 12px 15px; }
-        .input-wrapper:focus-within { border-color: var(--r); box-shadow: 0 0 10px rgba(255,0,34,0.1); }
-        .prefix { color: var(--r); font-family: 'Share Tech Mono'; margin-right: 10px; }
-        input { background: transparent; border: none; color: #fff; font-family: 'Share Tech Mono'; width: 100%; font-size: 1rem; }
-
-      
-        .dorks-container { max-width: 1400px; margin: 0 auto 80px; padding: 0 25px; }
-        .dorks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .dork-card { background: rgba(10,10,10,0.9); border: 1px solid #151515; padding: 30px 25px; transition: 0.4s; cursor: pointer; border-bottom: 2px solid #1a1a1a; }
-        .dork-card:hover { transform: translateY(-10px); border-color: var(--r); box-shadow: 0 15px 40px rgba(0,0,0,1); }
-        .dork-card h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #fff; margin-bottom: 10px; letter-spacing: 1px; }
-        .dork-card p { font-size: 0.85rem; color: #555; transition: 0.3s; }
-        .dork-card:hover p { color: var(--r); }
-
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         
-        .builder-section { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
-        .builder-box { background: rgba(5,5,5,0.9); border: 1px solid #151515; padding: 40px; }
-        .builder-header { font-family: 'Cinzel'; font-size: 1.2rem; color: #fff; letter-spacing: 4px; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px; text-align: center; }
-        .operator-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; justify-content: center; }
-        .chip { background: #000; border: 1px solid #333; color: var(--c); padding: 8px 15px; font-family: 'Share Tech Mono'; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
-        .chip:hover { border-color: var(--c); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
-        textarea { width: 100%; background: #000; border: 1px solid #222; color: var(--g); padding: 20px; font-family: 'Share Tech Mono'; font-size: 1rem; resize: none; margin-bottom: 20px; }
-        .btn-run { width: 100%; background: transparent; border: 1px solid var(--r); color: var(--r); padding: 15px; font-family: 'Share Tech Mono'; font-size: 1.1rem; letter-spacing: 5px; cursor: pointer; transition: 0.4s; }
-        .btn-run:hover { background: var(--r); color: #fff; box-shadow: 0 0 30px var(--r); }
+        .tool-card {
+            background: rgba(8, 8, 8, 0.85); border: 1px solid #1a1a1a; padding: 35px 25px;
+            text-decoration: none; color: inherit; display: flex; flex-direction: column;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
 
- 
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); }
-        .modal-content { background: #080808; border: 1px solid var(--r); width: 100%; max-width: 800px; padding: 40px; max-height: 85vh; overflow-y: auto; position: relative; }
-        .modal-close { position: absolute; top: 20px; right: 25px; color: var(--r); font-size: 2rem; cursor: pointer; }
-        .dork-item { background: #000; border: 1px solid #111; padding: 20px; margin-bottom: 15px; border-left: 3px solid #333; cursor: pointer; transition: 0.3s; }
-        .dork-item:hover { border-left-color: var(--r); background: #050505; transform: translateX(5px); }
-        .dork-item h4 { font-family: 'Share Tech Mono'; color: #fff; font-size: 0.95rem; margin-bottom: 8px; }
-        .dork-item p { font-size: 0.75rem; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+        /* Colores Neón Personalizados */
+        .neon-cyan:hover { border-color: var(--c); box-shadow: 0 15px 40px rgba(0, 240, 255, 0.2); transform: translateY(-10px); }
+        .neon-purple:hover { border-color: var(--m); box-shadow: 0 15px 40px rgba(188, 19, 254, 0.2); transform: translateY(-10px); }
+        .neon-green:hover { border-color: var(--g); box-shadow: 0 15px 40px rgba(0, 255, 65, 0.2); transform: translateY(-10px); }
+        .neon-amber { opacity: 0.6; cursor: not-allowed; }
 
-        footer { background: #000; padding: 40px 60px; border-top: 1px solid #151515; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 2px; color: #333; text-transform: uppercase; }
+        .tool-id { font-family: 'Share Tech Mono'; font-size: 0.75rem; color: #444; display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #151515; padding-bottom: 10px; }
+        .status-on { color: var(--g); text-shadow: 0 0 5px var(--g); animation: blink 2s infinite; }
+
+        .tool-title { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #fff; margin-bottom: 15px; letter-spacing: 2px; }
+        .neon-cyan:hover .tool-title { color: var(--c); text-shadow: 0 0 15px var(--c); }
+        .neon-purple:hover .tool-title { color: var(--m); text-shadow: 0 0 15px var(--m); }
+        .neon-green:hover .tool-title { color: var(--g); text-shadow: 0 0 15px var(--g); }
+
+        .tool-desc { font-size: 0.95rem; color: #777; line-height: 1.6; flex-grow: 1; font-weight: 500; }
+        .tool-card:hover .tool-desc { color: #ccc; }
+
+        .tool-action { margin-top: 30px; font-family: 'Share Tech Mono'; font-size: 0.8rem; font-weight: 700; letter-spacing: 3px; display: flex; align-items: center; gap: 10px; opacity: 0.6; }
+        .tool-card:hover .tool-action { opacity: 1; transform: translateX(8px); }
+
+        .rev { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+        .loaded .rev { opacity: 1; transform: translateY(0); }
+        @keyframes blink { 50% { opacity: 0.3; } }
+
+        footer { background: #000; padding: 40px 60px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.9rem; color: #444; text-transform: uppercase; letter-spacing: 2px; }
         .f-red { color: var(--r); text-shadow: 0 0 10px var(--r); }
 
-        @media (max-width: 768px) { nav { flex-direction: column; gap: 15px; padding: 15px; } .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; } footer { flex-direction: column; text-align: center; } }
+        @media (max-width: 768px) { nav { flex-direction: column; gap: 20px; padding: 20px; } .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; } .vault-container { padding: 0 15px; } footer { flex-direction: column; text-align: center; } }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
 <div class="bg-wrapper">
     <div class="cyber-grid"></div>
     <div class="cyber-fog"></div>
-    <canvas id="particles"></canvas>
-</div>
-
-<div id="loader">
-    <div class="load-container">
-        <svg class="load-svg" viewBox="0 0 210 210">
-            <circle class="load-circle-bg" cx="105" cy="105" r="100"></circle>
-            <circle class="load-circle-fill" id="fill-circle" cx="105" cy="105" r="100"></circle>
-        </svg>
-        <img src="../assets/logo_ng.png" class="load-logo">
-    </div>
-    <div class="load-perc" id="perc-val">0%</div>
+    <canvas id="data-particles"></canvas>
 </div>
 
 <div id="main-content">
@@ -111,205 +92,117 @@
         <div class="nav-brand"><img src="../assets/logo_ng.png">IRON ATLAS</div>
         <ul class="nav-links">
             <li><a href="../index.html">INICIO</a></li>
-            <li><a href="vault.html">MÓDULOS</a></li>
+            <li><a href="#" class="active">HERRAMIENTAS</a></li>
             <li><a href="../noti/noticias.html">NOTICIAS</a></li>
             <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
             <li><a href="../CANALES/index.html">CANALES</a></li>
         </ul>
     </nav>
 
-    <main>
-        <header class="header-title rev">
-            <h1>DORKING_AVANZADO</h1>
-            <p>RECONOCIMIENTO PASIVO DE ALTO NIVEL</p>
-        </header>
+    <main class="vault-container">
+        <div class="vault-header rev">
+            <h1>BÓVEDA DE ACCESO</h1>
+            <p>SISTEMAS DE RECONOCIMIENTO Y OFENSIVA DIGITAL</p>
+        </div>
 
-        <section class="search-config rev">
-            <div class="config-box">
-                <div class="input-group">
-                    <label>DOMINIO OBJETIVO</label>
-                    <div class="input-wrapper">
-                        <span class="prefix">site:</span>
-                        <input type="text" id="target" placeholder="ejemplo.com">
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>PALABRA CLAVE / KEYWORD</label>
-                    <div class="input-wrapper">
-                        <span class="prefix">" "</span>
-                        <input type="text" id="keyword" placeholder="admin / db / backup">
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="tools-grid">
+            
+            <a href="dorking.html" class="tool-card rev neon-cyan" style="transition-delay: 0.1s;">
+                <div class="tool-id"><span>MÓDULO 01</span><span class="status-on">ACTIVO</span></div>
+                <div class="tool-title">DORKING AVANZADO</div>
+                <div class="tool-desc">Generación de consultas complejas para reconocimiento pasivo. Localización de directorios expuestos y fugas de datos críticos.</div>
+                <div class="tool-action" style="color:var(--c);">[ USAR ]</div>
+            </a>
 
-        <section class="dorks-container rev">
-            <div class="dorks-grid" id="main-grid">
-                </div>
-        </section>
+            <a href="emoji.html" class="tool-card rev neon-purple" style="transition-delay: 0.2s;">
+                <div class="tool-id"><span>MÓDULO 02</span><span class="status-on">ACTIVO</span></div>
+                <div class="tool-title">CRIPTOGRAFÍA EMOJI</div>
+                <div class="tool-desc">Ofuscación de mensajes mediante algoritmos Unicode. Sistema de cifrado y desencriptación para comunicaciones tácticas.</div>
+                <div class="tool-action" style="color:var(--m);">[ USAR ]</div>
+            </a>
 
-        <section class="builder-section rev">
-            <div class="builder-box">
-                <div class="builder-header">CONSTRUCTOR AVANZADO</div>
-                <div class="operator-chips">
-                    <button class="chip" onclick="addOp('site:')">site:</button>
-                    <button class="chip" onclick="addOp('filetype:')">filetype:</button>
-                    <button class="chip" onclick="addOp('inurl:')">inurl:</button>
-                    <button class="chip" onclick="addOp('intitle:')">intitle:</button>
-                    <button class="chip" onclick="addOp('intext:')">intext:</button>
-                    <button class="chip" onclick="addOp('ext:')">ext:</button>
-                    <button class="chip" onclick="addOp('cache:')">cache:</button>
-                    <button class="chip" onclick="addOp('related:')">related:</button>
-                </div>
-                <textarea id="custom-query" rows="4" placeholder="Ejemplo: site:ejemplo.com filetype:pdf intitle:confidencial"></textarea>
-                <button class="btn-run" onclick="runCustom()">EJECUTAR CONSULTA</button>
-            </div>
-        </section>
+            <a href="mtdata.html" class="tool-card rev neon-green" style="transition-delay: 0.3s;">
+                <div class="tool-id"><span>MÓDULO 03</span><span class="status-on">ACTIVO</span></div>
+                <div class="tool-title">CAZADOR DE METADATOS</div>
+                <div class="tool-desc">Análisis forense de archivos multimedia. Extracción profunda de EXIF, coordenadas GPS y firmas digitales ocultas.</div>
+                <div class="tool-action" style="color:var(--g);">[ USAR ]</div>
+            </a>
+
+            <a href="#" class="tool-card rev neon-amber" style="transition-delay: 0.4s;">
+                <div class="tool-id"><span>MÓDULO 04</span><span style="color:var(--a);">RESTRINGIDO</span></div>
+                <div class="tool-title">RECON_OSINT</div>
+                <div class="tool-desc">Sistema de recolección de registros internacionales y sweeps geográficos masivos. Módulo en desarrollo.</div>
+                <div class="tool-action" style="color:#555;">[ MUY PRONTO ]</div>
+            </a>
+
+        </div>
     </main>
 
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3 id="modal-title" style="font-family:'Cinzel'; color:var(--r); margin-bottom:30px; letter-spacing:3px;"></h3>
-            <div id="modal-list"></div>
-        </div>
-    </div>
-
     <footer>
-        <div>© 2026 <span class="f-red">IRON ATLAS NEW GENERATION</span></div>
-        <div>DORKING SEARCH </div>
+        <div>© 2026 <span class="f-red">IRON ATLAS NEW GENERATION</span> // DERECHOS RESERVADOS</div>
+        <div>HACKTIVISTAS DE SANGRE </div>
     </footer>
 </div>
 
 <script>
-    const categories = [
-        { id: "surface", t: "Mapeo de Superficie", d: "Mapeo de subdominios y activos.", icons: "🔍" },
-        { id: "docs", t: "Documentos Expuestos", d: "Archivos PDF, DOCX, XLSX críticos.", icons: "📄" },
-        { id: "cloud", t: "Fugas en Nube", d: "Buckets de AWS, Azure y Google Storage.", icons: "☁️" },
-        { id: "source", t: "Código Fuente", d: "Exposición de repositorios y .git.", icons: "💻" },
-        { id: "secrets", t: "Secretos y Tokens", d: "API Keys, contraseñas y env files.", icons: "🔑" },
-        { id: "config", t: "Config. de Servidores", d: "Archivos .conf, .htaccess, phpinfo.", icons: "⚙️" },
-        { id: "logs", t: "Logs y Debug", d: "Archivos de registro y errores expuestos.", icons: "📜" },
-        { id: "db", t: "Bases de Datos", d: "Dumps SQL, backups y archivos mongo.", icons: "🗄️" },
-        { id: "admin", t: "Paneles de Admin", d: "Interfaces de gestión y logins.", icons: "🛡️" },
-        { id: "api", t: "Recón de APIs", d: "Endpoints, documentaciones Swagger.", icons: "🔌" },
-        { id: "auth", t: "Flujos de Auth", d: "Páginas de reset de password y MFA.", icons: "🔐" },
-        { id: "iot", t: "Exposición IoT", d: "Cámaras, impresoras y routers.", icons: "🌐" }
-    ];
-
-    const dorks = {
-        surface: [
-            { t: "Subdominios", q: "site:*.TARGET" },
-            { t: "Portales de Empleados", q: "site:TARGET intitle:\"portal\" | intitle:\"empleado\"" }
-        ],
-        docs: [
-            { t: "PDFs Confidenciales", q: "site:TARGET filetype:pdf \"confidencial\"" },
-            { t: "Excel con Datos", q: "site:TARGET filetype:xlsx \"usuarios\" | \"password\"" }
-        ],
-        cloud: [
-            { t: "AWS Buckets", q: "site:s3.amazonaws.com \"TARGET\"" },
-            { t: "Google Storage", q: "site:storage.googleapis.com \"TARGET\"" }
-        ],
-        secrets: [
-            { t: "Archivos ENV", q: "site:TARGET ext:env | ext:yml" },
-            { t: "API Keys en Github", q: "site:github.com \"TARGET\" \"api_key\"" }
-        ],
-        admin: [
-            { t: "WordPress Login", q: "site:TARGET inurl:wp-login.php" },
-            { t: "PHPMyAdmin", q: "site:TARGET inurl:phpmyadmin" }
-        ],
-        db: [
-            { t: "Dumps SQL", q: "site:TARGET filetype:sql" },
-            { t: "Backups de DB", q: "site:TARGET inurl:backup filetype:zip | filetype:tar" }
-        ]
-    };
-
-    window.addEventListener('load', () => {
-        let p = 0;
-        const fill = document.getElementById('fill-circle');
-        const perc = document.getElementById('perc-val');
-        const run = setInterval(() => {
-            p += Math.floor(Math.random() * 5) + 1;
-            if (p >= 100) {
-                p = 100; clearInterval(run);
-                setTimeout(() => {
-                    document.getElementById('loader').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('loader').style.display = 'none';
-                        const m = document.getElementById('main-content');
-                        m.style.display = 'block';
-                        setTimeout(() => { document.body.classList.add('loaded'); m.style.opacity = '1'; }, 50);
-                    }, 800);
-                }, 400);
-            }
-            fill.style.strokeDashoffset = 628 - (628 * p) / 100;
-            perc.innerText = p + '%';
-        }, 40);
-        renderGrid();
+    document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => { document.body.classList.add('loaded'); }, 100);
         initParticles();
     });
 
-    function renderGrid() {
-        const grid = document.getElementById('main-grid');
-        categories.forEach(c => {
-            const card = document.createElement('div');
-            card.className = "dork-card rev";
-            card.innerHTML = `<h3>${c.icons} ${c.t}</h3><p>${c.d}</p>`;
-            card.onclick = () => openModal(c.id, c.t);
-            grid.appendChild(card);
-        });
-    }
-
-    function openModal(id, title) {
-        const modal = document.getElementById('modal');
-        const list = document.getElementById('modal-list');
-        document.getElementById('modal-title').innerText = title;
-        list.innerHTML = "";
-        
-        const items = dorks[id] || [{t: "En desarrollo", q: ""}];
-        items.forEach(i => {
-            const div = document.createElement('div');
-            div.className = "dork-item";
-            div.innerHTML = `<h4>${i.t}</h4><p>${i.q}</p>`;
-            div.onclick = () => execute(i.q);
-            list.appendChild(div);
-        });
-        modal.style.display = "flex";
-    }
-
-    function closeModal() { document.getElementById('modal').style.display = "none"; }
-
-    function execute(q) {
-        const target = document.getElementById('target').value || "";
-        const keyword = document.getElementById('keyword').value || "";
-        let final = q.replace("TARGET", target);
-        if(keyword) final += ` "${keyword}"`;
-        window.open(`https://www.google.com/search?q=${encodeURIComponent(final.trim())}`, '_blank');
-    }
-
-    function addOp(op) { document.getElementById('custom-query').value += op; }
-    function runCustom() {
-        const q = document.getElementById('custom-query').value;
-        if(q) window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank');
-    }
-
+   
     function initParticles() {
-        const canvas = document.getElementById('particles');
+        const canvas = document.getElementById('data-particles');
         const ctx = canvas.getContext('2d');
-        let parts = [];
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
         window.addEventListener('resize', resize);
         resize();
-        class P {
-            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*0.5+0.1; }
-            draw() { this.y -= this.s; if(this.y < 0) this.y = canvas.height; ctx.fillStyle = "rgba(255,0,34,0.3)"; ctx.fillRect(this.x, this.y, 1, 1); }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.speed = Math.random() * 0.5 + 0.2;
+                this.size = Math.random() * 2;
+                this.char = Math.random() > 0.5 ? "1" : "0";
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = "rgba(255, 0, 34, 0.3)";
+                ctx.font = this.size + "px monospace";
+                ctx.fillText(this.char, this.x, this.y);
+            }
         }
-        for(let i=0; i<100; i++) parts.push(new P());
-        function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); parts.forEach(p => p.draw()); requestAnimationFrame(anim); }
-        anim();
+
+        for (let i = 0; i < 150; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
     }
 
-    document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = e => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    };
 </script>
+
 </body>
 </html>
