@@ -1,537 +1,184 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <title>IRON ATLAS NEW GENERATION</title>
-
+    <title>IRON ATLAS | HUB CENTRAL</title>
     <link rel="icon" type="image/png" href="assets/logo_ng.png">
-
-    
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-
-        :root { --r: #ff0033; --b: #020202; --p: #080808; --a: rgba(255, 0, 51, 0.15); }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body { background: var(--b); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; }
-
-
-
-        /* EFECTO GRID 3D Y NIEBLA */
+        :root { --r: #ff0033; --b: #010101; --p: #080808; --g: rgba(255, 0, 51, 0.2); }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
         .cyber-grid {
-
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-
+            position: fixed; inset: 0;
             background-image: 
-
-                radial-gradient(circle at 2px 2px, var(--r) 1px, transparent 0),
-
-                linear-gradient(rgba(255, 0, 51, 0.1) 1px, transparent 1px),
-
-                linear-gradient(90deg, rgba(255, 0, 51, 0.1) 1px, transparent 1px);
-
-            background-size: 40px 40px, 40px 40px, 40px 40px;
-
-            background-position: center center;
-
-            transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px);
-
-            animation: grid-move 8s linear infinite;
-
-            z-index: -2; 
-
-            opacity: 0.6;
-
-            filter: drop-shadow(0 0 2px var(--r));
-
+                linear-gradient(var(--g) 1px, transparent 1px),
+                linear-gradient(90deg, var(--g) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-350px);
+            animation: grid-move 10s linear infinite;
+            z-index: -2; opacity: 0.5;
         }
-
-        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(40px) translateZ(-300px); } }
-
-
-
-        .cyber-fog {
-
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-
-            background: radial-gradient(circle at 50% 50%, transparent 20%, var(--b) 90%);
-
-            pointer-events: none; z-index: -1;
-
-        }
-
-
-
-        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px); pointer-events: none; z-index: 9999; }
-
-
-
-        /* LOADER PROFESIONAL */
+        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-350px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-350px); } }
+        .cyber-fog { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 0%, var(--b) 90%); z-index: -1; pointer-events: none; }
+        body::after { content: ""; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 1px, transparent 1px, transparent 2px); pointer-events: none; z-index: 999; }
 
         #loader {
-
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-
-            background: #000; z-index: 10000; display: flex; flex-direction: column;
-
-            justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out;
-
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease-in-out;
         }
+        .load-logo { width: 130px; margin-bottom: 40px; filter: drop-shadow(0 0 25px var(--r)); animation: pulse 2s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+        .load-wrap { width: 300px; position: relative; }
+        .load-bar { width: 100%; height: 2px; background: #111; position: relative; overflow: hidden; }
+        .load-fill { position: absolute; left: 0; height: 100%; width: 0%; background: var(--r); box-shadow: 0 0 15px var(--r); transition: width 0.1s linear; }
+        .load-perc { font-family: 'Share Tech Mono'; color: var(--r); font-size: 1.2rem; text-align: center; margin-top: 15px; letter-spacing: 5px; }
 
-        .hex-background {
-
-            position: absolute; width: 100%; height: 100%;
-
-            font-family: 'Share Tech Mono'; font-size: 14px; color: rgba(255, 0, 51, 0.08);
-
-            overflow: hidden; pointer-events: none; line-height: 1.1; word-break: break-all;
-
-            display: flex; align-items: center; justify-content: center; text-align: justify;
-
-            z-index: 0;
-
-        }
-
-        .load-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
-
-        .load-logo { width: clamp(120px, 18vw, 180px); margin-bottom: 30px; filter: drop-shadow(0 0 25px var(--r)); animation: glitch-logo 0.3s infinite; }
-
-        @keyframes glitch-logo { 0% { transform: translate(0) } 20% { transform: translate(-2px, 1px) } 40% { transform: translate(2px, -1px) } 60% { transform: translate(-1px, -1px) } 80% { transform: translate(1px, 2px) } 100% { transform: translate(0) } }
-
-        .load-track { width: 350px; height: 2px; background: #111; position: relative; overflow: hidden; margin-bottom: 15px; }
-
-        .load-fill { position: absolute; width: 0%; height: 100%; background: var(--r); box-shadow: 0 0 20px var(--r); transition: width 0.1s; }
-
-        .load-st { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; display: flex; justify-content: space-between; width: 350px; }
-
-        #logs { font-family: 'Share Tech Mono'; font-size: 0.65rem; color: #666; margin-top: 15px; height: 15px; text-transform: uppercase; width: 350px; text-align: left; }
-
-
-
-        /* CONTENIDO PRINCIPAL */
-
-        #main-content { display: none; }
-
-        
-
-        .rev { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
-
+        #main-content { display: none; opacity: 0; transition: opacity 1s; }
+        .rev { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.19, 1, 0.22, 1); }
         .loaded .rev { opacity: 1; transform: translateY(0); }
-
         .d-1 { transition-delay: 0.1s; } .d-2 { transition-delay: 0.3s; } .d-3 { transition-delay: 0.5s; }
 
-        .d-4 { transition-delay: 0.7s; } .d-5 { transition-delay: 0.8s; } .d-6 { transition-delay: 0.9s; }
-
-
-
-        /* NAVEGACIÓN PROFESIONAL */
-
-        nav { 
-
-            display: flex; justify-content: space-between; align-items: center; 
-
-            padding: 15px 40px; background: rgba(0,0,0,0.85); border-bottom: 1px solid rgba(255,0,51,0.3);
-
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 60px; background: rgba(0,0,0,0.9); border-bottom: 1px solid rgba(255,0,51,0.3);
             position: sticky; top: 0; z-index: 100; backdrop-filter: blur(15px);
-
-            box-shadow: 0 4px 30px rgba(255,0,51,0.1);
-
         }
-
-        .nav-brand {
-
-            display: flex; align-items: center; gap: 15px;
-
-            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; color: #fff;
-
-            letter-spacing: 3px; text-shadow: 0 0 10px rgba(255,0,51,0.5);
-
+        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 4px; font-weight: 900; }
+        .nav-brand img { width: 40px; filter: drop-shadow(0 0 10px var(--r)); }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: #777; font-size: 0.95rem; font-weight: 700;
+            letter-spacing: 3px; transition: 0.4s; text-transform: uppercase; position: relative;
         }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--r); transition: 0.4s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 15px var(--r); }
+        .nav-links a:hover::after { width: 100%; }
 
-        .nav-brand img { width: 35px; filter: drop-shadow(0 0 5px var(--r)); }
-
-        
-
-        .nav-links { display: flex; gap: clamp(15px, 3vw, 40px); }
-
-        .nav-links a { 
-
-            text-decoration: none; color: #777; font-family: 'Share Tech Mono'; 
-
-            font-size: clamp(0.7rem, 1.5vw, 0.9rem); letter-spacing: 3px; transition: 0.4s; font-weight: bold;
-
+        .hero {
+            min-height: 85vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; padding: 80px 20px; text-align: center;
         }
+        .hero img { width: clamp(180px, 25vw, 260px); margin-bottom: 30px; filter: drop-shadow(0 0 50px rgba(255,0,51,0.5)); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(3rem, 10vw, 6.5rem); letter-spacing: 20px; color: #fff; margin-bottom: 25px; text-shadow: 0 5px 30px rgba(255,0,51,0.4); }
+        .hero .manifesto { max-width: 900px; color: #aaa; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 2; font-weight: 400; text-align: justify; padding: 40px; background: rgba(5,5,5,0.7); border-left: 4px solid var(--r); backdrop-filter: blur(10px); }
+        .manifesto b { color: var(--r); text-shadow: 0 0 10px rgba(255,0,51,0.5); }
 
-        .nav-links a:hover, .nav-links a.active { color: var(--r); text-shadow: 0 0 15px var(--r); }
-
-
-
-        /* HERO & MANIFIESTO */
-
-        .hero { 
-
-            min-height: 85vh; display: flex; flex-direction: column; justify-content: center; 
-
-            align-items: center; text-align: center; padding: 60px 25px;
-
-            background: radial-gradient(circle, var(--a) 0%, transparent 75%);
-
-        }
-
-        .hero img { width: clamp(160px, 22vw, 240px); margin-bottom: 25px; filter: drop-shadow(0 0 50px rgba(255,0,51,0.5)); animation: float 6s ease-in-out infinite; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 5.5rem); letter-spacing: 15px; margin-bottom: 30px; text-shadow: 0px 5px 20px rgba(255,0,51,0.4); }
-
-        
-
-        .hero .manifesto { max-width: 900px; color: #ccc; font-size: clamp(0.95rem, 2vw, 1.15rem); line-height: 2.2; font-weight: 300; text-align: justify; }
-
-        .manifesto p { margin-bottom: 20px; }
-
-        .manifesto b { color: var(--r); font-weight: 700; text-shadow: 0 0 10px rgba(255,0,51,0.6); }
-
-
-
-        /* ALIADOS */
-
-        .allies-container { max-width: 1200px; margin: 40px auto 100px; padding: 0 25px; }
-
-        .allies-title { font-family: 'Share Tech Mono'; font-size: 1.2rem; color: #777; text-align: center; margin-bottom: 50px; letter-spacing: 12px; border-bottom: 1px solid rgba(255,0,51,0.3); padding-bottom: 20px; text-shadow: 0 0 10px rgba(255,0,51,0.2); }
-
+        .allies-container { max-width: 1200px; margin: 80px auto; padding: 0 25px; }
         .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-
-        
-
         .ally-card {
-
-            background: rgba(10,10,10,0.85); border: 1px solid #1a1a1a; padding: 45px 20px;
-
+            background: rgba(10,10,10,0.85); border: 1px solid #1a1a1a; padding: 45px 25px;
             display: flex; flex-direction: column; align-items: center; text-decoration: none;
-
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; overflow: hidden;
-
-            backdrop-filter: blur(10px);
-
+            transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; overflow: hidden;
         }
-
-        .ally-card::before {
-
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-
-            background: linear-gradient(90deg, transparent, rgba(255,0,51,0.15), transparent);
-
-            transform: skewX(-20deg); transition: 0.7s;
-
-        }
-
-        .ally-card:hover::before { left: 150%; }
-
-        .ally-card:hover { border-color: var(--r); transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 30px rgba(255,0,51,0.15); }
-
-        
-
-        .ally-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 2px solid #222; transition: 0.5s; filter: grayscale(1); }
-
-        .ally-card:hover .ally-img { filter: grayscale(0); border-color: var(--r); transform: scale(1.1); box-shadow: 0 0 30px rgba(255,0,51,0.5); }
-
-        .ally-name { font-family: 'Share Tech Mono'; font-size: 1rem; font-weight: 800; letter-spacing: 3px; color: #888; transition: 0.3s; text-transform: uppercase; }
-
+        .ally-card:hover { border-color: var(--r); transform: translateY(-10px); background: #000; box-shadow: 0 20px 50px rgba(0,0,0,0.9); }
+        .ally-img { width: 100px; height: 100px; border-radius: 5px; object-fit: cover; margin-bottom: 20px; border: 1px solid #222; transition: 0.5s; filter: grayscale(1); }
+        .ally-card:hover .ally-img { filter: grayscale(0); border-color: var(--r); transform: scale(1.05); }
+        .ally-name { font-family: 'Share Tech Mono'; font-size: 1.1rem; letter-spacing: 3px; color: #666; transition: 0.3s; text-transform: uppercase; font-weight: 800; }
         .ally-card:hover .ally-name { color: #fff; text-shadow: 0 0 10px var(--r); }
 
-
-
-        @media (max-width: 768px) { 
-
-            nav { flex-direction: column; gap: 20px; padding: 20px; } 
-
-            .nav-brand { font-size: 1rem; }
-
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-
-            .hero { padding: 80px 20px; } 
-
-            .manifesto { text-align: left; }
-
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 20px; padding: 25px; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 15px; }
+            .hero h1 { letter-spacing: 10px; }
         }
-
     </style>
-
 </head>
-
-<body>
-
-
+<body oncontextmenu="return false;">
 
 <div class="cyber-grid"></div>
-
 <div class="cyber-fog"></div>
 
-
-
 <div id="loader">
-
-    <div class="hex-background" id="hex-bg"></div>
-
-    <div class="load-content">
-
-        <img src="assets/logo_ng.png" class="load-logo" alt="Cargando...">
-
-        <div class="load-track"><div class="load-fill" id="bar"></div></div>
-
-        <div class="load-st">
-
-            <span id="status">INICIALIZANDO SISTEMA...</span>
-
-            <span id="percent">0%</span>
-
-        </div>
-
-        <div id="logs">> ESPERANDO CONEXIÓN...</div>
-
+    <img src="assets/logo_ng.png" class="load-logo">
+    <div class="load-wrap">
+        <div class="load-bar"><div class="load-fill" id="fill"></div></div>
+        <div class="load-perc" id="perc">0%</div>
     </div>
-
 </div>
-
-
 
 <div id="main-content">
-
     <nav>
-
         <div class="nav-brand">
-
-            <img src="assets/logo_ng.png" alt="Logo">
-
+            <img src="assets/logo_ng.png">
             IRON ATLAS
-
         </div>
-
-        <div class="nav-links">
-
-            <a href="#" class="active">INICIO</a>
-
-            <a href="0x_tools/vault.html">HERRAMIENTAS</a>
-
-            <a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a>
-
-            <a href="CANALES/index.html">CANALES</a>
-
-        </div>
-
+        <ul class="nav-links">
+            <li><a href="#" class="active">INICIO</a></li>
+            <li><a href="0x_tools/vault.html">HERRAMIENTAS</a></li>
+            <li><a href="noti/noticias.html">NOTICIAS</a></li>
+            <li><a href="0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
+            <li><a href="CANALES/index.html">CANALES</a></li>
+        </ul>
     </nav>
 
-
-
     <main>
-
         <section class="hero">
-
-            <img src="assets/logo_ng.png" alt="IRON ATLAS LOGO" class="rev d-1">
-
+            <img src="assets/logo_ng.png" class="rev d-1">
             <h1 class="rev d-2">IRON ATLAS</h1>
-
             <div class="manifesto rev d-3">
-
                 <p>No somos criminales. Somos el anticuerpo de un sistema infectado por la corrupción. Operamos bajo las sombras del <b>hacktivismo</b> puro. Somos la voz de los silenciados, la mano que expone la verdad y el muro irrompible contra la opresión digital.</p>
-
-                <p>En esta <b>Nueva Generación</b>, nacimos en la red y fuimos forjados en el abismo de la deep web. Las corporaciones nos temen porque sabemos que la información exige ser libre. Si buscas el anonimato y la verdad, estás en el lugar correcto. Si buscas la traición y el control, nosotros seremos tu colapso.</p>
-
-                <p style="text-align: center; margin-top: 30px; font-size: 1.3rem;"><b>SOMOS LEGIÓN. SOMOS ATLAS.</b></p>
-
+                <p style="margin-top: 20px;">En esta <b>Nueva Generación</b>, nacimos en la red y fuimos forjados en el abismo de la deep web. Las corporaciones nos temen porque sabemos que la información exige ser libre. Si buscas el anonimato y la verdad, estás en el lugar correcto.</p>
+                <p style="text-align: center; margin-top: 40px; font-size: 1.5rem; letter-spacing: 5px;"><b>SOMOS LEGIÓN. SOMOS ATLAS.</b></p>
             </div>
-
         </section>
 
-
-
         <div class="allies-container">
-
-            <h2 class="allies-title rev d-4">NODOS DE INTELIGENCIA ALIADA</h2>
-
             <div class="allies-grid">
-
-                <a href="https://t.me/nullsechackers" class="ally-card rev d-4" target="_blank">
-
+                <a href="https://t.me/nullsechackers" class="ally-card rev d-1" target="_blank">
                     <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img">
-
-                    <span class="ally-name">Nullsec Philippines</span>
-
+                    <span class="ally-name">Nullsec PH</span>
                 </a>
-
-                <a href="https://t.me/HackPurgatory" class="ally-card rev d-5" target="_blank">
-
+                <a href="https://t.me/HackPurgatory" class="ally-card rev d-2" target="_blank">
                     <img src="https://files.catbox.moe/iwurbn.jpg" class="ally-img">
-
-                    <span class="ally-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</span>
-
+                    <span class="ally-name">Purgatory</span>
                 </a>
-
-                <a href="https://t.me/zconchita" class="ally-card rev d-6" target="_blank">
-
+                <a href="https://t.me/zconchita" class="ally-card rev d-3" target="_blank">
                     <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="ally-img">
-
-                    <span class="ally-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</span>
-
+                    <span class="ally-name">Team JXLL</span>
                 </a>
-
             </div>
-
         </div>
-
     </main>
-
 </div>
 
-
-
 <script>
-
     window.addEventListener('load', () => {
-
         let p = 0;
-
-        const b = document.getElementById('bar');
-
-        const s = document.getElementById('status');
-
-        const pc = document.getElementById('percent');
-
-        const logs = document.getElementById('logs');
-
-        const hexBg = document.getElementById('hex-bg');
-
+        const fill = document.getElementById('fill');
+        const perc = document.getElementById('perc');
         
-
-        // Generar fondo matriz hex
-
-        const hexChars = "0123456789ABCDEF";
-
-        let hexString = "";
-
-        for(let i = 0; i < 2500; i++) hexString += hexChars.charAt(Math.floor(Math.random() * hexChars.length));
-
-        hexBg.innerText = hexString;
-
-
-
-        const logMessages = [
-
-            "BYPASSING_FIREWALL_V4...",
-
-            "DECRYPTING_ATLAS_CORE...",
-
-            "ESTABLISHING_SECURE_TUNNEL...",
-
-            "INJECTING_PAYLOAD_0x88...",
-
-            "MASKING_IP_ADDRESS...",
-
-            "CONNECTING_TO_DARK_NODES..."
-
-        ];
-
-
-
         const run = setInterval(() => {
-
-            p += Math.floor(Math.random() * 4) + 1;
-
-            
-
+            p += Math.floor(Math.random() * 5) + 1;
             if (p >= 100) {
-
                 p = 100;
-
                 clearInterval(run);
-
-                s.innerText = "ACCESO CONCEDIDO";
-
-                pc.innerText = "100%";
-
-                logs.innerText = "> HANDSHAKE_SUCCESSFUL. WELCOME AGENT.";
-
-                
-
                 setTimeout(() => {
-
                     document.getElementById('loader').style.opacity = '0';
-
                     setTimeout(() => {
-
                         document.getElementById('loader').style.display = 'none';
-
-                        document.getElementById('main-content').style.display = 'block';
-
-                        setTimeout(() => { document.body.classList.add('loaded'); }, 50);
-
+                        const main = document.getElementById('main-content');
+                        main.style.display = 'block';
+                        setTimeout(() => {
+                            document.body.classList.add('loaded');
+                            main.style.opacity = '1';
+                        }, 50);
                     }, 800);
-
-                }, 600);
-
+                }, 400);
             }
-
-
-
-            b.style.width = p + '%';
-
-            pc.innerText = p + '%';
-
-            
-
-            if(p % 12 === 0 && p < 100) {
-
-                logs.innerText = "> " + logMessages[Math.floor(Math.random() * logMessages.length)];
-
-            }
-
-            
-
-            if(p > 25 && p < 65) s.innerText = "DESENCRIPTANDO MÓDULOS...";
-
-            if(p >= 65 && p < 99) s.innerText = "ESTABLECIENDO ENLACE SEGURO...";
-
-        }, 50);
-
+            fill.style.width = p + '%';
+            perc.innerText = p + '%';
+        }, 40);
     });
 
-
-
-    console.log("%cIRON ATLAS NEW GENERATION", "color: #ff0033; font-size: 30px; font-weight: bold; text-shadow: 2px 2px 0 #000;");
-
-    console.log("%cLa verdad no puede ser ocultada. https://t.me/ironatlas_organization", "color: #fff; font-size: 14px;");
-
-
-
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
     document.onkeydown = e => {
-
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-
-            e.preventDefault();
-
-            return false;
-
-        }
-
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
-
 </script>
 
-
-
 </body>
-
 </html>
