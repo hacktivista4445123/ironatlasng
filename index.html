@@ -3,215 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | MÓDULOS TÁCTICOS</title>
-    <link rel="icon" type="image/png" href="../assets/logo_ng.png">
+    <title>IRON ATLAS | VERIFICACIÓN REQUERIDA</title>
+    <link rel="icon" type="image/png" href="assets/logo_ng.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0033; --b: #020202; --p: #080808; --a: rgba(255, 0, 51, 0.15); --cyan: #00f0ff; }
+        :root { --r: #ff0033; --b: #020202; --p: #080808; --a: rgba(255, 0, 51, 0.15); --txt: #e0e0e0; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--b); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; min-height: 100vh; display: flex; flex-direction: column; }
+        body { background: var(--b); color: var(--txt); font-family: 'Inter', sans-serif; overflow-x: hidden; user-select: none; }
 
-     
+        /* FONDO ANIMADO 3D */
         .cyber-grid {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                radial-gradient(circle at 2px 2px, var(--r) 1px, transparent 0),
-                linear-gradient(rgba(255, 0, 51, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 0, 51, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px, 40px 40px, 40px 40px;
-            background-position: center center;
-            transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px);
-            animation: grid-move 8s linear infinite;
-            z-index: -2; 
-            opacity: 0.6;
-            filter: drop-shadow(0 0 2px var(--r));
+            background-image: radial-gradient(circle at 2px 2px, var(--r) 1px, transparent 0),
+                linear-gradient(rgba(255, 0, 51, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 51, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-400px);
+            animation: grid-move 10s linear infinite; z-index: -2; opacity: 0.5;
         }
-        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(40px) translateZ(-300px); } }
+        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-400px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-400px); } }
+        .cyber-fog { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 10%, var(--b) 95%); z-index: -1; }
 
-        .cyber-fog {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, transparent 20%, var(--b) 90%);
-            pointer-events: none; z-index: -1;
+        /* TERMINAL LOADER PROFESIONAL */
+        #loader {
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 20px; transition: opacity 1s ease-in-out;
         }
+        .terminal-text { font-family: 'Share Tech Mono'; font-size: 0.8rem; color: var(--r); width: 320px; height: 200px; overflow: hidden; border-left: 2px solid var(--r); padding-left: 15px; margin-bottom: 20px; }
+        .load-bar-container { width: 320px; height: 4px; background: #111; position: relative; }
+        .load-bar-fill { height: 100%; width: 0%; background: var(--r); box-shadow: 0 0 15px var(--r); transition: width 0.1s; }
 
-        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px); pointer-events: none; z-index: 9999; }
-
-        /* ANIMACIONES DE ENTRADA */
-        #main-content { display: flex; flex-direction: column; flex: 1; width: 100%; position: relative; z-index: 1; }
-        .rev { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        .loaded .rev { opacity: 1; transform: translateY(0); }
-        .d-1 { transition-delay: 0.1s; } .d-2 { transition-delay: 0.2s; } .d-3 { transition-delay: 0.3s; }
-        .d-4 { transition-delay: 0.4s; } .d-5 { transition-delay: 0.5s; }
-
-        
+        /* NAVEGACIÓN MEJORADA */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 40px; background: rgba(0,0,0,0.85); border-bottom: 1px solid rgba(255,0,51,0.3);
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(15px);
-            box-shadow: 0 4px 30px rgba(255,0,51,0.1);
+            padding: 20px 50px; background: rgba(0,0,0,0.9); border-bottom: 1px solid rgba(255,0,51,0.2);
+            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px);
         }
-        .nav-brand {
-            display: flex; align-items: center; gap: 15px;
-            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; color: #fff;
-            letter-spacing: 3px; text-shadow: 0 0 10px rgba(255,0,51,0.5);
-        }
-        .nav-links { display: flex; gap: clamp(15px, 3vw, 40px); }
+        .nav-brand { font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 5px; color: #fff; }
+        .nav-links { display: flex; list-style: none; gap: 35px; }
         .nav-links a { 
-            text-decoration: none; color: #777; font-family: 'Share Tech Mono'; 
-            font-size: clamp(0.7rem, 1.5vw, 0.9rem); letter-spacing: 3px; transition: 0.4s; font-weight: bold;
+            text-decoration: none; color: #666; font-family: 'Share Tech Mono'; 
+            font-size: 0.85rem; letter-spacing: 2px; transition: 0.4s; position: relative;
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--r); text-shadow: 0 0 15px var(--r); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: var(--r); transition: 0.3s; }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px var(--r); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.active { color: var(--r); }
 
+        /* LOGIN PROFESIONAL */
+        .login-section { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+        .login-card {
+            background: rgba(10, 10, 10, 0.8); border: 1px solid #1a1a1a; padding: 50px;
+            width: 100%; max-width: 450px; position: relative;
+            backdrop-filter: blur(10px); border-top: 3px solid var(--r);
+        }
+        .login-card h2 { font-family: 'Cinzel', serif; text-align: center; font-size: 1.8rem; margin-bottom: 10px; letter-spacing: 4px; }
+        .login-subtitle { color: #555; text-align: center; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 35px; letter-spacing: 2px; }
         
-        .vault-container { max-width: 1300px; margin: 40px auto; padding: 0 25px; width: 100%; }
+        .input-group { margin-bottom: 25px; position: relative; }
+        .input-group label { display: block; font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); margin-bottom: 8px; text-transform: uppercase; }
+        .input-group input { 
+            width: 100%; background: #050505; border: 1px solid #222; padding: 12px 15px; 
+            color: #fff; font-family: 'Share Tech Mono'; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--r); box-shadow: 0 0 10px rgba(255,0,51,0.1); }
         
-        .vault-header { text-align: center; margin-bottom: 50px; }
-        .vault-header h1 { font-family: 'Share Tech Mono'; font-size: clamp(2rem, 5vw, 3rem); color: #fff; text-shadow: 0 0 15px var(--r); letter-spacing: 5px; margin-bottom: 10px; }
-        .vault-header p { color: #888; font-family: 'Inter'; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; }
-
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-
-        .tool-card {
-            background: rgba(10, 10, 10, 0.7);
-            border: 1px solid #1a1a1a;
-            border-left: 4px solid #333;
-            padding: 30px 25px;
-            text-decoration: none; color: inherit;
-            display: flex; flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            position: relative; overflow: hidden;
-            backdrop-filter: blur(5px);
+        .btn-login {
+            width: 100%; background: transparent; border: 1px solid var(--r); color: var(--r);
+            padding: 15px; font-family: 'Share Tech Mono'; font-size: 1rem; cursor: pointer;
+            transition: 0.4s; letter-spacing: 5px; text-transform: uppercase; margin-top: 10px;
         }
+        .btn-login:hover { background: var(--r); color: #fff; box-shadow: 0 0 25px var(--r); }
 
-        .tool-card::after {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(rgba(255,0,51,0.05), transparent, transparent);
-            transform: rotate(45deg) translateY(-100%);
-            transition: transform 0.6s ease; pointer-events: none;
+        /* SECCIÓN ORGANIZACIONES */
+        .org-container { max-width: 1200px; margin: 80px auto; padding: 0 20px; }
+        .org-header { text-align: center; margin-bottom: 50px; font-family: 'Share Tech Mono'; font-size: 1.2rem; color: #444; letter-spacing: 10px; text-transform: uppercase; }
+        .org-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .org-card {
+            background: rgba(15,15,15,0.6); border: 1px solid #151515; padding: 35px;
+            transition: 0.5s; text-align: center;
         }
+        .org-card:hover { border-color: var(--r); transform: translateY(-10px); background: #0a0a0a; }
+        .org-card img { width: 70px; filter: grayscale(1); margin-bottom: 20px; transition: 0.5s; }
+        .org-card:hover img { filter: grayscale(0) drop-shadow(0 0 10px var(--r)); }
+        .org-card h3 { font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 15px; letter-spacing: 2px; }
+        .org-card p { font-size: 0.85rem; color: #777; line-height: 1.6; }
 
-        .tool-card:hover {
-            border-color: var(--r); border-left: 4px solid var(--r);
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 20px rgba(255,0,51,0.15);
-        }
-        .tool-card:hover::after { transform: rotate(45deg) translateY(100%); }
+        /* MENSAJES DE ESTADO (FOOTER LOGS) */
+        .terminal-logs { background: #000; padding: 20px 50px; font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #333; border-top: 1px solid #111; display: flex; justify-content: space-between; }
+        .log-msg { color: var(--r); animation: pulse 2s infinite; }
 
-        .tool-id { font-family: 'Share Tech Mono'; font-size: 0.75rem; color: #555; letter-spacing: 2px; margin-bottom: 15px; display: flex; justify-content: space-between; }
-        .tool-status { color: #00ff41; animation: blink 2s infinite; }
-        @keyframes blink { 50% { opacity: 0.4; } }
+        @keyframes pulse { 50% { opacity: 0.3; } }
 
-        .tool-title { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #fff; margin-bottom: 15px; letter-spacing: 2px; transition: color 0.3s; }
-        .tool-card:hover .tool-title { color: var(--r); text-shadow: 0 0 10px rgba(255,0,51,0.4); }
-
-        .tool-desc { font-family: 'Inter'; font-size: 0.85rem; color: #999; line-height: 1.6; flex-grow: 1; }
-
-        .tool-action {
-            margin-top: 25px; font-family: 'Share Tech Mono'; font-size: 0.8rem;
-            color: var(--r); text-transform: uppercase; letter-spacing: 3px;
-            display: flex; align-items: center; gap: 10px; opacity: 0.7; transition: 0.3s;
-        }
-        .tool-card:hover .tool-action { opacity: 1; transform: translateX(5px); }
-        .tool-action::before { content: '>'; font-weight: bold; }
-
-        @media (max-width: 768px) { 
-            nav { flex-direction: column; gap: 20px; padding: 20px; } 
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-            .vault-container { padding: 0 15px; }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 20px; padding: 20px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .login-card { padding: 30px; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <div class="cyber-grid"></div>
 <div class="cyber-fog"></div>
 
-<div id="main-content">
+<div id="loader">
+    <div class="terminal-text" id="term-logs"></div>
+    <div class="load-bar-container"><div class="load-bar-fill" id="fill"></div></div>
+    <div style="font-family:'Share Tech Mono'; font-size: 0.7rem; color:#444; margin-top:10px;" id="perc">0%</div>
+</div>
+
+<div id="main-content" style="display: none; opacity: 0; transition: opacity 1s;">
     <nav>
         <div class="nav-brand">IRON ATLAS</div>
-        <div class="nav-links">
-            <a href="../index.html">INICIO</a>
-            <a href="#" class="active">HERRAMIENTAS</a>
-            <a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a>
-            <a href="../CANALES/index.html">CANALES</a>
-        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">INICIO</a></li>
+            <li><a href="0x_tools/vault.html">MÓDULOS</a></li>
+            <li><a href="noti/noticias.html">NOTICIAS</a></li>
+            <li><a href="0x_intel_data/admin_panel.html">DATABASE</a></li>
+            <li><a href="CANALES/index.html">CANALES</a></li>
+        </ul>
     </nav>
 
-    <main class="vault-container">
-        <div class="vault-header rev d-1">
-            <h1>ENDPOINT VAULT</h1>
-            <p>Directorio de Herramientas Operativas y de Inteligencia</p>
-        </div>
+    <main>
+        <section class="login-section">
+            <div class="login-card">
+                <h2>IDENT_VERIFY</h2>
+                <p class="login-subtitle">ACCESO RESTRINGIDO A PERSONAL DE ATLAS</p>
+                <form onsubmit="event.preventDefault();">
+                    <div class="input-group">
+                        <label>USER_IDENTITY</label>
+                        <input type="text" placeholder="ID-XXXXXXXX" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label>ACCESS_KEY</label>
+                        <input type="password" placeholder="••••••••••••" autocomplete="off">
+                    </div>
+                    <button class="btn-login">ESTABLISH CONNECTION</button>
+                </form>
+            </div>
+        </section>
 
-        <div class="tools-grid">
-            
-            <a href="/dorking.html" class="tool-card rev d-2">
-                <div class="tool-id">
-                    <span>MOD_01</span>
-                    <span class="tool-status">ONLINE</span>
+        <section class="org-container">
+            <h2 class="org-header">ALIADOS DE LA RED</h2>
+            <div class="org-grid">
+                <div class="org-card">
+                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" alt="Aliado">
+                    <h3>NULLSEC PH</h3>
+                    <p>Especialistas en operaciones ofensivas y auditoría de redes internacionales. El brazo armado digital del Sudeste Asiático.</p>
                 </div>
-                <div class="tool-title">ADVANCED DORKING</div>
-                <div class="tool-desc">
-                    Motor de generación de queries para operadores de búsqueda avanzada. Reconocimiento pasivo de vulnerabilidades y exposición de directorios.
+                <div class="org-card">
+                    <img src="https://files.catbox.moe/iwurbn.jpg" alt="Aliado">
+                    <h3>PURGATORY</h3>
+                    <p>Colectivo enfocado en la contrainteligencia y el análisis de datos masivos. Vigilantes del abismo digital.</p>
                 </div>
-                <div class="tool-action">Inicializar Script</div>
-            </a>
-
-            <a href="/emoji.html" class="tool-card rev d-3">
-                <div class="tool-id">
-                    <span>MOD_02</span>
-                    <span class="tool-status">ONLINE</span>
+                <div class="org-card">
+                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" alt="Aliado">
+                    <h3>TEAM JXLL</h3>
+                    <p>Unidad táctica de seguridad y defensa de sistemas vulnerables. Protectores de la integridad informativa.</p>
                 </div>
-                <div class="tool-title">EMOJI CRYPT / DESOFUSCADOR</div>
-                <div class="tool-desc">
-                    Sistema dual de ofuscación de comunicaciones basado en cadenas Unicode (emojis) y desencriptación de texto plano en tiempo real.
-                </div>
-                <div class="tool-action">Inicializar Script</div>
-            </a>
-
-            <a href="/mtdata.html" class="tool-card rev d-4">
-                <div class="tool-id">
-                    <span>MOD_03</span>
-                    <span class="tool-status">ONLINE</span>
-                </div>
-                <div class="tool-title">METADATA EXTRACTOR</div>
-                <div class="tool-desc">
-                    Herramienta forense para el escrutinio profundo de archivos. Extracción de datos EXIF, geolocalización oculta y firmas digitales.
-                </div>
-                <div class="tool-action">Inicializar Script</div>
-            </a>
-
-            <a href="#" class="tool-card rev d-5" style="border-left-color: #444; opacity: 0.6;">
-                <div class="tool-id">
-                    <span>MOD_04</span>
-                    <span style="color: #ff8c00;">EN DESARROLLO</span>
-                </div>
-                <div class="tool-title">NUEVO MÓDULO</div>
-                <div class="tool-desc">
-                    Espacio reservado para futuras implementaciones de automatización en Python o scripts OSINT.
-                </div>
-                <div class="tool-action" style="color: #777;">Restringido</div>
-            </a>
-
-        </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="terminal-logs">
+        <div>STATUS: <span class="log-msg">SYSTEM_SECURED</span></div>
+        <div>ANONYMITY IS THE ONLY TRUTH</div>
+        <div>IP: <span id="user-ip">127.0.0.1</span></div>
+    </footer>
 </div>
 
 <script>
-    
-    document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-            document.body.classList.add('loaded');
-        }, 100);
-    });
+    const term = document.getElementById('term-logs');
+    const fill = document.getElementById('fill');
+    const perc = document.getElementById('perc');
+    const logs = [
+        "INITIALIZING CORE...",
+        "CONNECTING TO DARK_NODES...",
+        "BYPASSING PERIMETER_DEFENSE...",
+        "DECRYPTING ASSETS...",
+        "ESTABLISHING VPN_TUNNEL...",
+        "MASKING PROTOCOLS...",
+        "WELCOME AGENT."
+    ];
 
+    let i = 0;
+    let p = 0;
+
+    const runLoader = setInterval(() => {
+        p += Math.floor(Math.random() * 8) + 2;
+        if (p >= 100) {
+            p = 100;
+            clearInterval(runLoader);
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'block';
+                    setTimeout(() => main.style.opacity = '1', 50);
+                }, 1000);
+            }, 500);
+        }
+        fill.style.width = p + '%';
+        perc.innerText = p + '%';
+
+        if (p % 15 === 0 || p === 100) {
+            const line = document.createElement('div');
+            line.innerText = "> " + (logs[i] || "SYNCHRONIZING...");
+            term.appendChild(line);
+            i++;
+            term.scrollTop = term.scrollHeight;
+        }
+    }, 100);
+
+    // Protección básica
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-            e.preventDefault(); return false;
-        }
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
 </script>
 
