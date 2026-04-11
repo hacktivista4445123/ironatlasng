@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | EXPEDIENTES CLASIFICADOS</title>
+    <title>IRON ATLAS | EXPEDIENTES </title>
     <link rel="icon" type="image/png" href="../assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -11,14 +11,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
-        /* FONDO DINÁMICO */
         .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; overflow: hidden; }
         .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,0,34,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,34,0.1) 1px, transparent 1px); background-size: 40px 40px; transform: perspective(800px) rotateX(60deg) translateY(-100px) translateZ(-200px); animation: grid-move 10s linear infinite; opacity: 0.8; }
         @keyframes grid-move { 0% { transform: perspective(800px) rotateX(60deg) translateY(0) translateZ(-200px); } 100% { transform: perspective(800px) rotateX(60deg) translateY(40px) translateZ(-200px); } }
         canvas#particles { position: absolute; inset: 0; z-index: -1; opacity: 0.5; }
         .scanline { position: fixed; inset: 0; z-index: 999; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,34,0.03) 3px); }
 
-        /* NAV PROFESIONAL RECTRACTIL */
+     
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(0,0,0,0.95); border-bottom: 2px solid rgba(255,0,34,0.3); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 4px; font-weight: 900; }
         .nav-brand img { width: 32px; filter: drop-shadow(0 0 8px var(--r)); }
@@ -28,7 +27,6 @@
         .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--r); transition: 0.4s; }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        /* SECCIÓN DE BÚSQUEDA */
         .search-container { max-width: 1000px; margin: 40px auto 30px; padding: 0 20px; }
         .search-box-wrap { position: relative; display: flex; align-items: center; }
         .search-box { width: 100%; background: rgba(10,10,10,0.8); border: 1px solid #222; border-left: 4px solid var(--r); padding: 18px 25px; color: #fff; font-family: 'Share Tech Mono'; font-size: 1.1rem; backdrop-filter: blur(10px); transition: 0.4s; letter-spacing: 1px; }
@@ -38,7 +36,6 @@
         .stats-bar { max-width: 1000px; margin: 0 auto 30px; padding: 0 25px; display: flex; justify-content: space-between; font-family: 'Share Tech Mono'; font-size: 0.75rem; color: #444; text-transform: uppercase; letter-spacing: 2px; }
         .stats-bar b { color: var(--r); }
 
-        /* GRID DE TARJETAS */
         .target-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; padding: 0 50px 100px; max-width: 1600px; margin: 0 auto; }
         .card { background: rgba(8,8,8,0.9); border: 1px solid #111; padding: 20px; display: flex; gap: 15px; text-decoration: none; color: inherit; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; overflow: hidden; border-bottom: 2px solid #1a1a1a; }
         .card:hover { transform: translateY(-8px); border-color: var(--r); box-shadow: 0 15px 40px rgba(0,0,0,1); }
@@ -66,7 +63,7 @@
         .empty-state { display: none; grid-column: 1/-1; text-align: center; padding: 100px 20px; font-family: 'Share Tech Mono'; color: #222; letter-spacing: 8px; font-size: 1.5rem; }
         .empty-state.show { display: block; animation: blink 1s infinite; }
 
-        /* BANNER DE ALERTA */
+
         .warn-banner { position: fixed; top: 0; left: 0; width: 100%; background: #200000; color: var(--r); padding: 10px; text-align: center; font-family: 'Share Tech Mono'; font-size: 0.7rem; z-index: 10001; letter-spacing: 3px; display: none; border-bottom: 1px solid var(--r); }
         .warn-banner.show { display: block; }
 
@@ -108,8 +105,8 @@
 
     <main>
         <header class="db-header rev" style="margin-top: 30px; text-align: center;">
-            <h1 style="font-family:'Cinzel'; letter-spacing:8px; font-size: clamp(1.8rem, 5vw, 3rem); text-shadow: 0 0 20px var(--r);">DATABASE_INTEL</h1>
-            <p style="font-family:'Share Tech Mono'; color:#444; font-size:0.8rem; letter-spacing:4px;">LISTA DE OBJETIVOS — ACCESO CLASIFICADO</p>
+            <h1 style="font-family:'Cinzel'; letter-spacing:8px; font-size: clamp(1.8rem, 5vw, 3rem); text-shadow: 0 0 20px var(--r);">EXPEDIENTES IRON ATLAS </h1>
+            <p style="font-family:'Share Tech Mono'; color:#444; font-size:0.8rem; letter-spacing:4px;">LISTA DE USUARIOS EXTRAIDOS</p>
         </header>
 
         <section class="search-container rev">
@@ -119,8 +116,7 @@
         </section>
 
         <div class="stats-bar rev">
-            <div>TOTAL_REGISTROS: <b id="total-count">0</b></div>
-            <div>STATUS: <b style="color:var(--green)">SINCRONIZADO</b></div>
+            <div>TOTAL REGISTROS: <b id="total-count">0</b></div>
         </div>
 
         <div class="target-grid" id="targetGrid">
@@ -202,7 +198,7 @@
 </div>
 
 <script>
-    // Inicialización
+   
     document.addEventListener('DOMContentLoaded', () => {
         const revs = document.querySelectorAll('.rev');
         revs.forEach((r, index) => {
@@ -212,7 +208,6 @@
         initParticles();
     });
 
-    // Lógica de Búsqueda Táctica
     const searchInput = document.getElementById('searchInput');
     const cards = document.querySelectorAll('.card');
     const emptyState = document.getElementById('emptyState');
@@ -221,7 +216,7 @@
         const query = searchInput.value.toLowerCase().trim();
         let visibleCount = 0;
 
-        // Protección contra Fuzzing/XSS simple
+        
         if (/[<>"'`&;=()]/.test(query)) {
             searchInput.value = "";
             showWarn();
@@ -241,7 +236,7 @@
         emptyState.classList.toggle('show', visibleCount === 0);
     });
 
-    // Navegación Retráctil
+  
     let lastScroll = 0;
     window.addEventListener('scroll', () => {
         const nav = document.getElementById('navbar');
@@ -251,7 +246,6 @@
         lastScroll = currentScroll;
     });
 
-    // Protecciones Anti-Inspección
     function showWarn() { document.getElementById('warnBanner').classList.add('show'); setTimeout(()=>document.getElementById('warnBanner').classList.remove('show'), 3000); }
 
     document.onkeydown = e => {
@@ -265,7 +259,6 @@
         if(window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) showWarn();
     }, 1500);
 
-    // Fondo de Partículas
     function initParticles() {
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
