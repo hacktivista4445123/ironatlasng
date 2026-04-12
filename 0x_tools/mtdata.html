@@ -126,7 +126,7 @@
 > ESPERANDO SECUENCIA DE ENTRADA...
 > LISTO PARA ESCANEO DE CABECERAS.
                 </div>
-                <button class="btn-action" onclick="clearConsole()">PURGAR_TERMINAL</button>
+                <button class="btn-action" onclick="clearConsole()">LIMPIAR TERMINAL</button>
             </div>
 
         </div>
@@ -200,7 +200,7 @@
             EXIF.getData(file, function() {
                 const allMetaData = EXIF.getAllTags(this);
                 
-                // PROTECCIÓN 3: Eliminar buffers de imágenes incrustadas que pueden causar lentitud o inyectar payloads
+           
                 delete allMetaData.thumbnail;
                 delete allMetaData.MakerNote;
 
