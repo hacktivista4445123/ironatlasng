@@ -56,6 +56,7 @@
         .console-output b { color: var(--g); }
         .console-output .meta-key { color: #555; }
         .console-output .meta-val { color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+        .console-output .error { color: var(--r); }
 
         .btn-action { width: 100%; background: transparent; border: 1px solid var(--g); color: var(--g); padding: 15px; font-family: 'Share Tech Mono'; font-size: 1rem; letter-spacing: 4px; cursor: pointer; transition: 0.4s; text-transform: uppercase; margin-top: 20px; font-weight: bold; }
         .btn-action:hover { background: var(--g); color: #000; box-shadow: 0 0 25px var(--g); }
@@ -103,7 +104,7 @@
 
     <main>
         <header class="header-title rev">
-            <h1>HUNTER METADATA</h1>
+            <h1> METADATA</h1>
             <p>SISTEMA DE EXTRACCIÓN FORENSE Y ANÁLISIS DE INTEGRIDAD</p>
         </header>
 
@@ -122,7 +123,6 @@
                     <span id="file-name" style="color:#444; font-family:'Share Tech Mono'; font-size: 0.8rem;">SIN ARCHIVO EN MEMORIA</span>
                 </div>
                 <div class="console-output" id="output">
-> SISTEMA FORENSE INICIALIZADO.
 > ESPERANDO SECUENCIA DE ENTRADA...
 > LISTO PARA ESCANEO DE CABECERAS.
                 </div>
@@ -135,7 +135,6 @@
     <footer>
         <div>© 2026 <span class="f-neon">IRON ATLAS NG</span> Módulo Forense</div>
         <div>HACTIVISTAS DE SANGRE</div>
-
     </footer>
 </div>
 
@@ -162,15 +161,37 @@
         initParticles();
     });
 
+
+    function escapeHTML(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
     function handleFile(file) {
         if (!file) return;
+
+     
+        if (file.size > 25 * 1024 * 1024) {
+            alert("ERROR: EL ARCHIVO EXCEDE EL LÍMITE SEGURO DE 25MB.");
+            return;
+        }
+
         const out = document.getElementById('output');
         const fname = document.getElementById('file-name');
         
-        fname.innerText = `ID_OBJETIVO: ${file.name.toUpperCase()}`;
-        out.innerHTML = `> ANALIZANDO: ${file.name}\n`;
+ 
+        const safeName = escapeHTML(file.name.toUpperCase());
+        const safeType = escapeHTML(file.type || 'DESCONOCIDO');
+
+        fname.innerText = `ID_OBJETIVO: ${safeName}`;
+        out.innerHTML = `> ANALIZANDO: ${safeName}\n`;
         out.innerHTML += `> TAMAÑO: ${(file.size / 1024).toFixed(2)} KB\n`;
-        out.innerHTML += `> MIME_TYPE: ${file.type || 'DESCONOCIDO'}\n`;
+        out.innerHTML += `> MIME_TYPE: ${safeType}\n`;
         out.innerHTML += `> TIMESTAMP: ${new Date(file.lastModified).toISOString()}\n`;
         out.innerHTML += `> INICIANDO EXTRACCIÓN DE CABECERAS PROFUNDAS...\n`;
         out.innerHTML += `--------------------------------------------------\n`;
@@ -178,14 +199,30 @@
         if (file.type.includes('image')) {
             EXIF.getData(file, function() {
                 const allMetaData = EXIF.getAllTags(this);
+                
+                // PROTECCIÓN 3: Eliminar buffers de imágenes incrustadas que pueden causar lentitud o inyectar payloads
+                delete allMetaData.thumbnail;
+                delete allMetaData.MakerNote;
+
                 if (Object.keys(allMetaData).length > 0) {
                     for (let tag in allMetaData) {
-                        out.innerHTML += `<span class="meta-key">${tag}:</span> <span class="meta-val">${allMetaData[tag]}</span>\n`;
+                        let val = allMetaData[tag];
+                        
+                    
+                        if (typeof val === 'object' && !Array.isArray(val) && val !== null) {
+                            val = "[DATOS_BINARIOS_OMITIDOS_POR_SEGURIDAD]";
+                        }
+
+                   
+                        const safeTag = escapeHTML(tag);
+                        const safeVal = escapeHTML(val);
+
+                        out.innerHTML += `<span class="meta-key">${safeTag}:</span> <span class="meta-val">${safeVal}</span>\n`;
                     }
                 } else {
-                    out.innerHTML += `<b>> [!] AVISO: No se encontraron etiquetas EXIF estándar.</b>\n`;
+                    out.innerHTML += `<b>> [!] AVISO: No se encontraron etiquetas EXIF estándar o fueron purgadas.</b>\n`;
                 }
-                out.innerHTML += `\n<b>> ESCANEO FINALIZADO EXITOSAMENTE.</b>`;
+                out.innerHTML += `\n<b>> ESCANEO FINALIZADO EXITOSAMENTE. PROTOCOLOS SEGUROS.</b>`;
                 out.scrollTop = out.scrollHeight;
             });
         } else {
@@ -194,6 +231,7 @@
                 out.innerHTML += `> ANALIZANDO ESTRUCTURA BINARIA... [OK]\n`;
                 out.innerHTML += `> BUSCANDO FIRMAS DIGITALES... [OK]\n`;
                 out.innerHTML += `\n<b>> ESCANEO BÁSICO FINALIZADO.</b>`;
+                out.scrollTop = out.scrollHeight;
             }, 1000);
         }
     }
