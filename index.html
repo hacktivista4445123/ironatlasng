@@ -1,348 +1,351 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IRON ATLAS | NEW GENERATION </title>
-    <link rel="icon" type="image/png" href="../assets/logo_ng.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --r: #ff0022; 
-            --b: #050505; 
-            --p: #0a0a0f; 
-            --sh: rgba(255, 0, 34, 0.3); 
-            --grid: rgba(255, 0, 34, 0.08);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IRON ATLAS | NEW GENERATION</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; scroll-behavior: smooth;}
-        
-        body { 
-            background: var(--b); 
-            color: #fff; 
-            font-family: 'Rajdhani', sans-serif; 
-            overflow-x: hidden; 
-            user-select: none; 
-            cursor: crosshair; 
-        }
+  <style>
+    :root{
+      --red:#ff0022;
+      --bg:#050505;
+      --panel:#0b0b10;
+      --soft:#12121a;
+      --text:#ffffff;
+      --muted:#9b9b9b;
+      --line:rgba(255,255,255,.06);
+      --glow:rgba(255,0,34,.22);
+    }
 
-        body::-webkit-scrollbar { width: 3px; }
-        body::-webkit-scrollbar-track { background: #000; }
-        body::-webkit-scrollbar-thumb { background: var(--r); }
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
 
-        #loader { 
-            position: fixed; 
-            inset: 0; 
-            background: #000; 
-            z-index: 10000; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            transition: opacity 0.8s, visibility 0.8s; 
-        }
-        
-        .load-box { width: 300px; text-align: center; }
-        .load-logo { width: 80px; filter: drop-shadow(0 0 15px var(--r)); animation: pulse 2s infinite ease-in-out; margin-bottom: 20px;}
-        .load-bar-wrap { width: 100%; height: 2px; background: #111; position: relative; overflow: hidden; border-radius: 2px;}
-        .load-bar-fill { height: 100%; width: 0%; background: var(--r); box-shadow: 0 0 10px var(--r); transition: width 0.05s linear; }
-        .load-text { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); letter-spacing: 2px; margin-top: 10px; min-height: 1.2em;}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Rajdhani',sans-serif;
+      overflow-x:hidden;
+    }
 
-        @keyframes pulse { 0%, 100% { opacity: 0.7; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
+    body::-webkit-scrollbar{width:4px}
+    body::-webkit-scrollbar-thumb{background:var(--red)}
 
-        .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #050505; overflow: hidden; pointer-events: none; }
-        
-        .oath-aurora {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% -20%, rgba(255, 0, 34, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 40%, rgba(255, 0, 34, 0.05) 0%, transparent 40%);
-            animation: aurora 15s infinite alternate ease-in-out;
-        }
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,0,34,.08), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(255,0,34,.05), transparent 30%),
+        linear-gradient(180deg,#090909,#040404);
+      overflow:hidden;
+    }
 
-        @keyframes aurora {
-            0% { opacity: 0.5; transform: scale(1); }
-            100% { opacity: 0.8; transform: scale(1.1); }
-        }
+    .grid{
+      position:absolute;
+      inset:-300px;
+      background-image:
+        linear-gradient(rgba(255,0,34,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,0,34,.05) 1px, transparent 1px);
+      background-size:60px 60px;
+      transform:perspective(1000px) rotateX(70deg);
+      animation:gridMove 25s linear infinite;
+    }
 
-        .cyber-grid { 
-            position: absolute; 
-            inset: -500px; 
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); 
-            background-size: 60px 60px; 
-            transform: perspective(1000px) rotateX(60deg) translateZ(-100px); 
-            animation: grid-move 30s linear infinite; 
-        }
+    @keyframes gridMove{
+      from{background-position:0 0}
+      to{background-position:0 500px}
+    }
 
-        @keyframes grid-move { 0% { background-position: 0 0; } 100% { background-position: 0 600px; } }
-        
-        canvas#bg-vortex { position: absolute; inset: 0; z-index: -1; opacity: 0.3; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle, transparent 20%, #000 150%); }
-        .scanlines { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px); pointer-events: none; }
+    nav{
+      position:fixed;
+      top:18px;
+      left:50%;
+      transform:translateX(-50%);
+      width:min(1200px,92%);
+      z-index:999;
+      backdrop-filter:blur(18px);
+      background:rgba(10,10,15,.6);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:999px;
+      padding:14px 28px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 10px 40px rgba(0,0,0,.4);
+    }
 
-        nav { 
-            display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; 
-            background: rgba(5,5,10,0.7); border-bottom: 1px solid rgba(255,0,34,0.1); 
-            position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(20px); 
-        }
-        
-        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; color: #fff; text-decoration: none;}
-        .nav-brand img { width: 32px; filter: drop-shadow(0 0 8px var(--r)); }
-        .nav-brand span { color: var(--r); }
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #999; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--r); }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-family:'Cinzel',serif;
+      font-size:1.1rem;
+      letter-spacing:3px;
+      text-decoration:none;
+      color:white;
+    }
 
-        #main-content { opacity: 0; transition: opacity 1s; visibility: hidden; padding-top: 80px;}
-        
-        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative;}
-        .hero-logo { width: 220px; filter: drop-shadow(0 0 40px var(--sh)); margin-bottom: 30px; animation: float 6s infinite ease-in-out; }
-        .hero h1 { 
-            font-family: 'Cinzel', serif; font-size: clamp(3rem, 10vw, 7rem); letter-spacing: 20px; 
-            background: linear-gradient(to bottom, #fff 30%, var(--r) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 1; 
-        }
-        .hero p { font-family: 'Share Tech Mono'; color: #666; font-size: 0.9rem; letter-spacing: 10px; margin-top: 20px; text-transform: uppercase; }
-        
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    .brand span{color:var(--red)}
 
-        .intel-brief {
-            max-width: 900px; margin: 0 auto 100px; text-align: center; padding: 0 30px;
-        }
-        .intel-brief h2 { font-family: 'Cinzel'; color: #fff; font-size: 1.8rem; letter-spacing: 8px; margin-bottom: 25px; }
-        .intel-brief p { color: #aaa; font-size: 1.1rem; line-height: 1.8; letter-spacing: 1px; font-weight: 500; }
-        .intel-brief .separator { width: 60px; height: 2px; background: var(--r); margin: 30px auto; box-shadow: 0 0 10px var(--r); }
+    .nav-links{
+      display:flex;
+      gap:24px;
+      list-style:none;
+    }
 
-        .section-tag { text-align: center; margin: 100px 0 50px; font-family: 'Share Tech Mono'; font-size: 0.8rem; letter-spacing: 15px; color: #444; text-transform: uppercase; }
-        .section-tag span { color: var(--r); }
+    .nav-links a{
+      text-decoration:none;
+      color:#c7c7c7;
+      font-size:.85rem;
+      letter-spacing:2px;
+      font-weight:700;
+      transition:.3s;
+    }
 
-        .nodes-container { max-width: 1400px; margin: 0 auto 150px; padding: 0 40px; }
-        .nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
-        
-        .node-card {
-            background: rgba(10,10,15,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 30px;
-            display: flex; align-items: center; gap: 25px; text-decoration: none; color: inherit;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
-            backdrop-filter: blur(10px); border-radius: 4px;
-        }
-        .node-card:hover { transform: translateY(-8px); border-color: rgba(255,0,34,0.4); background: rgba(255,0,34,0.03); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        .node-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, transparent, rgba(255,0,34,0.05), transparent); transform: translateX(-100%); transition: 0.8s; }
-        .node-card:hover::before { transform: translateX(100%); }
+    .nav-links a:hover{color:#fff;text-shadow:0 0 12px var(--red)}
 
-        .node-img { width: 80px; height: 80px; border-radius: 2px; object-fit: cover; border: 1px solid #222; filter: grayscale(1); transition: 0.5s; }
-        .node-card:hover .node-img { filter: grayscale(0); border-color: var(--r); box-shadow: 0 0 15px var(--r); }
+    .hero{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:140px 20px 80px;
+    }
 
-        .node-name { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #ddd; margin-bottom: 8px; letter-spacing: 1px; }
-        .node-card:hover .node-name { color: #fff; }
-        .node-desc { font-size: 0.8rem; color: #777; line-height: 1.5; margin-bottom: 12px; }
-        .node-tag { font-family: 'Share Tech Mono'; font-size: 0.6rem; color: var(--r); letter-spacing: 2px; text-transform: uppercase; }
+    .hero-logo{
+      width:220px;
+      filter:drop-shadow(0 0 30px var(--glow));
+      animation:float 5s ease-in-out infinite;
+    }
 
-        footer { 
-            background: #020202; padding: 60px; border-top: 1px solid #111; 
-            display: flex; justify-content: space-between; align-items: center; 
-            font-size: 0.75rem; letter-spacing: 3px; color: #444; text-transform: uppercase;
-        }
-        .f-red { color: var(--r); }
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-18px)}
+    }
 
-        .rev { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
-        .rev.active { opacity: 1; transform: translateY(0); }
+    h1{
+      font-family:'Cinzel',serif;
+      font-size:clamp(3rem,8vw,7rem);
+      letter-spacing:14px;
+      margin-top:28px;
+      background:linear-gradient(to bottom,#fff,var(--red));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
 
-        @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
-            .nav-links { display: none; }
-            .nodes-grid { grid-template-columns: 1fr; }
-            .hero h1 { letter-spacing: 10px; }
-            footer { flex-direction: column; gap: 20px; text-align: center; }
-        }
-    </style>
+    .subtitle{
+      margin-top:18px;
+      font-family:'Share Tech Mono',monospace;
+      color:#8d8d8d;
+      letter-spacing:6px;
+      font-size:.9rem;
+    }
+
+    .about{
+      max-width:900px;
+      margin:0 auto 120px;
+      text-align:center;
+      padding:0 24px;
+    }
+
+    .about h2,
+    .section-title{
+      font-family:'Cinzel',serif;
+      letter-spacing:6px;
+      margin-bottom:24px;
+      font-size:2rem;
+    }
+
+    .about p{
+      color:#b0b0b0;
+      line-height:1.9;
+      font-size:1.08rem;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .allies{
+      width:min(1300px,92%);
+      margin:0 auto 140px;
+    }
+
+    .grid-cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:24px;
+    }
+
+    .card{
+      background:rgba(15,15,20,.72);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:24px;
+      display:flex;
+      gap:18px;
+      text-decoration:none;
+      color:inherit;
+      backdrop-filter:blur(14px);
+      transition:.35s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+      border-color:rgba(255,0,34,.35);
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(45deg,transparent,rgba(255,0,34,.05),transparent);
+      transform:translateX(-100%);
+      transition:.8s;
+    }
+
+    .card:hover::before{transform:translateX(100%)}
+
+    .card img{
+      width:84px;
+      height:84px;
+      object-fit:cover;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .name{
+      font-family:'Cinzel',serif;
+      font-size:1rem;
+      margin-bottom:8px;
+    }
+
+    .desc{
+      color:#9e9e9e;
+      font-size:.92rem;
+      line-height:1.6;
+      margin-bottom:10px;
+    }
+
+    .tag{
+      font-family:'Share Tech Mono',monospace;
+      font-size:.7rem;
+      letter-spacing:2px;
+      color:var(--red);
+    }
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.05);
+      padding:50px 20px;
+      text-align:center;
+      color:#666;
+      letter-spacing:2px;
+      font-size:.8rem;
+    }
+
+    @media(max-width:768px){
+      .nav-links{display:none}
+      h1{letter-spacing:6px}
+    }
+  </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-<div id="loader">
-    <div class="load-box">
-        <img src="../assets/logo_ng.png" class="load-logo">
-        <div class="load-bar-wrap"><div class="load-bar-fill" id="fill"></div></div>
-        <div class="load-text" id="load-text">Iniciando..</div>
-    </div>
+<div class="bg">
+  <div class="grid"></div>
 </div>
 
-<div class="bg-wrapper">
-    <div class="oath-aurora"></div>
-    <div class="cyber-grid"></div>
-    <canvas id="bg-vortex"></canvas>
-    <div class="vignette"></div>
-    <div class="scanlines"></div>
-</div>
+<nav>
+  <a href="#" class="brand">IRON <span>ATLAS</span></a>
+  <ul class="nav-links">
+    <li><a href="#">INICIO</a></li>
+    <li><a href="#">MÓDULOS</a></li>
+    <li><a href="#">NOTICIAS</a></li>
+    <li><a href="#">EXPEDIENTES</a></li>
+    <li><a href="#">CANALES</a></li>
+  </ul>
+</nav>
 
-<div id="main-content">
-    <nav>
-        <a href="#" class="nav-brand">
-            <img src="../assets/logo_ng.png">
-            IRON<span>ATLAS</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#" class="active">INICIO</a></li>
-            <li><a href="../0x_tools/vault.html">MÓDULOS</a></li>
-            <li><a href="../noti/noticias.html">NOTICIAS</a></li>
-            <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
-            <li><a href="canales.html">CANALES</a></li>
-        </ul>
-    </nav>
+<section class="hero">
+  <img src="../assets/logo_ng.png" class="hero-logo" alt="logo">
+  <h1>IRON ATLAS</h1>
+  <p class="subtitle">NEW GENERATION // NETWORK SOVEREIGNTY</p>
+</section>
 
-    <main>
-        <section class="hero">
-            <img src="../assets/logo_ng.png" class="hero-logo" id="hero-logo">
-            <h1 class="rev">IRON ATLAS</h1>
-            <p class="rev">NEW GENERATION // NETWORK SOVEREIGNTY</p>
-        </section>
+<section class="about">
+  <h2>SOBRE EL COLECTIVO</h2>
+  <p>
+    Iron Atlas New Generation representa una estructura digital enfocada en inteligencia,
+    documentación y monitoreo estratégico. La información es poder, y el acceso estructurado
+    a ella define el control de cada entorno conectado.
+  </p>
+</section>
 
-        <section class="intel-brief rev">
-            <h2>SOBRE EL COLECTIVO</h2>
-            <div class="separator"></div>
-            <p>
-                Operamos en las grietas de la infraestructura digital donde la verdad es filtrada. 
-                <strong>Iron Atlas New Generation</strong> no es solo una organización de hacking, es un nodo de resistencia 
-                dedicado a la transparencia radical y la documentación del poder oculto. En un mundo de vigilancia total, 
-                nuestra firma es el recordatorio de que ningún sistema es absoluto.
-            </p>
-        </section>
+<section class="allies">
+  <h2 class="section-title">ALIADOS OPERATIVOS</h2>
 
-        <div class="section-tag rev"><span>//</span> ALIADOS OPERATIVOS <span>//</span></div>
+  <div class="grid-cards">
 
-        <section class="nodes-container">
-            <div class="nodes-grid">
-                
-                <a href="https://t.me/ironatlas_organization" class="node-card rev">
-                    <img src="../assets/logo_ng.png" class="node-img">
-                    <div class="node-info">
-                        <div class="node-name">ɪʀᴏɴ ᴀᴛʟᴀꜱ ɴᴇᴡ ɢᴇɴᴇʀᴀᴛɪᴏɴ</div>
-                        <p class="node-desc">Nodo central de inteligencia. Operaciones de hacktivismo ofensivo y defensa de activos.</p>
-                        <span class="node-tag">[ CENTRAL_NODE ]</span>
-                    </div>
-                </a>
+    <a href="https://t.me/+wLnQPrkGG004NmVh" class="card" target="_blank">
+      <img src="https://i.postimg.cc/kMSWpK7v/Captura-de-pantalla-2026-04-08-012508.png">
+      <div>
+        <div class="name">𝗠𝗲𝗿𝗰𝗮𝗡𝗲𝗴𝗿𝗼𝗖𝗢𝗟 +</div>
+        <div class="desc">PROVEEDORES ESPECIALIZADOS EN MATERIAL G5 Y LOGÍSTICA DE RED.</div>
+        <div class="tag">G5 PROVEEDOR</div>
+      </div>
+    </a>
 
-                <a href="https://t.me/+wLnQPrkGG004NmVh" class="node-card rev">
-                    <img src="https://i.postimg.cc/kMSWpK7v/Captura-de-pantalla-2026-04-08-012508.png" class="node-img">
-                    <div class="node-info">
-                        <div class="node-name">𝗠𝗲𝗿𝗰𝗮𝗡𝗲𝗴𝗿𝗼𝗖𝗢𝗟 +</div>
-                        <p class="node-desc">Unidad de logística y suministro especializado. Infraestructura de red avanzada.</p>
-                        <span class="node-tag">[ LOGISTICS_UNIT ]</span>
-                    </div>
-                </a>
+    <a href="https://t.me/HackPurgatory" class="card" target="_blank">
+      <img src="https://files.catbox.moe/iwurbn.jpg">
+      <div>
+        <div class="name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</div>
+        <div class="desc">ANÁLISIS DE FUGAS DE INFORMACIÓN Y ASEGURAMIENTO DE DATOS MASIVOS.</div>
+        <div class="tag">INTELIGENCIA</div>
+      </div>
+    </a>
 
-                <a href="https://t.me/HackPurgatory" class="node-card rev">
-                    <img src="https://files.catbox.moe/iwurbn.jpg" class="node-img">
-                    <div class="node-info">
-                        <div class="node-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</div>
-                        <p class="node-desc">Especialistas en análisis de brechas masivas y extracción de inteligencia forense.</p>
-                        <span class="node-tag">[ INTEL_DIVISION ]</span>
-                    </div>
-                </a>
+    <a href="https://t.me/FusaUrbanoOficial" class="card" target="_blank">
+      <img src="https://i.postimg.cc/Rh6k4x6j/fusaburbano.jpg">
+      <div>
+        <div class="name">FusaUrbano</div>
+        <div class="desc">FILTRACIÓN DE CANCIONES OCULTAS.</div>
+        <div class="tag">FILTRACIÓN - LEAK</div>
+      </div>
+    </a>
 
-                <a href="https://t.me/zconchita" class="node-card rev">
-                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="node-img">
-                    <div class="node-info">
-                        <div class="node-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</div>
-                        <p class="node-desc">Fuerza táctica de despliegue rápido. Especialistas en aseguramiento de nodos.</p>
-                        <span class="node-tag">[ TACTICAL_TEAM ]</span>
-                    </div>
-                </a>
+    <a href="https://t.me/zconchita" class="card" target="_blank">
+      <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg">
+      <div>
+        <div class="name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</div>
+        <div class="desc">FUERZA OPERATIVA PARA DESPLIEGUES RÁPIDOS Y DEFENSA DE ACTIVOS.</div>
+        <div class="tag">TACTICAL TEAM</div>
+      </div>
+    </a>
 
-            </div>
-        </section>
-    </main>
+    <a href="https://t.me/nullsechackers" class="card" target="_blank">
+      <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg">
+      <div>
+        <div class="name">NULLSEC PHILIPPINES</div>
+        <div class="desc">EXPERTOS EN AUDITORÍA DE RED, ANÁLISIS TÉCNICO Y CONTRAINTELIGENCIA.</div>
+        <div class="tag">HACKTIVISTAS</div>
+      </div>
+    </a>
 
-    <footer>
-        <div>OPERADOR: <span class="f-red">@IMPORTATLAS</span> | STATUS: <span class="f-red">ROOT</span></div>
-        <div>IRON ATLAS ORG © 2026 // LA INFORMACIÓN DEBE SER LIBRE</div>
-    </footer>
-</div>
+  </div>
+</section>
 
-<script>
-    const logMessages = ["SYSTEM_BOOT...", "BYPASSING_GATEWAY...", "LOADING_OATHNET_MODULES...", "DECRYPTING_NEURAL_MAP...", "ACCESS_GRANTED_ROOT"];
-    const termText = document.getElementById('load-text');
-    let p = 0;
-    let logIdx = 0;
+<footer>
+  IRON ATLAS ORG © 2026 — LA INFORMACIÓN DEBE SER LIBRE
+</footer>
 
-    const interval = setInterval(() => {
-        p += Math.floor(Math.random() * 5) + 1;
-        if (p > 100) p = 100;
-        
-        document.getElementById('fill').style.width = p + '%';
-        if (p % 20 === 0 && logIdx < logMessages.length) {
-            termText.innerText = logMessages[logIdx];
-            logIdx++;
-        }
-
-        if (p === 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loader').style.display = 'none';
-                    const mainContent = document.getElementById('main-content');
-                    mainContent.style.visibility = 'visible';
-                    mainContent.style.opacity = '1';
-                    initVortex();
-                    initObserver();
-                }, 800);
-            }, 500);
-        }
-    }, 40);
-
-    function initVortex() {
-        const canvas = document.getElementById('bg-vortex');
-        const ctx = canvas.getContext('2d');
-        let parts = [];
-        const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-        window.onresize = resize; resize();
-
-        class P {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width - canvas.width/2;
-                this.y = Math.random() * canvas.height - canvas.height/2;
-                this.z = canvas.width;
-            }
-            update() {
-                this.z -= 8;
-                if (this.z < 1) this.reset();
-                this.px = (this.x * (150 / this.z)) + canvas.width/2;
-                this.py = (this.y * (150 / this.z)) + canvas.height/2;
-            }
-            draw() {
-                let s = (1 - this.z / canvas.width) * 3;
-                ctx.fillStyle = Math.random() > 0.1 ? '#ff0022' : '#fff';
-                ctx.fillRect(this.px, this.py, s, s);
-            }
-        }
-        for(let i=0; i<400; i++) parts.push(new P());
-        function anim() {
-            ctx.fillStyle = 'rgba(5,5,5,0.2)';
-            ctx.fillRect(0,0,canvas.width, canvas.height);
-            parts.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(anim);
-        }
-        anim();
-    }
-
-    function initObserver() {
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.rev').forEach(el => obs.observe(el));
-    }
-
-    document.addEventListener('mousemove', (e) => {
-        const x = (window.innerWidth / 2 - e.clientX) / 50;
-        const y = (window.innerHeight / 2 - e.clientY) / 50;
-        const logo = document.getElementById('hero-logo');
-        if(logo) logo.style.transform = `translate(${x}px, ${y}px)`;
-    });
-
-    document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
-    };
-</script>
 </body>
 </html>
