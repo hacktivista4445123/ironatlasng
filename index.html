@@ -7,14 +7,41 @@
     <link rel="icon" type="image/png" href="../assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0022; --b: #010101; --p: #080808; --sh: rgba(255, 0, 34, 0.5); --c: #00f0ff; --m-x: 0px; --m-y: 0px; }
+        :root { 
+            --r: #ff0022; 
+            --b: #050505; 
+            --p: #0a0a0f; 
+            --sh: rgba(255, 0, 34, 0.3); 
+            --grid: rgba(255, 0, 34, 0.08);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; scroll-behavior: smooth;}
-        body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; cursor: crosshair; }
+        
+        body { 
+            background: var(--b); 
+            color: #fff; 
+            font-family: 'Rajdhani', sans-serif; 
+            overflow-x: hidden; 
+            user-select: none; 
+            cursor: crosshair; 
+        }
+
         body::-webkit-scrollbar { width: 3px; }
         body::-webkit-scrollbar-track { background: #000; }
         body::-webkit-scrollbar-thumb { background: var(--r); }
 
-        #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s, visibility 0.8s; }
+        #loader { 
+            position: fixed; 
+            inset: 0; 
+            background: #000; 
+            z-index: 10000; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            transition: opacity 0.8s, visibility 0.8s; 
+        }
+        
         .load-box { width: 300px; text-align: center; }
         .load-logo { width: 80px; filter: drop-shadow(0 0 15px var(--r)); animation: pulse 2s infinite ease-in-out; margin-bottom: 20px;}
         .load-bar-wrap { width: 100%; height: 2px; background: #111; position: relative; overflow: hidden; border-radius: 2px;}
@@ -23,73 +50,109 @@
 
         @keyframes pulse { 0%, 100% { opacity: 0.7; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
-        .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; overflow: hidden; pointer-events: none; }
-        .cyber-grid { position: absolute; inset: -100px; background-image: linear-gradient(rgba(255,0,34,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,34,0.15) 1px, transparent 1px); background-size: 60px 60px; transform: perspective(1000px) rotateX(65deg) translateZ(-200px); animation: grid-move 20s linear infinite; opacity: 0.6; }
+        .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #050505; overflow: hidden; pointer-events: none; }
+        
+        .oath-aurora {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% -20%, rgba(255, 0, 34, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 40%, rgba(255, 0, 34, 0.05) 0%, transparent 40%);
+            animation: aurora 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes aurora {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .cyber-grid { 
+            position: absolute; 
+            inset: -500px; 
+            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); 
+            background-size: 60px 60px; 
+            transform: perspective(1000px) rotateX(60deg) translateZ(-100px); 
+            animation: grid-move 30s linear infinite; 
+        }
+
         @keyframes grid-move { 0% { background-position: 0 0; } 100% { background-position: 0 600px; } }
-        canvas#bg-vortex { position: absolute; inset: 0; z-index: -1; opacity: 0.5; filter: blur(1px); }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle, transparent 30%, #000 120%); }
-        .scanlines { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 4px); opacity: 0.6; }
+        
+        canvas#bg-vortex { position: absolute; inset: 0; z-index: -1; opacity: 0.3; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle, transparent 20%, #000 150%); }
+        .scanlines { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px); pointer-events: none; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: rgba(0,0,0,0.95); border-bottom: 2px solid rgba(255,0,34,0.3); position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
-        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 5px; font-weight: 900; color: #fff; text-decoration: none;}
-        .nav-brand img { width: 38px; filter: drop-shadow(0 0 8px var(--r)); }
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; 
+            background: rgba(5,5,10,0.7); border-bottom: 1px solid rgba(255,0,34,0.1); 
+            position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(20px); 
+        }
+        
+        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; color: #fff; text-decoration: none;}
+        .nav-brand img { width: 32px; filter: drop-shadow(0 0 8px var(--r)); }
         .nav-brand span { color: var(--r); }
-        .nav-links { display: flex; gap: 40px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #777; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; position: relative; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #999; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; }
         .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--r); }
-        .nav-links a::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 0%; height: 2px; background: var(--r); transition: 0.4s; box-shadow: 0 0 10px var(--r); }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        #main-content { opacity: 0; transition: opacity 1s, visibility 1s; visibility: hidden;}
+        #main-content { opacity: 0; transition: opacity 1s; visibility: hidden; padding-top: 80px;}
         
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; position: relative;}
-        .hero-logo { width: 250px; filter: drop-shadow(0 0 40px var(--sh)); margin-bottom: 40px; animation: float 6s infinite ease-in-out; transition: transform 0.1s linear; }
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(3.5rem, 12vw, 8rem); letter-spacing: 25px; text-shadow: 0 0 30px var(--r); line-height: 1; transition: transform 0.1s linear; }
-        .hero p { font-family: 'Share Tech Mono'; color: var(--r); font-size: 1.2rem; letter-spacing: 12px; margin-top: 15px; text-transform: uppercase; text-shadow: 0 0 10px var(--r); transition: transform 0.1s linear; }
+        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative;}
+        .hero-logo { width: 220px; filter: drop-shadow(0 0 40px var(--sh)); margin-bottom: 30px; animation: float 6s infinite ease-in-out; }
+        .hero h1 { 
+            font-family: 'Cinzel', serif; font-size: clamp(3rem, 10vw, 7rem); letter-spacing: 20px; 
+            background: linear-gradient(to bottom, #fff 30%, var(--r) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1; 
+        }
+        .hero p { font-family: 'Share Tech Mono'; color: #666; font-size: 0.9rem; letter-spacing: 10px; margin-top: 20px; text-transform: uppercase; }
         
-        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(1deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .section-tag { text-align: center; margin: 120px 0 60px; font-family: 'Share Tech Mono'; font-size: 0.9rem; letter-spacing: 18px; color: #333; text-transform: uppercase; }
-        .section-tag span { color: var(--r); text-shadow: 0 0 5px var(--r); }
+        .intel-brief {
+            max-width: 900px; margin: 0 auto 100px; text-align: center; padding: 0 30px;
+        }
+        .intel-brief h2 { font-family: 'Cinzel'; color: #fff; font-size: 1.8rem; letter-spacing: 8px; margin-bottom: 25px; }
+        .intel-brief p { color: #aaa; font-size: 1.1rem; line-height: 1.8; letter-spacing: 1px; font-weight: 500; }
+        .intel-brief .separator { width: 60px; height: 2px; background: var(--r); margin: 30px auto; box-shadow: 0 0 10px var(--r); }
 
-        .nodes-container { max-width: 1500px; margin: 0 auto 120px; padding: 0 40px; }
-        .nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 35px; }
+        .section-tag { text-align: center; margin: 100px 0 50px; font-family: 'Share Tech Mono'; font-size: 0.8rem; letter-spacing: 15px; color: #444; text-transform: uppercase; }
+        .section-tag span { color: var(--r); }
+
+        .nodes-container { max-width: 1400px; margin: 0 auto 150px; padding: 0 40px; }
+        .nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
         
         .node-card {
-            background: rgba(5,5,5,0.9); border: 1px solid #111; padding: 35px;
-            display: flex; align-items: center; gap: 30px; text-decoration: none; color: inherit;
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1); position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            background: rgba(10,10,15,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 30px;
+            display: flex; align-items: center; gap: 25px; text-decoration: none; color: inherit;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+            backdrop-filter: blur(10px); border-radius: 4px;
         }
-        .node-card:hover { transform: scale(1.03) translateY(-5px); border-color: var(--r); box-shadow: 0 25px 60px rgba(255,0,34,0.15); background: #000; }
-        .node-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: var(--r); transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
-        .node-card:hover::after { width: 100%; }
+        .node-card:hover { transform: translateY(-8px); border-color: rgba(255,0,34,0.4); background: rgba(255,0,34,0.03); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .node-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, transparent, rgba(255,0,34,0.05), transparent); transform: translateX(-100%); transition: 0.8s; }
+        .node-card:hover::before { transform: translateX(100%); }
 
-        .node-img { width: 95px; height: 95px; object-fit: cover; border: 1px solid #1a1a1a; filter: grayscale(1) brightness(0.7); transition: 0.5s; flex-shrink: 0; }
-        .node-card:hover .node-img { filter: grayscale(0) brightness(1); border-color: var(--r); box-shadow: 0 0 20px var(--r); }
+        .node-img { width: 80px; height: 80px; border-radius: 2px; object-fit: cover; border: 1px solid #222; filter: grayscale(1); transition: 0.5s; }
+        .node-card:hover .node-img { filter: grayscale(0); border-color: var(--r); box-shadow: 0 0 15px var(--r); }
 
-        .node-info { flex: 1; min-width: 0; }
-        .node-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #eee; margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 0 5px rgba(255,255,255,0.2); transition: 0.3s; }
-        .node-card:hover .node-name { color: #fff; text-shadow: 0 0 10px var(--r); }
-        .node-desc { font-size: 0.85rem; color: #666; line-height: 1.6; margin-bottom: 15px; font-weight: 500; }
-        .node-tag { display: inline-block; font-family: 'Share Tech Mono'; font-size: 0.65rem; color: var(--r); border: 1px solid var(--r); padding: 5px 15px; text-transform: uppercase; letter-spacing: 3px; background: rgba(255,0,34,0.05); }
+        .node-name { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #ddd; margin-bottom: 8px; letter-spacing: 1px; }
+        .node-card:hover .node-name { color: #fff; }
+        .node-desc { font-size: 0.8rem; color: #777; line-height: 1.5; margin-bottom: 12px; }
+        .node-tag { font-family: 'Share Tech Mono'; font-size: 0.6rem; color: var(--r); letter-spacing: 2px; text-transform: uppercase; }
 
-        footer { background: #050505; padding: 80px 60px; border-top: 1px solid #111; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 4px; color: #222; text-transform: uppercase; font-size: 0.9rem;}
-        .f-red { color: var(--r); text-shadow: 0 0 10px var(--r); }
+        footer { 
+            background: #020202; padding: 60px; border-top: 1px solid #111; 
+            display: flex; justify-content: space-between; align-items: center; 
+            font-size: 0.75rem; letter-spacing: 3px; color: #444; text-transform: uppercase;
+        }
+        .f-red { color: var(--r); }
 
-        .rev { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.23, 1, 0.32, 1); }
+        .rev { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
         .rev.active { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 1024px) {
-            nav { padding: 20px 30px; }
-            .nodes-grid { grid-template-columns: 1fr; }
-        }
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 15px; }
-            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; display: none;}
-            .section-tag { letter-spacing: 8px; margin: 80px 0 40px; }
-            .hero-logo { width: 180px; }
-            footer { flex-direction: column; text-align: center; gap: 15px; padding: 50px 20px;}
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .nodes-grid { grid-template-columns: 1fr; }
+            .hero h1 { letter-spacing: 10px; }
+            footer { flex-direction: column; gap: 20px; text-align: center; }
         }
     </style>
 </head>
@@ -99,11 +162,12 @@
     <div class="load-box">
         <img src="../assets/logo_ng.png" class="load-logo">
         <div class="load-bar-wrap"><div class="load-bar-fill" id="fill"></div></div>
-        <div class="load-text" id="load-text">ESTABLISHING_LINK...</div>
+        <div class="load-text" id="load-text">INITIATING_ATLAS_PROTOCOL...</div>
     </div>
 </div>
 
-<div class="bg-wrapper" id="bg-parallax">
+<div class="bg-wrapper">
+    <div class="oath-aurora"></div>
     <div class="cyber-grid"></div>
     <canvas id="bg-vortex"></canvas>
     <div class="vignette"></div>
@@ -126,68 +190,61 @@
     </nav>
 
     <main>
-        <section class="hero" id="hero-parallax">
+        <section class="hero">
             <img src="../assets/logo_ng.png" class="hero-logo" id="hero-logo">
-            <h1 class="rev" id="hero-title">IRON ATLAS</h1>
-            <p class="rev" id="hero-tag">HACKTIVISTAS DE SANGRE // WE DOCUMENT THE TRUTH</p>
+            <h1 class="rev">IRON ATLAS</h1>
+            <p class="rev">NEW GENERATION // NETWORK SOVEREIGNTY</p>
         </section>
 
-        <div class="section-tag rev"><span>//</span> NODOS Y ALIADOS OPERATIVOS <span>//</span></div>
+        <section class="intel-brief rev">
+            <h2>SOBRE EL COLECTIVO</h2>
+            <div class="separator"></div>
+            <p>
+                Operamos en las grietas de la infraestructura digital donde la verdad es filtrada. 
+                <strong>Iron Atlas New Generation</strong> no es solo una organización de hacking, es un nodo de resistencia 
+                dedicado a la transparencia radical y la documentación del poder oculto. En un mundo de vigilancia total, 
+                nuestra firma es el recordatorio de que ningún sistema es absoluto.
+            </p>
+        </section>
+
+        <div class="section-tag rev"><span>//</span> ALIADOS OPERATIVOS <span>//</span></div>
 
         <section class="nodes-container">
             <div class="nodes-grid">
                 
-                <a href="https://t.me/ironatlas_organization" class="node-card rev" target="_blank" style="border-left: 3px solid var(--r);">
-                    <img src="../assets/logo_ng.png" class="node-img" style="filter: none; opacity: 1; border-color: var(--r);">
+                <a href="https://t.me/ironatlas_organization" class="node-card rev">
+                    <img src="../assets/logo_ng.png" class="node-img">
                     <div class="node-info">
                         <div class="node-name">ɪʀᴏɴ ᴀᴛʟᴀꜱ ɴᴇᴡ ɢᴇɴᴇʀᴀᴛɪᴏɴ</div>
-                        <p class="node-desc">NODO CENTRAL. HACKTIVISMO, INTELIGENCIA DIGITAL Y OPERACIONES GLOBALES.</p>
-                        <span class="node-tag">CENTRAL ATLAS</span>
+                        <p class="node-desc">Nodo central de inteligencia. Operaciones de hacktivismo ofensivo y defensa de activos.</p>
+                        <span class="node-tag">[ CENTRAL_NODE ]</span>
                     </div>
                 </a>
 
-                <a href="https://t.me/+wLnQPrkGG004NmVh" class="node-card rev" target="_blank">
+                <a href="https://t.me/+wLnQPrkGG004NmVh" class="node-card rev">
                     <img src="https://i.postimg.cc/kMSWpK7v/Captura-de-pantalla-2026-04-08-012508.png" class="node-img">
                     <div class="node-info">
                         <div class="node-name">𝗠𝗲𝗿𝗰𝗮𝗡𝗲𝗴𝗿𝗼𝗖𝗢𝗟 +</div>
-                        <p class="node-desc">PROVEEDORES ESPECIALIZADOS EN MATERIAL G5 Y LOGÍSTICA DE RED.</p>
-                        <span class="node-tag">G5 PROVEEDOR</span>
+                        <p class="node-desc">Unidad de logística y suministro especializado. Infraestructura de red avanzada.</p>
+                        <span class="node-tag">[ LOGISTICS_UNIT ]</span>
                     </div>
                 </a>
 
-                <a href="https://t.me/HackPurgatory" class="node-card rev" target="_blank">
+                <a href="https://t.me/HackPurgatory" class="node-card rev">
                     <img src="https://files.catbox.moe/iwurbn.jpg" class="node-img">
                     <div class="node-info">
                         <div class="node-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</div>
-                        <p class="node-desc">ANÁLISIS DE FUGAS DE INFORMACIÓN Y ASEGURAMIENTO DE DATOS MASIVOS.</p>
-                        <span class="node-tag">INTELIGENCIA</span>
+                        <p class="node-desc">Especialistas en análisis de brechas masivas y extracción de inteligencia forense.</p>
+                        <span class="node-tag">[ INTEL_DIVISION ]</span>
                     </div>
                 </a>
 
-                <a href="https://t.me/zconchita" class="node-card rev" target="_blank">
+                <a href="https://t.me/zconchita" class="node-card rev">
                     <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="node-img">
                     <div class="node-info">
                         <div class="node-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</div>
-                        <p class="node-desc">FUERZA OPERATIVA PARA DESPLIEGUES RÁPIDOS Y DEFENSA DE ACTIVOS.</p>
-                        <span class="node-tag">TACTICAL TEAM</span>
-                    </div>
-                </a>
-
-                <a href="https://t.me/FusaUrbanoOficial" class="node-card rev" target="_blank">
-                    <img src="https://i.postimg.cc/Rh6k4x6j/fusaburbano.jpg" class="node-img">
-                    <div class="node-info">
-                        <div class="node-name">FusaUrbano</div>
-                        <p class="node-desc">FILTRACIÓN DE CANCIONES OCULTAS. OPERACIONES MEDIÁTICAS.</p>
-                        <span class="node-tag">FILTRACIÓN- LEAK</span>
-                    </div>
-                </a>
-
-                <a href="https://t.me/nullsechackers" class="node-card rev" target="_blank">
-                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="node-img">
-                    <div class="node-info">
-                        <div class="node-name">NULLSEC PHILIPPINES</div>
-                        <p class="node-desc">EXPERTOS EN PENETRACIÓN DE RED, AUDITORÍA OFENSIVA Y CONTRAINTELIGENCIA.</p>
-                        <span class="node-tag">HACKTIVISTAS</span>
+                        <p class="node-desc">Fuerza táctica de despliegue rápido. Especialistas en aseguramiento de nodos.</p>
+                        <span class="node-tag">[ TACTICAL_TEAM ]</span>
                     </div>
                 </a>
 
@@ -196,24 +253,23 @@
     </main>
 
     <footer>
-        <div>BY: <span class="f-red">@IMPORTATLAS</span> | IRON ATLAS ORGANIZATION © 2026</div>
-        <div>LA INFORMACIÓN DEBE SER LIBRE</div>
+        <div>OPERADOR: <span class="f-red">@IMPORTATLAS</span> | STATUS: <span class="f-red">ROOT</span></div>
+        <div>IRON ATLAS ORG © 2026 // LA INFORMACIÓN DEBE SER LIBRE</div>
     </footer>
 </div>
 
 <script>
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const logMessages = ["SYSTEM_BOOT...", "BYPASSING_GATEWAY...", "DECRYPTING_ASSETS...", "LOADING_NEURAL_MAP...", "ACCESS_GRANTED_ROOT"];
+    const logMessages = ["SYSTEM_BOOT...", "BYPASSING_GATEWAY...", "LOADING_OATHNET_MODULES...", "DECRYPTING_NEURAL_MAP...", "ACCESS_GRANTED_ROOT"];
     const termText = document.getElementById('load-text');
     let p = 0;
     let logIdx = 0;
 
     const interval = setInterval(() => {
-        p += Math.floor(Math.random() * 4) + 1;
+        p += Math.floor(Math.random() * 5) + 1;
         if (p > 100) p = 100;
         
         document.getElementById('fill').style.width = p + '%';
-        if (p % 25 === 0 && logIdx < logMessages.length) {
+        if (p % 20 === 0 && logIdx < logMessages.length) {
             termText.innerText = logMessages[logIdx];
             logIdx++;
         }
@@ -230,9 +286,9 @@
                     initVortex();
                     initObserver();
                 }, 800);
-            }, 600);
+            }, 500);
         }
-    }, 50);
+    }, 40);
 
     function initVortex() {
         const canvas = document.getElementById('bg-vortex');
@@ -247,43 +303,27 @@
                 this.x = Math.random() * canvas.width - canvas.width/2;
                 this.y = Math.random() * canvas.height - canvas.height/2;
                 this.z = canvas.width;
-                this.px = 0; this.py = 0;
             }
             update() {
-                this.z -= 7;
+                this.z -= 8;
                 if (this.z < 1) this.reset();
-                let k = 140 / this.z;
-                this.px = this.x * k + canvas.width/2;
-                this.py = this.y * k + canvas.height/2;
+                this.px = (this.x * (150 / this.z)) + canvas.width/2;
+                this.py = (this.y * (150 / this.z)) + canvas.height/2;
             }
             draw() {
-                let size = (1 - this.z / canvas.width) * 4;
-                ctx.fillStyle = Math.random() > 0.15 ? '#ff0022' : '#fff';
-                ctx.fillRect(this.px, this.py, size, size);
+                let s = (1 - this.z / canvas.width) * 3;
+                ctx.fillStyle = Math.random() > 0.1 ? '#ff0022' : '#fff';
+                ctx.fillRect(this.px, this.py, s, s);
             }
         }
-        for(let i=0; i<350; i++) parts.push(new P());
+        for(let i=0; i<400; i++) parts.push(new P());
         function anim() {
-            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            ctx.fillStyle = 'rgba(5,5,5,0.2)';
             ctx.fillRect(0,0,canvas.width, canvas.height);
             parts.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(anim);
         }
         anim();
-    }
-
-    if (!isMobile) {
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 40;
-            const y = (window.innerHeight / 2 - e.clientY) / 40;
-            
-            document.getElementById('hero-logo').style.transform = `translate(${x}px, ${y}px)`;
-            document.getElementById('hero-title').style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
-            document.getElementById('hero-tag').style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-            
-            const grid = document.querySelector('.cyber-grid');
-            grid.style.transform = `perspective(1000px) rotateX(65deg) translateZ(-200px) translate(${x * -0.2}px, ${y * -0.2}px)`;
-        });
     }
 
     function initObserver() {
@@ -293,8 +333,15 @@
         document.querySelectorAll('.rev').forEach(el => obs.observe(el));
     }
 
+    document.addEventListener('mousemove', (e) => {
+        const x = (window.innerWidth / 2 - e.clientX) / 50;
+        const y = (window.innerHeight / 2 - e.clientY) / 50;
+        const logo = document.getElementById('hero-logo');
+        if(logo) logo.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
     document.onkeydown = e => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85) || (e.ctrlKey && e.keyCode == 83)) return false;
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
 </script>
 </body>
