@@ -5,107 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IRON ATLAS | NEW GENERATION</title>
     <link rel="icon" type="image/png" href="../assets/logo_ng.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0000; --r-dim: #8b0000; --bg: #000; --card: rgba(10, 10, 10, 0.9); }
-        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
-        body::-webkit-scrollbar { width: 4px; }
-        body::-webkit-scrollbar-track { background: #000; }
-        body::-webkit-scrollbar-thumb { background: var(--r); }
+        :root { --r: #ff0022; --b: #000; --sh: rgba(255, 0, 34, 0.6); --c: #00f0ff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
 
+        /* Loader Profesional */
         #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .load-content { width: 350px; text-align: center; }
-        .load-logo { width: 120px; margin-bottom: 30px; filter: drop-shadow(0 0 20px var(--r)); animation: pulse 1.5s infinite ease-in-out; }
-        .terminal-text { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); text-transform: uppercase; margin-bottom: 10px; min-height: 1.2em; letter-spacing: 2px; }
-        .progress-container { width: 100%; height: 4px; background: #111; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #222; }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, transparent, var(--r), #fff); box-shadow: 0 0 15px var(--r); transition: 0.1s linear; }
+        .load-box { width: 350px; }
+        .load-logo { width: 100px; margin: 0 auto 30px; display: block; filter: drop-shadow(0 0 15px var(--r)); animation: pulse 2s infinite; }
+        .term-log { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); margin-bottom: 10px; height: 1.2em; letter-spacing: 1px; }
+        .bar-wrap { width: 100%; height: 2px; background: #111; position: relative; border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+        .bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, transparent, var(--r), #fff); box-shadow: 0 0 10px var(--r); transition: 0.1s linear; }
+        .perc { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #444; display: flex; justify-content: space-between; }
 
-        .bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-        .vignette { background: radial-gradient(circle, transparent 30%, #000 110%); }
-        .grid { background-image: linear-gradient(rgba(255, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 0, 0.05) 1px, transparent 1px); background-size: 60px 60px; transform: perspective(1000px) rotateX(60deg) translateY(-200px) scale(2); height: 200%; top: -50%; animation: gridScroll 30s linear infinite; }
-        .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.4) 2px, rgba(0, 0, 0, 0.4) 4px); pointer-events: none; }
+        /* Background FX */
+        .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #000; }
+        .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,0,34,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,34,0.1) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-300px); animation: grid-move 15s linear infinite; opacity: 0.4; }
+        @keyframes grid-move { 0% { transform: perspective(1000px) rotateX(60deg) translateY(0) translateZ(-300px); } 100% { transform: perspective(1000px) rotateX(60deg) translateY(50px) translateZ(-300px); } }
+        canvas#bg-vortex { position: absolute; inset: 0; z-index: -1; opacity: 0.3; }
+        .vignette { position: fixed; inset: 0; background: radial-gradient(circle, transparent 20%, #000 100%); pointer-events: none; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: rgba(0,0,0,0.95); border-bottom: 1px solid rgba(255,0,34,0.3); position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 4px; font-weight: 900; }
+        .nav-brand img { width: 35px; filter: drop-shadow(0 0 8px var(--r)); }
+        .nav-links { display: flex; gap: 35px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #777; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; text-transform: uppercase; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px var(--r); }
+
+        /* Hero Section */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero h1 { font-family: 'Cinzel'; font-size: clamp(3rem, 10vw, 6.5rem); letter-spacing: 20px; margin-bottom: 10px; filter: drop-shadow(0 0 20px var(--sh)); }
+        .hero p { font-family: 'Share Tech Mono'; color: var(--r); letter-spacing: 10px; font-size: 1rem; text-transform: uppercase; }
+
+        /* Sections Label */
+        .section-tag { text-align: center; margin: 100px 0 50px; font-family: 'Share Tech Mono'; font-size: 0.8rem; letter-spacing: 15px; color: #222; text-transform: uppercase; }
+        .section-tag span { color: var(--r); }
+
+        /* Nodes Grid */
+        .nodes-container { max-width: 1400px; margin: 0 auto 100px; padding: 0 40px; }
+        .nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 25px; }
         
-        @keyframes gridScroll { from { background-position: 0 0; } to { background-position: 0 1000px; } }
-        @keyframes pulse { 0%, 100% { opacity: 0.6; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
+        .node-card {
+            background: rgba(5,5,5,0.9); border: 1px solid #111; padding: 30px;
+            display: flex; align-items: center; gap: 25px; text-decoration: none; color: inherit;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); position: relative; overflow: hidden;
+        }
+        .node-card:hover { transform: scale(1.02); border-color: var(--r); box-shadow: 0 0 30px rgba(255,0,34,0.1); }
+        .node-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--r); transition: 0.5s; }
+        .node-card:hover::after { width: 100%; }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border-bottom: 1px solid transparent; transition: 0.5s; }
-        nav.scrolled { background: rgba(0,0,0,0.95); padding: 15px 50px; border-color: rgba(255,0,0,0.2); backdrop-filter: blur(15px); }
-        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel'; font-weight: 900; font-size: 1.5rem; letter-spacing: 4px; color: #fff; }
-        .nav-brand img { width: 40px; filter: drop-shadow(0 0 10px var(--r)); }
-        .nav-links { display: flex; gap: 40px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #777; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; position: relative; }
-        .nav-links a:hover, .nav-links a.active { color: var(--r); }
-        .nav-links a.active::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: var(--r); box-shadow: 0 0 10px var(--r); }
+        .node-img { width: 90px; height: 90px; object-fit: cover; border: 1px solid #1a1a1a; filter: grayscale(1); transition: 0.5s; flex-shrink: 0; }
+        .node-card:hover .node-img { filter: grayscale(0); border-color: var(--r); box-shadow: 0 0 15px var(--r); }
 
-        main { max-width: 1200px; margin: 0 auto; padding: 150px 20px 100px; }
-        .page-header { text-align: center; margin-bottom: 100px; }
-        .page-header h1 { font-family: 'Cinzel'; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 20px; line-height: 1; margin-bottom: 15px; background: linear-gradient(to bottom, #fff, #555); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(255,0,0,0.3)); }
-        .page-header p { font-family: 'Share Tech Mono'; color: var(--r); letter-spacing: 8px; font-size: 1rem; text-transform: uppercase; }
+        .node-info { flex: 1; min-width: 0; }
+        .node-name { font-family: 'Cinzel'; font-size: 1.1rem; color: #eee; margin-bottom: 8px; letter-spacing: 1px; }
+        .node-desc { font-size: 0.8rem; color: #555; line-height: 1.5; margin-bottom: 12px; font-weight: 500; }
+        .node-tag { display: inline-block; font-family: 'Share Tech Mono'; font-size: 0.6rem; color: var(--r); border: 1px solid var(--r); padding: 4px 12px; text-transform: uppercase; letter-spacing: 2px; }
 
-        .nodes-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .node-card { background: var(--card); border: 1px solid #1a1a1a; padding: 0; text-decoration: none; display: flex; flex-direction: column; overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
-        .node-card:hover { border-color: var(--r); transform: translateY(-10px); background: #050505; box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255,0,0,0.1); }
-        .node-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(1) contrast(1.2); opacity: 0.5; transition: 0.6s; border-bottom: 1px solid #1a1a1a; }
-        .node-card:hover .node-img { filter: grayscale(0) contrast(1); opacity: 1; transform: scale(1.05); }
-        .node-info { padding: 30px; }
-        .node-name { font-family: 'Cinzel'; font-size: 1.2rem; color: #fff; margin-bottom: 15px; letter-spacing: 2px; transition: 0.3s; }
-        .node-card:hover .node-name { color: var(--r); }
-        .node-desc { font-size: 0.85rem; color: #888; line-height: 1.6; margin-bottom: 20px; height: 50px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .node-tag { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); border: 1px solid var(--r); padding: 5px 12px; display: inline-block; letter-spacing: 2px; }
+        footer { background: #050505; padding: 60px; border-top: 1px solid #111; display: flex; justify-content: space-between; align-items: center; font-family: 'Rajdhani'; font-weight: 700; letter-spacing: 3px; color: #222; font-size: 0.8rem; }
+        .f-red { color: var(--r); }
 
-        footer { text-align: center; padding: 80px 20px; font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #333; letter-spacing: 5px; border-top: 1px solid #111; margin-top: 50px; }
-
-        .rev { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .rev { opacity: 0; transform: translateY(40px); transition: 1s ease; }
         .rev.active { opacity: 1; transform: translateY(0); }
 
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.95); opacity: 0.7; } }
+
         @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
+            nav { padding: 15px 20px; flex-direction: column; }
             .nav-links { display: none; }
-            .page-header h1 { letter-spacing: 10px; }
-            .nodes-container { grid-template-columns: 1fr; }
+            .nodes-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 20px; text-align: center; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div id="loader">
-        <div class="load-content">
-            <img src="../assets/logo_ng.png" class="load-logo">
-            <div class="terminal-text" id="term-text">INITIALIZING...</div>
-            <div class="progress-container">
-                <div class="progress-bar" id="p-bar"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 8px; font-family: 'Share Tech Mono'; font-size: 0.6rem; color: #444;">
-                <span>0x74 0x72 0x61 0x73</span>
-                <span id="p-text">0%</span>
-            </div>
+<div id="loader">
+    <div class="load-box">
+        <img src="../assets/logo_ng.png" class="load-logo">
+        <div class="term-log" id="term-log">INITIALIZING_ATLAS_PROTOCOL...</div>
+        <div class="bar-wrap"><div class="bar-fill" id="fill"></div></div>
+        <div class="perc">
+            <span id="hex-code">0x49 0x41 0x4E 0x47</span>
+            <span id="load-pct">0%</span>
         </div>
     </div>
+</div>
 
-    <div class="bg-fx grid"></div>
-    <div class="bg-fx vignette"></div>
-    <div class="bg-fx scanlines"></div>
+<div class="bg-wrapper">
+    <div class="cyber-grid"></div>
+    <canvas id="bg-vortex"></canvas>
+    <div class="vignette"></div>
+</div>
 
-    <div id="main-content" style="display:none; opacity:0;">
-        <nav id="navbar">
-            <div class="nav-brand"><img src="../assets/logo_ng.png">IRON ATLAS</div>
-            <ul class="nav-links">
-                <li><a href="../index.html">INICIO</a></li>
-                <li><a href="../0x_tools/vault.html">MÓDULOS</a></li>
-                <li><a href="../noti/noticias.html">NOTICIAS</a></li>
-                <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
-                <li><a href="#" class="active">CANALES</a></li>
-            </ul>
-        </nav>
+<div id="main-content" style="display:none; opacity:0;">
+    <nav>
+        <div class="nav-brand"><img src="../assets/logo_ng.png">IRON ATLAS</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">INICIO</a></li>
+            <li><a href="../0x_tools/vault.html">MÓDULOS</a></li>
+            <li><a href="../noti/noticias.html">NOTICIAS</a></li>
+            <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
+            <li><a href="canales.html">CANALES</a></li>
+        </ul>
+    </nav>
 
-        <main>
-            <header class="page-header rev">
-                <h1>CANALES</h1>
-                <p>DIRECTORIO DE CANALES ALIADOS</p>
-            </header>
+    <main>
+        <section class="hero">
+            <h1 class="rev">IRON ATLAS</h1>
+            <p class="rev">NEW GENERATION // OFFENSIVE & DEFENSIVE HACKING</p>
+        </section>
 
-            <section class="nodes-container">
+        <div class="section-tag"><span>//</span> ALIADOS Y NODOS <span>//</span></div>
+
+        <section class="nodes-container">
+            <div class="nodes-grid">
+                
+                <a href="https://t.me/ironatlas_organization" class="node-card rev" target="_blank" style="border-left: 3px solid var(--r);">
+                    <img src="../assets/logo_ng.png" class="node-img" style="border-color: var(--r); filter: none; opacity: 1;">
+                    <div class="node-info">
+                        <div class="node-name">ɪʀᴏɴ ᴀᴛʟᴀꜱ ɴᴇᴡ ɢᴇɴᴇʀᴀᴛɪᴏɴ</div>
+                        <p class="node-desc">NODO CENTRAL. HACKTIVISMO, INTELIGENCIA DIGITAL Y OPERACIONES GLOBALES.</p>
+                        <span class="node-tag">CENTRAL ATLAS</span>
+                    </div>
+                </a>
+
                 <a href="https://t.me/+wLnQPrkGG004NmVh" class="node-card rev" target="_blank">
                     <img src="https://i.postimg.cc/kMSWpK7v/Captura-de-pantalla-2026-04-08-012508.png" class="node-img">
                     <div class="node-info">
@@ -129,7 +156,7 @@
                     <div class="node-info">
                         <div class="node-name">FusaUrbano</div>
                         <p class="node-desc">FILTRACIÓN DE CANCIONES OCULTAS.</p>
-                        <span class="node-tag">FILTRACIÓN - LEAK</span>
+                        <span class="node-tag">FILTRACIÓN- LEAK</span>
                     </div>
                 </a>
 
@@ -150,38 +177,45 @@
                         <span class="node-tag">HACKTIVISTAS</span>
                     </div>
                 </a>
-            </section>
-        </main>
 
-        <footer>
-            IRON ATLAS NEW GENERATION // SECTOR-NG // 2026
-        </footer>
-    </div>
+            </div>
+        </section>
+    </main>
 
-    <script>
-        const logs = ["SYSTEM_BOOT...", "LOADING_VIRTUAL_ENV...", "BYPASSING_FIREWALL...", "DECRYPTING_NODES...", "ESTABLISHING_LINK..."];
-        const term = document.getElementById('term-text');
-        const pbar = document.getElementById('p-bar');
-        const ptext = document.getElementById('p-text');
+    <footer>
+        <div>BY: <span class="f-red">@IMPORTATLAS</span> | IRON ATLAS ORGANIZATION © 2026</div>
+        <div>JUNTOS ACABAREMOS CON LA CORRUPCIÓN</div>
+    </footer>
+</div>
+
+<script>
+    // Loader Script
+    const logMessages = [
+        "BYPASSING_GATEWAY...",
+        "DECRYPTING_ASSETS...",
+        "ESTABLISHING_VPN...",
+        "LOADING_NEURAL_MAP...",
+        "ACCESS_GRANTED_ROOT"
+    ];
+    let p = 0;
+    let logIdx = 0;
+
+    const interval = setInterval(() => {
+        p += Math.floor(Math.random() * 5) + 2;
+        if (p > 100) p = 100;
         
-        let progress = 0;
-        let logIndex = 0;
+        document.getElementById('fill').style.width = p + '%';
+        document.getElementById('load-pct').innerText = p + '%';
 
-        function updateLoader() {
-            progress += Math.floor(Math.random() * 8) + 1;
-            if (progress > 100) progress = 100;
-            
-            pbar.style.width = progress + '%';
-            ptext.innerText = progress + '%';
+        if (p % 20 === 0 && logIdx < logMessages.length) {
+            document.getElementById('term-log').innerText = logMessages[logIdx];
+            logIdx++;
+        }
 
-            if (progress % 20 === 0 && logIndex < logs.length) {
-                term.innerText = logs[logIndex];
-                logIndex++;
-            }
-
-            if (progress < 100) {
-                setTimeout(updateLoader, 50);
-            } else {
+        if (p === 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loader').style.display = 'none';
                     const main = document.getElementById('main-content');
@@ -190,28 +224,62 @@
                         main.style.opacity = '1'; 
                         initObserver();
                     }, 50);
-                }, 600);
+                }, 500);
+            }, 600);
+        }
+    }, 50);
+
+    // Vortex Script
+    function initVortex() {
+        const canvas = document.getElementById('bg-vortex');
+        const ctx = canvas.getContext('2d');
+        let parts = [];
+        const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+        window.onresize = resize; resize();
+
+        class P {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width - canvas.width/2;
+                this.y = Math.random() * canvas.height - canvas.height/2;
+                this.z = canvas.width;
+                this.px = 0; this.py = 0;
+            }
+            update() {
+                this.z -= 6;
+                if (this.z < 1) this.reset();
+                let k = 128 / this.z;
+                this.px = this.x * k + canvas.width/2;
+                this.py = this.y * k + canvas.height/2;
+            }
+            draw() {
+                let size = (1 - this.z / canvas.width) * 3;
+                ctx.fillStyle = Math.random() > 0.1 ? '#ff0022' : '#fff';
+                ctx.fillRect(this.px, this.py, size, size);
             }
         }
-
-        function initObserver() {
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+        for(let i=0; i<300; i++) parts.push(new P());
+        function anim() {
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            ctx.fillRect(0,0,canvas.width, canvas.height);
+            parts.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(anim);
         }
+        anim();
+    }
+    initVortex();
 
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
-        });
+    // Scroll Reveal
+    function initObserver() {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+    }
 
-        window.onload = updateLoader;
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) || (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))) {
-                e.preventDefault();
-            }
-        });
-    </script>
+    document.onkeydown = e => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    };
+</script>
 </body>
 </html>
