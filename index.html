@@ -33,6 +33,8 @@
     body::-webkit-scrollbar-thumb{background:var(--red)}
 
     .bg{
+      animation: pulseAura 8s ease-in-out infinite alternate;
+
       position:fixed;
       inset:0;
       z-index:-2;
@@ -52,6 +54,23 @@
       background-size:60px 60px;
       transform:perspective(1000px) rotateX(70deg);
       animation:gridMove 25s linear infinite;
+    }
+
+    @keyframes pulseAura{
+      0%{filter:brightness(1)}
+      100%{filter:brightness(1.15)}
+    }
+
+    .cursor-glow{
+      position:fixed;
+      width:320px;
+      height:320px;
+      border-radius:50%;
+      pointer-events:none;
+      background:radial-gradient(circle, rgba(255,0,34,.16) 0%, rgba(255,0,34,.06) 30%, transparent 70%);
+      transform:translate(-50%,-50%);
+      z-index:-1;
+      mix-blend-mode:screen;
     }
 
     @keyframes gridMove{
@@ -118,8 +137,10 @@
     }
 
     .hero-logo{
+      position:relative;
+
       width:220px;
-      filter:drop-shadow(0 0 30px var(--glow));
+      filter:drop-shadow(0 0 30px var(--glow)) drop-shadow(0 0 60px rgba(255,0,34,.35));
       animation:float 5s ease-in-out infinite;
     }
 
@@ -184,6 +205,8 @@
     }
 
     .card{
+      box-shadow: inset 0 0 0 1px rgba(255,0,34,.04), 0 0 30px rgba(255,0,34,.03);
+
       background:rgba(15,15,20,.72);
       border:1px solid var(--line);
       border-radius:22px;
@@ -199,6 +222,9 @@
     }
 
     .card:hover{
+      background:rgba(25,10,14,.85);
+      box-shadow:0 0 30px rgba(255,0,34,.18), 0 20px 60px rgba(0,0,0,.45);
+
       transform:translateY(-8px);
       border-color:rgba(255,0,34,.35);
       box-shadow:0 20px 60px rgba(0,0,0,.45);
@@ -259,6 +285,7 @@
   </style>
 </head>
 <body>
+<div class="cursor-glow" id="cursorGlow"></div>
 
 <div class="bg">
   <div class="grid"></div>
@@ -278,7 +305,7 @@
 <section class="hero">
   <img src="../assets/logo_ng.png" class="hero-logo" alt="logo">
   <h1>IRON ATLAS</h1>
-  <p class="subtitle">NEW GENERATION // NETWORK SOVEREIGNTY</p>
+  <p class="subtitle">NEW GENERATION • DIGITAL PRESENCE • ELITE NETWORK</p>
 </section>
 
 <section class="about">
@@ -349,6 +376,12 @@
 
 <script>
   document.addEventListener('mousemove', (e) => {
+    const glow = document.getElementById('cursorGlow');
+    if(glow){
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    }
+
     const hero = document.querySelector('.hero-logo');
     if (hero) {
       const x = (window.innerWidth / 2 - e.clientX) / 35;
