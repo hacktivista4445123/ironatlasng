@@ -267,11 +267,11 @@
 <nav>
   <a href="#" class="brand">IRON <span>ATLAS</span></a>
   <ul class="nav-links">
-    <li><a href="#">INICIO</a></li>
-    <li><a href="#">MÓDULOS</a></li>
-    <li><a href="#">NOTICIAS</a></li>
-    <li><a href="#">EXPEDIENTES</a></li>
-    <li><a href="#">CANALES</a></li>
+    <li><a href="../index.html">INICIO</a></li>
+    <li><a href="../0x_tools/vault.html">MÓDULOS</a></li>
+    <li><a href="../noti/noticias.html">NOTICIAS</a></li>
+    <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
+    <li><a href="#" class="active">CANALES</a></li>
   </ul>
 </nav>
 
@@ -347,5 +347,43 @@
   IRON ATLAS ORG © 2026 — LA INFORMACIÓN DEBE SER LIBRE
 </footer>
 
+<script>
+  document.addEventListener('mousemove', (e) => {
+    const hero = document.querySelector('.hero-logo');
+    if (hero) {
+      const x = (window.innerWidth / 2 - e.clientX) / 35;
+      const y = (window.innerHeight / 2 - e.clientY) / 35;
+      hero.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    document.querySelectorAll('.card').forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / 30;
+      const dy = (e.clientY - cy) / 30;
+      card.style.transform = `translateY(-6px) rotateY(${dx}deg) rotateX(${-dy}deg)`;
+    });
+  });
+
+  document.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.transform = '';
+    });
+  });
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.onkeydown = function(e) {
+    if (
+      e.keyCode === 123 ||
+      (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) ||
+      (e.ctrlKey && e.key.toUpperCase() === 'U') ||
+      (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'K')
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  };
+</script>
 </body>
 </html>
