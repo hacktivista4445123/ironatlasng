@@ -7,80 +7,63 @@
     <link rel="icon" type="image/png" href="../assets/logo_ng.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --r: #ff0022; --b: #000; --g: #0a0a0a; --s: rgba(255, 0, 34, 0.4); }
-        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; outline:none; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--b); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; user-select: none; }
-        body::-webkit-scrollbar { width: 3px; }
+        :root { --r: #ff0000; --r-dim: #8b0000; --bg: #000; --card: rgba(10, 10, 10, 0.9); }
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        body::-webkit-scrollbar { width: 4px; }
         body::-webkit-scrollbar-track { background: #000; }
         body::-webkit-scrollbar-thumb { background: var(--r); }
 
         #loader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .load-content { width: 320px; text-align: center; }
-        .load-logo { width: 100px; margin-bottom: 25px; filter: drop-shadow(0 0 15px var(--r)); animation: pulse 2s infinite; }
-        .bar-container { width: 100%; height: 2px; background: #111; position: relative; margin: 20px 0; border-radius: 2px; overflow: hidden; }
-        .bar-fill { height: 100%; width: 0; background: var(--r); box-shadow: 0 0 10px var(--r); }
-        .load-info { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); letter-spacing: 3px; display: flex; justify-content: space-between; }
+        .load-content { width: 350px; text-align: center; }
+        .load-logo { width: 120px; margin-bottom: 30px; filter: drop-shadow(0 0 20px var(--r)); animation: pulse 1.5s infinite ease-in-out; }
+        .terminal-text { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); text-transform: uppercase; margin-bottom: 10px; min-height: 1.2em; letter-spacing: 2px; }
+        .progress-container { width: 100%; height: 4px; background: #111; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #222; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, transparent, var(--r), #fff); box-shadow: 0 0 15px var(--r); transition: 0.1s linear; }
 
-        .bg-layer { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-        .vignette { background: radial-gradient(circle, transparent 20%, #000 100%); }
-        .grid { background-image: linear-gradient(rgba(255, 0, 34, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 34, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg) translateY(-100px); height: 200%; top: -50%; animation: moveGrid 20s linear infinite; }
-        .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 4px); }
+        .bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        .vignette { background: radial-gradient(circle, transparent 30%, #000 110%); }
+        .grid { background-image: linear-gradient(rgba(255, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 0, 0.05) 1px, transparent 1px); background-size: 60px 60px; transform: perspective(1000px) rotateX(60deg) translateY(-200px) scale(2); height: 200%; top: -50%; animation: gridScroll 30s linear infinite; }
+        .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.4) 2px, rgba(0, 0, 0, 0.4) 4px); pointer-events: none; }
         
-        @keyframes moveGrid { from { background-position: 0 0; } to { background-position: 0 1000px; } }
-        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.95); } }
+        @keyframes gridScroll { from { background-position: 0 0; } to { background-position: 0 1000px; } }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: 0.5s; backdrop-filter: blur(0px); }
-        nav.scrolled { padding: 12px 60px; background: rgba(0,0,0,0.9); border-bottom: 1px solid rgba(255,0,34,0.3); backdrop-filter: blur(10px); }
-        .brand { display: flex; align-items: center; gap: 15px; text-decoration: none; font-family: 'Cinzel'; font-weight: 900; color: #fff; font-size: 1.4rem; letter-spacing: 3px; }
-        .brand img { width: 35px; }
-        .brand span { color: var(--r); }
-        .nav-links { display: flex; gap: 35px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #666; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; transition: 0.3s; position: relative; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--r); transition: 0.3s; }
-        .nav-links a:hover::after { width: 100%; }
+        nav { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border-bottom: 1px solid transparent; transition: 0.5s; }
+        nav.scrolled { background: rgba(0,0,0,0.95); padding: 15px 50px; border-color: rgba(255,0,0,0.2); backdrop-filter: blur(15px); }
+        .nav-brand { display: flex; align-items: center; gap: 15px; font-family: 'Cinzel'; font-weight: 900; font-size: 1.5rem; letter-spacing: 4px; color: #fff; }
+        .nav-brand img { width: 40px; filter: drop-shadow(0 0 10px var(--r)); }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #777; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--r); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: var(--r); box-shadow: 0 0 10px var(--r); }
 
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 100px 20px; }
-        .hero-logo { width: 220px; filter: drop-shadow(0 0 30px var(--s)); margin-bottom: 30px; transition: 0.1s linear; }
-        .hero h1 { font-family: 'Cinzel'; font-size: clamp(3rem, 8vw, 7rem); letter-spacing: 15px; line-height: 1; margin-bottom: 15px; text-shadow: 0 0 20px var(--s); transition: 0.1s linear; }
-        .hero p { font-family: 'Share Tech Mono'; font-size: 1rem; color: var(--r); letter-spacing: 8px; margin-bottom: 40px; }
+        main { max-width: 1200px; margin: 0 auto; padding: 150px 20px 100px; }
+        .page-header { text-align: center; margin-bottom: 100px; }
+        .page-header h1 { font-family: 'Cinzel'; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 20px; line-height: 1; margin-bottom: 15px; background: linear-gradient(to bottom, #fff, #555); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(255,0,0,0.3)); }
+        .page-header p { font-family: 'Share Tech Mono'; color: var(--r); letter-spacing: 8px; font-size: 1rem; text-transform: uppercase; }
 
-        .section-label { text-align: center; font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #333; letter-spacing: 12px; margin-bottom: 60px; text-transform: uppercase; }
-        .section-label b { color: var(--r); }
+        .nodes-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .node-card { background: var(--card); border: 1px solid #1a1a1a; padding: 0; text-decoration: none; display: flex; flex-direction: column; overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+        .node-card:hover { border-color: var(--r); transform: translateY(-10px); background: #050505; box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255,0,0,0.1); }
+        .node-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(1) contrast(1.2); opacity: 0.5; transition: 0.6s; border-bottom: 1px solid #1a1a1a; }
+        .node-card:hover .node-img { filter: grayscale(0) contrast(1); opacity: 1; transform: scale(1.05); }
+        .node-info { padding: 30px; }
+        .node-name { font-family: 'Cinzel'; font-size: 1.2rem; color: #fff; margin-bottom: 15px; letter-spacing: 2px; transition: 0.3s; }
+        .node-card:hover .node-name { color: var(--r); }
+        .node-desc { font-size: 0.85rem; color: #888; line-height: 1.6; margin-bottom: 20px; height: 50px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .node-tag { font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--r); border: 1px solid var(--r); padding: 5px 12px; display: inline-block; letter-spacing: 2px; }
 
-        .feed-container { max-width: 1000px; margin: 0 auto 150px; padding: 0 20px; }
-        .news-card { background: rgba(5,5,5,0.8); border: 1px solid #111; border-left: 3px solid var(--r); padding: 40px; position: relative; overflow: hidden; transition: 0.4s; margin-bottom: 30px; }
-        .news-card:hover { background: rgba(10,10,10,0.95); border-color: #222; transform: scale(1.01); }
-        .news-img { width: 100%; height: 350px; object-fit: cover; margin-bottom: 30px; filter: grayscale(1) contrast(1.2); opacity: 0.6; transition: 0.5s; }
-        .news-card:hover .news-img { filter: grayscale(0); opacity: 1; }
-        .news-tag { font-family: 'Share Tech Mono'; color: var(--r); font-size: 0.7rem; margin-bottom: 15px; display: block; letter-spacing: 3px; }
-        .news-title { font-family: 'Cinzel'; font-size: 1.8rem; margin-bottom: 20px; line-height: 1.3; }
-        .news-body { color: #888; line-height: 1.8; font-size: 1rem; margin-bottom: 25px; text-align: justify; }
-        .news-footer { display: flex; gap: 20px; align-items: center; }
-        .btn-news { padding: 12px 25px; background: var(--r); color: #fff; text-decoration: none; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; }
-        .btn-news:hover { background: #fff; color: #000; box-shadow: 0 0 20px #fff; }
+        footer { text-align: center; padding: 80px 20px; font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #333; letter-spacing: 5px; border-top: 1px solid #111; margin-top: 50px; }
 
-        .allies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; max-width: 1300px; margin: 0 auto 100px; padding: 0 20px; }
-        .ally-box { background: rgba(5,5,5,0.6); padding: 50px 30px; text-align: center; border: 1px solid #111; transition: 0.4s; text-decoration: none; }
-        .ally-box:hover { background: #000; border-color: var(--r); transform: translateY(-5px); }
-        .ally-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; filter: grayscale(1); transition: 0.4s; border: 1px solid #222; }
-        .ally-box:hover .ally-img { filter: grayscale(0); border-color: var(--r); box-shadow: 0 0 15px var(--s); }
-        .ally-name { font-family: 'Cinzel'; font-size: 1.1rem; color: #eee; margin-bottom: 10px; letter-spacing: 2px; }
-        .ally-role { font-family: 'Share Tech Mono'; font-size: 0.65rem; color: var(--r); letter-spacing: 2px; }
-
-        footer { padding: 60px 20px; text-align: center; border-top: 1px solid #111; background: #050505; }
-        .f-text { font-family: 'Share Tech Mono'; font-size: 0.65rem; color: #222; letter-spacing: 5px; }
-
-        .rev { opacity: 0; transform: translateY(30px); transition: 1s ease; }
+        .rev { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.4, 0, 0.2, 1); }
         .rev.active { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
-            nav { padding: 20px; }
+            nav { padding: 15px 20px; }
             .nav-links { display: none; }
-            .hero-logo { width: 150px; }
-            .news-card { padding: 20px; }
-            .news-img { height: 200px; }
+            .page-header h1 { letter-spacing: 10px; }
+            .nodes-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -89,126 +72,140 @@
     <div id="loader">
         <div class="load-content">
             <img src="../assets/logo_ng.png" class="load-logo">
-            <div class="bar-container"><div class="bar-fill" id="fill"></div></div>
-            <div class="load-info">
-                <span>STATUS: BREACHING</span>
-                <span id="pct">0%</span>
+            <div class="terminal-text" id="term-text">INITIALIZING...</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="p-bar"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 8px; font-family: 'Share Tech Mono'; font-size: 0.6rem; color: #444;">
+                <span>0x74 0x72 0x61 0x73</span>
+                <span id="p-text">0%</span>
             </div>
         </div>
     </div>
 
-    <div class="bg-layer grid"></div>
-    <div class="bg-layer vignette"></div>
-    <div class="bg-layer scanlines"></div>
+    <div class="bg-fx grid"></div>
+    <div class="bg-fx vignette"></div>
+    <div class="bg-fx scanlines"></div>
 
-    <nav id="nav">
-        <a href="#" class="brand">
-            <img src="../assets/logo_ng.png">
-            IRON<span>ATLAS</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#" class="active">HOME</a></li>
-            <li><a href="#feed">INTEL</a></li>
-            <li><a href="#nodes">NODES</a></li>
-            <li><a href="#">VAULT</a></li>
-        </ul>
-    </nav>
+    <div id="main-content" style="display:none; opacity:0;">
+        <nav id="navbar">
+            <div class="nav-brand"><img src="../assets/logo_ng.png">IRON ATLAS</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">INICIO</a></li>
+                <li><a href="../0x_tools/vault.html">MÓDULOS</a></li>
+                <li><a href="../noti/noticias.html">NOTICIAS</a></li>
+                <li><a href="../0x_intel_data/admin_panel.html">EXPEDIENTES</a></li>
+                <li><a href="#" class="active">CANALES</a></li>
+            </ul>
+        </nav>
 
-    <main id="main-content" style="display:none; opacity:0; transition: 1s;">
-        <section class="hero">
-            <img src="../assets/logo_ng.png" class="hero-logo" id="mLogo">
-            <h1 id="mTitle">IRON ATLAS</h1>
-            <p>NEW GENERATION // THE DIGITAL RECKONING</p>
-        </section>
+        <main>
+            <header class="page-header rev">
+                <h1>CANALES</h1>
+                <p>DIRECTORIO DE CANALES ALIADOS</p>
+            </header>
 
-        <div class="section-label" id="feed"><b>//</b> FEED DE INTELIGENCIA <b>//</b></div>
+            <section class="nodes-container">
+                <a href="https://t.me/+wLnQPrkGG004NmVh" class="node-card rev" target="_blank">
+                    <img src="https://i.postimg.cc/kMSWpK7v/Captura-de-pantalla-2026-04-08-012508.png" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">𝗠𝗲𝗿𝗰𝗮𝗡𝗲𝗴𝗿𝗼𝗖𝗢𝗟 +</div>
+                        <p class="node-desc">PROVEEDORES ESPECIALIZADOS EN MATERIAL G5 Y LOGÍSTICA DE RED.</p>
+                        <span class="node-tag">G5 PROVEEDOR</span>
+                    </div>
+                </a>
 
-        <section class="feed-container">
-            <div class="news-card rev">
-                <span class="news-tag">ALERTA : COLOMBIA : MINSALUD</span>
-                <img src="https://i.postimg.cc/8jcyThsY/minsalud.png" class="news-img">
-                <h2 class="news-title">⚰️ El cadáver digital de MINSALUD ha sido diseccionado.</h2>
-                <p class="news-body">
-                    Mientras los burócratas colombianos se llenaban la boca con discursos de "seguridad", su sistema era un cementerio de vulnerabilidades. No es que tenga agujeros, es que ES un agujero negro de incompetencia. El cuerpo ha sido extraído para la posteridad. Estudien la putrefacción.
-                </p>
-                <div class="news-footer">
-                    <a href="caja/minsa.html" class="btn-news">ANALIZAR RESTOS</a>
-                    <a href="https://t.me/IronAtlasNewGeneration" class="btn-news" style="background:#111; border:1px solid #333;">TELEGRAM</a>
-                </div>
-            </div>
-        </section>
+                <a href="https://t.me/HackPurgatory" class="node-card rev" target="_blank">
+                    <img src="https://files.catbox.moe/iwurbn.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">𝐇𝐀𝐂𝐊 [𝐏𝐔𝐑𝐆𝐀𝐓𝐎𝐑𝐘]™</div>
+                        <p class="node-desc">ANÁLISIS DE FUGAS DE INFORMACIÓN Y ASEGURAMIENTO DE DATOS MASIVOS.</p>
+                        <span class="node-tag">INTELIGENCIA</span>
+                    </div>
+                </a>
 
-        <div class="section-label" id="nodes"><b>//</b> NODOS OPERATIVOS <b>//</b></div>
+                <a href="https://t.me/FusaUrbanoOficial" class="node-card rev" target="_blank">
+                    <img src="https://i.postimg.cc/Rh6k4x6j/fusaburbano.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">FusaUrbano</div>
+                        <p class="node-desc">FILTRACIÓN DE CANCIONES OCULTAS.</p>
+                        <span class="node-tag">FILTRACIÓN - LEAK</span>
+                    </div>
+                </a>
 
-        <section class="allies-grid">
-            <a href="https://t.me/nullsechackers" class="ally-box rev">
-                <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="ally-img">
-                <div class="ally-name">NULLSEC PH</div>
-                <div class="ally-role">HACKTIVISM / OFFENSIVE</div>
-            </a>
-            <a href="https://t.me/HackPurgatory" class="ally-box rev">
-                <img src="https://files.catbox.moe/iwurbn.jpg" class="ally-img">
-                <div class="ally-name">PURGATORY</div>
-                <div class="ally-role">DATA LEAKS / OSINT</div>
-            </a>
-            <a href="https://t.me/zconchita" class="ally-box rev">
-                <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="ally-img">
-                <div class="ally-name">TEAM JXLL</div>
-                <div class="ally-role">FORENSICS / DEFENSE</div>
-            </a>
-            <a href="https://t.me/+wLnQPrkGG004NmVh" class="ally-box rev">
-                <img src="https://i.postimg.cc/kMSWpK7v/Captura-de-pantalla-2026-04-08-012508.png" class="ally-img">
-                <div class="ally-name">MERCANEGRO</div>
-                <div class="ally-role">LOGISTICS / G5</div>
-            </a>
-        </section>
+                <a href="https://t.me/zconchita" class="node-card rev" target="_blank">
+                    <img src="https://i.postimg.cc/3yq9xnnX/teamjxll.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">𝐓𝐄𝐀𝐌 𝐉𝐗𝐋𝐋</div>
+                        <p class="node-desc">FUERZA OPERATIVA PARA DESPLIEGUES RÁPIDOS Y DEFENSA DE ACTIVOS.</p>
+                        <span class="node-tag">TACTICAL TEAM</span>
+                    </div>
+                </a>
+
+                <a href="https://t.me/nullsechackers" class="node-card rev" target="_blank">
+                    <img src="https://i.postimg.cc/mPCTw51J/nullsec.jpg" class="node-img">
+                    <div class="node-info">
+                        <div class="node-name">NULLSEC PHILIPPINES</div>
+                        <p class="node-desc">EXPERTOS EN PENETRACIÓN DE RED, AUDITORÍA OFENSIVA Y CONTRAINTELIGENCIA.</p>
+                        <span class="node-tag">HACKTIVISTAS</span>
+                    </div>
+                </a>
+            </section>
+        </main>
 
         <footer>
-            <div class="f-text">IRON ATLAS NEW GENERATION © 2026 // NO SYSTEM IS SAFE</div>
+            IRON ATLAS NEW GENERATION // SECTOR-NG // 2026
         </footer>
-    </main>
+    </div>
 
     <script>
-        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const logs = ["SYSTEM_BOOT...", "LOADING_VIRTUAL_ENV...", "BYPASSING_FIREWALL...", "DECRYPTING_NODES...", "ESTABLISHING_LINK..."];
+        const term = document.getElementById('term-text');
+        const pbar = document.getElementById('p-bar');
+        const ptext = document.getElementById('p-text');
+        
+        let progress = 0;
+        let logIndex = 0;
 
-        window.addEventListener('load', () => {
-            let p = 0;
-            let iv = setInterval(() => {
-                p += Math.floor(Math.random() * 5) + 2;
-                if (p >= 100) {
-                    p = 100;
-                    clearInterval(iv);
-                    setTimeout(() => {
-                        document.getElementById('loader').style.display = 'none';
-                        const mc = document.getElementById('main-content');
-                        mc.style.display = 'block';
-                        setTimeout(() => { mc.style.opacity = '1'; initReveal(); }, 50);
-                    }, 500);
-                }
-                document.getElementById('fill').style.width = p + '%';
-                document.getElementById('pct').innerText = p + '%';
-            }, 40);
-        });
+        function updateLoader() {
+            progress += Math.floor(Math.random() * 8) + 1;
+            if (progress > 100) progress = 100;
+            
+            pbar.style.width = progress + '%';
+            ptext.innerText = progress + '%';
 
-        window.addEventListener('scroll', () => {
-            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-        });
+            if (progress % 20 === 0 && logIndex < logs.length) {
+                term.innerText = logs[logIndex];
+                logIndex++;
+            }
 
-        if (!isMobile) {
-            document.addEventListener('mousemove', (e) => {
-                const x = (window.innerWidth / 2 - e.clientX) / 30;
-                const y = (window.innerHeight / 2 - e.clientY) / 30;
-                document.getElementById('mLogo').style.transform = `translate(${x}px, ${y}px)`;
-                document.getElementById('mTitle').style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
-            });
+            if (progress < 100) {
+                setTimeout(updateLoader, 50);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'block';
+                    setTimeout(() => { 
+                        main.style.opacity = '1'; 
+                        initObserver();
+                    }, 50);
+                }, 600);
+            }
         }
 
-        function initReveal() {
-            const observer = new IntersectionObserver((entries) => {
+        function initObserver() {
+            const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
             }, { threshold: 0.1 });
-            document.querySelectorAll('.rev').forEach(el => observer.observe(el));
+            document.querySelectorAll('.rev').forEach(el => obs.observe(el));
         }
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+        });
+
+        window.onload = updateLoader;
 
         document.addEventListener('keydown', e => {
             if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) || (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))) {
