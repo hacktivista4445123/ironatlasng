@@ -124,7 +124,7 @@
         <div class="section-h"><h3>05. BASES DE DATOS Y STEALER LOGS COMPROMETIDOS</h3></div>
         <div class="entry">
             <span class="entry-t">EXTRAIDO POR : IRON ATLAS NEW GENERATION</span>
-            <span class="entry-d" style="color: var(--r);">Total Resultados Encontrados: 54 | C Domiontraseñas Únicas Extraídas: 43 |nios Afectados: 49 | Nivel de Severidad: HIGH </span>
+            <span class="entry-d" style="color: var(--r);">Total Resultados Encontrados: 54 | Contraseñas Únicas Extraídas: 43 | Dominios Afectados: 49 | Nivel de Severidad: HIGH [cite: 96, 97, 196]</span>
         </div>
         
         <div class="entry">
@@ -192,6 +192,7 @@
             (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
             (e.ctrlKey && e.keyCode == 85) || 
             (e.ctrlKey && e.shiftKey && e.keyCode == 67) 
+        ) {
             e.preventDefault();
             return false;
         }
@@ -202,7 +203,7 @@
         e.preventDefault();
     });
 
-  
+   
     setInterval(function() {
         const before = new Date().getTime();
         debugger;
