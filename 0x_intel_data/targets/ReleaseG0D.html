@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EXPEDIENTE - IRON ATLAS CEO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --r: #39ff14; --c: #00f0ff; --b: #050505; --p: #0d0d0d; --brd: #1a1a1a; --t: #d0d0d0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--b); color: var(--t); font-family: 'Inter', sans-serif; line-height: 1.4; user-select: none; }
+        .container { max-width: 1000px; margin: auto; padding: clamp(10px, 4vw, 30px); }
+        
+        .header-box {
+            display: flex; gap: 30px; background: var(--p); border: 1px solid var(--brd);
+            padding: 30px; border-left: 6px solid var(--r); margin-bottom: 25px; align-items: center;
+        }
+        .profile-img { width: 180px; height: 180px; object-fit: cover; border: 1px solid #222; flex-shrink: 0; filter: grayscale(0.3); }
+        .header-content h1 { color: #fff; font-size: clamp(1.2rem, 5vw, 1.8rem); margin-bottom: 5px; text-transform: uppercase; }
+        .id-label { font-family: 'Share Tech Mono'; color: var(--c); font-size: 1rem; display: block; margin-bottom: 10px; }
+        
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { background: #020; color: var(--r); padding: 3px 10px; font-size: 0.7rem; font-weight: bold; border: 1px solid #040; }
 
+        .section { background: var(--p); border: 1px solid var(--brd); margin-bottom: 20px; }
+        .section-h { background: #121212; padding: 12px 20px; border-bottom: 1px solid var(--brd); display: flex; justify-content: space-between; }
+        .section-h h3 { font-family: 'Share Tech Mono'; color: var(--c); font-size: 0.85rem; letter-spacing: 1px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
+        .block { border-bottom: 1px solid #151515; padding-bottom: 10px; }
+        .lbl { display: block; font-size: 0.65rem; color: #555; text-transform: uppercase; margin-bottom: 4px; font-weight: 700; }
+        .val { color: #fff; font-family: 'Share Tech Mono'; font-size: 0.95rem; word-break: break-all; }
+        .wide { grid-column: 1 / -1; }
+
+        .entry { border-left: 2px solid var(--c); padding: 5px 15px; margin: 15px 20px; background: rgba(0,240,255,0.02); }
+        .entry-t { color: var(--c); font-weight: bold; font-size: 0.8rem; margin-bottom: 5px; display: block; text-transform: uppercase; }
+        .entry-d { display: block; font-size: 0.85rem; color: #888; margin-bottom: 3px; }
+
+        .nav-back { padding-bottom: 15px; }
+        .nav-back a { color: #444; text-decoration: none; font-size: 0.75rem; font-family: 'Share Tech Mono'; transition: 0.3s; }
+        .nav-back a:hover { color: var(--r); }
+
+        @media (max-width: 768px) {
+            .header-box { flex-direction: column; text-align: center; padding: 20px; gap: 15px; }
+            .profile-img { width: 150px; height: 150px; }
+            .grid { grid-template-columns: 1fr; padding: 15px; gap: 15px; }
+            .section-h { padding: 10px 15px; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <nav class="nav-back"><a href="#">DATABASE OPERATIVOS // IRON ATLAS </a></nav>
+
+    <header class="header-box">
+        <img src="https://i.postimg.cc/placeholder.jpg" alt="CEO" class="profile-img">
+        <div class="header-content">
+            <span class="id-label">EXPEDIENTE: 1007255815</span>
+            <h1>DAVID JOSÉ GUZMÁN LÓPEZ</h1>
+            <p style="font-size: 0.9rem; color: #777; margin-bottom: 10px;">Alias: @importatlas | Lupoo777 | Keybreaker</p>
+            <div class="tags">
+                <span class="tag">FOUNDER</span><span class="tag">CEO</span><span class="tag">PENTESTING</span>
+                <span class="tag">CYBERSECURITY</span><span class="tag">PYTHON DEV</span><span class="tag">OSINT</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="section-h"><h3>01. PERFIL CORPORATIVO E IDENTIDAD</h3></div>
+        <div class="grid">
+            <div class="block"><span class="lbl">Organización</span><span class="val">Iron Atlas (I.A.N.G)</span></div>
+            <div class="block"><span class="lbl">Cargo</span><span class="val">Funder & CEO</span></div>
+            <div class="block"><span class="lbl">Documento</span><span class="val">1007255815</span></div>
+            <div class="block"><span class="lbl">Residencia</span><span class="val">Cartagena (CO) / Miami (US)</span></div>
+            <div class="block wide"><span class="lbl">Especialidad</span><span class="val">Análisis y Diseño de Software / Ciberseguridad</span></div>
+            <div class="block wide"><span class="lbl">Afiliaciones</span><span class="val">Team JXLL / Iron Atlas Network</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-h"><h3>02. STACK TECNOLÓGICO Y CAPACIDADES</h3></div>
+        <div class="grid">
+            <div class="block"><span class="lbl">Lenguajes</span><span class="val">Python, Java, PHP, JS, Kotlin</span></div>
+            <div class="block"><span class="lbl">Frameworks</span><span class="val">Telethon, Requests, MySQL-Connector</span></div>
+            <div class="block"><span class="lbl">Sistemas</span><span class="val">Linux (Kali/Parrot), Windows Server</span></div>
+            <div class="block"><span class="lbl">Educación</span><span class="val">Unitecnar (Software Design)</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-h"><h3>03. REGISTRO DE PROYECTOS ACTIVOS</h3></div>
+        <div class="entry">
+            <span class="entry-t">Doxgram Bot</span>
+            <span class="entry-d">Sistema OSINT multi-capa para extracción de datos en Telegram.</span>
+        </div>
+        <div class="entry">
+            <span class="entry-t">Iron Atlas Desofuscador</span>
+            <span class="entry-d">Herramienta técnica para análisis de scripts protegidos y seguridad.</span>
+        </div>
+        <div class="entry">
+            <span class="entry-t">Streaming Plus Bot</span>
+            <span class="entry-d">Automatización de sesiones y verificación vía Telethon API.</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-h"><h3>04. INFRAESTRUCTURA Y REDES</h3></div>
+        <div class="grid">
+            <div class="block"><span class="lbl">Telegram Principal</span><span class="val">@importatlas</span></div>
+            <div class="block"><span class="lbl">API Integration</span><span class="val">OathNet API / SIMIT-RUNT Scrapers</span></div>
+            <div class="block wide"><span class="lbl">Email Corporativo</span><span class="val">ceo@ironatlas.net (Referencial)</span></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('keydown', function(e) {
+        if (
+            e.keyCode == 123 || 
+            (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
+            (e.ctrlKey && e.keyCode == 85)
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+</script>
+
+</body>
+</html>
